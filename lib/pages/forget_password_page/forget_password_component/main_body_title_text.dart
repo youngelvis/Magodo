@@ -1,0 +1,16 @@
+import 'package:flutter/material.dart';
+import '../../../components/components_for_class_of_varable/colors.dart' as color;
+
+class MainBodyTitleText extends StatelessWidget {
+  final child;
+  const MainBodyTitleText({Key? key, required this.child }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  Text(child, style: TextStyle(
+        color: color.AppColor.landingPageTitle,
+        fontSize: 35,
+        fontWeight: FontWeight.w900
+    ),);
+  }
+}
