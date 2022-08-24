@@ -6,18 +6,20 @@ class RoundedInputField extends StatelessWidget {
   final String hintText;
   final IconData icon;
   final controller;
+  final validator;
 
   const RoundedInputField({
     Key? key,
     required this.hintText,
     this.icon = Icons.house,
     required this.controller,
+    required this.validator,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: TextField(
+      child: TextFormField(
         controller: controller,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
@@ -27,6 +29,7 @@ class RoundedInputField extends StatelessWidget {
               icon,
               color: color.AppColor.landingPageTitle,
             )),
+        validator: validator,
       ),
     );
   }

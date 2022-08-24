@@ -40,7 +40,6 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
     Zones.BASHEER_SHITTU,
     Zones.BROADWAY,
     Zones.CENTRAL,
-    Zones.CENTRAL,
     Zones.FAA,
     Zones.FILLING_EGDE,
     Zones.FORESHORE,
@@ -67,6 +66,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
   bool _selectResidential = false;
   bool _obscureText = true;
   bool _obscureText2 = true;
+  bool checkBoxValue = false;
 
   _register() async {
     var data = await Services().register(
@@ -128,6 +128,13 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
     return RoundedTextInputField(
       hintText: 'Enter your address',
       controller: _address,
+      validator: (value) {
+        if (value!.isEmpty || !RegExp(r'^[A-Za-z0-9_-]*$').hasMatch(value!)) {
+          return "enter correct address";
+        } else {
+          return null;
+        }
+      },
     );
   }
 
@@ -153,70 +160,109 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
   DropdownMenuItem<String> buildResidentItem(String residentOptions) =>
       DropdownMenuItem(
         value: residentOptions,
-        child: Text(
-          residentOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
-        ),
+        child: CheckboxListTile(
+            title: Text(
+              residentOptions,
+              style: const TextStyle(
+                  fontWeight: FontWeight.normal, fontSize: 17),
+            ),
+            controlAffinity: ListTileControlAffinity.trailing,
+            value: checkBoxValue,
+            onChanged: (value) {
+             setState(() {
+               value = !checkBoxValue;
+             });
+            })
       );
 
   Widget _buildPassword() {
     return RoundedPasswordField(
-        obscureText: _obscureText,
-        controller: _password,
-        suffixIcon: GestureDetector(
-            onTap: () {
-              setState(() {
-                _obscureText = !_obscureText;
-              });
-            },
-            child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off,
-                color: color.AppColor.landingPageTitle)));
+      obscureText: _obscureText,
+      controller: _password,
+      suffixIcon: GestureDetector(
+          onTap: () {
+            setState(() {
+              _obscureText = !_obscureText;
+            });
+          },
+          child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off,
+              color: color.AppColor.landingPageTitle)),
+      validator: (value) {
+        if (value!.isEmpty || !RegExp(r'^[A-Za-z0-9_-]*$').hasMatch(value!)) {
+          return "enter correct password";
+        } else {
+          return null;
+        }
+      },
+    );
   }
 
   Widget _buildConfirmPassword() {
     return RoundedPasswordField(
-        obscureText: _obscureText2,
-        controller: _confirmPassword,
-        suffixIcon: GestureDetector(
-            onTap: () {
-              setState(() {
-                _obscureText2 = !_obscureText2;
-              });
-            },
-            child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off,
-                color: color.AppColor.landingPageTitle)));
+      obscureText: _obscureText2,
+      controller: _confirmPassword,
+      suffixIcon: GestureDetector(
+          onTap: () {
+            setState(() {
+              _obscureText2 = !_obscureText2;
+            });
+          },
+          child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off,
+              color: color.AppColor.landingPageTitle)),
+      validator: (value) {
+        if (value!.isEmpty || !RegExp(r'^[A-Za-z0-9_-]*$').hasMatch(value!)) {
+          return "enter correct Password";
+        } else if (value != _password.text) {
+          return "password is not correct";
+        } else {
+          return null;
+        }
+      },
+    );
   }
+
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
-        body: Container(
-          padding: const EdgeInsets.only(
-            top: 60,
-          ),
-          color: color.AppColor.homePageBackground,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SignUpText(),
-              RegistrationPagesForms(
-                RegistrationPageBody: RegistrationSecondPageBody(
-                  buildAddress: _buildAddress(),
-                  buildConfirmPassword: _buildConfirmPassword(),
-                  buildPassword: _buildPassword(),
-                  buildZone: _buildZone(),
-                  buildResidentialType: _buildResidentialType(),
+        key: _scaffoldKey,
+        body: Form(
+          key: formKey,
+          child: Container(
+            padding: const EdgeInsets.only(
+              top: 60,
+            ),
+            color: color.AppColor.homePageBackground,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SignUpText(),
+                RegistrationPagesForms(
+                  RegistrationPageBody: RegistrationSecondPageBody(
+                    buildAddress: _buildAddress(),
+                    buildConfirmPassword: _buildConfirmPassword(),
+                    buildPassword: _buildPassword(),
+                    buildZone: _buildZone(),
+                    buildResidentialType: _buildResidentialType(),
+                  ),
+                  reistrationPageButton: ActionPageButton(
+                    text: _selectResidential ? 'Next' : 'Register Now',
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        final snackBar = SnackBar(
+                            content:
+                                _selectResidential ? _nextPage() : _register());
+                        _scaffoldKey.currentState!.showSnackBar(snackBar);
+                      }
+                    },
+                  ),
                 ),
-                reistrationPageButton: ActionPageButton(
-                  text: _selectResidential ? 'Next' : 'Register Now',
-                  onPressed: () {
-                    _selectResidential ? _nextPage() : _register();
-                  },
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

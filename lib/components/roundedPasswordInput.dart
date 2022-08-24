@@ -6,18 +6,20 @@ class RoundedPasswordField extends StatelessWidget {
   final controller;
   final suffixIcon;
   final obscureText;
+  final validator;
 
   const RoundedPasswordField(
       {Key? key,
       required this.controller,
       required this.suffixIcon,
-      this.obscureText})
+      this.obscureText,
+      this.validator})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: TextField(
+      child: TextFormField(
         obscureText: obscureText,
         controller: controller,
         decoration: InputDecoration(
@@ -25,6 +27,7 @@ class RoundedPasswordField extends StatelessWidget {
             icon: Icon(Icons.lock, color: color.AppColor.landingPageTitle),
             suffixIcon: suffixIcon,
             border: InputBorder.none),
+        validator: validator,
       ),
     );
   }

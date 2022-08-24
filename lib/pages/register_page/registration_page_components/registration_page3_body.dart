@@ -7,6 +7,7 @@ class RegistrationPage3Body extends StatelessWidget {
   final buildNumberOfStaffs;
   final buildBusinessMobileNumber;
   final buildBusinessEmail;
+  final buildCategoryOptions;
 
   const RegistrationPage3Body(
       {Key? key,
@@ -14,7 +15,9 @@ class RegistrationPage3Body extends StatelessWidget {
       required this.buildBusinessEmail,
       required this.buildNumberOfStaffs,
       required this.buildBusinessMobileNumber,
-      required this.buildBusinessName})
+      required this.buildBusinessName,
+      required this.buildCategoryOptions
+      })
       : super(key: key);
 
   @override
@@ -24,6 +27,20 @@ class RegistrationPage3Body extends StatelessWidget {
       children: [
         const SizedBox(
           height: 40,
+        ),
+        Text(
+          'Category',
+          style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w400,
+              color: color.AppColor.homePageTitle),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        buildCategoryOptions,
+        const SizedBox(
+          height: 20,
         ),
         Text(
           'Street Name/Address',

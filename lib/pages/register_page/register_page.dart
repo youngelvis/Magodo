@@ -24,10 +24,32 @@ class _SignUpState extends State<SignUp> {
   @override
   bool isChecked = false;
 
+  _nextButton() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RegistrationPage2(
+            mobileNumber: _mobileNumber.text,
+            surname: _surname.text,
+            email: _email.text,
+            firstname: _firstname.text),
+      ),
+    );
+  }
+
   Widget _buildMobileNumber() {
     return RoundedInputField(
       hintText: 'Enter your mobile number',
       controller: _mobileNumber,
+      validator: (value) {
+        if (value!.isEmpty ||
+            !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9+$]')
+                .hasMatch(value!)) {
+          return "enter correct mobile Number";
+        } else {
+          return null;
+        }
+      },
     );
   }
 
@@ -35,6 +57,13 @@ class _SignUpState extends State<SignUp> {
     return RoundedTextInputField(
       hintText: 'Enter your firstname',
       controller: _firstname,
+      validator: (value) {
+        if (value!.isEmpty || !RegExp(r'^[a-z A-Z]').hasMatch(value!)) {
+          return "enter correct Firstname";
+        } else {
+          return null;
+        }
+      },
     );
   }
 
@@ -42,6 +71,14 @@ class _SignUpState extends State<SignUp> {
     return RoundedTextInputField(
       hintText: 'Enter email address',
       controller: _email,
+      validator: (value) {
+        if (value!.isEmpty ||
+            !RegExp(r'[a-z0-9]+@[a-z]+\.[a-z]{2,3}').hasMatch(value!)) {
+          return "enter correct email";
+        } else {
+          return null;
+        }
+      },
     );
   }
 
@@ -49,45 +86,53 @@ class _SignUpState extends State<SignUp> {
     return RoundedTextInputField(
       hintText: 'Enter your surname',
       controller: _surname,
+      validator: (value) {
+        if (value!.isEmpty || !RegExp(r'^[a-z A-Z]').hasMatch(value!)) {
+          return "enter correct surname";
+        } else {
+          return null;
+        }
+      },
     );
   }
 
+  final formKey = GlobalKey<FormState>();
+
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
-        body: Container(
-          padding: const EdgeInsets.only(
-            top: 60,
-          ),
-          color: color.AppColor.homePageBackground,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SignUpText(),
-              RegistrationPagesForms(
-                RegistrationPageBody: RegistrationPageBody(
-                buildEmail: _buildEmail(),
-                buildFirstName: _buildFirstName(),
-                buildMobileNumber: _buildMobileNumber(),
-                buildSurname: _buildSurname(),
-              ),
-                reistrationPageButton: ActionPageButton(
-                    text: 'Next',
-                    onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RegistrationPage2(
-                          mobileNumber: _mobileNumber.text,
-                          surname: _surname.text,
-                          email: _email.text,
-                          firstname: _firstname.text),
-                    ),
-                  );
-                }),
-              )
-            ],
+        key: _scaffoldKey,
+        body: Form(
+          key: formKey,
+          child: Container(
+            padding: const EdgeInsets.only(
+              top: 60,
+            ),
+            color: color.AppColor.homePageBackground,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SignUpText(),
+                RegistrationPagesForms(
+                  RegistrationPageBody: RegistrationPageBody(
+                    buildEmail: _buildEmail(),
+                    buildFirstName: _buildFirstName(),
+                    buildMobileNumber: _buildMobileNumber(),
+                    buildSurname: _buildSurname(),
+                  ),
+                  reistrationPageButton: ActionPageButton(
+                      text: 'Next',
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          final snackBar = SnackBar(content: _nextButton());
+                          _scaffoldKey.currentState!.showSnackBar(snackBar);
+                        }
+                      }),
+                )
+              ],
+            ),
           ),
         ),
       ),

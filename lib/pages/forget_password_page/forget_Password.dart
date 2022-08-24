@@ -24,6 +24,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     return RoundedInputField(
       hintText: 'Enter your mobile number',
       controller: _mobileNumber,
+      validator: (value) {
+        if (value!.isEmpty || !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9+$]').hasMatch(value!)) {
+          return "enter correct mobile number";
+        } else {
+          return null;
+        }
+      },
     );
   }
 
@@ -31,6 +38,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     return RoundedInputField(
       hintText: 'Enter resident code',
       controller: _residentCode,
+      validator: (value) {
+        if (value!.isEmpty || !RegExp(r'^[0-9]+$').hasMatch(value!)) {
+          return "enter correct resident code";
+        } else {
+          return null;
+        }
+      },
     );
   }
 
@@ -38,6 +52,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     return RoundedTextInputField(
       hintText: 'Enter email address',
       controller: _email,
+      validator: (value) {
+        if (value!.isEmpty || !RegExp(r'^[\w-\.]+@([\w-]+\.) +[\w-]{2,4}').hasMatch(value!)) {
+          return "enter correct email";
+        } else {
+          return null;
+        }
+      },
     );
   }
 
