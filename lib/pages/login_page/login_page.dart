@@ -12,7 +12,7 @@ import 'package:magodo/pages/central_security_admin/central_security_admin.dart'
 import 'package:magodo/pages/dependant/dependant.dart';
 import 'package:magodo/pages/forget_password_page/forget_Password.dart';
 import 'package:magodo/pages/register_page/register_page.dart';
-import 'package:magodo/pages/resident_Page/resident_page.dart';
+import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
 import 'package:magodo/pages/security_page/secruty_page.dart';
 import 'package:magodo/pages/super_admin/super_admin.dart';
 import 'package:magodo/pages/vas2nets/vas2nets_page.dart';
@@ -46,7 +46,7 @@ class _SignINState extends State<SignIN> {
               builder: (context) => const CentralSecurityAdmin()));
     } else if (data['data']['usr_group'] == UserGroup.MEMBER) {
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const ResidentPage()));
+          MaterialPageRoute(builder: (context) =>  ResidentPageLandingPage(data: data['data'],),),);
     } else if (data['data']['usr_group'] == UserGroup.ADMIN) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const Admin()));
