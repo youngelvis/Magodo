@@ -12,4 +12,5 @@ class AppColor {
   static Color landingPage2 = const Color(0xFFFFFFFF);
   static Color landingPageTitle =const Color(0xFF2C2C2C);
   static Color signUp =const Color(0xFFFD8971);
+  static Color residentBody =const Color(0xFFF9F9FB);
 }

@@ -18,16 +18,20 @@ class RoundedPasswordField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFieldContainer(
-      child: TextFormField(
-        obscureText: obscureText,
-        controller: controller,
-        decoration: InputDecoration(
-            hintText: 'Enter Password',
-            icon: Icon(Icons.lock, color: color.AppColor.landingPageTitle),
-            suffixIcon: suffixIcon,
-            border: InputBorder.none),
-        validator: validator,
+    return Material(
+      elevation: 10,
+      shadowColor: Colors.black12,
+      child: TextFieldContainer(
+        child: TextFormField(
+          obscureText: obscureText,
+          controller: controller,
+          decoration: InputDecoration(
+              hintText: 'Enter Password',
+              icon: Icon(Icons.lock, color: color.AppColor.landingPageTitle),
+              suffixIcon: suffixIcon,
+              border: InputBorder.none),
+          validator: validator,
+        ),
       ),
     );
   }

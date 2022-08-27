@@ -18,18 +18,22 @@ class RoundedInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFieldContainer(
-      child: TextFormField(
-        controller: controller,
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-            hintText: hintText,
-            border: InputBorder.none,
-            icon: Icon(
-              icon,
-              color: color.AppColor.landingPageTitle,
-            )),
-        validator: validator,
+    return Material(
+      elevation: 10,
+      shadowColor: Colors.black12,
+      child: TextFieldContainer(
+        child: TextFormField(
+          controller: controller,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+              hintText: hintText,
+              border: InputBorder.none,
+              icon: Icon(
+                icon,
+                color: color.AppColor.landingPageTitle,
+              )),
+          validator: validator,
+        ),
       ),
     );
   }

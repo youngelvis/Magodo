@@ -17,21 +17,25 @@ class RoundedDropDownTextField extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return TextFieldContainer(
-      child: DropdownButtonHideUnderline(
-        child: DropdownButtonFormField(
-          isExpanded: true,
-          hint: hint,
-          value: value,
-          items: items,
-          onChanged: onChanged,
-          decoration: const InputDecoration(
-            enabledBorder: InputBorder.none
+    return Material(
+      elevation: 10,
+      shadowColor: Colors.black12,
+      child: TextFieldContainer(
+        child: DropdownButtonHideUnderline(
+          child: DropdownButtonFormField(
+            isExpanded: true,
+            hint: hint,
+            value: value,
+            items: items,
+            onChanged: onChanged,
+            decoration: const InputDecoration(
+              enabledBorder: InputBorder.none
+            ),
           ),
         ),
+
+
       ),
-
-
     );
   }
 
