@@ -3,9 +3,9 @@ import 'package:magodo/pages/forget_password_page/forget_password_component/forg
 import 'package:magodo/pages/forget_password_page/forget_password_component/main_body_title_text.dart';
 
 class ForgetPasswordPage2Heading extends StatelessWidget {
-
-
-  const ForgetPasswordPage2Heading({Key? key, }) : super(key: key);
+  const ForgetPasswordPage2Heading({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +15,11 @@ class ForgetPasswordPage2Heading extends StatelessWidget {
         children: const [
           MainBodyTitleText(child: 'Reset password'),
           SizedBox(height: 60),
-          ForgetPasswordPage2_3SubtitleText(child:'we sent otp verification to your',),
-          ForgetPasswordPage2_3SubtitleText(child:'email. This code will expire in'),
-          SizedBox(height: 100,)
-
+          ForgetPasswordPage2_3SubtitleText(
+            child: 'we sent otp verification to your',
+          ),
+          ForgetPasswordPage2_3SubtitleText(
+              child: 'email. This code will expire in'),
         ],
       ),
     );

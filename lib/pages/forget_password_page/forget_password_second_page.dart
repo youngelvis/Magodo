@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_page2_heading.dart';
@@ -15,7 +16,7 @@ class ForgetPasswordSecondPage extends StatefulWidget {
 }
 
 int pinIndex = 0;
-List<String> currentPin = ["", "", "", ''];
+List<String> currentPin = ["", "", "", ""];
 TextEditingController _textEditingController1 = TextEditingController();
 TextEditingController _textEditingController2 = TextEditingController();
 TextEditingController _textEditingController3 = TextEditingController();
@@ -32,6 +33,8 @@ class _ForgetPasswordSecondPageState extends State<ForgetPasswordSecondPage> {
     );
   }
 
+  Duration _duration = Duration(seconds: 30);
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -45,6 +48,20 @@ class _ForgetPasswordSecondPageState extends State<ForgetPasswordSecondPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const ForgetPasswordPage2Heading(),
+                Center(
+                  child: CircularCountDownTimer(
+                    isReverse: true,
+                    width: 90,
+                    height: 50,
+                    duration: 90,
+                    fillColor: Colors.transparent,
+                    ringColor: Colors.transparent,
+                    onComplete: () {},
+                  ),
+                ),
+                const SizedBox(
+                  height: 100,
+                ),
                 _buildPinRow(),
                 const SizedBox(
                   height: 450,

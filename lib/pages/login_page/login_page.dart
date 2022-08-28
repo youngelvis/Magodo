@@ -46,8 +46,14 @@ class _SignINState extends State<SignIN> {
           MaterialPageRoute(
               builder: (context) => const CentralSecurityAdmin()));
     } else if (data['data']['usr_group'] == UserGroup.MEMBER) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) =>  ResidentPageLandingPage(data: data['data'],),),);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ResidentPageLandingPage(
+            data: data['data'],
+          ),
+        ),
+      );
     } else if (data['data']['usr_group'] == UserGroup.ADMIN) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const Admin()));
@@ -117,7 +123,7 @@ class _SignINState extends State<SignIN> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState>_scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
@@ -241,11 +247,10 @@ class _SignINState extends State<SignIN> {
                     ActionPageButton(
                       text: 'Log in',
                       onPressed: () {
-                        if(formKey.currentState!.validate()){
+                        if (formKey.currentState!.validate()) {
                           final snackBar = SnackBar(content: _login());
                           _scaffoldKey.currentState!.showSnackBar(snackBar);
                         }
-
                       },
                     )
                   ],
