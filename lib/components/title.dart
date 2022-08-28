@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:magodo/pages/navigation_page/resident_navigation_page.dart';
 
 class TitleContainer extends StatefulWidget {
   final title;
@@ -21,7 +22,10 @@ class _TitleContainerState extends State<TitleContainer> {
           IconButton(
               icon: const Icon(Icons.menu,
                 size: 50,),
-              onPressed: (){}
+              onPressed: (){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const ResidentNavigationPage()));
+              }
           ),
           const SizedBox(width: 100,),
 

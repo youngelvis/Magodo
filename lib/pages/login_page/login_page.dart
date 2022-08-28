@@ -35,6 +35,7 @@ TextEditingController _password = TextEditingController();
 class _SignINState extends State<SignIN> {
   _login() async {
     var data = await Services().login(_resident_code.text, _password.text);
+    print(data['data']);
 
     if (data['data']['usr_group'] == UserGroup.CENTRAL_ADMIN) {
       Navigator.push(context,
