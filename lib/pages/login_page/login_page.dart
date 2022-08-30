@@ -33,6 +33,10 @@ TextEditingController _resident_code = TextEditingController();
 TextEditingController _password = TextEditingController();
 
 class _SignINState extends State<SignIN> {
+  test(){
+    _login();
+    return true;
+  }
   _login() async {
     var data = await Services().login(_resident_code.text, _password.text);
     print(data['data']);
@@ -248,7 +252,7 @@ class _SignINState extends State<SignIN> {
                       text: 'Log in',
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
-                          final snackBar = SnackBar(content: _login());
+                          final snackBar = SnackBar(content: test());
                           _scaffoldKey.currentState!.showSnackBar(snackBar);
                         }
                       },

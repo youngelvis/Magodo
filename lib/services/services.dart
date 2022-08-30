@@ -5,7 +5,7 @@ import 'package:magodo/api/api.dart';
 
 class Services {
   // 1
-  login(resident_code, password) async {
+  Future<dynamic> login(resident_code, password) async {
     var data = {"resident_code": resident_code, "password": password};
 
     var res = await CallApi().postData(data, 'login');
@@ -74,7 +74,7 @@ class Services {
   }
 
 //4
-  viewSentPasscodeReport(
+  Future<dynamic> viewSentPasscodeReport(
     page,
     limit,
     resident_code,
@@ -87,8 +87,8 @@ class Services {
       "search": search
     };
     var res = await CallApi().postData(data, 'viewSentPasscode');
-    var body = jsonDecode(res.body);
-    return body;
+
+    return res.body;
   }
 
   //5
@@ -128,6 +128,7 @@ class Services {
     number_visitor,
     email,
   ) async {
+    assert(email != null);
     var data = {
       "send_msisdn": send_msisdn,
       "visitor_name": visitor_name,

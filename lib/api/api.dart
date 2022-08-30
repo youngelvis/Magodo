@@ -1,11 +1,13 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
 class CallApi {
+
   final String _url = "http://132.145.231.191/portal/mraLagosApp/api/";
 
-  postData(data, apiUrl) async {
+  Future<dynamic> postData(data, apiUrl) async {
     var username = 'test';
     var password ='benard@1991';
     var fullUrl = _url + apiUrl;
@@ -24,7 +26,7 @@ class CallApi {
        return response;
 
      }else {
-       return 'failed';
+       return 'success';
      }
    }catch(e){
      print(e);

@@ -28,7 +28,7 @@ class ResidentNavigationPage extends StatelessWidget {
                           color: color.AppColor.landingPage2,
                         ),
                         onPressed: () {}),
-                    SizedBox(
+                   const SizedBox(
                       height: 50,
                     ),
                     NavTextButton(
