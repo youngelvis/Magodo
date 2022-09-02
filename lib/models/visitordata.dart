@@ -41,7 +41,7 @@ class Visitor {
     required this.visitorMsisdn,
     required this.visitorName,
     required this.createdDate,
-    required this.doNotHonorStatus,
+    required this.visitor_code,
     required this.rowNumber,
   });
 
@@ -52,7 +52,7 @@ class Visitor {
   String visitorMsisdn;
   String visitorName;
   String createdDate;
-  String doNotHonorStatus;
+  String visitor_code;
   String rowNumber;
 
   factory Visitor.fromJson(Map<String, dynamic> json) => Visitor(
@@ -63,7 +63,7 @@ class Visitor {
     visitorMsisdn: json["VISITOR_MSISDN"],
     visitorName: json["VISITOR_NAME"],
     createdDate: json["CREATED_DATE"],
-    doNotHonorStatus: json["DO_NOT_HONOR_STATUS"],
+    visitor_code: json["visitor_code"],
     rowNumber: json["ROW_NUMBER"],
   );
 
@@ -75,7 +75,7 @@ class Visitor {
     "VISITOR_MSISDN": visitorMsisdn,
     "VISITOR_NAME": visitorName,
     "CREATED_DATE": createdDate,
-    "DO_NOT_HONOR_STATUS": doNotHonorStatus,
+    "visitor_code": visitor_code,
     "ROW_NUMBER": rowNumber,
   };
 }

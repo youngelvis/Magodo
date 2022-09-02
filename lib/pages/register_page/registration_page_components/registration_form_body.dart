@@ -33,6 +33,5 @@ class RegistrationFormBody extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

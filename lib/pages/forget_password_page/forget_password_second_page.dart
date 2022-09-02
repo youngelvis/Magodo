@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +32,7 @@ class _ForgetPasswordSecondPageState extends State<ForgetPasswordSecondPage> {
     );
   }
 
-  Duration _duration = Duration(seconds: 30);
+  final Duration _duration = const Duration(seconds: 30);
 
   @override
   Widget build(BuildContext context) {

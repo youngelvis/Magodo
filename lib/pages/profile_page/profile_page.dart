@@ -15,7 +15,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Column(
-            children: [],
+            children: const [],
           ),
         ),
       ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/components_for_class_of_varable/category.dart';
-import 'package:magodo/components/components_for_class_of_varable/zones.dart';
 import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/pages/register_page/registration_page_components/registration_pages_forms.dart';
 import 'package:magodo/components/roundedInputField.dart';
@@ -199,8 +198,8 @@ class _Registration_page3State extends State<Registration_page3> {
                   _buildStreetNameOrAddress(),
                 ),
                 reistrationPageButton: ActionPageButton(
-                    onPressed: () {
-                      _registerCommercial();
+                    onPressed: () async {
+                     await _registerCommercial();
                     }, text: 'Register Now'),
               ),
               const SizedBox(

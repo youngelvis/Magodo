@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
-import 'package:magodo/components/roundedTextSearchField.dart';
-import 'package:magodo/components/title.dart';
 
 class FilterAndSortButtons extends StatelessWidget {
   const FilterAndSortButtons({Key? key}) : super(key: key);

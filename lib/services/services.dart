@@ -1,12 +1,11 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:magodo/api/api.dart';
 
 class Services {
   // 1
-  Future<dynamic> login(resident_code, password) async {
-    var data = {"resident_code": resident_code, "password": password};
+  Future<dynamic> login(residentCode, password) async {
+    var data = {"resident_code": residentCode, "password": password};
 
     var res = await CallApi().postData(data, 'login');
     var body = jsonDecode(res.body);
@@ -14,18 +13,18 @@ class Services {
   }
 
 //2
-  register(password, surname, firstname, email, zone, address, resident_type,
-      confirm_password, resident_phone) async {
+  register(password, surname, firstname, email, zone, address, residentType,
+      confirmPassword, residentPhone) async {
     var data = {
-      "resident_phone": resident_phone,
+      "resident_phone": residentPhone,
       "surname": surname,
       "firstname": firstname,
       "email": email,
       "zone": zone,
       "password": password,
-      "confirm_password": confirm_password,
+      "confirm_password": confirmPassword,
       "address": address,
-      "resident_type": resident_type
+      "resident_type": residentType
     };
 
     var res = await CallApi().postData(data, 'createResident');
@@ -41,31 +40,31 @@ class Services {
       email,
       zone,
       address,
-      resident_type,
-      confirm_password,
-      resident_phone,
-      business_name,
-      staff_number,
-      business_email,
+      residentType,
+      confirmPassword,
+      residentPhone,
+      businessName,
+      staffNumber,
+      businessEmail,
       category,
-      street_address,
-      mobile_number) async {
+      streetAddress,
+      mobileNumber) async {
     var data = {
-      "resident_phone": resident_phone,
+      "resident_phone": residentPhone,
       "surname": surname,
       "firstname": firstname,
       "email": email,
       "zone": zone,
       "password": password,
-      "confirm_password": confirm_password,
+      "confirm_password": confirmPassword,
       "address": address,
-      "resident_type": resident_type,
-      "business_name": business_name,
-      "business_email": business_email,
-      "staff_numbers": staff_number,
+      "resident_type": residentType,
+      "business_name": businessName,
+      "business_email": businessEmail,
+      "staff_numbers": staffNumber,
       "category": category,
-      "street_address": street_address,
-      "mobile_number": mobile_number
+      "street_address": streetAddress,
+      "mobile_number": mobileNumber
     };
 
     var res = await CallApi().postData(data, 'createCommercial');
@@ -77,13 +76,13 @@ class Services {
   Future<dynamic> viewSentPasscodeReport(
     page,
     limit,
-    resident_code,
+    residentCode,
     search,
   ) async {
     var data = {
       "page": page,
       "limit": limit,
-      "resident_code": resident_code,
+      "resident_code": residentCode,
       "search": search
     };
     var res = await CallApi().postData(data, 'viewSentPasscode');
@@ -93,27 +92,27 @@ class Services {
 
   //5
   sendSMSPasscode(
-    send_msisdn,
+    sendMsisdn,
     message,
   ) async {
-    var data = {"send_msisdn": send_msisdn, "message": message};
+    var data = {"send_msisdn": sendMsisdn, "message": message};
     var res = await CallApi().postData(data, 'sendSMSPasscode');
     var body = jsonDecode(res.body);
     return body;
   }
 
   //6
-  getFuturePasscode(send_msisdn, visitor_name, resident_code, number_visitor,
-      email, arival_date, time_from, time_to) async {
+  getFuturePasscode(sendMsisdn, visitorName, residentCode, numberVisitor,
+      email, arivalDate, timeFrom, timeTo) async {
     var data = {
-      "send_msisdn": send_msisdn,
-      "visitor_name": visitor_name,
-      "resident_code": resident_code,
-      "number_visitor": number_visitor,
+      "send_msisdn": sendMsisdn,
+      "visitor_name": visitorName,
+      "resident_code": residentCode,
+      "number_visitor": numberVisitor,
       "email": email,
-      "arival_date": arival_date,
-      "time_from": time_from,
-      "time_to": time_to,
+      "arival_date": arivalDate,
+      "time_from": timeFrom,
+      "time_to": timeTo,
     };
     var res = await CallApi().postData(data, 'getFuturePasscode');
     var body = jsonDecode(res.body);
@@ -122,18 +121,18 @@ class Services {
 
   //7
   getPasscode(
-    send_msisdn,
-    visitor_name,
-    resident_code,
-    number_visitor,
+    sendMsisdn,
+    visitorName,
+    residentCode,
+    numberVisitor,
     email,
   ) async {
     assert(email != null);
     var data = {
-      "send_msisdn": send_msisdn,
-      "visitor_name": visitor_name,
-      "resident_code": resident_code,
-      "number_visitor": number_visitor,
+      "send_msisdn": sendMsisdn,
+      "visitor_name": visitorName,
+      "resident_code": residentCode,
+      "number_visitor": numberVisitor,
       "email": email,
     };
     var res = await CallApi().postData(data, 'getPasscode');
@@ -143,27 +142,27 @@ class Services {
 
   //8
   updateResidentProfile(
-      resident_code,
-      full_name,
-      resident_phone,
+      residentCode,
+      fullName,
+      residentPhone,
       email,
-      user_group,
+      userGroup,
       status,
       address,
-      resident_type,
-      validity_starts_date,
-      Validity_ends_date) async {
+      residentType,
+      validityStartsDate,
+      ValidityEndsDate) async {
     var data = {
-      "resident_code": resident_code,
-      "full_name": full_name,
-      "resident_phone": resident_phone,
+      "resident_code": residentCode,
+      "full_name": fullName,
+      "resident_phone": residentPhone,
       "email": email,
-      "user_group": user_group,
+      "user_group": userGroup,
       "status": status,
       "address": address,
-      "resident_type": resident_type,
-      "validity_starts_date": validity_starts_date,
-      "Validity_ends_date": Validity_ends_date
+      "resident_type": residentType,
+      "validity_starts_date": validityStartsDate,
+      "Validity_ends_date": ValidityEndsDate
     };
 
     var res = await CallApi().postData(data, 'updateResidentProfile');
@@ -173,27 +172,27 @@ class Services {
 
   //9
   updateCommercialProfile(
-      resident_phone,
-      full_name,
-      resident_code,
+      residentPhone,
+      fullName,
+      residentCode,
       email,
-      user_group,
+      userGroup,
       status,
-      resident_type,
+      residentType,
       address,
-      validity_starts_date,
-      Validity_ends_date) async {
+      validityStartsDate,
+      ValidityEndsDate) async {
     var data = {
-      "resident_code": resident_code,
-      "resident_phone": resident_phone,
-      "full_name": full_name,
+      "resident_code": residentCode,
+      "resident_phone": residentPhone,
+      "full_name": fullName,
       "email": email,
-      "user_group": user_group,
+      "user_group": userGroup,
       "status": status,
-      "resident_type": resident_type,
+      "resident_type": residentType,
       "address": address,
-      "validity_starts_date": validity_starts_date,
-      "Validity_ends_date": Validity_ends_date
+      "validity_starts_date": validityStartsDate,
+      "Validity_ends_date": ValidityEndsDate
     };
 
     var res = await CallApi().postData(data, 'updateCommercialProfile');
@@ -203,24 +202,24 @@ class Services {
 
   //10
   addStaff(
-    resident_phone,
-    full_name,
-    resident_code,
+    residentPhone,
+    fullName,
+    residentCode,
     email,
-    dependant_phone,
+    dependantPhone,
     relationship,
-    employment_status,
-    contact_detail,
+    employmentStatus,
+    contactDetail,
   ) async {
     var data = {
-      "resident_code": resident_code,
-      "resident_phone": resident_phone,
-      "full_name": full_name,
+      "resident_code": residentCode,
+      "resident_phone": residentPhone,
+      "full_name": fullName,
       "email": email,
-      "dependant_phone": dependant_phone,
+      "dependant_phone": dependantPhone,
       "relationship": relationship,
-      "employment_status": employment_status,
-      "contact_detail": contact_detail,
+      "employment_status": employmentStatus,
+      "contact_detail": contactDetail,
     };
 
     var res = await CallApi().postData(data, 'addStaff');
@@ -229,15 +228,15 @@ class Services {
   }
 
   //11
-  addFamilyMember(resident_phone, full_name, resident_code, email, password,
-      Confirm_password) async {
+  addFamilyMember(residentPhone, fullName, residentCode, email, password,
+      ConfirmPassword) async {
     var data = {
-      "resident_code": resident_code,
-      "resident_phone": resident_phone,
-      "full_name": full_name,
+      "resident_code": residentCode,
+      "resident_phone": residentPhone,
+      "full_name": fullName,
       "email": email,
       "password": password,
-      "Confirm_password": Confirm_password,
+      "Confirm_password": ConfirmPassword,
     };
 
     var res = await CallApi().postData(data, 'addFamilyMember');

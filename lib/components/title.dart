@@ -41,11 +41,11 @@ class _TitleContainerState extends State<TitleContainer> {
                 ),),
                 const SizedBox(width: 120),
                 Stack(
-                  children: [
-                    Positioned(child: Container(
+                  children: const [
+                    Positioned(child: SizedBox(
                       width: 30,
                       height: 30,
-                      child: const CircleAvatar(
+                      child: CircleAvatar(
                         backgroundImage: AssetImage('assets/profilePicture.jpeg'),
                       ),
                     ),),

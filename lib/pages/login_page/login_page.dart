@@ -33,11 +33,9 @@ TextEditingController _resident_code = TextEditingController();
 TextEditingController _password = TextEditingController();
 
 class _SignINState extends State<SignIN> {
-  test(){
-    _login();
-    return true;
-  }
-  _login() async {
+  bool login = false;
+
+_login() async {
     var data = await Services().login(_resident_code.text, _password.text);
     print(data['data']);
 
@@ -127,7 +125,7 @@ class _SignINState extends State<SignIN> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
@@ -250,10 +248,10 @@ class _SignINState extends State<SignIN> {
                     ),
                     ActionPageButton(
                       text: 'Log in',
-                      onPressed: () {
+                      onPressed: () async{
                         if (formKey.currentState!.validate()) {
-                          final snackBar = SnackBar(content: test());
-                          _scaffoldKey.currentState!.showSnackBar(snackBar);
+                          final snackBar = SnackBar(content: await _login());
+                          scaffoldKey.currentState!.showSnackBar(snackBar);
                         }
                       },
                     )

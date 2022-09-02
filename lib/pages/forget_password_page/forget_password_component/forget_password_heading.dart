@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_page2_3_Subtitletext.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/main_body_title_text.dart';
-import '../../../components/components_for_class_of_varable/colors.dart' as color;
 class ForgetPasswordHeading extends StatelessWidget {
   const ForgetPasswordHeading({Key? key}) : super(key: key);
 

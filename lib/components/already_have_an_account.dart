@@ -30,6 +30,5 @@ class AlreadyHaveAnAccount extends StatelessWidget {
         )
       ],
     );
-    ;
   }
 }

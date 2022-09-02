@@ -68,7 +68,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
   bool _obscureText2 = true;
   bool checkBoxValue = false;
 
-  _register() async {
+ _register() async {
     var data = await Services().register(
         _password.text,
         widget.surname,
@@ -79,7 +79,8 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
         residentType,
         _confirmPassword.text,
         widget.mobileNumber);
-    print(data);
+
+      print(data);
   }
 
   _nextPage() {
@@ -225,11 +226,11 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
-        key: _scaffoldKey,
+        key: scaffoldKey,
         body: Form(
           key: formKey,
           child: Container(
@@ -251,12 +252,12 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                   ),
                   reistrationPageButton: ActionPageButton(
                     text: _selectResidential ? 'Next' : 'Register Now',
-                    onPressed: () {
+                    onPressed: () async {
                       if (formKey.currentState!.validate()) {
                         final snackBar = SnackBar(
                             content:
-                                _selectResidential ? _nextPage() : _register());
-                        _scaffoldKey.currentState!.showSnackBar(snackBar);
+                                _selectResidential ? _nextPage() : await _register());
+                        scaffoldKey.currentState!.showSnackBar(snackBar);
                       }
                     },
                   ),

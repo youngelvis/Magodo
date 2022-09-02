@@ -37,6 +37,5 @@ class ForgetPasswordSecondPagePinRow extends StatelessWidget {
         ),
       ],
     );
-    ;
   }
 }

@@ -98,12 +98,13 @@ class _SignUpState extends State<SignUp> {
 
   final formKey = GlobalKey<FormState>();
 
+  @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
-        key: _scaffoldKey,
+        key: scaffoldKey,
         body: Form(
           key: formKey,
           child: Container(
@@ -127,7 +128,7 @@ class _SignUpState extends State<SignUp> {
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           final snackBar = SnackBar(content: _nextButton());
-                          _scaffoldKey.currentState!.showSnackBar(snackBar);
+                          scaffoldKey.currentState!.showSnackBar(snackBar);
                         }
                       }),
                 )

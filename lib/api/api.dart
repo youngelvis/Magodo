@@ -12,7 +12,7 @@ class CallApi {
     var password ='benard@1991';
     var fullUrl = _url + apiUrl;
     String basicAuth =
-        'Basic ' + base64.encode(utf8.encode('$username:$password'));
+        'Basic ${base64.encode(utf8.encode('$username:$password'))}';
     print(basicAuth);
    http.Response response = await http.post(
         Uri.parse(fullUrl),
@@ -38,7 +38,7 @@ class CallApi {
   _setHeaders(auth) =>
       {
         "Accept": "application/json",
-        "Authorization": '${auth}',
+        "Authorization": '$auth',
 
       };
 }

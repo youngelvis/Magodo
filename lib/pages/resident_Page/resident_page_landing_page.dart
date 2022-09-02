@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:magodo/api/api.dart';
 import 'package:magodo/components/filter_and_sort_buttons.dart';
 import 'package:magodo/models/visitordata.dart';
 import 'package:magodo/services/services.dart';
@@ -28,7 +26,7 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
   int currentPage = 0;
   late int totalPages;
   List<Visitor> visitors = [];
-  RefreshController refreshController = RefreshController(initialRefresh: true);
+  final RefreshController refreshController = RefreshController(initialRefresh: true);
 
   Future<bool> getVisitors( {bool isRefresh = false}) async {
     if(isRefresh){

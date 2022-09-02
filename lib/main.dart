@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'components/components_for_class_of_varable/colors.dart' as color;
 import 'package:magodo/pages/landing_page/welcome_screen.dart';
 void main() {
   runApp(MyApp());
