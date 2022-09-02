@@ -63,7 +63,7 @@ class Visitor {
     visitorMsisdn: json["VISITOR_MSISDN"],
     visitorName: json["VISITOR_NAME"],
     createdDate: json["CREATED_DATE"],
-    visitor_code: json["visitor_code"],
+    visitor_code: json["PASSCODE"],
     rowNumber: json["ROW_NUMBER"],
   );
 
@@ -75,7 +75,7 @@ class Visitor {
     "VISITOR_MSISDN": visitorMsisdn,
     "VISITOR_NAME": visitorName,
     "CREATED_DATE": createdDate,
-    "visitor_code": visitor_code,
+    "PASSCODE": visitor_code,
     "ROW_NUMBER": rowNumber,
   };
 }

@@ -43,7 +43,6 @@ TextEditingController _businessName = TextEditingController();
 TextEditingController _numberOfStaff = TextEditingController();
 TextEditingController _businessMobileNumber = TextEditingController();
 TextEditingController _businessEmail = TextEditingController();
-TextEditingController _category = TextEditingController();
 
 class _Registration_page3State extends State<Registration_page3> {
   String? categoryType;
