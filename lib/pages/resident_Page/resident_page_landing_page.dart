@@ -24,7 +24,7 @@ TextEditingController _searchWords = TextEditingController();
 
 class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
   int currentPage = 0;
-  late int totalPages;
+  late int totalPages = 0;
   List<Visitor> visitors = [];
   final RefreshController refreshController =
       RefreshController(initialRefresh: true);
@@ -83,12 +83,27 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
                 ),
                 const FilterAndSortButtons(),
                 const SizedBox(
+
                   height: 20,
                 ),
               ]),
             ),
             const Divider(
               thickness: 2,
+            ),
+            Container(
+             color: Colors.white,
+              height: 50,
+              child: ListTile(
+                leading:Text(
+                  "1-${visitors.length} of $totalPages results",
+                  style: const TextStyle(fontSize: 16),
+                ),
+                trailing:  Text(
+                  "Results per page ${visitors.length}",
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ),
             ),
             Expanded(
               child: SmartRefresher(

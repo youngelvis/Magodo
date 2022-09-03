@@ -22,52 +22,51 @@ class VisitorPasscodeReport extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Container(
-        child: Card(
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 20, bottom: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(date, style: const TextStyle(
-                  fontSize: 13
-                ),),
-                const Divider(
-                  thickness: 2,
-                ),
-                ListTile(
-                  title: DoNotHonour(
-                    passcode: visitorCode,
-                  ),
-                ),
-                ListTile(
-                  title: const Text('Visitor Name'),
-                  subtitle: Text(visitorsName),
-                ),
-                ListTile(
-                  title: const Text("Visitor Passcode"),
-                  trailing: Text(visitorCode),
-                ),
-                ListTile(
-                  title: const Text('Resident Name'),
-                  trailing: Text(residentName),
-                ),
-                ListTile(
-                  title: const Text('Address'),
-                  trailing: Text(address),
-                ),
-                ListTile(
-                  title: const Text('Resident Phone'),
-                  trailing: Text(residentMobile),
-                ),
-                ListTile(
-                  title: const Text("visitor's mobile number"),
-                  trailing: Text(visitorMobile),
-                ),
-              ],
+  Widget build(BuildContext context) => Card(
+    margin: const EdgeInsets.symmetric(vertical: 10),
+    child: Padding(
+      padding: const EdgeInsets.only(top: 20, bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            date,
+            style: const TextStyle(fontSize: 13),
+          ),
+          const Divider(
+            thickness: 2,
+          ),
+          ListTile(
+            title: DoNotHonour(
+              passcode: visitorCode,
             ),
           ),
-        ),
-      );
+          ListTile(
+            title: const Text('Visitor Name'),
+            subtitle: Text(visitorsName),
+          ),
+          ListTile(
+            title: const Text("Visitor Passcode"),
+            trailing: Text(visitorCode),
+          ),
+          ListTile(
+            title: const Text('Resident Name'),
+            trailing: Text(residentName),
+          ),
+          ListTile(
+            title: const Text('Address'),
+            trailing: Text(address),
+          ),
+          ListTile(
+            title: const Text('Resident Phone'),
+            trailing: Text(residentMobile),
+          ),
+          ListTile(
+            title: const Text("visitor's mobile number"),
+            trailing: Text(visitorMobile),
+          ),
+        ],
+      ),
+    ),
+  );
 }

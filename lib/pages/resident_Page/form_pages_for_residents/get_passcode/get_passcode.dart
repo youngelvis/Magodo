@@ -21,10 +21,6 @@ class _GetPasscodeState extends State<GetPasscode> {
   String? noOfVisitors;
   final noOfVisitorsOptions = ['0', '1', '2', '3', '4', '5', '6'];
 
-  // _test() {
-  //   var data = Services().getPasscode(_mobileNumber.text, _visitorName.text,
-  //       resident_code, noOfVisitors, _email.text);
-  // }
 
   Widget _buildNoOfVisitor() {
     return RoundedDropDownTextField(
@@ -113,7 +109,7 @@ class _GetPasscodeState extends State<GetPasscode> {
               ),
               Form(
                   key: formKey,
-                  child: Row(children: [
+                  child: Column(children: [
                     const Text(
                       'Get Passcode',
                       style: TextStyle(fontSize: 30),
