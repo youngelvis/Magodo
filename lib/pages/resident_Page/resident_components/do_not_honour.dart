@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:magodo/services/services.dart';
-import '/../../../components/components_for_class_of_varable/colors.dart'
-    as color;
+import '/../../../components/components_for_class_of_varable/colors.dart' as color;
 
 class DoNotHonour extends StatefulWidget {
   final passcode;

@@ -50,7 +50,6 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
     currentPage = currentPage + 5;
     totalPages = result.recordsTotal;
     print(data);
-    setState(() {});
     return true;
   }
 
@@ -68,9 +67,9 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
             body: Container(
-          color: color.AppColor.homePageBackground,
+          color: color.AppColor.residentBody,
           padding: const EdgeInsets.only(
-            top: 50,
+            top: 20,
           ),
           child: Column(children: [
             const TitleContainer(title: 'Dashboard'),
@@ -117,13 +116,16 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
                     final visitor = visitors[index];
 
                     return SingleChildScrollView(
-                        child: VisitorPasscodeReport(
-                            visitorsName: visitor.visitorName,
-                            residentName: visitor.residentName,
-                            address: visitor.residentAddress,
-                            residentMobile: visitor.residentMsisdn,
-                            visitorMobile: visitor.visitorMsisdn,
-                            visitorCode: visitor.visitor_code));
+                      child: VisitorPasscodeReport(
+                        visitorsName: visitor.visitorName,
+                        residentName: visitor.residentName,
+                        address: visitor.residentAddress,
+                        residentMobile: visitor.residentMsisdn,
+                        visitorMobile: visitor.visitorMsisdn,
+                        visitorCode: visitor.visitor_code,
+                        date: visitor.createdDate,
+                      ),
+                    );
                   },
                   itemCount: visitors.length,
                 ),

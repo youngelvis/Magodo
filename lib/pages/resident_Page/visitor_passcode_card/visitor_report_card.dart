@@ -7,7 +7,8 @@ class VisitorPasscodeReport extends StatelessWidget {
       address,
       residentMobile,
       visitorMobile,
-      visitorCode;
+      visitorCode,
+      date;
 
   VisitorPasscodeReport({
     Key? key,
@@ -17,42 +18,56 @@ class VisitorPasscodeReport extends StatelessWidget {
     required this.residentMobile,
     required this.visitorMobile,
     required this.visitorCode,
+    required this.date,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Card(
-
-        child: Column(
-          children: [
-            Row(
+  Widget build(BuildContext context) => Container(
+        child: Card(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20, bottom: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(date, style: const TextStyle(
+                  fontSize: 13
+                ),),
+                const Divider(
+                  thickness: 2,
+                ),
                 ListTile(
-                  leading: Text(visitorCode),
-
+                  title: DoNotHonour(
+                    passcode: visitorCode,
+                  ),
+                ),
+                ListTile(
+                  title: const Text('Visitor Name'),
+                  subtitle: Text(visitorsName),
+                ),
+                ListTile(
+                  title: const Text("Visitor Passcode"),
+                  trailing: Text(visitorCode),
+                ),
+                ListTile(
+                  title: const Text('Resident Name'),
+                  trailing: Text(residentName),
+                ),
+                ListTile(
+                  title: const Text('Address'),
+                  trailing: Text(address),
+                ),
+                ListTile(
+                  title: const Text('Resident Phone'),
+                  trailing: Text(residentMobile),
+                ),
+                ListTile(
+                  title: const Text("visitor's mobile number"),
+                  trailing: Text(visitorMobile),
                 ),
               ],
             ),
-            ListTile(
-              leading: const Text('Resident Name'),
-              trailing: Text(residentName),
-            ),
-            ListTile(
-              leading: const Text('Address'),
-              trailing: Text(address),
-            ),
-            ListTile(
-              leading: const Text('Resident Phone'),
-              trailing: Text(residentMobile),
-            ),
-            ListTile(
-              leading: const Text('Visitor Name'),
-              trailing: Text(visitorsName),
-            ),
-            ListTile(
-              leading: const Text('Resident Name'),
-              trailing:Text(visitorMobile),
-            ),
-          ],
+          ),
         ),
       );
 }
