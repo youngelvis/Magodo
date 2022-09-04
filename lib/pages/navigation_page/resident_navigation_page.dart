@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/text_button_nav_page.dart';
+import 'package:magodo/pages/resident_Page/form_pages_for_residents/add_staff/add_staff.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_future_passcode.dart';
+import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
 class ResidentNavigationPage extends StatelessWidget {
@@ -33,7 +35,9 @@ class ResidentNavigationPage extends StatelessWidget {
                       height: 50,
                     ),
                     NavTextButton(
-                        icon: Icons.speed, text: 'Dashboard', onPressed: () {}),
+                        icon: Icons.speed, text: 'Dashboard', onPressed: () {
+
+                    }),
                     NavTextButton(
                         icon: Icons.directions_car,
                         text: 'Register Vehicle',
@@ -61,7 +65,9 @@ class ResidentNavigationPage extends StatelessWidget {
                     NavTextButton(
                         icon: Icons.engineering,
                         text: 'Staffs',
-                        onPressed: () {}),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const AddStaff()));
+                        }),
                   ],
                 ))
           ],
