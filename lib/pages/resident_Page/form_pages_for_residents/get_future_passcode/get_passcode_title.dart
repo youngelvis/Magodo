@@ -31,7 +31,7 @@ class _GetPasscodeTitleContainerState extends State<GetPasscodeTitleContainer> {
                         MaterialPageRoute(builder: (context) => const ResidentNavigationPage()));
                   }
               ),
-              const SizedBox(width: 80,),
+              const SizedBox(width: 100,),
 
               Container(
                 padding: const EdgeInsets.only(
@@ -43,7 +43,7 @@ class _GetPasscodeTitleContainerState extends State<GetPasscodeTitleContainer> {
                         fontWeight: FontWeight.bold,
                         fontSize: 25
                     ),),
-                    const SizedBox(width: 20),
+                    const SizedBox(width: 70),
                     Stack(
                       children: const [
                         Positioned(child: SizedBox(

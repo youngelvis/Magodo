@@ -5,6 +5,7 @@ import 'package:magodo/components/roundedInputField.dart';
 import 'package:magodo/components/roundedTextInputField.dart';
 import 'package:magodo/components/text_for_form.dart';
 import 'package:magodo/components/title.dart';
+import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 
 class GetPasscode extends StatefulWidget {
   const GetPasscode({Key? key}) : super(key: key);
@@ -20,7 +21,6 @@ TextEditingController _email = TextEditingController();
 class _GetPasscodeState extends State<GetPasscode> {
   String? noOfVisitors;
   final noOfVisitorsOptions = ['0', '1', '2', '3', '4', '5', '6'];
-
 
   Widget _buildNoOfVisitor() {
     return RoundedDropDownTextField(
@@ -95,44 +95,76 @@ class _GetPasscodeState extends State<GetPasscode> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Container(
-        padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const TitleContainer(
-                title: 'Get Passcode',
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              Form(
-                  key: formKey,
-                  child: Column(children: [
-                    const Text(
-                      'Get Passcode',
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: Scaffold(
+          body: Container(
+            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            child: Column(
+              children: [
+                const GetPasscodeTitleContainer(
+                  title: 'Get Passcode',
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                Row(
+                  children: const [
+                    Text(
+                      'Get Future Passcode',
                       style: TextStyle(fontSize: 30),
                     ),
-                    const Icon(
+                    Icon(
                       Icons.keyboard_arrow_down_outlined,
                       size: 15,
                     ),
-                    const TextForForm(text: 'Mobile Number'),
-                    _buildMobileNumber(),
-                    const TextForForm(text: "Visitor's Name"),
-                    _buildFirstName(),
-                    const TextForForm(
-                        text: "Number of Persons coming with Visitor"),
-                    _buildNoOfVisitor(),
-                    const TextForForm(text: "Email(optional"),
-                    _buildEmail(),
-                    ActionPageButton(onPressed: () {}, text: 'Get Passcode')
-                  ]),),
-            ],
+                  ],
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Expanded(
+                  child: OverflowBox(
+                    child: SingleChildScrollView(
+                      child: Form(
+                        key: formKey,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const TextForForm(text: 'Mobile Number'),
+                              _buildMobileNumber(),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              const TextForForm(text: "Visitor's Name"),
+                              _buildFirstName(),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              const TextForForm(
+                                  text:
+                                      "Number of Persons coming with Visitor"),
+                              _buildNoOfVisitor(),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              const TextForForm(text: "Email (optional)"),
+                              _buildEmail(),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              ActionPageButton(
+                                  onPressed: () {}, text: 'Get Passcode'),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                            ]),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
