@@ -75,15 +75,14 @@ class Services {
 //4
   Future<dynamic> viewSentPasscodeReport(
     page,
-    limit,
     residentCode,
     search,
   ) async {
     var data = {
       "page": page,
-      "limit": limit,
+      "limit": "5",
       "resident_code": residentCode,
-      "search": search
+      "search": ''
     };
     var res = await CallApi().postData(data, 'viewSentPasscode');
 

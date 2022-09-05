@@ -92,11 +92,11 @@ _login() async {
       hintText: 'Enter resident code',
       controller: _resident_code,
       validator: (value) {
-        if (value!.isEmpty || !RegExp(r'^[0-9]+$').hasMatch(value!)) {
-          return "enter correct resident code";
-        } else {
-          return null;
-        }
+        // if (value!.isEmpty || RegExp(r'^[A-Za-z0-9_-]*$').hasMatch(value!)) {
+        //   return "enter correct resident code";
+        // } else {
+        //   return null;
+        // }
       },
     );
   }

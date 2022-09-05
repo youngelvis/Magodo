@@ -9,5 +9,6 @@ class UserGroup{
   static const ZONAL_ADMIN = "Zadmin";
   static const ZONAL_SUPER_ADMIN = "Zsadmin";
   static const DEPENDANT = "Dependant";
+  static const PROPERTY_OWNER = "Propertyowner";
 
 }

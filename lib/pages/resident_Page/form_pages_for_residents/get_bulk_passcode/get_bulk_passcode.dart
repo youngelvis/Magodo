@@ -82,7 +82,7 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
     );
   }
 
-  _buildDepertureTime() {
+  _buildDepartureTime() {
     return RoundedTextDateInput(
       hintText: 'time of departure',
       controller: _departureTime,
@@ -124,7 +124,7 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
                 Row(
                   children: const [
                     Text(
-                      'Get Future Passcode',
+                      'Get Bulk Passcode',
                       style: TextStyle(fontSize: 30),
                     ),
                     Icon(
@@ -152,7 +152,7 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
                                 height: 30,
                               ),
                               const TextForForm(text: "Departure Time"),
-                              _buildDepertureTime(),
+                              _buildDepartureTime(),
                               const SizedBox(
                                 height: 30,
                               ),

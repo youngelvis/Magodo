@@ -39,7 +39,7 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
       }
     }
     var data = await Services().viewSentPasscodeReport(
-        currentPage, "5", widget.data['resident_code'], widget.data['zone']);
+        currentPage, "", widget.data['resident_code'], );
 
     final result = visitorsFromJson(data);
     if (isRefresh) {
@@ -54,7 +54,7 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
   }
 
   Widget _buildSearchBar() {
-    return RoundedTextSearchField(
+    return RoundedText SearchField(
       hintText: 'Search',
       controller: _searchWords,
       icon: const Icon(Icons.search),

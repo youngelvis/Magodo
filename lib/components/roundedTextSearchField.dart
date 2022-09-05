@@ -13,6 +13,7 @@ class RoundedTextSearchField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextFormField(
+
         controller: controller,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
