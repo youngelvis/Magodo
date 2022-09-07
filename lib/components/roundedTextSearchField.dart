@@ -6,21 +6,21 @@ class RoundedTextSearchField extends StatelessWidget {
   final hintText;
   final validator;
   final icon;
-  const RoundedTextSearchField({Key? key,this.controller, this.hintText, this.validator, this.icon
-  }) : super(key: key);
+  final onChanged;
+
+  const RoundedTextSearchField(
+      {Key? key, this.controller, this.hintText, this.validator, this.icon, this.onChanged})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextFormField(
-
+        onChanged: onChanged,
         controller: controller,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
-            hintText: hintText,
-            border: InputBorder.none,
-            icon: icon
-        ),
+            hintText: hintText, border: InputBorder.none, icon: icon),
         validator: validator,
       ),
     );

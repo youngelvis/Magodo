@@ -37,6 +37,7 @@ class _SignINState extends State<SignIN> {
 
 _login() async {
     var data = await Services().login(_resident_code.text, _password.text);
+
     print(data['data']);
 
     if (data['data']['usr_group'] == UserGroup.CENTRAL_ADMIN) {
@@ -92,11 +93,11 @@ _login() async {
       hintText: 'Enter resident code',
       controller: _resident_code,
       validator: (value) {
-        // if (value!.isEmpty || RegExp(r'^[A-Za-z0-9_-]*$').hasMatch(value!)) {
-        //   return "enter correct resident code";
-        // } else {
-        //   return null;
-        // }
+        if (value!.isEmpty || !RegExp(r'^[A-Za-z0-9_-]*$').hasMatch(value!)) {
+          return "enter correct resident code";
+        } else {
+          return null;
+        }
       },
     );
   }

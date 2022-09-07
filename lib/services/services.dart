@@ -80,9 +80,9 @@ class Services {
   ) async {
     var data = {
       "page": page,
-      "limit": "5",
+      "limit": "10",
       "resident_code": residentCode,
-      "search": ''
+      "search": search
     };
     var res = await CallApi().postData(data, 'viewSentPasscode');
 

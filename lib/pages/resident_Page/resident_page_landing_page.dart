@@ -38,23 +38,41 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
         return false;
       }
     }
-    var data = await Services().viewSentPasscodeReport(
-        currentPage, "", widget.data['resident_code'], );
 
+    var data = await Services().viewSentPasscodeReport(
+      currentPage,
+      widget.data['resident_code'],
+      '',
+    );
     final result = visitorsFromJson(data);
+
     if (isRefresh) {
       visitors = result.data;
     } else {
       visitors.addAll(result.data);
     }
-    currentPage = currentPage + 5;
+    setState((){});
+    currentPage = currentPage + 10;
     totalPages = result.recordsTotal;
-    print(data);
+    print(visitors.length);
     return true;
   }
 
+  void _searchFunction()async{
+    var data = await Services().viewSentPasscodeReport(
+      currentPage,
+      widget.data['resident_code'],
+      _searchWords.text,
+    );
+    final result = visitorsFromJson(data);
+    if(!mounted)return;
+    visitors = result.data;
+    setState((){});
+
+  }
+
   Widget _buildSearchBar() {
-    return RoundedText SearchField(
+    return RoundedTextSearchField(
       hintText: 'Search',
       controller: _searchWords,
       icon: const Icon(Icons.search),
