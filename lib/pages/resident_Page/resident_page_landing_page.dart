@@ -42,7 +42,7 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
     var data = await Services().viewSentPasscodeReport(
       currentPage,
       widget.data['resident_code'],
-      '',
+      _searchWords.text,
     );
     final result = visitorsFromJson(data);
 
@@ -51,28 +51,31 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
     } else {
       visitors.addAll(result.data);
     }
-    setState((){});
+    setState(() {});
     currentPage = currentPage + 10;
     totalPages = result.recordsTotal;
-    print(visitors.length);
     return true;
   }
 
-  void _searchFunction()async{
+  _searchFunction() async {
     var data = await Services().viewSentPasscodeReport(
       currentPage,
       widget.data['resident_code'],
       _searchWords.text,
     );
-    final result = visitorsFromJson(data);
-    if(!mounted)return;
-    visitors = result.data;
-    setState((){});
 
+    final result = visitorsFromJson(data);
+    if (!mounted) return;
+    visitors = result.data;
+    setState(() {});
   }
 
   Widget _buildSearchBar() {
     return RoundedTextSearchField(
+      onChanged: (value) async{
+        _searchWords: value as String;
+        await _searchFunction();
+      },
       hintText: 'Search',
       controller: _searchWords,
       icon: const Icon(Icons.search),
@@ -99,9 +102,7 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                const FilterAndSortButtons(),
                 const SizedBox(
-
                   height: 20,
                 ),
               ]),
@@ -110,14 +111,14 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
               thickness: 2,
             ),
             Container(
-             color: Colors.white,
+              color: Colors.white,
               height: 50,
               child: ListTile(
-                leading:Text(
+                leading: Text(
                   "1-${visitors.length} of $totalPages results",
                   style: const TextStyle(fontSize: 16),
                 ),
-                trailing:  Text(
+                trailing: Text(
                   "Results per page ${visitors.length}",
                   style: const TextStyle(fontSize: 16),
                 ),
@@ -143,12 +144,16 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
                     refreshController.loadFailed();
                   }
                 },
-                child: ListView.builder(
+                child:  ListView.builder(
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, index) {
+                    if(visitors[index] ==-1){
+                      return Text('couldnt find it');
+                    }
                     final visitor = visitors[index];
 
                     return SingleChildScrollView(
+
                       child: VisitorPasscodeReport(
                         visitorsName: visitor.visitorName,
                         residentName: visitor.residentName,
