@@ -68,7 +68,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
   bool _obscureText2 = true;
   bool checkBoxValue = false;
 
- _register() async {
+  _register() async {
     var data = await Services().register(
         _password.text,
         widget.surname,
@@ -80,7 +80,23 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
         _confirmPassword.text,
         widget.mobileNumber);
 
-      print(data);
+    if (data['error'] == true) {
+      var message = data['message'];
+
+      return showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(message),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("ok"))
+          ],
+        ),
+      );
+    }
   }
 
   _nextPage() {
@@ -160,21 +176,20 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
 
   DropdownMenuItem<String> buildResidentItem(String residentOptions) =>
       DropdownMenuItem(
-        value: residentOptions,
-        child: CheckboxListTile(
-            title: Text(
-              residentOptions,
-              style: const TextStyle(
-                  fontWeight: FontWeight.normal, fontSize: 17),
-            ),
-            controlAffinity: ListTileControlAffinity.trailing,
-            value: checkBoxValue,
-            onChanged: (value) {
-             setState(() {
-               value = !checkBoxValue;
-             });
-            })
-      );
+          value: residentOptions,
+          child: CheckboxListTile(
+              title: Text(
+                residentOptions,
+                style: const TextStyle(
+                    fontWeight: FontWeight.normal, fontSize: 17),
+              ),
+              controlAffinity: ListTileControlAffinity.trailing,
+              value: checkBoxValue,
+              onChanged: (value) {
+                setState(() {
+                  value = !checkBoxValue;
+                });
+              }));
 
   Widget _buildPassword() {
     return RoundedPasswordField(
@@ -255,8 +270,9 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
                         final snackBar = SnackBar(
-                            content:
-                                _selectResidential ? _nextPage() : await _register());
+                            content: _selectResidential
+                                ? _nextPage()
+                                : await _register());
                         scaffoldKey.currentState!.showSnackBar(snackBar);
                       }
                     },

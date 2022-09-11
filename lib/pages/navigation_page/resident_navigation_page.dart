@@ -30,7 +30,9 @@ class ResidentNavigationPage extends StatelessWidget {
                           size: 50,
                           color: color.AppColor.landingPage2,
                         ),
-                        onPressed: () {}),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        }),
                    const SizedBox(
                       height: 50,
                     ),

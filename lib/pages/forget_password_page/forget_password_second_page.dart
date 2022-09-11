@@ -1,13 +1,16 @@
-
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_page2_heading.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_second_page_pin_row.dart';
+import 'package:magodo/pages/forget_password_page/forget_password_fourth_page.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
 class ForgetPasswordSecondPage extends StatefulWidget {
-  const ForgetPasswordSecondPage({Key? key}) : super(key: key);
+  final mobileNumber;
+
+  const ForgetPasswordSecondPage({Key? key, required this.mobileNumber})
+      : super(key: key);
 
   @override
   State<ForgetPasswordSecondPage> createState() =>
@@ -15,11 +18,17 @@ class ForgetPasswordSecondPage extends StatefulWidget {
 }
 
 int pinIndex = 0;
-List<String> currentPin = ["", "", "", ""];
+
 TextEditingController _textEditingController1 = TextEditingController();
 TextEditingController _textEditingController2 = TextEditingController();
 TextEditingController _textEditingController3 = TextEditingController();
 TextEditingController _textEditingController4 = TextEditingController();
+List<String> currentPin = [
+  _textEditingController1.text,
+  _textEditingController2.text,
+  _textEditingController3.text,
+  _textEditingController4.text
+];
 
 class _ForgetPasswordSecondPageState extends State<ForgetPasswordSecondPage> {
   @override
@@ -30,6 +39,15 @@ class _ForgetPasswordSecondPageState extends State<ForgetPasswordSecondPage> {
       textEditingController3: _textEditingController3,
       textEditingController4: _textEditingController4,
     );
+  }
+
+  _handleSubmit() {
+    var pinNumber = currentPin.join();
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                ForgetPasswordFourthPage(pinNumber: pinNumber)));
   }
 
   final Duration _duration = const Duration(seconds: 30);

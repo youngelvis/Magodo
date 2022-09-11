@@ -101,15 +101,15 @@ class Services {
   }
 
   //6
-  getFuturePasscode(sendMsisdn, visitorName, residentCode, numberVisitor,
-      email, arivalDate, timeFrom, timeTo) async {
+  getFuturePasscode(sendMsisdn, visitorName, residentCode, numberVisitor, email,
+      arrivalDate, timeFrom, timeTo) async {
     var data = {
       "send_msisdn": sendMsisdn,
       "visitor_name": visitorName,
       "resident_code": residentCode,
       "number_visitor": numberVisitor,
       "email": email,
-      "arival_date": arivalDate,
+      "arrival_date": arrivalDate,
       "time_from": timeFrom,
       "time_to": timeTo,
     };
@@ -126,13 +126,12 @@ class Services {
     numberVisitor,
     email,
   ) async {
-    assert(email != null);
     var data = {
       "send_msisdn": sendMsisdn,
       "visitor_name": visitorName,
       "resident_code": residentCode,
       "number_visitor": numberVisitor,
-      "email": email,
+      "email": '',
     };
     var res = await CallApi().postData(data, 'getPasscode');
     var body = jsonDecode(res.body);
@@ -253,7 +252,33 @@ class Services {
       "isChecked": isChecked,
     };
 
-    var res = await CallApi().postData(data, 'addFamilyMember');
+    var res = await CallApi().postData(data, 'doNotHonor');
+    var body = jsonDecode(res.body);
+    return body;
+  }
+
+  //12
+  forgetPasswordGenerateToken(residentCode, email, mobileNumber) async {
+    var data = {
+      "resident_reg_code": residentCode,
+      "email": email,
+      "resident_phone": mobileNumber
+    };
+
+    var res = await CallApi().postData(data, 'forgetPasswordGenerateToken');
+    var body = jsonDecode(res.body);
+    return body;
+  }
+
+  //13
+  resetPassword(token, newPassword, confirmPassword) async {
+    var data = {
+      "token": token,
+      "new_password": newPassword,
+      "confirm_password": confirmPassword
+    };
+
+    var res = await CallApi().postData(data, 'resetPassword');
     var body = jsonDecode(res.body);
     return body;
   }

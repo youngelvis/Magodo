@@ -6,18 +6,9 @@ import 'package:magodo/components/roundedInputField.dart';
 
 import 'package:magodo/components/roundedPasswordInput.dart';
 import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
-import 'package:magodo/pages/admin_page/admin_page.dart';
-import 'package:magodo/pages/central_admin/central_admin.dart';
-import 'package:magodo/pages/central_security_admin/central_security_admin.dart';
-import 'package:magodo/pages/dependant/dependant.dart';
 import 'package:magodo/pages/forget_password_page/forget_Password.dart';
 import 'package:magodo/pages/register_page/register_page.dart';
 import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
-import 'package:magodo/pages/security_page/secruty_page.dart';
-import 'package:magodo/pages/super_admin/super_admin.dart';
-import 'package:magodo/pages/vas2nets/vas2nets_page.dart';
-import 'package:magodo/pages/zonal_admin/zonal_admin.dart';
-import 'package:magodo/pages/zonal_super_admin/zonal_super_admin.dart';
 import 'package:magodo/services/services.dart';
 
 import '../../components/components_for_class_of_varable/colors.dart' as color;
@@ -34,52 +25,40 @@ TextEditingController _password = TextEditingController();
 
 class _SignINState extends State<SignIN> {
   bool login = false;
+  void _navigation (data){
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => data));
+  }
 
 _login() async {
     var data = await Services().login(_resident_code.text, _password.text);
+    if(data['error'] == false){
+     if (data['data']['usr_group'] == UserGroup.MEMBER) {
+      _navigation( ResidentPageLandingPage(
+        data: data['data'],
+      ),);
+    } else if (data['data']['usr_group'] == UserGroup.PROPERTY_OWNER) {
 
-    print(data['data']);
+    }
+  }else{
 
-    if (data['data']['usr_group'] == UserGroup.CENTRAL_ADMIN) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const CentralAdmin()));
-    } else if (data['data']['usr_group'] == UserGroup.CENTRAL_SECURITY_ADMIN) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const CentralSecurityAdmin()));
-    } else if (data['data']['usr_group'] == UserGroup.MEMBER) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ResidentPageLandingPage(
-            data: data['data'],
-          ),
+      var message = data['message'];
+
+      return showDialog(
+        context: context,
+        builder:(_)=> AlertDialog(
+          title: Text(message),
+          actions: [
+            TextButton(onPressed: (){
+              _resident_code.text = '';
+              _password.text = '';
+              Navigator.of(context).pop();
+            }, child: const Text("ok"))
+          ],
         ),
       );
-    } else if (data['data']['usr_group'] == UserGroup.ADMIN) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Admin()));
-    } else if (data['data']['usr_group'] == UserGroup.SECURITY) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const SecurityPage()));
-    } else if (data['data']['usr_group'] == UserGroup.SUPER_ADMIN) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const SuperAdmin()));
-    } else if (data['data']['usr_group'] == UserGroup.VAS2NETS) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const Vas2Nets_page()));
-    } else if (data['data']['usr_group'] == UserGroup.ZONAL_ADMIN) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const ZonalAdmin()));
-    } else if (data['data']['usr_group'] == UserGroup.ZONAL_SUPER_ADMIN) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const ZonalSuperAdmin()));
-    } else if (data['data']['usr_group'] == UserGroup.DEPENDANT) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Dependant()));
     }
-  }
+}
 
   //varables
   bool isChecked = false;

@@ -5,6 +5,7 @@ import 'package:magodo/components/roundedTextInputField.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_form1.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_heading.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_second_page.dart';
+import 'package:magodo/services/services.dart';
 
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
@@ -25,7 +26,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       hintText: 'Enter your mobile number',
       controller: _mobileNumber,
       validator: (value) {
-        if (value!.isEmpty || !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9+$]').hasMatch(value!)) {
+        if (value!.isEmpty ||
+            !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9+$]')
+                .hasMatch(value!)) {
           return "enter correct mobile number";
         } else {
           return null;
@@ -35,16 +38,17 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   }
 
   Widget _buildResidentCode() {
-    return RoundedInputField(
+    return RoundedTextInputField(
       hintText: 'Enter resident code',
       controller: _residentCode,
       validator: (value) {
-        if (value!.isEmpty || !RegExp(r'^[0-9]+$').hasMatch(value!)) {
+        if (value!.isEmpty || !RegExp(r'^[A-Za-z0-9_-]*$').hasMatch(value!)) {
           return "enter correct resident code";
         } else {
           return null;
         }
       },
+
     );
   }
 
@@ -53,13 +57,46 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       hintText: 'Enter email address',
       controller: _email,
       validator: (value) {
-        if (value!.isEmpty || !RegExp(r'^[\w-\.]+@([\w-]+\.) +[\w-]{2,4}').hasMatch(value!)) {
+        if (value!.isEmpty ||
+            !RegExp(r'^[\w-\.]+@([\w-]+\.) +[\w-]{2,4}').hasMatch(value!)) {
           return "enter correct email";
         } else {
           return null;
         }
       },
     );
+  }
+_navigation(){
+  Navigator.push(
+      context,
+      MaterialPageRoute(
+      builder: (context) =>
+  ForgetPasswordSecondPage(mobileNumber: _mobileNumber.text)));
+}
+  _getPassCode() async {
+    var data = await Services().forgetPasswordGenerateToken(
+        _residentCode.text, _email.text, _mobileNumber.text);
+
+    if (data['error'] == true) {
+      var message = data['message'];
+
+      return showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(message),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("ok"))
+          ],
+        ),
+      );
+    }else{
+      _navigation();
+    }
+
   }
 
   @override
@@ -69,23 +106,27 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.only(
-              top: 60, left: 30, right: 30
-            ),
+            padding: const EdgeInsets.only(top: 60, left: 30, right: 30),
             color: color.AppColor.homePageBackground,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const ForgetPasswordHeading(),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 ForgetPasswordForm1(
                     residentCode: _buildResidentCode(),
                     mobileNumber: _buildMobileNumber(),
                     email: _buildEmail()),
-                const SizedBox(height: 120,),
-                ActionPageButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder:(context)=> const ForgetPasswordSecondPage()));
-                }, text: 'Continue')
+                const SizedBox(
+                  height: 120,
+                ),
+                ActionPageButton(
+                    onPressed: () async{
+                     await _getPassCode();
+                    },
+                    text: 'Continue')
               ],
             ),
           ),

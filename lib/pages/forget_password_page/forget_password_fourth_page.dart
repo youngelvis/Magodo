@@ -4,11 +4,15 @@ import 'package:magodo/components/roundedPasswordInput.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_form2.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_heading.dart';
 import 'package:magodo/pages/login_page/login_page.dart';
+import 'package:magodo/services/services.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
 class ForgetPasswordFourthPage extends StatefulWidget {
+  final pinNumber;
+
   const ForgetPasswordFourthPage({
     Key? key,
+    required this.pinNumber,
   }) : super(key: key);
 
   @override
@@ -22,6 +26,28 @@ TextEditingController _confirmPassword = TextEditingController();
 class _ForgetPasswordFourthPageState extends State<ForgetPasswordFourthPage> {
   bool _obscureText = true;
   bool _obscureText2 = true;
+
+  _handleSubmit() async {
+    var data = await Services()
+        .resetPassword(widget.pinNumber, _password.text, _confirmPassword.text);
+    if (data['error'] == true) {
+      var message = data['message'];
+
+      return showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(message),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("ok"))
+          ],
+        ),
+      );
+    }
+  }
 
   Widget _buildPassword() {
     return RoundedPasswordField(
@@ -70,10 +96,14 @@ class _ForgetPasswordFourthPageState extends State<ForgetPasswordFourthPage> {
                   password: _buildPassword(),
                   confirmPassword: _buildConfirmPassword(),
                 ),
-                const SizedBox(height: 120,),
-                ActionPageButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder:(context)=> const SignIN()));
-                }, text: 'Continue')
+                const SizedBox(
+                  height: 120,
+                ),
+                ActionPageButton(
+                    onPressed: () async {
+                      await _handleSubmit();
+                    },
+                    text: 'Continue')
               ],
             ),
           ),
