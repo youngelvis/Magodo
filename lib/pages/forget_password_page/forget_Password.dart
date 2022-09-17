@@ -6,7 +6,6 @@ import 'package:magodo/pages/forget_password_page/forget_password_component/forg
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_heading.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_second_page.dart';
 import 'package:magodo/services/services.dart';
-
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
 class ForgetPassword extends StatefulWidget {
@@ -25,15 +24,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     return RoundedInputField(
       hintText: 'Enter your mobile number',
       controller: _mobileNumber,
-      validator: (value) {
-        if (value!.isEmpty ||
-            !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9+$]')
-                .hasMatch(value!)) {
-          return "enter correct mobile number";
-        } else {
-          return null;
-        }
-      },
+
     );
   }
 
@@ -41,13 +32,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     return RoundedTextInputField(
       hintText: 'Enter resident code',
       controller: _residentCode,
-      validator: (value) {
-        if (value!.isEmpty || !RegExp(r'^[A-Za-z0-9_-]*$').hasMatch(value!)) {
-          return "enter correct resident code";
-        } else {
-          return null;
-        }
-      },
 
     );
   }
@@ -56,29 +40,23 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     return RoundedTextInputField(
       hintText: 'Enter email address',
       controller: _email,
-      validator: (value) {
-        if (value!.isEmpty ||
-            !RegExp(r'^[\w-\.]+@([\w-]+\.) +[\w-]{2,4}').hasMatch(value!)) {
-          return "enter correct email";
-        } else {
-          return null;
-        }
-      },
     );
   }
-_navigation(){
-  Navigator.push(
-      context,
-      MaterialPageRoute(
-      builder: (context) =>
-  ForgetPasswordSecondPage(mobileNumber: _mobileNumber.text)));
-}
+
+  _navigation() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                ForgetPasswordSecondPage(mobileNumber: _mobileNumber.text)));
+  }
+
   _getPassCode() async {
     var data = await Services().forgetPasswordGenerateToken(
         _residentCode.text, _email.text, _mobileNumber.text);
 
-    if (data['error'] == true) {
-      var message = data['message'];
+    if (data['error']['status'] == '400') {
+      var message = data['error']['message'];
 
       return showDialog(
         context: context,
@@ -93,14 +71,16 @@ _navigation(){
           ],
         ),
       );
-    }else{
+    } else {
       _navigation();
     }
-
   }
+
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
@@ -123,8 +103,8 @@ _navigation(){
                   height: 120,
                 ),
                 ActionPageButton(
-                    onPressed: () async{
-                     await _getPassCode();
+                    onPressed: () async {
+                      await _getPassCode();
                     },
                     text: 'Continue')
               ],

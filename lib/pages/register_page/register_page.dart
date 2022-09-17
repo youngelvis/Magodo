@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:magodo/components/textfieds_types/mobile_num_textfield.dart';
+import 'package:magodo/components/textfieds_types/name_textfield.dart';
 import 'package:magodo/pages/register_page/registration_page_components/registration_pages_forms.dart';
 import 'package:magodo/components/roundedInputField.dart';
 import 'package:magodo/components/roundedTextInputField.dart';
 import 'package:magodo/pages/login_page/login_component/signUpText.dart';
 import 'package:magodo/pages/register_page/register_second_page.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
-import 'package:magodo/pages/register_page/registration_page_components/registration_page_body.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
 class SignUp extends StatefulWidget {
@@ -117,11 +118,40 @@ class _SignUpState extends State<SignUp> {
               children: [
                 const SignUpText(),
                 RegistrationPagesForms(
-                  RegistrationPageBody: RegistrationPageBody(
-                    buildEmail: _buildEmail(),
-                    buildFirstName: _buildFirstName(),
-                    buildMobileNumber: _buildMobileNumber(),
-                    buildSurname: _buildSurname(),
+                  RegistrationPageBody: Column(
+                    children: [
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      MobileNumberTextField(
+                          controller: _mobileNumber,
+                          fieldName: 'Mobile Number',
+                          hintText: 'Enter your mobile number'),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      NameTextField(
+                          controller: _surname,
+                          hint: 'Enter Your surname',
+                          nameType: 'Surname'),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      NameTextField(
+                          controller: _firstname,
+                          hint: 'Enter Your firstname',
+                          nameType: 'First Name'),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      NameTextField(
+                          controller: _email,
+                          hint: 'Enter Your email address',
+                          nameType: 'E-mail'),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                    ],
                   ),
                   reistrationPageButton: ActionPageButton(
                       text: 'Next',

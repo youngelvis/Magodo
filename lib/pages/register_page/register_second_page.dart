@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/components_for_class_of_varable/zones.dart';
 import 'package:magodo/components/roundedDropDownTextfield.dart';
+import 'package:magodo/components/terms_and_conditions.dart';
+import 'package:magodo/components/textfieds_types/name_textfield.dart';
+import 'package:magodo/components/textfieds_types/password_textfield.dart';
 import 'package:magodo/pages/register_page/registration_page_components/registration_pages_forms.dart';
-import 'package:magodo/components/roundedPasswordInput.dart';
-import 'package:magodo/components/roundedTextInputField.dart';
 import 'package:magodo/pages/login_page/login_component/signUpText.dart';
 import 'package:magodo/pages/register_page/registration_page3.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
-import 'package:magodo/pages/register_page/registration_page_components/registration_second_page.dart';
 import 'package:magodo/services/services.dart';
 
 import '../../components/components_for_class_of_varable/colors.dart' as color;
@@ -64,8 +64,6 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
   ];
 
   bool _selectResidential = false;
-  bool _obscureText = true;
-  bool _obscureText2 = true;
   bool checkBoxValue = false;
 
   _register() async {
@@ -141,20 +139,6 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
         ),
       );
 
-  Widget _buildAddress() {
-    return RoundedTextInputField(
-      hintText: 'Enter your address',
-      controller: _address,
-      validator: (value) {
-        if (value!.isEmpty || !RegExp(r'^[A-Za-z0-9_-]*$').hasMatch(value!)) {
-          return "enter correct address";
-        } else {
-          return null;
-        }
-      },
-    );
-  }
-
   Widget _buildResidentialType() {
     return RoundedDropDownTextField(
       hint: const Text(
@@ -177,67 +161,11 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
   DropdownMenuItem<String> buildResidentItem(String residentOptions) =>
       DropdownMenuItem(
           value: residentOptions,
-          child: CheckboxListTile(
-              title: Text(
-                residentOptions,
-                style: const TextStyle(
-                    fontWeight: FontWeight.normal, fontSize: 17),
-              ),
-              controlAffinity: ListTileControlAffinity.trailing,
-              value: checkBoxValue,
-              onChanged: (value) {
-                setState(() {
-                  value = !checkBoxValue;
-                });
-              }));
-
-  Widget _buildPassword() {
-    return RoundedPasswordField(
-      obscureText: _obscureText,
-      controller: _password,
-      suffixIcon: GestureDetector(
-          onTap: () {
-            setState(() {
-              _obscureText = !_obscureText;
-            });
-          },
-          child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off,
-              color: color.AppColor.landingPageTitle)),
-      validator: (value) {
-        if (value!.isEmpty || !RegExp(r'^[A-Za-z0-9_-]*$').hasMatch(value!)) {
-          return "enter correct password";
-        } else {
-          return null;
-        }
-      },
-    );
-  }
-
-  Widget _buildConfirmPassword() {
-    return RoundedPasswordField(
-      obscureText: _obscureText2,
-      controller: _confirmPassword,
-      suffixIcon: GestureDetector(
-          onTap: () {
-            setState(() {
-              _obscureText2 = !_obscureText2;
-            });
-          },
-          child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off,
-              color: color.AppColor.landingPageTitle)),
-      validator: (value) {
-        if (value!.isEmpty || !RegExp(r'^[A-Za-z0-9_-]*$').hasMatch(value!)) {
-          return "enter correct Password";
-        } else if (value != _password.text) {
-          return "password is not correct";
-        } else {
-          return null;
-        }
-      },
-    );
-  }
-
-  final formKey = GlobalKey<FormState>();
+          child: Text(
+            residentOptions,
+            style: const TextStyle(
+                fontWeight: FontWeight.normal, fontSize: 17),
+          ),);
 
   @override
   Widget build(BuildContext context) {
@@ -246,40 +174,84 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
         key: scaffoldKey,
-        body: Form(
-          key: formKey,
-          child: Container(
-            padding: const EdgeInsets.only(
-              top: 60,
-            ),
-            color: color.AppColor.homePageBackground,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SignUpText(),
-                RegistrationPagesForms(
-                  RegistrationPageBody: RegistrationSecondPageBody(
-                    buildAddress: _buildAddress(),
-                    buildConfirmPassword: _buildConfirmPassword(),
-                    buildPassword: _buildPassword(),
-                    buildZone: _buildZone(),
-                    buildResidentialType: _buildResidentialType(),
-                  ),
-                  reistrationPageButton: ActionPageButton(
+        body: Container(
+          padding: const EdgeInsets.only(
+            top: 60,
+          ),
+          color: color.AppColor.homePageBackground,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SignUpText(),
+              RegistrationPagesForms(
+                RegistrationPageBody: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Text(
+                      'Zone',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          color: color.AppColor.homePageTitle),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    _buildZone(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    NameTextField(
+                        controller: _address,
+                        hint: 'Enter your address',
+                        nameType: 'Address'),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      'Residential Type',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          color: color.AppColor.homePageTitle),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    _buildResidentialType(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    BuildPasswordTextField(
+                        passwordController: _password, fieldName: 'Password'),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    BuildPasswordTextField(
+                        passwordController: _confirmPassword,
+                        fieldName: 'Confirm Password'),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const TermsAndConditions(),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                  ],
+                ),
+                reistrationPageButton: ActionPageButton(
                     text: _selectResidential ? 'Next' : 'Register Now',
                     onPressed: () async {
-                      if (formKey.currentState!.validate()) {
-                        final snackBar = SnackBar(
-                            content: _selectResidential
-                                ? _nextPage()
-                                : await _register());
-                        scaffoldKey.currentState!.showSnackBar(snackBar);
-                      }
-                    },
-                  ),
-                ),
-              ],
-            ),
+                      _selectResidential ? _nextPage() : await _register();
+                    }),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+            ],
           ),
         ),
       ),

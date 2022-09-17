@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:magodo/components/filter_and_sort_buttons.dart';
 import 'package:magodo/models/visitordata.dart';
 import 'package:magodo/pages/resident_Page/visitor_passcode_card/visitor_report_card.dart';
 import 'package:magodo/services/services.dart';
@@ -23,6 +22,30 @@ class ResidentPageLandingPage extends StatefulWidget {
 TextEditingController _searchWords = TextEditingController();
 
 class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
+  Timer? debouncer;
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
+
+  @override
+  void dispose() {
+    debouncer?.cancel();
+    super.dispose();
+  }
+
+  void debounce(
+    VoidCallback callback, {
+    Duration duration = const Duration(milliseconds: 2000),
+  }) {
+    if (debouncer != null) {
+      debouncer!.cancel();
+    }
+    debouncer = Timer(duration, callback);
+  }
+
   int currentPage = 0;
   late int totalPages = 0;
   List<Visitor> visitors = [];
@@ -57,28 +80,43 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
     return true;
   }
 
-  _searchFunction() async {
+  Future _searchFunction() async => debounce(()async {
+    print(_searchWords.text);
     var data = await Services().viewSentPasscodeReport(
       currentPage,
       widget.data['resident_code'],
-      _searchWords.text,
+      _searchWords.text.toString(),
     );
 
     final result = visitorsFromJson(data);
-    if (!mounted) return;
-    visitors = result.data;
-    setState(() {});
-  }
+    if(result.data.isEmpty){
+      print('empty');
+    }
+    setState(() {
+      visitors = result.data;
+    });
+  });
 
   Widget _buildSearchBar() {
-    return RoundedTextSearchField(
-      onChanged: (value) async{
-        _searchWords: value as String;
-        await _searchFunction();
-      },
-      hintText: 'Search',
-      controller: _searchWords,
-      icon: const Icon(Icons.search),
+    return Row(
+      children: [
+        RoundedTextSearchField(
+
+          hintText: 'Search',
+          controller: _searchWords,
+
+
+        ),
+
+        SizedBox(
+          height: 50,
+          width: 100,
+          child: ElevatedButton(onPressed: ()async {
+            await _searchFunction();
+          }, child: Icon(Icons.search),
+          ),
+        )
+      ],
     );
   }
 
@@ -144,26 +182,24 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
                     refreshController.loadFailed();
                   }
                 },
-                child:  ListView.builder(
+                child: ListView.builder(
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, index) {
-                    if(visitors[index] ==-1){
-                      return Text('couldnt find it');
-                    }
                     final visitor = visitors[index];
 
-                    return SingleChildScrollView(
-
-                      child: VisitorPasscodeReport(
-                        visitorsName: visitor.visitorName,
-                        residentName: visitor.residentName,
-                        address: visitor.residentAddress,
-                        residentMobile: visitor.residentMsisdn,
-                        visitorMobile: visitor.visitorMsisdn,
-                        visitorCode: visitor.visitor_code,
-                        date: visitor.createdDate,
-                      ),
-                    );
+                    return visitors.isEmpty
+                        ? Text('nothing yet')
+                        : SingleChildScrollView(
+                            child: VisitorPasscodeReport(
+                              visitorsName: visitor.visitorName,
+                              residentName: visitor.residentName,
+                              address: visitor.residentAddress,
+                              residentMobile: visitor.residentMsisdn,
+                              visitorMobile: visitor.visitorMsisdn,
+                              visitorCode: visitor.visitor_code,
+                              date: visitor.createdDate,
+                            ),
+                          );
                   },
                   itemCount: visitors.length,
                 ),

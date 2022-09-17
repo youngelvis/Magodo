@@ -82,7 +82,7 @@ class Services {
       "page": page,
       "limit": "10",
       "resident_code": residentCode,
-      "search": search
+      "search": search.toString()
     };
     var res = await CallApi().postData(data, 'viewSentPasscode');
 
@@ -149,7 +149,8 @@ class Services {
       address,
       residentType,
       validityStartsDate,
-      ValidityEndsDate) async {
+      ValidityEndsDate
+      ) async {
     var data = {
       "resident_code": residentCode,
       "full_name": fullName,

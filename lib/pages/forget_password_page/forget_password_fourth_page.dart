@@ -29,9 +29,8 @@ class _ForgetPasswordFourthPageState extends State<ForgetPasswordFourthPage> {
   _handleSubmit() async {
     var data = await Services()
         .resetPassword(widget.pinNumber, _password.text, _confirmPassword.text);
-    if (data['error'] == true) {
-      var message = data['message'];
-
+    if (data['error']['status'] == '400') {
+      var message = data['error']['message'];
       return showDialog(
         context: context,
         builder: (_) => AlertDialog(

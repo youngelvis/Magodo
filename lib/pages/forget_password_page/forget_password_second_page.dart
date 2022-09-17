@@ -43,6 +43,7 @@ class _ForgetPasswordSecondPageState extends State<ForgetPasswordSecondPage> {
 
   _handleSubmit() {
     var pinNumber = currentPin.join();
+    print(pinNumber);
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -85,7 +86,7 @@ class _ForgetPasswordSecondPageState extends State<ForgetPasswordSecondPage> {
                 ),
                 ActionPageButton(
                   text: 'Submit Code',
-                  onPressed: () {},
+                  onPressed: _handleSubmit(),
                 ),
               ],
             ),

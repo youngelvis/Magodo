@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/components_for_class_of_varable/category.dart';
 import 'package:magodo/components/roundedDropDownTextfield.dart';
+import 'package:magodo/components/textfieds_types/mobile_num_textfield.dart';
+import 'package:magodo/components/textfieds_types/name_textfield.dart';
 import 'package:magodo/pages/register_page/registration_page_components/registration_pages_forms.dart';
 import 'package:magodo/components/roundedInputField.dart';
 import 'package:magodo/components/roundedTextInputField.dart';
@@ -59,6 +61,7 @@ class _Registration_page3State extends State<Registration_page3> {
     Category.SALOON,
     Category.SUPER_MARKET,
   ];
+
   Widget _buildCategoryOptions() {
     return RoundedDropDownTextField(
       hint: const Text(
@@ -66,9 +69,10 @@ class _Registration_page3State extends State<Registration_page3> {
         style: TextStyle(fontSize: 15),
       ),
       value: categoryType,
-      onChanged: (value) => setState(() {
-        categoryType = value as String;
-      }),
+      onChanged: (value) =>
+          setState(() {
+            categoryType = value as String;
+          }),
       items: categoryOptions.map(buildResidentItem).toList(),
     );
   }
@@ -81,6 +85,7 @@ class _Registration_page3State extends State<Registration_page3> {
           style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
         ),
       );
+
   _registerCommercial() async {
     var data = await Services().registerCommercial(
         widget.password,
@@ -103,16 +108,17 @@ class _Registration_page3State extends State<Registration_page3> {
 
       return showDialog(
         context: context,
-        builder: (_) => AlertDialog(
-          title: Text(message),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("ok"))
-          ],
-        ),
+        builder: (_) =>
+            AlertDialog(
+              title: Text(message),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("ok"))
+              ],
+            ),
       );
     }
   }
@@ -122,7 +128,9 @@ class _Registration_page3State extends State<Registration_page3> {
       hintText: 'Enter business mobile number',
       controller: _businessMobileNumber,
       validator: (value) {
-        if (value!.isEmpty || !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9+$]').hasMatch(value!)) {
+        if (value!.isEmpty ||
+            !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9+$]').hasMatch(
+                value!)) {
           return "enter correct Business number";
         } else {
           return null;
@@ -178,7 +186,8 @@ class _Registration_page3State extends State<Registration_page3> {
       hintText: 'Enter business Email',
       controller: _businessEmail,
       validator: (value) {
-        if (value!.isEmpty || !RegExp(r'^[\w-\.]+@([\w-]+\.) +[\w]{2,4}').hasMatch(value!)) {
+        if (value!.isEmpty ||
+            !RegExp(r'^[\w-\.]+@([\w-]+\.) +[\w]{2,4}').hasMatch(value!)) {
           return "enter correct Business email";
         } else {
           return null;
@@ -202,19 +211,55 @@ class _Registration_page3State extends State<Registration_page3> {
             children: [
               const SignUpText(),
               RegistrationPagesForms(
-                RegistrationPageBody: RegistrationPage3Body(
-                  buildCategoryOptions: _buildCategoryOptions(),
-                  buildBusinessEmail: _buildBusinessEmail(),
-                  buildBusinessMobileNumber:
-                  _buildBusinessMobileNumber(),
-                  buildBusinessName: _buildBusinessName(),
-                  buildNumberOfStaffs: _buildNumberOfStaffs(),
-                  buildStreetNameOrAddress:
-                  _buildStreetNameOrAddress(),
+                RegistrationPageBody: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Text(
+                      'Category',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          color: color.AppColor.homePageTitle),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    _buildCategoryOptions(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    NameTextField(controller: _streetNameOrNumber, hint: 'Enter your street name', nameType: "Street Name/Address"),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    NameTextField(controller: _businessName, hint: 'Enter business name', nameType: "Business Name"),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    NameTextField(controller: _numberOfStaff,
+                        hint: 'Enter number of staff',
+                        nameType: "Number of Staffs"),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    MobileNumberTextField(controller: _businessMobileNumber,
+                        fieldName: 'Business Mobile Number',
+                        hintText: 'Enter business mobile number'),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    NameTextField(controller: _businessEmail, hint: 'Enter business email', nameType: "Business Email"),
+                    const SizedBox(
+                      height: 50,
+                    )
+                  ],
                 ),
                 reistrationPageButton: ActionPageButton(
                     onPressed: () async {
-                     await _registerCommercial();
+                      await _registerCommercial();
                     }, text: 'Register Now'),
               ),
               const SizedBox(
