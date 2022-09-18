@@ -49,8 +49,8 @@ class _SignINState extends State<SignIN> {
           actions: [
             TextButton(
                 onPressed: () {
-                  _residentCode.text = '';
-                  _password.text = '';
+                  _residentCode.clear();
+                  _password.clear();
                   Navigator.of(context).pop();
                 },
                 child: const Text("ok"))

@@ -4,6 +4,7 @@ import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/terms_and_conditions.dart';
 import 'package:magodo/components/textfieds_types/name_textfield.dart';
 import 'package:magodo/components/textfieds_types/password_textfield.dart';
+import 'package:magodo/pages/register_page/register_page.dart';
 import 'package:magodo/pages/register_page/registration_page_components/registration_pages_forms.dart';
 import 'package:magodo/pages/login_page/login_component/signUpText.dart';
 import 'package:magodo/pages/register_page/registration_page3.dart';
@@ -78,8 +79,8 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
         _confirmPassword.text,
         widget.mobileNumber);
 
-    if (data['error'] == true) {
-      var message = data['message'];
+    if (data['error']['status'] == "400") {
+      var message = data['error']['message'];
 
       return showDialog(
         context: context,
@@ -88,7 +89,8 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
           actions: [
             TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const SignUp()));
                 },
                 child: const Text("ok"))
           ],
@@ -160,12 +162,12 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
 
   DropdownMenuItem<String> buildResidentItem(String residentOptions) =>
       DropdownMenuItem(
-          value: residentOptions,
-          child: Text(
-            residentOptions,
-            style: const TextStyle(
-                fontWeight: FontWeight.normal, fontSize: 17),
-          ),);
+        value: residentOptions,
+        child: Text(
+          residentOptions,
+          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {

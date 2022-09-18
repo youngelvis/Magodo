@@ -27,7 +27,6 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -49,6 +48,7 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
   int currentPage = 0;
   late int totalPages = 0;
   List<Visitor> visitors = [];
+  List<Visitor> searchedVisitors = [];
   final RefreshController refreshController =
       RefreshController(initialRefresh: true);
 
@@ -80,42 +80,47 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
     return true;
   }
 
-  Future _searchFunction() async => debounce(()async {
-    print(_searchWords.text);
-    var data = await Services().viewSentPasscodeReport(
-      currentPage,
-      widget.data['resident_code'],
-      _searchWords.text.toString(),
-    );
+  Future _searchFunction() async => debounce(() async {
+    int page = 0;
+        print(_searchWords.text);
+        var data = await Services().viewSentPasscodeReport(
+          page,
+          widget.data['resident_code'],
+          _searchWords.text.toString(),
+        );
 
-    final result = visitorsFromJson(data);
-    if(result.data.isEmpty){
-      print('empty');
-    }
-    setState(() {
-      visitors = result.data;
-    });
-  });
+        final result = visitorsFromJson(data);
+        if (result.data.isEmpty) {
+          print('empty');
+        }
+        setState(() {
+         visitors = result.data;
+        });
+      });
 
   Widget _buildSearchBar() {
     return Row(
       children: [
-        RoundedTextSearchField(
-
-          hintText: 'Search',
-          controller: _searchWords,
-
-
-        ),
-
-        SizedBox(
-          height: 50,
-          width: 100,
-          child: ElevatedButton(onPressed: ()async {
-            await _searchFunction();
-          }, child: Icon(Icons.search),
+        Expanded(
+          child: RoundedTextSearchField(
+            icon: Icon(Icons.search),
+            onChanged: (value) async {
+              await _searchFunction();
+            },
+            hintText: 'Search',
+            controller: _searchWords,
           ),
-        )
+        ),
+        // SizedBox(
+        //   height: 50,
+        //   width: 50,
+        //   child: ElevatedButton(
+        //     onPressed: () async {
+        //       await _searchFunction();
+        //     },
+        //     child: Icon(Icons.search),
+        //   ),
+        // )
       ],
     );
   }
@@ -130,6 +135,7 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
           padding: const EdgeInsets.only(
             top: 20,
           ),
+
           child: Column(children: [
             const TitleContainer(title: 'Dashboard'),
             Container(
@@ -182,27 +188,27 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
                     refreshController.loadFailed();
                   }
                 },
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, index) {
-                    final visitor = visitors[index];
+                child: visitors.isEmpty
+                    ? const Text('nothing yet')
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, index) {
+                          final visitor =  visitors[index];
 
-                    return visitors.isEmpty
-                        ? Text('nothing yet')
-                        : SingleChildScrollView(
+                          return SingleChildScrollView(
                             child: VisitorPasscodeReport(
-                              visitorsName: visitor.visitorName,
-                              residentName: visitor.residentName,
-                              address: visitor.residentAddress,
-                              residentMobile: visitor.residentMsisdn,
-                              visitorMobile: visitor.visitorMsisdn,
-                              visitorCode: visitor.visitor_code,
-                              date: visitor.createdDate,
+                              visitorsName: visitor.visitorName ?? '',
+                              residentName: visitor.residentName?? '',
+                              address: visitor.residentAddress?? '',
+                              residentMobile: visitor.residentMsisdn?? '',
+                              visitorMobile: visitor.visitorMsisdn?? '',
+                              visitorCode: visitor.visitor_code?? '',
+                              date: visitor.createdDate?? '',
                             ),
                           );
-                  },
-                  itemCount: visitors.length,
-                ),
+                        },
+                        itemCount:visitors.length,
+                      ),
               ),
             )
           ]),

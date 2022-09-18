@@ -156,10 +156,7 @@ class _SignUpState extends State<SignUp> {
                   reistrationPageButton: ActionPageButton(
                       text: 'Next',
                       onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          final snackBar = SnackBar(content: _nextButton());
-                          scaffoldKey.currentState!.showSnackBar(snackBar);
-                        }
+                        _nextButton();
                       }),
                 )
               ],

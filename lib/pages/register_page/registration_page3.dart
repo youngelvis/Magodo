@@ -3,6 +3,7 @@ import 'package:magodo/components/components_for_class_of_varable/category.dart'
 import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/textfieds_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfieds_types/name_textfield.dart';
+import 'package:magodo/pages/register_page/register_page.dart';
 import 'package:magodo/pages/register_page/registration_page_components/registration_pages_forms.dart';
 import 'package:magodo/components/roundedInputField.dart';
 import 'package:magodo/components/roundedTextInputField.dart';
@@ -10,7 +11,6 @@ import 'package:magodo/pages/login_page/login_component/signUpText.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/services/services.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
-import 'package:magodo/pages/register_page/registration_page_components/registration_page3_body.dart';
 
 class Registration_page3 extends StatefulWidget {
   String mobileNumber,
@@ -69,10 +69,9 @@ class _Registration_page3State extends State<Registration_page3> {
         style: TextStyle(fontSize: 15),
       ),
       value: categoryType,
-      onChanged: (value) =>
-          setState(() {
-            categoryType = value as String;
-          }),
+      onChanged: (value) => setState(() {
+        categoryType = value as String;
+      }),
       items: categoryOptions.map(buildResidentItem).toList(),
     );
   }
@@ -103,22 +102,22 @@ class _Registration_page3State extends State<Registration_page3> {
         categoryType,
         _streetNameOrNumber.text,
         _businessMobileNumber.text);
-    if (data['error'] == true) {
-      var message = data['message'];
+    if (data['error']['status'] == "400") {
+      var message = data['error']['message'];
 
       return showDialog(
         context: context,
-        builder: (_) =>
-            AlertDialog(
-              title: Text(message),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("ok"))
-              ],
-            ),
+        builder: (_) => AlertDialog(
+          title: Text(message),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const SignUp()));
+                },
+                child: const Text("ok"))
+          ],
+        ),
       );
     }
   }
@@ -129,8 +128,8 @@ class _Registration_page3State extends State<Registration_page3> {
       controller: _businessMobileNumber,
       validator: (value) {
         if (value!.isEmpty ||
-            !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9+$]').hasMatch(
-                value!)) {
+            !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9+$]')
+                .hasMatch(value!)) {
           return "enter correct Business number";
         } else {
           return null;
@@ -231,27 +230,38 @@ class _Registration_page3State extends State<Registration_page3> {
                     const SizedBox(
                       height: 20,
                     ),
-                    NameTextField(controller: _streetNameOrNumber, hint: 'Enter your street name', nameType: "Street Name/Address"),
+                    NameTextField(
+                        controller: _streetNameOrNumber,
+                        hint: 'Enter your street name',
+                        nameType: "Street Name/Address"),
                     const SizedBox(
                       height: 20,
                     ),
-                    NameTextField(controller: _businessName, hint: 'Enter business name', nameType: "Business Name"),
+                    NameTextField(
+                        controller: _businessName,
+                        hint: 'Enter business name',
+                        nameType: "Business Name"),
                     const SizedBox(
                       height: 20,
                     ),
-                    NameTextField(controller: _numberOfStaff,
+                    NameTextField(
+                        controller: _numberOfStaff,
                         hint: 'Enter number of staff',
                         nameType: "Number of Staffs"),
                     const SizedBox(
                       height: 20,
                     ),
-                    MobileNumberTextField(controller: _businessMobileNumber,
+                    MobileNumberTextField(
+                        controller: _businessMobileNumber,
                         fieldName: 'Business Mobile Number',
                         hintText: 'Enter business mobile number'),
                     const SizedBox(
                       height: 20,
                     ),
-                    NameTextField(controller: _businessEmail, hint: 'Enter business email', nameType: "Business Email"),
+                    NameTextField(
+                        controller: _businessEmail,
+                        hint: 'Enter business email',
+                        nameType: "Business Email"),
                     const SizedBox(
                       height: 50,
                     )
@@ -260,7 +270,8 @@ class _Registration_page3State extends State<Registration_page3> {
                 reistrationPageButton: ActionPageButton(
                     onPressed: () async {
                       await _registerCommercial();
-                    }, text: 'Register Now'),
+                    },
+                    text: 'Register Now'),
               ),
               const SizedBox(
                 height: 50,
