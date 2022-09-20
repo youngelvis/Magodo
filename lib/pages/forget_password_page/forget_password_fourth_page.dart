@@ -4,6 +4,7 @@ import 'package:magodo/components/roundedPasswordInput.dart';
 import 'package:magodo/components/textfieds_types/name_textfield.dart';
 import 'package:magodo/components/textfieds_types/password_textfield.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_heading.dart';
+import 'package:magodo/pages/login_page/login_page.dart';
 import 'package:magodo/services/services.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
@@ -25,8 +26,12 @@ class _ForgetPasswordFourthPageState extends State<ForgetPasswordFourthPage> {
 
 
   _handleSubmit() async {
+    if(_pinNumber.text.isEmpty|| _password.text.isEmpty|| _confirmPassword.text.isEmpty){
+
+    }
     var data = await Services()
         .resetPassword(_pinNumber.text, _password.text, _confirmPassword.text);
+
     if (data['error']['status'] == '400') {
       var message = data['error']['message'];
       return showDialog(
@@ -43,6 +48,19 @@ class _ForgetPasswordFourthPageState extends State<ForgetPasswordFourthPage> {
         ),
       );
     }
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Successfully changed your password'),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder:(context)=> const SignIN()));
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
   }
 
 
@@ -54,7 +72,7 @@ class _ForgetPasswordFourthPageState extends State<ForgetPasswordFourthPage> {
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.only(
-              top: 60,
+              top: 60, left: 30, right: 30
             ),
             color: color.AppColor.homePageBackground,
             child: Column(

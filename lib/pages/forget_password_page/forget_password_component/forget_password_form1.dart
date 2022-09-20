@@ -18,41 +18,12 @@ class ForgetPasswordForm1 extends StatelessWidget {
         const SizedBox(
           height: 40,
         ),
-        Text(
-          'Resident code',
-          style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-              color: color.AppColor.homePageTitle),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
+
         residentCode,
         const SizedBox(
           height: 20,
         ),
-        Text(
-          'mobile number',
-          style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-              color: color.AppColor.homePageTitle),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
         mobileNumber,
-        const SizedBox(
-          height: 20,
-        ),
-        Text(
-          'Mobile Email Address',
-          style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-              color: color.AppColor.homePageTitle),
-        ),
         const SizedBox(
           height: 20,
         ),

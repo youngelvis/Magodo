@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/roundedInputField.dart';
 import 'package:magodo/components/roundedTextInputField.dart';
+import 'package:magodo/components/textfieds_types/mobile_num_textfield.dart';
+import 'package:magodo/components/textfieds_types/name_textfield.dart';
+import 'package:magodo/components/textfieds_types/resident_code.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_form1.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_heading.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_fourth_page.dart';
@@ -24,7 +27,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     return RoundedInputField(
       hintText: 'Enter your mobile number',
       controller: _mobileNumber,
-
     );
   }
 
@@ -32,7 +34,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     return RoundedTextInputField(
       hintText: 'Enter resident code',
       controller: _residentCode,
-
     );
   }
 
@@ -47,15 +48,33 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                const ForgetPasswordFourthPage()));
+            builder: (context) => const ForgetPasswordFourthPage()));
   }
 
   _getPassCode() async {
+    if (_residentCode.text.isEmpty ||
+        _email.text.isEmpty ||
+        _mobileNumber.text.isEmpty) {
+      // var data = await Services().forgetPasswordGenerateToken(
+      //     _residentCode.text, _email.text, _mobileNumber.text);
+      // var message = data['error']['message'];
+      //
+      // return showDialog(
+      //   context: context,
+      //   builder: (_) => AlertDialog(
+      //     title: Text(message),
+      //     actions: [
+      //       TextButton(
+      //           onPressed: () {
+      //             Navigator.of(context).pop();
+      //           },
+      //           child: const Text("ok"))
+      //     ],
+      //   ),
+      // );
+    }
     var data = await Services().forgetPasswordGenerateToken(
         _residentCode.text, _email.text, _mobileNumber.text);
-    print(data);
-
 
     if (data['error'] == true) {
       var message = data['message'];
@@ -73,8 +92,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           ],
         ),
       );
-    }
-    else {
+    } else {
       _navigation();
     }
   }
@@ -99,9 +117,19 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   height: 20,
                 ),
                 ForgetPasswordForm1(
-                    residentCode: _buildResidentCode(),
-                    mobileNumber: _buildMobileNumber(),
-                    email: _buildEmail()),
+                    residentCode: BuildResidentCode(
+                      residentCode: _residentCode,
+                    ),
+                    mobileNumber: MobileNumberTextField(
+                      controller: _mobileNumber,
+                      fieldName: 'Mobile Number',
+                      hintText: 'enter your mobile number',
+                    ),
+                    email: NameTextField(
+                      controller: _email,
+                      hint: 'enter your email',
+                      nameType: ' E-mail',
+                    )),
                 const SizedBox(
                   height: 120,
                 ),
