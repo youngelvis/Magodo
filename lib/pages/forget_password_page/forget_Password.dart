@@ -4,7 +4,7 @@ import 'package:magodo/components/roundedInputField.dart';
 import 'package:magodo/components/roundedTextInputField.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_form1.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_heading.dart';
-import 'package:magodo/pages/forget_password_page/forget_password_second_page.dart';
+import 'package:magodo/pages/forget_password_page/forget_password_fourth_page.dart';
 import 'package:magodo/services/services.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
@@ -48,15 +48,17 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                ForgetPasswordSecondPage(mobileNumber: _mobileNumber.text)));
+                const ForgetPasswordFourthPage()));
   }
 
   _getPassCode() async {
     var data = await Services().forgetPasswordGenerateToken(
         _residentCode.text, _email.text, _mobileNumber.text);
+    print(data);
 
-    if (data['error']['status'] == '400') {
-      var message = data['error']['message'];
+
+    if (data['error'] == true) {
+      var message = data['message'];
 
       return showDialog(
         context: context,
@@ -71,7 +73,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           ],
         ),
       );
-    } else {
+    }
+    else {
       _navigation();
     }
   }

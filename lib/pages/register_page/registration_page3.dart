@@ -5,8 +5,6 @@ import 'package:magodo/components/textfieds_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfieds_types/name_textfield.dart';
 import 'package:magodo/pages/register_page/register_page.dart';
 import 'package:magodo/pages/register_page/registration_page_components/registration_pages_forms.dart';
-import 'package:magodo/components/roundedInputField.dart';
-import 'package:magodo/components/roundedTextInputField.dart';
 import 'package:magodo/pages/login_page/login_component/signUpText.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/services/services.dart';
@@ -122,78 +120,6 @@ class _Registration_page3State extends State<Registration_page3> {
     }
   }
 
-  Widget _buildBusinessMobileNumber() {
-    return RoundedInputField(
-      hintText: 'Enter business mobile number',
-      controller: _businessMobileNumber,
-      validator: (value) {
-        if (value!.isEmpty ||
-            !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9+$]')
-                .hasMatch(value!)) {
-          return "enter correct Business number";
-        } else {
-          return null;
-        }
-      },
-    );
-  }
-
-  Widget _buildNumberOfStaffs() {
-    return RoundedInputField(
-      hintText: 'Enter number of staff',
-      controller: _numberOfStaff,
-      validator: (value) {
-        if (value!.isEmpty || !RegExp(r'^[0-9]+$').hasMatch(value!)) {
-          return "enter correct number of staff";
-        } else {
-          return null;
-        }
-      },
-    );
-  }
-
-  Widget _buildStreetNameOrAddress() {
-    return RoundedTextInputField(
-      hintText: 'Enter your street name',
-      controller: _streetNameOrNumber,
-      validator: (value) {
-        if (value!.isEmpty || !RegExp(r'^[A-Za-z0-9_-]*$').hasMatch(value!)) {
-          return "enter correct business address";
-        } else {
-          return null;
-        }
-      },
-    );
-  }
-
-  Widget _buildBusinessName() {
-    return RoundedTextInputField(
-      hintText: 'Enter business name',
-      controller: _businessName,
-      validator: (value) {
-        if (value!.isEmpty || !RegExp(r'^[a-z A-Z]+$]').hasMatch(value!)) {
-          return "enter correct Business name";
-        } else {
-          return null;
-        }
-      },
-    );
-  }
-
-  Widget _buildBusinessEmail() {
-    return RoundedTextInputField(
-      hintText: 'Enter business Email',
-      controller: _businessEmail,
-      validator: (value) {
-        if (value!.isEmpty ||
-            !RegExp(r'^[\w-\.]+@([\w-]+\.) +[\w]{2,4}').hasMatch(value!)) {
-          return "enter correct Business email";
-        } else {
-          return null;
-        }
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/roundedPasswordInput.dart';
-import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_form2.dart';
+import 'package:magodo/components/textfieds_types/name_textfield.dart';
+import 'package:magodo/components/textfieds_types/password_textfield.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_heading.dart';
 import 'package:magodo/services/services.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
 class ForgetPasswordFourthPage extends StatefulWidget {
-  final pinNumber;
-
   const ForgetPasswordFourthPage({
     Key? key,
-    required this.pinNumber,
   }) : super(key: key);
 
   @override
@@ -21,14 +19,14 @@ class ForgetPasswordFourthPage extends StatefulWidget {
 
 TextEditingController _password = TextEditingController();
 TextEditingController _confirmPassword = TextEditingController();
+TextEditingController _pinNumber = TextEditingController();
 
 class _ForgetPasswordFourthPageState extends State<ForgetPasswordFourthPage> {
-  bool _obscureText = true;
-  bool _obscureText2 = true;
+
 
   _handleSubmit() async {
     var data = await Services()
-        .resetPassword(widget.pinNumber, _password.text, _confirmPassword.text);
+        .resetPassword(_pinNumber.text, _password.text, _confirmPassword.text);
     if (data['error']['status'] == '400') {
       var message = data['error']['message'];
       return showDialog(
@@ -47,33 +45,6 @@ class _ForgetPasswordFourthPageState extends State<ForgetPasswordFourthPage> {
     }
   }
 
-  Widget _buildPassword() {
-    return RoundedPasswordField(
-        obscureText: _obscureText,
-        controller: _password,
-        suffixIcon: GestureDetector(
-            onTap: () {
-              setState(() {
-                _obscureText = !_obscureText;
-              });
-            },
-            child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off,
-                color: color.AppColor.landingPageTitle)));
-  }
-
-  Widget _buildConfirmPassword() {
-    return RoundedPasswordField(
-        obscureText: _obscureText2,
-        controller: _confirmPassword,
-        suffixIcon: GestureDetector(
-            onTap: () {
-              setState(() {
-                _obscureText2 = !_obscureText2;
-              });
-            },
-            child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off,
-                color: color.AppColor.landingPageTitle)));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,9 +61,29 @@ class _ForgetPasswordFourthPageState extends State<ForgetPasswordFourthPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const ForgetPasswordHeading(),
-                ForgetPasswordForm2(
-                  password: _buildPassword(),
-                  confirmPassword: _buildConfirmPassword(),
+                const SizedBox(
+                  height: 40,
+                ),
+                NameTextField(
+                    controller: _pinNumber,
+                    hint: 'pin',
+                    nameType: 'Pin from sms'),
+                const SizedBox(
+                  height: 20,
+                ),
+                BuildPasswordTextField(
+                    passwordController: _password, fieldName: 'Password'),
+                const SizedBox(
+                  height: 20,
+                ),
+                BuildPasswordTextField(
+                    passwordController: _confirmPassword,
+                    fieldName: 'Confirm Password'),
+                const SizedBox(
+                  height: 20,
+                ),
+                const SizedBox(
+                  height: 50,
                 ),
                 const SizedBox(
                   height: 120,

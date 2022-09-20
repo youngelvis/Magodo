@@ -30,16 +30,8 @@ class _SignINState extends State<SignIN> {
   }
 
   _login() async {
-    var data = await Services().login(_residentCode.text, _password.text);
-    if (data['error'] == false) {
-      if (data['data']['usr_group'] == UserGroup.MEMBER) {
-        _navigation(
-          ResidentPageLandingPage(
-            data: data['data'],
-          ),
-        );
-      } else if (data['data']['usr_group'] == UserGroup.PROPERTY_OWNER) {}
-    } else if (data['error']['status'] == '400') {
+    if(_residentCode.text.isEmpty|| _password.text.isEmpty){
+      var data = await Services().login(_residentCode.text, _password.text);
       var message = data['error']['message'];
 
       return showDialog(
@@ -57,6 +49,16 @@ class _SignINState extends State<SignIN> {
           ],
         ),
       );
+    }
+    var data = await Services().login(_residentCode.text, _password.text);
+    if (data['error'] == false) {
+      if (data['data']['usr_group'] == UserGroup.MEMBER) {
+        _navigation(
+          ResidentPageLandingPage(
+            data: data['data'],
+          ),
+        );
+      } else if (data['data']['usr_group'] == UserGroup.PROPERTY_OWNER) {}
     } else {
       var message = data['message'];
 
@@ -67,15 +69,15 @@ class _SignINState extends State<SignIN> {
           actions: [
             TextButton(
                 onPressed: () {
-                  _residentCode.text = '';
-                  _password.text = '';
+                  _residentCode.clear();
+                  _password.clear();
                   Navigator.of(context).pop();
                 },
                 child: const Text("ok"))
           ],
         ),
       );
-    }
+     }
   }
 
   @override

@@ -45,15 +45,15 @@ class Visitor {
     required this.rowNumber,
   });
 
-  String residentMsisdn;
-  String residentCode;
-  String residentName;
-  String residentAddress;
-  String visitorMsisdn;
-  String visitorName;
-  String createdDate;
-  String visitor_code;
-  String rowNumber;
+  String? residentMsisdn;
+  String? residentCode;
+  String? residentName;
+  String? residentAddress;
+  String? visitorMsisdn;
+  String? visitorName;
+  String? createdDate;
+  String? visitor_code;
+  String? rowNumber;
 
   factory Visitor.fromJson(Map<String, dynamic> json) => Visitor(
     residentMsisdn: json["RESIDENT_MSISDN"],

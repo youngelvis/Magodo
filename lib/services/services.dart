@@ -253,7 +253,7 @@ class Services {
       "isChecked": isChecked,
     };
 
-    var res = await CallApi().postData(data, 'doNotHonor');
+    var res = await CallApi().putData(data, 'doNotHonor');
     var body = jsonDecode(res.body);
     return body;
   }

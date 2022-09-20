@@ -81,7 +81,7 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
   }
 
   Future _searchFunction() async => debounce(() async {
-    int page = 0;
+        int page = 0;
         print(_searchWords.text);
         var data = await Services().viewSentPasscodeReport(
           page,
@@ -94,7 +94,7 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
           print('empty');
         }
         setState(() {
-         visitors = result.data;
+          visitors = result.data;
         });
       });
 
@@ -135,7 +135,6 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
           padding: const EdgeInsets.only(
             top: 20,
           ),
-
           child: Column(children: [
             const TitleContainer(title: 'Dashboard'),
             Container(
@@ -193,21 +192,21 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
                     : ListView.builder(
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, index) {
-                          final visitor =  visitors[index];
+                          final visitor = visitors[index];
 
                           return SingleChildScrollView(
                             child: VisitorPasscodeReport(
                               visitorsName: visitor.visitorName ?? '',
-                              residentName: visitor.residentName?? '',
-                              address: visitor.residentAddress?? '',
-                              residentMobile: visitor.residentMsisdn?? '',
-                              visitorMobile: visitor.visitorMsisdn?? '',
-                              visitorCode: visitor.visitor_code?? '',
-                              date: visitor.createdDate?? '',
+                              residentName: visitor.residentName ?? '',
+                              address: visitor.residentAddress ?? '',
+                              residentMobile: visitor.residentMsisdn ?? '',
+                              visitorMobile: visitor.visitorMsisdn ?? '',
+                              visitorCode: visitor.visitor_code ?? '',
+                              date: visitor.createdDate ?? '',
                             ),
                           );
                         },
-                        itemCount:visitors.length,
+                        itemCount: visitors.length,
                       ),
               ),
             )
