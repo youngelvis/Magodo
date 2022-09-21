@@ -55,23 +55,23 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     if (_residentCode.text.isEmpty ||
         _email.text.isEmpty ||
         _mobileNumber.text.isEmpty) {
-      // var data = await Services().forgetPasswordGenerateToken(
-      //     _residentCode.text, _email.text, _mobileNumber.text);
-      // var message = data['error']['message'];
-      //
-      // return showDialog(
-      //   context: context,
-      //   builder: (_) => AlertDialog(
-      //     title: Text(message),
-      //     actions: [
-      //       TextButton(
-      //           onPressed: () {
-      //             Navigator.of(context).pop();
-      //           },
-      //           child: const Text("ok"))
-      //     ],
-      //   ),
-      // );
+      var data = await Services().forgetPasswordGenerateToken(
+          _residentCode.text, _email.text, _mobileNumber.text);
+      var message = data['error']['message'];
+
+      return showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(message),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("ok"))
+          ],
+        ),
+      );
     }
     var data = await Services().forgetPasswordGenerateToken(
         _residentCode.text, _email.text, _mobileNumber.text);

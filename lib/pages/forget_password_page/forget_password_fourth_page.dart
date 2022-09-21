@@ -32,8 +32,8 @@ class _ForgetPasswordFourthPageState extends State<ForgetPasswordFourthPage> {
     var data = await Services()
         .resetPassword(_pinNumber.text, _password.text, _confirmPassword.text);
 
-    if (data['error']['status'] == '400') {
-      var message = data['error']['message'];
+    if (data['error']) {
+      var message = data['message'];
       return showDialog(
         context: context,
         builder: (_) => AlertDialog(
