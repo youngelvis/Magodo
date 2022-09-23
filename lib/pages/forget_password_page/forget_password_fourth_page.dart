@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
-import 'package:magodo/components/roundedPasswordInput.dart';
 import 'package:magodo/components/textfieds_types/name_textfield.dart';
 import 'package:magodo/components/textfieds_types/password_textfield.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_heading.dart';

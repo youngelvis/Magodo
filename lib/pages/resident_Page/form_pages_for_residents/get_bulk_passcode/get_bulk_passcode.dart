@@ -5,9 +5,9 @@ import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/date_text_field.dart';
 import 'package:magodo/components/text_for_form.dart';
 import 'package:magodo/components/time_text_field.dart';
+import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_bulk_passcode/upload_file.dart';
 import 'package:path/path.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
-
 
 class GetBulkPasscode extends StatefulWidget {
   const GetBulkPasscode({Key? key}) : super(key: key);
@@ -21,17 +21,29 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
   TextEditingController _arrivalTime = TextEditingController();
   TextEditingController _departureTime = TextEditingController();
   File? file;
-  Future selectFile()async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
-    if(result == null)return;
+
+  Future selectFile() async {
+    final result = await FilePicker.platform.pickFiles(
+      allowedExtensions: ['csv']
+    );
+    if (result == null) return;
+    // final file = result.files.first;
     final path = result.files.single.path!;
-    setState(()=> file = File(path));
+    setState(() {
+      file = File(path);
+    });
+
   }
+  Future getBulkPasscode () async {
+    if(file == null) return;
+    final fileName = basename(file!.path);
+
+  }
+
   final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final fileName = file != null ? basename(file!.path): 'No File selected';
     return GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
@@ -68,24 +80,35 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              ActionPageButton(onPressed: selectFile(), text: 'select file'),
-                              Text(fileName),
+
+                              UploadFile(onPressed: () async {
+                                await selectFile();
+                              }),
+                              const SizedBox(height: 10,),
+                              const Text('Supported file types: csv'),
+                              const SizedBox(height: 30,),
                               const TextForForm(text: "Arrival Date"),
                               CustomDatePicker(date: _date),
                               const TextForForm(text: "Arrival Time"),
-                              CustomTimePicker(departureTime: _arrivalTime, hint: 'select arrival time',),
+                              CustomTimePicker(
+                                departureTime: _arrivalTime,
+                                hint: 'select arrival time',
+                              ),
                               const SizedBox(
                                 height: 30,
                               ),
                               const TextForForm(text: "Departure Time"),
-                              CustomTimePicker(departureTime: _departureTime, hint: 'select departure time',),
+                              CustomTimePicker(
+                                departureTime: _departureTime,
+                                hint: 'select departure time',
+                              ),
                               const SizedBox(
-                                height: 30,
+                                height: 50,
                               ),
                               ActionPageButton(
                                   onPressed: () {}, text: 'Get Passcode'),
                               const SizedBox(
-                                height: 30,
+                                height: 50,
                               ),
                             ]),
                       ),

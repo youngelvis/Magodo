@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/text_button_nav_page.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/add_staff/add_staff.dart';
+import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_bulk_passcode/get_bulk_passcode.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_future_passcode.dart';
 import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
@@ -56,7 +57,7 @@ class ResidentNavigationPage extends StatelessWidget {
                         icon: Icons.shopping_bag,
                         text: 'Get Passcode',
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const GetFuturePasscode()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const GetBulkPasscode()));
                         }),
                     NavTextButton(
                         icon: Icons.family_restroom,
