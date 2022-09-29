@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:magodo/components/components_for_class_of_varable/zones.dart';
 import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/terms_and_conditions.dart';
-import 'package:magodo/components/textfieds_types/name_textfield.dart';
-import 'package:magodo/components/textfieds_types/password_textfield.dart';
+import 'package:magodo/components/text_for_form.dart';
+import 'package:magodo/components/textfields_types/name_textfield.dart';
+import 'package:magodo/components/textfields_types/password_textfield.dart';
 import 'package:magodo/pages/register_page/register_page.dart';
 import 'package:magodo/pages/register_page/registration_page_components/registration_pages_forms.dart';
 import 'package:magodo/pages/login_page/login_component/signUpText.dart';
@@ -192,13 +193,8 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                     const SizedBox(
                       height: 40,
                     ),
-                    Text(
-                      'Zone',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          color: color.AppColor.homePageTitle),
-                    ),
+
+                    const TextForForm(text: "Zone"),
                     const SizedBox(
                       height: 20,
                     ),
@@ -213,16 +209,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Text(
-                      'Residential Type',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          color: color.AppColor.homePageTitle),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const TextForForm(text: "Residential Type"),
                     _buildResidentialType(),
                     const SizedBox(
                       height: 20,

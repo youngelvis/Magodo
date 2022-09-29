@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/roundedDropDownTextfield.dart';
-import 'package:magodo/components/textfieds_types/mobile_num_textfield.dart';
-import 'package:magodo/components/textfieds_types/name_textfield.dart';
+import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
+import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 import 'package:magodo/services/services.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
@@ -50,8 +50,8 @@ class _GetPasscodeState extends State<GetPasscode> {
         ),
       );
     }
-    var data = await Services().getPasscode(_mobileNumber, _visitorName,
-        widget.data['resident_code'], noOfVisitors, '');
+    var data = await Services().getPasscode(_mobileNumber.text, _visitorName.text,
+        widget.data['resident_code'], noOfVisitors, _email.text);
     var message = data['error']['message'];
 
     return showDialog(
@@ -141,9 +141,9 @@ class _GetPasscodeState extends State<GetPasscode> {
                                 height: 20,
                               ),
                               NameTextField(
-                                  controller: _email,
-                                  hint: 'Enter your Email',
-                                  nameType: 'Email (Optional)'),
+                                  controller: _visitorName,
+                                  hint: "Enter your visitor's name",
+                                  nameType: "Visitor's name"),
                               const SizedBox(
                                 height: 20,
                               ),

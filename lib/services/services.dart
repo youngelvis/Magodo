@@ -226,7 +226,7 @@ class Services {
   }
 
   //11
-  addFamilyMember(residentPhone, fullName, residentCode, email, password,
+  addFamilyMember( residentCode,residentPhone, fullName, email, password,
       ConfirmPassword) async {
     var data = {
       "resident_code": residentCode,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/components_for_class_of_varable/category.dart';
 import 'package:magodo/components/roundedDropDownTextfield.dart';
-import 'package:magodo/components/textfieds_types/mobile_num_textfield.dart';
-import 'package:magodo/components/textfieds_types/name_textfield.dart';
+import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
+import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/pages/register_page/register_page.dart';
 import 'package:magodo/pages/register_page/registration_page_components/registration_pages_forms.dart';
 import 'package:magodo/pages/login_page/login_component/signUpText.dart';

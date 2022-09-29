@@ -65,7 +65,7 @@ class ResidentNavigationPage extends StatelessWidget {
                         icon: Icons.family_restroom,
                         text: 'Family',
                         onPressed: () {
-
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => AddStaff(data: data,)));
                         }),
                     NavTextButton(
                         icon: Icons.engineering,

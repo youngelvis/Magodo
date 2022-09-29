@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
+import 'package:magodo/components/date_text_field.dart';
 import 'package:magodo/components/roundedDropDownTextfield.dart';
-import 'package:magodo/components/roundedInputField.dart';
-import 'package:magodo/components/roundedTextDateInput.dart';
-import 'package:magodo/components/roundedTextInputField.dart';
 import 'package:magodo/components/text_for_form.dart';
-import '/../../components/components_for_class_of_varable/colors.dart' as color;
+import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
+import 'package:magodo/components/textfields_types/name_textfield.dart';
+import 'package:magodo/components/time_text_field.dart';
+import 'package:magodo/services/services.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
-import 'package:intl/intl.dart';
-
 class GetFuturePasscode extends StatefulWidget {
   final data;
+
   const GetFuturePasscode({Key? key, required this.data}) : super(key: key);
 
   @override
@@ -20,6 +20,9 @@ class GetFuturePasscode extends StatefulWidget {
 TextEditingController _mobileNumber = TextEditingController();
 TextEditingController _visitorName = TextEditingController();
 TextEditingController _email = TextEditingController();
+TextEditingController _date = TextEditingController();
+TextEditingController _arrivalTime = TextEditingController();
+TextEditingController _departureTime = TextEditingController();
 
 class _GetFuturePasscodeState extends State<GetFuturePasscode> {
   String? noOfVisitors;
@@ -48,142 +51,58 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
         ),
       );
 
-  Widget _buildMobileNumber() {
-    return RoundedInputField(
-      hintText: "Enter Visitor's mobile number",
-      controller: _mobileNumber,
-      validator: (value) {
-        if (value!.isEmpty ||
-            !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9+$]')
-                .hasMatch(value!)) {
-          return "enter correct mobile Number";
-        } else {
-          return null;
-        }
-      },
+  _getFuturePasscode() async {
+    if (_email.text.isEmpty) {
+      var data = await Services().getFuturePasscode(
+          _mobileNumber.text,
+          _visitorName.text,
+          widget.data['resident_code'],
+          noOfVisitors,
+          '',
+          _date.text,
+          _arrivalTime.text,
+          _departureTime.text);
+      var message = data['error']['message'];
+
+      return showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(message),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("ok"))
+          ],
+        ),
+      );
+    }
+    var data = await Services().getFuturePasscode(
+        _mobileNumber.text,
+        _visitorName.text,
+        widget.data['resident_code'],
+        noOfVisitors,
+        _email.text,
+        _date.text,
+        _arrivalTime.text,
+        _departureTime.text);
+    var message = data['error']['message'];
+
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
     );
   }
-
-  Widget _buildFirstName() {
-    return RoundedTextInputField(
-      hintText: 'Enter your visitor name',
-      controller: _visitorName,
-      validator: (value) {
-        if (value!.isEmpty || !RegExp(r'^[a-z A-Z]').hasMatch(value!)) {
-          return "enter correct name";
-        } else {
-          return null;
-        }
-      },
-    );
-  }
-
-  Widget _buildEmail() {
-    return RoundedTextInputField(
-      hintText: 'Enter email address',
-      controller: _email,
-      validator: (value) {
-        if (value!.isEmpty ||
-            !RegExp(r'[a-z0-9]+@[a-z]+\.[a-z]{2,3}').hasMatch(value!)) {
-          return "enter correct email";
-        } else {
-          return null;
-        }
-      },
-    );
-  }
-
-  TextEditingController _date = TextEditingController();
-  TextEditingController _arrivalTime = TextEditingController();
-  TextEditingController _departureTime = TextEditingController();
-
-  _buildArrivalDate() {
-    return RoundedTextDateInput(
-      hintText: 'mm/dd/yy',
-      controller: _date,
-      onTap: () async {
-        DateTime? _datePicker = await showDatePicker(
-          context: context,
-          initialDate: DateTime.now(),
-          firstDate: DateTime(2022),
-          lastDate: DateTime(2100),
-          builder: (context, child) {
-            return Theme(
-              data: Theme.of(context).copyWith(
-                colorScheme: ColorScheme.light(
-                  primary: color.AppColor.homePageTheme, // <-- SEE HERE
-                  onPrimary: Colors.white, // <-- SEE HERE
-                  onSurface: Colors.black, // <-- SEE HERE
-                ),
-                textButtonTheme: TextButtonThemeData(
-                  style: TextButton.styleFrom(
-                    primary: color.AppColor.homePageTheme, // button text color
-                  ),
-                ),
-              ),
-              child: child!,
-            );
-          },
-        );
-        if (_datePicker != null) {
-          String formattedDate = DateFormat("MM/dd/yyyy").format(_datePicker);
-          setState(() {
-            _date.text = formattedDate.toString();
-            print(_date.toString());
-          });
-        } else {
-          print('select date');
-        }
-      },
-      icon: Icons.calendar_month_rounded,
-    );
-  }
-
-  _buildArrivalTime() {
-    return RoundedTextDateInput(
-      hintText: 'time of arrival',
-      controller: _arrivalTime,
-      onTap: () async {
-        TimeOfDay? _timePicker = await showTimePicker(
-          context: context,
-          initialTime: TimeOfDay(hour: 12, minute: 30),
-        );
-        if (_timePicker != null) {
-          setState(() {
-            _arrivalTime.text = _timePicker.format(context);
-            print(_arrivalTime.text);
-          });
-        } else {
-          return;
-        }
-      },
-      icon: Icons.access_time,
-    );
-  }
-
-  _buildDepertureTime() {
-    return RoundedTextDateInput(
-      hintText: 'time of departure',
-      controller: _departureTime,
-      onTap: () async {
-        TimeOfDay? _timePicker = await showTimePicker(
-          context: context,
-          initialTime: const TimeOfDay(hour: 12, minute: 30),
-        );
-        if (_timePicker != null) {
-          setState(() {
-            _departureTime.text = _timePicker.format(context);
-            print(_departureTime.text);
-          });
-        } else {
-          return;
-        }
-      },
-      icon: Icons.access_time,
-    );
-  }
-
-  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -219,51 +138,61 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
                 Expanded(
                   child: OverflowBox(
                     child: SingleChildScrollView(
-
                       child: Form(
-                        key: formKey,
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const TextForForm(text: 'Mobile Number'),
-                              _buildMobileNumber(),
+                              MobileNumberTextField(
+                                  controller: _mobileNumber,
+                                  fieldName: 'Mobile Number',
+                                  hintText: 'Enter your mobile number'),
                               const SizedBox(
-                                height: 30,
+                                height: 20,
                               ),
-                              const TextForForm(text: "Visitor's Name"),
-                              _buildFirstName(),
+                              NameTextField(
+                                  controller: _visitorName,
+                                  hint: "Enter visitor's name",
+                                  nameType: "Visitor's Name"),
                               const SizedBox(
-                                height: 30,
+                                height: 20,
                               ),
                               const TextForForm(
                                   text:
-                                      "Number of Persons coming with Visitor"),
+                                      "Numbers of person coming with the Visitor"),
                               _buildNoOfVisitor(),
                               const SizedBox(
-                                height: 30,
+                                height: 20,
                               ),
-                              const TextForForm(text: "Email (optional)"),
-                              _buildEmail(),
+                              NameTextField(
+                                  controller: _email,
+                                  hint: "Enter email",
+                                  nameType: "Email (Optional)"),
                               const SizedBox(
-                                height: 30,
+                                height: 20,
                               ),
                               const TextForForm(text: "Arrival Date"),
-                              _buildArrivalDate(),
-                              const SizedBox(
-                                height: 30,
-                              ),
+                              CustomDatePicker(date: _date),
                               const TextForForm(text: "Arrival Time"),
-                              _buildArrivalTime(),
-                              const SizedBox(
-                                height: 30,
+                              CustomTimePicker(
+                                departureTime: _arrivalTime,
+                                hint: 'select arrival time',
                               ),
-                              const TextForForm(text: "Departure Time"),
-                              _buildDepertureTime(),
                               const SizedBox(
-                                height: 30,
+                                height: 20,
+                              ),
+                              const TextForForm(text: "DepartureTime"),
+                              CustomTimePicker(
+                                departureTime: _departureTime,
+                                hint: 'select departure time',
+                              ),
+                              const SizedBox(
+                                height: 50,
                               ),
                               ActionPageButton(
-                                  onPressed: () {}, text: 'Get Passcode'),
+                                  onPressed: () async{
+                                    await _getFuturePasscode();
+                                  },
+                                  text: 'Get Future Passcode'),
                               const SizedBox(
                                 height: 30,
                               ),
