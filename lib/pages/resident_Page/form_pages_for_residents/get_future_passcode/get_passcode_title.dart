@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:magodo/pages/navigation_page/resident_navigation_page.dart';
 
 class GetPasscodeTitleContainer extends StatefulWidget {
+  final data;
   final title;
 
-  const GetPasscodeTitleContainer({Key? key, this.title}) : super(key: key);
+  const GetPasscodeTitleContainer({Key? key, this.title, required this.data}) : super(key: key);
 
   @override
   State<GetPasscodeTitleContainer> createState() => _GetPasscodeTitleContainerState();
 }
 
 class _GetPasscodeTitleContainerState extends State<GetPasscodeTitleContainer> {
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +31,7 @@ class _GetPasscodeTitleContainerState extends State<GetPasscodeTitleContainer> {
                     size: 50,),
                   onPressed: (){
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const ResidentNavigationPage()));
+                        MaterialPageRoute(builder: (context) => ResidentNavigationPage(data: widget.data,)));
                   }
               ),
               const SizedBox(width: 100,),

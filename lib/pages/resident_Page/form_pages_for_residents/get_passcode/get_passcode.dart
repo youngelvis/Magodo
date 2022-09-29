@@ -1,31 +1,80 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/roundedDropDownTextfield.dart';
-import 'package:magodo/components/roundedInputField.dart';
-import 'package:magodo/components/roundedTextInputField.dart';
-import 'package:magodo/components/text_for_form.dart';
-import 'package:magodo/components/title.dart';
+import 'package:magodo/components/textfieds_types/mobile_num_textfield.dart';
+import 'package:magodo/components/textfieds_types/name_textfield.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
+import 'package:magodo/services/services.dart';
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 
 class GetPasscode extends StatefulWidget {
-  const GetPasscode({Key? key}) : super(key: key);
+  final data;
+
+  const GetPasscode({Key? key, required this.data}) : super(key: key);
 
   @override
   State<GetPasscode> createState() => _GetPasscodeState();
 }
 
 TextEditingController _mobileNumber = TextEditingController();
-TextEditingController _visitorName = TextEditingController();
 TextEditingController _email = TextEditingController();
+TextEditingController _visitorName = TextEditingController();
 
 class _GetPasscodeState extends State<GetPasscode> {
   String? noOfVisitors;
-  final noOfVisitorsOptions = ['0', '1', '2', '3', '4', '5', '6'];
+  final noOfVisitorsOptions = [
+    '0',
+    '1',
+    '2',
+    '3',
+    '4',
+  ];
 
-  Widget _buildNoOfVisitor() {
+  _getPasscode() async {
+    if (_email.text.isEmpty) {
+      var data = await Services().getPasscode(_mobileNumber, _visitorName,
+          widget.data['resident_code'], noOfVisitors, '');
+      var message = data['error']['message'];
+
+      return showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(message),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("ok"))
+          ],
+        ),
+      );
+    }
+    var data = await Services().getPasscode(_mobileNumber, _visitorName,
+        widget.data['resident_code'], noOfVisitors, '');
+    var message = data['error']['message'];
+
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
+
+  final formKey = GlobalKey<FormState>();
+
+  Widget _buildNoOfVisitors() {
     return RoundedDropDownTextField(
       hint: const Text(
-        'Select Zone',
+        'Choose number',
         style: TextStyle(fontSize: 15),
       ),
       value: noOfVisitors,
@@ -45,53 +94,6 @@ class _GetPasscodeState extends State<GetPasscode> {
         ),
       );
 
-  Widget _buildMobileNumber() {
-    return RoundedInputField(
-      hintText: "Enter Visitor's mobile number",
-      controller: _mobileNumber,
-      validator: (value) {
-        if (value!.isEmpty ||
-            !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9+$]')
-                .hasMatch(value!)) {
-          return "enter correct mobile Number";
-        } else {
-          return null;
-        }
-      },
-    );
-  }
-
-  Widget _buildFirstName() {
-    return RoundedTextInputField(
-      hintText: 'Enter your visitor name',
-      controller: _visitorName,
-      validator: (value) {
-        if (value!.isEmpty || !RegExp(r'^[a-z A-Z]').hasMatch(value!)) {
-          return "enter correct name";
-        } else {
-          return null;
-        }
-      },
-    );
-  }
-
-  Widget _buildEmail() {
-    return RoundedTextInputField(
-      hintText: 'Enter email address',
-      controller: _email,
-      validator: (value) {
-        if (value!.isEmpty ||
-            !RegExp(r'[a-z0-9]+@[a-z]+\.[a-z]{2,3}').hasMatch(value!)) {
-          return "enter correct email";
-        } else {
-          return null;
-        }
-      },
-    );
-  }
-
-  final formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -101,8 +103,9 @@ class _GetPasscodeState extends State<GetPasscode> {
             padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
             child: Column(
               children: [
-                const GetPasscodeTitleContainer(
+                GetPasscodeTitleContainer(
                   title: 'Get Passcode',
+                  data: widget.data,
                 ),
                 const SizedBox(
                   height: 50,
@@ -110,7 +113,7 @@ class _GetPasscodeState extends State<GetPasscode> {
                 Row(
                   children: const [
                     Text(
-                      'Get Future Passcode',
+                      'Generate Passcode(Visitor)',
                       style: TextStyle(fontSize: 30),
                     ),
                     Icon(
@@ -130,30 +133,48 @@ class _GetPasscodeState extends State<GetPasscode> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const TextForForm(text: 'Mobile Number'),
-                              _buildMobileNumber(),
+                              MobileNumberTextField(
+                                  controller: _mobileNumber,
+                                  fieldName: 'Mobile Number',
+                                  hintText: 'Enter your mobile number'),
                               const SizedBox(
-                                height: 30,
+                                height: 20,
                               ),
-                              const TextForForm(text: "Visitor's Name"),
-                              _buildFirstName(),
+                              NameTextField(
+                                  controller: _email,
+                                  hint: 'Enter your Email',
+                                  nameType: 'Email (Optional)'),
                               const SizedBox(
-                                height: 30,
+                                height: 20,
                               ),
-                              const TextForForm(
-                                  text:
-                                      "Number of Persons coming with Visitor"),
-                              _buildNoOfVisitor(),
                               const SizedBox(
-                                height: 30,
+                                height: 20,
                               ),
-                              const TextForForm(text: "Email (optional)"),
-                              _buildEmail(),
+                              NameTextField(
+                                  controller: _email,
+                                  hint: 'Enter your Email',
+                                  nameType: 'Email (Optional)'),
                               const SizedBox(
-                                height: 30,
+                                height: 20,
+                              ),
+                              Text(
+                                "Number of person's coming with visitor?",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                    color: color.AppColor.homePageTitle),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              _buildNoOfVisitors(),
+                              const SizedBox(
+                                height: 60,
                               ),
                               ActionPageButton(
-                                  onPressed: () {}, text: 'Get Passcode'),
+                                  onPressed: () async{
+                                    await _getPasscode();
+                                  }, text: 'Submit Request'),
                               const SizedBox(
                                 height: 30,
                               ),

@@ -131,7 +131,7 @@ class Services {
       "visitor_name": visitorName,
       "resident_code": residentCode,
       "number_visitor": numberVisitor,
-      "email": '',
+      "email": email,
     };
     var res = await CallApi().postData(data, 'getPasscode');
     var body = jsonDecode(res.body);
@@ -149,8 +149,7 @@ class Services {
       address,
       residentType,
       validityStartsDate,
-      ValidityEndsDate
-      ) async {
+      ValidityEndsDate) async {
     var data = {
       "resident_code": residentCode,
       "full_name": fullName,

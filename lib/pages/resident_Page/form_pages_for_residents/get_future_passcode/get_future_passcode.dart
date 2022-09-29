@@ -10,7 +10,8 @@ import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_p
 import 'package:intl/intl.dart';
 
 class GetFuturePasscode extends StatefulWidget {
-  const GetFuturePasscode({Key? key}) : super(key: key);
+  final data;
+  const GetFuturePasscode({Key? key, required this.data}) : super(key: key);
 
   @override
   State<GetFuturePasscode> createState() => _GetFuturePasscodeState();
@@ -27,7 +28,7 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
   Widget _buildNoOfVisitor() {
     return RoundedDropDownTextField(
       hint: const Text(
-        'Select Zone',
+        'Choose number',
         style: TextStyle(fontSize: 15),
       ),
       value: noOfVisitors,
@@ -193,8 +194,9 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
             padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
             child: Column(
               children: [
-                const GetPasscodeTitleContainer(
+                GetPasscodeTitleContainer(
                   title: 'Get Passcode',
+                  data: widget.data,
                 ),
                 const SizedBox(
                   height: 50,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/pages/navigation_page/resident_navigation_page.dart';
+import 'package:magodo/pages/profile_page/profile_page.dart';
 
 class TitleContainer extends StatefulWidget {
+  final data;
   final title;
 
-  const TitleContainer({Key? key, this.title}) : super(key: key);
+  const TitleContainer({Key? key, this.title, required this.data}) : super(key: key);
 
   @override
   State<TitleContainer> createState() => _TitleContainerState();
@@ -28,7 +30,7 @@ class _TitleContainerState extends State<TitleContainer> {
                     size: 50,),
                   onPressed: (){
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const ResidentNavigationPage()));
+                        MaterialPageRoute(builder: (context) =>  ResidentNavigationPage(data: widget.data,)));
                   }
               ),
               const SizedBox(width: 100,),
@@ -45,13 +47,22 @@ class _TitleContainerState extends State<TitleContainer> {
                     ),),
                     const SizedBox(width: 120),
                     Stack(
-                      children: const [
+                      children: [
                         Positioned(child: SizedBox(
                           width: 30,
                           height: 30,
-                          child: CircleAvatar(
+                          child: InkWell(
+                            onTap:() {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProfilePage(data: widget.data,),
+                                ),
+                              );
+                            },
+                            child: CircleAvatar(
                             backgroundImage: AssetImage('assets/profilePicture.jpeg'),
-                          ),
+                          ),)
                         ),),
                       ],
                     ),

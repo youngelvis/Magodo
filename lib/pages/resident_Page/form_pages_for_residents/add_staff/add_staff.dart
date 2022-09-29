@@ -8,10 +8,10 @@ import 'package:magodo/components/roundedTextInputField.dart';
 import 'package:magodo/components/text_for_form.dart';
 import 'package:magodo/components/title.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
-import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 
 class AddStaff extends StatefulWidget {
-  const AddStaff({Key? key}) : super(key: key);
+  final data;
+  const AddStaff({Key? key, required this.data}) : super(key: key);
 
   @override
   State<AddStaff> createState() => _AddStaffState();
@@ -194,8 +194,9 @@ class _AddStaffState extends State<AddStaff> {
             padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
             child: Column(
               children: [
-                const TitleContainer(
+                 TitleContainer(
                   title: 'Dashboard',
+                  data: widget.data,
                 ),
                 const SizedBox(
                   height: 50,

@@ -136,7 +136,7 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
             top: 20,
           ),
           child: Column(children: [
-            const TitleContainer(title: 'Dashboard'),
+            TitleContainer(title: 'Dashboard', data: widget.data,),
             Container(
               color: color.AppColor.residentBody,
               padding: const EdgeInsets.only(right: 20, left: 20, top: 40),

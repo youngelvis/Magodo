@@ -10,7 +10,8 @@ import 'package:path/path.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 
 class GetBulkPasscode extends StatefulWidget {
-  const GetBulkPasscode({Key? key}) : super(key: key);
+  final data;
+  const GetBulkPasscode({Key? key, required this.data}) : super(key: key);
 
   @override
   State<GetBulkPasscode> createState() => _GetBulkPasscodeState();
@@ -24,7 +25,7 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
 
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles(
-      allowedExtensions: ['csv']
+
     );
     if (result == null) return;
     // final file = result.files.first;
@@ -51,8 +52,9 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
             padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
             child: Column(
               children: [
-                const GetPasscodeTitleContainer(
+                GetPasscodeTitleContainer(
                   title: 'Get Passcode',
+                  data: widget.data,
                 ),
                 const SizedBox(
                   height: 50,

@@ -116,6 +116,7 @@ class _SignINState extends State<SignIN> {
                   const SizedBox(
                     height: 30,
                   ),
+
                   Center(child: DontAlreadyHaveAnAccount(
                     onPressed: () {
                       Navigator.push(

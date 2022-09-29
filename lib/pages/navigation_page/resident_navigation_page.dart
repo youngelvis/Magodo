@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:magodo/components/text_button_nav_page.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/add_staff/add_staff.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_bulk_passcode/get_bulk_passcode.dart';
-import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_future_passcode.dart';
+import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_passcode/get_passcode.dart';
 import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
+
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
 class ResidentNavigationPage extends StatelessWidget {
-  const ResidentNavigationPage({Key? key}) : super(key: key);
+  final data;
+  const ResidentNavigationPage({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class ResidentNavigationPage extends StatelessWidget {
                     ),
                     NavTextButton(
                         icon: Icons.speed, text: 'Dashboard', onPressed: () {
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ResidentPageLandingPage(data: data)));
                     }),
                     NavTextButton(
                         icon: Icons.directions_car,
@@ -57,7 +59,7 @@ class ResidentNavigationPage extends StatelessWidget {
                         icon: Icons.shopping_bag,
                         text: 'Get Passcode',
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const GetBulkPasscode()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => GetPasscode(data: data,)));
                         }),
                     NavTextButton(
                         icon: Icons.family_restroom,
@@ -69,7 +71,7 @@ class ResidentNavigationPage extends StatelessWidget {
                         icon: Icons.engineering,
                         text: 'Staffs',
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const AddStaff()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) =>  AddStaff(data: data,)));
                         }),
                   ],
                 ))
