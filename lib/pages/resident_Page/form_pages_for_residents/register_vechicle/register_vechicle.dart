@@ -76,7 +76,7 @@ class _RegisterVechicleState extends State<RegisterVechicle> {
             child: Column(
               children: [
                 GetPasscodeTitleContainer(
-                  title: 'Event Request',
+                  title: 'Resident Vehicle',
                   data: widget.data,
                 ),
                 const SizedBox(
@@ -85,7 +85,7 @@ class _RegisterVechicleState extends State<RegisterVechicle> {
                 Row(
                   children: const [
                     Text(
-                      'Event request form',
+                      'Resident Vehicle',
                       style: TextStyle(fontSize: 30),
                     ),
                     Icon(
@@ -93,6 +93,10 @@ class _RegisterVechicleState extends State<RegisterVechicle> {
                       size: 15,
                     ),
                   ],
+                ),
+                const Text(
+                  'upload vehicle licence and supporting document',
+                  style: TextStyle(fontSize: 20),
                 ),
                 const SizedBox(
                   height: 40,
