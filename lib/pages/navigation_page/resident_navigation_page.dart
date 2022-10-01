@@ -59,7 +59,7 @@ class ResidentNavigationPage extends StatelessWidget {
                         icon: Icons.shopping_bag,
                         text: 'Get Passcode',
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => GetPasscode(data: data,)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => GetBulkPasscode(data: data,)));
                         }),
                     NavTextButton(
                         icon: Icons.family_restroom,

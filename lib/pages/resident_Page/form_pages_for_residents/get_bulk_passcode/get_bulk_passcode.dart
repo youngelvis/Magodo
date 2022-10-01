@@ -6,6 +6,7 @@ import 'package:magodo/components/date_text_field.dart';
 import 'package:magodo/components/text_for_form.dart';
 import 'package:magodo/components/time_text_field.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_bulk_passcode/upload_file.dart';
+import 'package:magodo/services/services.dart';
 import 'package:path/path.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 
@@ -24,12 +25,7 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
   File? file;
 
   Future selectFile() async {
-    final result = await FilePicker.platform.pickFiles(
-
-    );
-    if (result == null) return;
-    // final file = result.files.first;
-    final path = result.files.single.path!;
+    final path = await Services().selectFile();
     setState(() {
       file = File(path);
     });

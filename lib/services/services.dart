@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:magodo/api/api.dart';
 
 class Services {
@@ -281,5 +282,17 @@ class Services {
     var res = await CallApi().postData(data, 'resetPassword');
     var body = jsonDecode(res.body);
     return body;
+  }
+  Future selectFile() async {
+    final result = await FilePicker.platform.pickFiles(
+
+    );
+    if (result == null) return;
+    // final file = result.files.first;
+    final path = result.files.single.path!;
+
+    return path;
+
+
   }
 }
