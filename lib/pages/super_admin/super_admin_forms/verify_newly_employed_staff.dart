@@ -84,6 +84,7 @@ class _VerifyNewlyEmployedStaffState extends State<VerifyNewlyEmployedStaff> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
