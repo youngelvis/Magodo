@@ -14,4 +14,5 @@ class AppColor {
   static Color signUp =const Color(0xFFFD8971);
   static Color residentBody =const Color(0xFFF9F9FB);
   static Color verifiedColor =const Color(0xFF45D0B3);
+  static Color decline =const Color(0xFFEE0D01);
 }

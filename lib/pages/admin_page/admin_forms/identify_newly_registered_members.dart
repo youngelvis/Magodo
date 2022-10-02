@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
-
-import '../../../components/app_page_theme_action_button.dart';
+import 'package:magodo/components/action_page_button2.dart';
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import '../../../components/components_for_class_of_varable/zones.dart';
 import '../../../components/date_text_field.dart';
 import '../../../components/roundedDropDownTextfield.dart';
 import '../../../components/text_for_form.dart';
+import '../../../components/textfields_types/mobile_num_textfield.dart';
 import '../../../components/textfields_types/name_textfield.dart';
 import '../../../components/title.dart';
-
-class UpdateMember extends StatefulWidget {
+class IdentifyNewlyRegisteredMembers extends StatefulWidget {
   final data;
-
-  const UpdateMember({Key? key, required this.data}) : super(key: key);
+  const IdentifyNewlyRegisteredMembers({Key? key, required this.data}) : super(key: key);
 
   @override
-  State<UpdateMember> createState() => _UpdateMemberState();
+  State<IdentifyNewlyRegisteredMembers> createState() => _IdentifyNewlyRegisteredMembersState();
 }
-
+TextEditingController _residentCode = TextEditingController();
 TextEditingController _mobileNumber = TextEditingController();
 TextEditingController _fullName = TextEditingController();
 TextEditingController _address = TextEditingController();
 TextEditingController _email = TextEditingController();
+TextEditingController _password = TextEditingController();
+TextEditingController _confirmPassword = TextEditingController();
 TextEditingController _startDate = TextEditingController();
 TextEditingController _finishDate = TextEditingController();
-
-class _UpdateMemberState extends State<UpdateMember> {
-  String? classification;
-  final classificationOptions = ['0', '1', '2', '3', '4', '5', '6'];
+class _IdentifyNewlyRegisteredMembersState extends State<IdentifyNewlyRegisteredMembers> {
   String? status;
   final statusOptions = ['0', '1', '2', '3', '4', '5', '6'];
+  String? resident;
+
+  final residentOptions = ['0', '1', '2', '3', '4', '5', '6'];
   String? zone;
   final zoneOptions = [
     Zones.AEA,
@@ -54,7 +54,6 @@ class _UpdateMemberState extends State<UpdateMember> {
     Zones.SOUTH_WEST,
     Zones.VALLEY_VIEW
   ];
-
   Widget _buildZone() {
     return RoundedDropDownTextField(
       hint: const Text(
@@ -78,54 +77,6 @@ class _UpdateMemberState extends State<UpdateMember> {
         ),
       );
 
-  Widget _buildClassification() {
-    return RoundedDropDownTextField(
-      hint: const Text(
-        'Choose number',
-        style: TextStyle(fontSize: 15),
-      ),
-      value: classification,
-      onChanged: (value) => setState(() {
-        classification = value as String;
-      }),
-      items: classificationOptions.map(buildClassificationItem).toList(),
-    );
-  }
-
-  DropdownMenuItem<String> buildClassificationItem(
-          String classificationOptions) =>
-      DropdownMenuItem(
-        value: classificationOptions,
-        child: Text(
-          classificationOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
-        ),
-      );
-
-  Widget _buildStatus() {
-    return RoundedDropDownTextField(
-      hint: const Text(
-        'Choose number',
-        style: TextStyle(fontSize: 15),
-      ),
-      value: status,
-      onChanged: (value) => setState(() {
-        status = value as String;
-      }),
-      items: statusOptions.map(buildStatusItem).toList(),
-    );
-  }
-
-  DropdownMenuItem<String> buildStatusItem(String statusOptions) =>
-      DropdownMenuItem(
-        value: statusOptions,
-        child: Text(
-          statusOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
-        ),
-      );
-  String? resident;
-  final residentOptions = ['0', '1', '2', '3', '4', '5', '6'];
 
   Widget _buildResident() {
     return RoundedDropDownTextField(
@@ -149,7 +100,28 @@ class _UpdateMemberState extends State<UpdateMember> {
           style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
         ),
       );
+  Widget _buildStatus() {
+    return RoundedDropDownTextField(
+      hint: const Text(
+        'Choose number',
+        style: TextStyle(fontSize: 15),
+      ),
+      value: status,
+      onChanged: (value) => setState(() {
+        status = value as String;
+      }),
+      items: statusOptions.map(buildStatusItem).toList(),
+    );
+  }
 
+  DropdownMenuItem<String> buildStatusItem(String statusOptions) =>
+      DropdownMenuItem(
+        value: statusOptions,
+        child: Text(
+          statusOptions,
+          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
+        ),
+      );
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -169,7 +141,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                 Row(
                   children: const [
                     Text(
-                      'Update Member',
+                      'Add New Administrative User',
                       style: TextStyle(fontSize: 30),
                     ),
                     Icon(
@@ -188,23 +160,22 @@ class _UpdateMemberState extends State<UpdateMember> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const TextForForm(text: "Resident Code"),
+                              const TextForForm(text: "Resident"),
                               _buildResident(),
                               const SizedBox(
                                 height: 20,
                               ),
-                              const TextForForm(text: "Status"),
-                              _buildStatus(),
+                              NameTextField(
+                                  controller: _residentCode,
+                                  hint: "Enter resident code",
+                                  nameType: "Staff Resident Code"),
                               const SizedBox(
                                 height: 20,
                               ),
-                              const TextForForm(text: "Zone"),
-                              _buildZone(),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              const TextForForm(text: "Classification"),
-                              _buildClassification(),
+                              MobileNumberTextField(
+                                  controller: _mobileNumber,
+                                  fieldName: ' Mobile Number',
+                                  hintText: 'Enter mobile number'),
                               const SizedBox(
                                 height: 20,
                               ),
@@ -215,15 +186,6 @@ class _UpdateMemberState extends State<UpdateMember> {
                               const SizedBox(
                                 height: 20,
                               ),
-
-                              MobileNumberTextField(
-                                  controller: _mobileNumber,
-                                  fieldName: ' Mobile Number',
-                                  hintText: 'Enter mobile number'),
-                              const SizedBox(
-                                height: 20,
-                              ),
-
                               NameTextField(
                                   controller: _address,
                                   hint: "Enter address",
@@ -231,10 +193,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              NameTextField(
-                                  controller: _email,
-                                  hint: "Enter email",
-                                  nameType: "Email"),
+                              const TextForForm(text: "Zone"),
+                              _buildZone(),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              const TextForForm(text: "Status"),
+                              _buildStatus(),
                               const SizedBox(
                                 height: 20,
                               ),
@@ -242,11 +207,25 @@ class _UpdateMemberState extends State<UpdateMember> {
                               CustomDatePicker(date: _startDate),
                               const TextForForm(text: "Validity Ends"),
                               CustomDatePicker(date: _finishDate),
-                              ActionPageButton(
-                                  onPressed: () async {}, text: 'Update'),
+
                               const SizedBox(
                                 height: 30,
                               ),
+                              Row(
+                                children: [
+                                  ActionPageButton2(
+                                    onPressed: () {},
+                                    primaryColor: color.AppColor.homePageTheme,
+                                    text: 'Authorize',
+                                  ),
+                                  const SizedBox(width: 50,),
+                                  ActionPageButton2(
+                                    onPressed: () {},
+                                    primaryColor: color.AppColor.decline,
+                                    text: 'Decline',
+                                  ),
+                                ],
+                              )
                             ]),
                       ),
                     ),
