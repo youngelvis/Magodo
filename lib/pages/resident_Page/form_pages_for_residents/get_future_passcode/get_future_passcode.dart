@@ -52,7 +52,10 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
       );
 
   _getFuturePasscode() async {
-    if (_email.text.isEmpty) {
+    if (_mobileNumber.text.isEmpty||
+        _arrivalTime.text.isEmpty||
+        _departureTime.text.isEmpty||
+        _date.text.isEmpty||noOfVisitors == null){
       var data = await Services().getFuturePasscode(
           _mobileNumber.text,
           _visitorName.text,
@@ -80,11 +83,11 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
     }
     var data = await Services().getFuturePasscode(
         _mobileNumber.text,
-        _visitorName.text,
+        _visitorName.text ?? '',
         widget.data['resident_code'],
         noOfVisitors,
         _email.text,
-        _date.text,
+        _date.text ?? '',
         _arrivalTime.text,
         _departureTime.text);
     var message = data['error']['message'];

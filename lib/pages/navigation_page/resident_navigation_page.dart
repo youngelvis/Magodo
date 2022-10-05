@@ -3,6 +3,7 @@ import 'package:magodo/components/text_button_nav_page.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/add_staff/add_staff.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_bulk_passcode/get_bulk_passcode.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_passcode/get_passcode.dart';
+import 'package:magodo/pages/resident_Page/form_pages_for_residents/register_vechicle/register_vechicle.dart';
 import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
 
 import '../../components/components_for_class_of_varable/colors.dart' as color;
@@ -46,11 +47,15 @@ class ResidentNavigationPage extends StatelessWidget {
                     NavTextButton(
                         icon: Icons.directions_car,
                         text: 'Register Vehicle',
-                        onPressed: () {}),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterVechicle(data: data)));
+                        }),
                     NavTextButton(
                         icon: Icons.access_time_filled_sharp,
                         text: 'Event Request',
-                        onPressed: () {}),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ResidentPageLandingPage(data: data)));
+                        }),
                     NavTextButton(
                         icon: Icons.insert_chart,
                         text: 'Report',

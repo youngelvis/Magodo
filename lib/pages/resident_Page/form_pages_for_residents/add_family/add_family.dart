@@ -53,7 +53,7 @@ class _AddFamilyState extends State<AddFamily> {
         );
       }
       var data = await Services().addFamilyMember(widget.data['resident_code'],
-          _mobileNumber, _fullName, _email, _password, _confirmPassword);
+          _mobileNumber.text, _fullName.text, _email.text, _password.text, _confirmPassword.text);
 
       var message = data['message'];
 

@@ -23,7 +23,12 @@ TextEditingController _scheduleDate = TextEditingController();
 TextEditingController _scheduleTime = TextEditingController();
 
 class _EventRequestState extends State<EventRequest> {
-  String? eventType;
+  String? eventType;return Text(
+  status,
+  style: TextStyle(
+  color: Colors.white,
+  backgroundColor:
+  color.AppColor.verifiedColor),
   final eventTypeOptions = [
     'Birthday',
     'Child Dedication',

@@ -200,21 +200,13 @@ class Services {
   }
 
   //10
-  addStaff(
-    residentPhone,
-    fullName,
-    residentCode,
-    email,
-    dependantPhone,
-    relationship,
-    employmentStatus,
-    contactDetail,
-  ) async {
+  addStaff(residentPhone, fullName, residentCode, dependantPhone, relationship,
+      employmentStatus, contactDetail, employStart) async {
     var data = {
       "resident_code": residentCode,
       "resident_phone": residentPhone,
       "full_name": fullName,
-      "email": email,
+      "employ_start": employStart,
       "dependant_phone": dependantPhone,
       "relationship": relationship,
       "employment_status": employmentStatus,
@@ -227,7 +219,7 @@ class Services {
   }
 
   //11
-  addFamilyMember( residentCode,residentPhone, fullName, email, password,
+  addFamilyMember(residentCode, residentPhone, fullName, email, password,
       ConfirmPassword) async {
     var data = {
       "resident_code": residentCode,
@@ -283,16 +275,13 @@ class Services {
     var body = jsonDecode(res.body);
     return body;
   }
-  Future selectFile() async {
-    final result = await FilePicker.platform.pickFiles(
 
-    );
+  Future selectFile() async {
+    final result = await FilePicker.platform.pickFiles();
     if (result == null) return;
     // final file = result.files.first;
     final path = result.files.single.path!;
 
     return path;
-
-
   }
 }
