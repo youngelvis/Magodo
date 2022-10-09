@@ -26,6 +26,9 @@ class NameTextField extends StatelessWidget {
           hintText: hint,
           controller: controller,
         ),
+        const SizedBox(
+          height: 20,
+        ),
       ],
     );
   }

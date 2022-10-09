@@ -19,7 +19,7 @@ class _GetPasscodeTitleContainerState extends State<GetPasscodeTitleContainer> {
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.only(
-          left: 10, right: 10, bottom: 10
+            bottom: 10
       ),
       child: Column(
         children: [
@@ -46,7 +46,7 @@ class _GetPasscodeTitleContainerState extends State<GetPasscodeTitleContainer> {
                         fontWeight: FontWeight.bold,
                         fontSize: 25
                     ),),
-                    const SizedBox(width: 70),
+                    const SizedBox(width: 80),
                     Stack(
                       children: const [
                         Positioned(child: SizedBox(

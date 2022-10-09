@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
+import 'package:magodo/components/buildNumOfVisitorsDropDown.dart';
 import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
@@ -50,8 +51,12 @@ class _GetPasscodeState extends State<GetPasscode> {
         ),
       );
     }
-    var data = await Services().getPasscode(_mobileNumber.text, _visitorName.text,
-        widget.data['resident_code'], noOfVisitors, _email.text);
+    var data = await Services().getPasscode(
+        _mobileNumber.text,
+        _visitorName.text,
+        widget.data['resident_code'],
+        noOfVisitors,
+        _email.text);
     var message = data['error']['message'];
 
     return showDialog(
@@ -68,8 +73,6 @@ class _GetPasscodeState extends State<GetPasscode> {
       ),
     );
   }
-
-  final formKey = GlobalKey<FormState>();
 
   Widget _buildNoOfVisitors() {
     return RoundedDropDownTextField(
@@ -129,7 +132,6 @@ class _GetPasscodeState extends State<GetPasscode> {
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Form(
-                        key: formKey,
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -137,44 +139,30 @@ class _GetPasscodeState extends State<GetPasscode> {
                                   controller: _mobileNumber,
                                   fieldName: 'Mobile Number',
                                   hintText: 'Enter your mobile number'),
-                              const SizedBox(
-                                height: 20,
-                              ),
+
                               NameTextField(
                                   controller: _visitorName,
                                   hint: "Enter your visitor's name",
                                   nameType: "Visitor's name"),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
                               NameTextField(
                                   controller: _email,
                                   hint: 'Enter your Email',
                                   nameType: 'Email (Optional)'),
-                              const SizedBox(
-                                height: 20,
+
+                              BuildNumberOfEmploymentDropDownList(
+                                noOfVisitors: noOfVisitors,
+                                onChanged: (value) => setState(() {
+                                  noOfVisitors = value as String;
+                                }),
                               ),
-                              Text(
-                                "Number of person's coming with visitor?",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
-                                    color: color.AppColor.homePageTitle),
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              _buildNoOfVisitors(),
                               const SizedBox(
                                 height: 60,
                               ),
                               ActionPageButton(
-                                  onPressed: () async{
+                                  onPressed: () async {
                                     await _getPasscode();
-                                  }, text: 'Submit Request'),
+                                  },
+                                  text: 'Submit Request'),
                               const SizedBox(
                                 height: 30,
                               ),

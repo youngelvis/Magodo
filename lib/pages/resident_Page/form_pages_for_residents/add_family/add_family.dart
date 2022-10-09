@@ -89,7 +89,7 @@ class _AddFamilyState extends State<AddFamily> {
                 Row(
                   children: const [
                     Text(
-                      'Add Staff',
+                      'Add Family',
                       style: TextStyle(fontSize: 30),
                     ),
                     Icon(
@@ -112,36 +112,27 @@ class _AddFamilyState extends State<AddFamily> {
                                   controller: _fullName,
                                   hint: "Enter full name",
                                   nameType: "Staff Full Name"),
-                              const SizedBox(
-                                height: 20,
-                              ),
+
                               MobileNumberTextField(
                                   controller: _mobileNumber,
                                   fieldName: ' Mobile Number',
                                   hintText: 'Enter mobile number'),
-                              const SizedBox(
-                                height: 20,
-                              ),
+
                               NameTextField(
                                   controller: _email,
                                   hint: "Enter email",
                                   nameType: "Enter email address"),
-                              const SizedBox(
-                                height: 20,
-                              ),
+
                               NameTextField(
                                   controller: _password,
                                   hint: "Enter a password",
                                   nameType: "Password"),
-                              const SizedBox(
-                                height: 20,
-                              ),
                               NameTextField(
                                   controller: _confirmPassword,
                                   hint: "Confirm password",
                                   nameType: "Confirm Password"),
                               const SizedBox(
-                                height: 20,
+                                height: 40,
                               ),
                               ActionPageButton(
                                   onPressed: () async{

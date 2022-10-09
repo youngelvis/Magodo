@@ -29,6 +29,6 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
         }
       },
       icon: Icons.access_time,
-    );;
+    );
   }
 }

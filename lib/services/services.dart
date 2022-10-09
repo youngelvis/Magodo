@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:magodo/api/api.dart';
+import 'package:path/path.dart';
 
 class Services {
   // 1
@@ -106,7 +107,7 @@ class Services {
       arrivalDate, timeFrom, timeTo) async {
     var data = {
       "send_msisdn": sendMsisdn,
-      "visitor_name": visitorName,
+      "visitor_name": visitorName?? '',
       "resident_code": residentCode,
       "number_visitor": numberVisitor,
       "email": email,
@@ -207,7 +208,7 @@ class Services {
       "resident_phone": residentPhone,
       "full_name": fullName,
       "employ_start": employStart,
-      "dependant_phone": dependantPhone,
+      "dependant_phone": dependantPhone?? '',
       "relationship": relationship,
       "employment_status": employmentStatus,
       "contact_detail": contactDetail,
@@ -275,7 +276,20 @@ class Services {
     var body = jsonDecode(res.body);
     return body;
   }
+  //14
+  getBulkPasscode(file, residentCode, arrivalDate, timeFrom, timeTo) async {
+    var data = {
+      "file": file,
+      "resident_code": residentCode,
+      "arrival_date": arrivalDate,
+      "time_from": timeFrom,
+      "time_to": timeTo
+    };
 
+    var res = await CallApi().putData(data, 'getBulkPasscode');
+    var body = jsonDecode(res.body);
+    return body;
+  }
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles();
     if (result == null) return;
@@ -283,5 +297,11 @@ class Services {
     final path = result.files.single.path!;
 
     return path;
+  }
+
+  Future baseName(file) async {
+
+    final fileName = basename(file!.path);
+    return fileName;
   }
 }

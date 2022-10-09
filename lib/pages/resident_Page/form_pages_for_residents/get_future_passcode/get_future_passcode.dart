@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
+import 'package:magodo/components/buildNumOfVisitorsDropDown.dart';
 import 'package:magodo/components/date_text_field.dart';
-import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/text_for_form.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/time_text_field.dart';
 import 'package:magodo/services/services.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
+
 class GetFuturePasscode extends StatefulWidget {
   final data;
 
@@ -26,42 +27,18 @@ TextEditingController _departureTime = TextEditingController();
 
 class _GetFuturePasscodeState extends State<GetFuturePasscode> {
   String? noOfVisitors;
-  final noOfVisitorsOptions = ['0', '1', '2', '3', '4', '5', '6'];
-
-  Widget _buildNoOfVisitor() {
-    return RoundedDropDownTextField(
-      hint: const Text(
-        'Choose number',
-        style: TextStyle(fontSize: 15),
-      ),
-      value: noOfVisitors,
-      onChanged: (value) => setState(() {
-        noOfVisitors = value as String;
-      }),
-      items: noOfVisitorsOptions.map(buildNoOfVisitorsItem).toList(),
-    );
-  }
-
-  DropdownMenuItem<String> buildNoOfVisitorsItem(String noOfVisitorsOptions) =>
-      DropdownMenuItem(
-        value: noOfVisitorsOptions,
-        child: Text(
-          noOfVisitorsOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
-        ),
-      );
-
   _getFuturePasscode() async {
-    if (_mobileNumber.text.isEmpty||
-        _arrivalTime.text.isEmpty||
-        _departureTime.text.isEmpty||
-        _date.text.isEmpty||noOfVisitors == null){
+    if (_mobileNumber.text.isEmpty ||
+        _arrivalTime.text.isEmpty ||
+        _departureTime.text.isEmpty ||
+        _date.text.isEmpty ||
+        noOfVisitors == null) {
       var data = await Services().getFuturePasscode(
           _mobileNumber.text,
           _visitorName.text,
           widget.data['resident_code'],
           noOfVisitors,
-          '',
+          '0',
           _date.text,
           _arrivalTime.text,
           _departureTime.text);
@@ -83,11 +60,11 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
     }
     var data = await Services().getFuturePasscode(
         _mobileNumber.text,
-        _visitorName.text ?? '',
+        _visitorName.text,
         widget.data['resident_code'],
         noOfVisitors,
         _email.text,
-        _date.text ?? '',
+        _date.text,
         _arrivalTime.text,
         _departureTime.text);
     var message = data['error']['message'];
@@ -149,32 +126,25 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
                                   controller: _mobileNumber,
                                   fieldName: 'Mobile Number',
                                   hintText: 'Enter your mobile number'),
-                              const SizedBox(
-                                height: 20,
-                              ),
                               NameTextField(
                                   controller: _visitorName,
                                   hint: "Enter visitor's name",
                                   nameType: "Visitor's Name"),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              const TextForForm(
-                                  text:
-                                      "Numbers of person coming with the Visitor"),
-                              _buildNoOfVisitor(),
-                              const SizedBox(
-                                height: 20,
+                              BuildNumberOfEmploymentDropDownList(
+                                noOfVisitors: noOfVisitors,
+                                onChanged: (value) => setState(() {
+                                  noOfVisitors = value as String;
+                                }),
                               ),
                               NameTextField(
                                   controller: _email,
                                   hint: "Enter email",
                                   nameType: "Email (Optional)"),
+                              const TextForForm(text: "Arrival Date"),
+                              CustomDatePicker(date: _date),
                               const SizedBox(
                                 height: 20,
                               ),
-                              const TextForForm(text: "Arrival Date"),
-                              CustomDatePicker(date: _date),
                               const TextForForm(text: "Arrival Time"),
                               CustomTimePicker(
                                 departureTime: _arrivalTime,
@@ -192,7 +162,7 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
                                 height: 50,
                               ),
                               ActionPageButton(
-                                  onPressed: () async{
+                                  onPressed: () async {
                                     await _getFuturePasscode();
                                   },
                                   text: 'Get Future Passcode'),

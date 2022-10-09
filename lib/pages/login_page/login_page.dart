@@ -4,8 +4,8 @@ import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/remember_me.dart';
 import 'package:magodo/components/dont_already_have_an_account.dart';
 import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
+import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/textfields_types/password_textfield.dart';
-import 'package:magodo/components/textfields_types/resident_code.dart';
 import 'package:magodo/pages/register_page/register_page.dart';
 import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
 import 'package:magodo/services/services.dart';
@@ -30,7 +30,7 @@ class _SignINState extends State<SignIN> {
   }
 
   _login() async {
-    if(_residentCode.text.isEmpty|| _password.text.isEmpty){
+    if (_residentCode.text.isEmpty || _password.text.isEmpty) {
       var data = await Services().login(_residentCode.text, _password.text);
       var message = data['error']['message'];
 
@@ -77,7 +77,7 @@ class _SignINState extends State<SignIN> {
           ],
         ),
       );
-     }
+    }
   }
 
   @override
@@ -116,7 +116,6 @@ class _SignINState extends State<SignIN> {
                   const SizedBox(
                     height: 30,
                   ),
-
                   Center(child: DontAlreadyHaveAnAccount(
                     onPressed: () {
                       Navigator.push(
@@ -128,13 +127,11 @@ class _SignINState extends State<SignIN> {
                   const SizedBox(
                     height: 40,
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  BuildResidentCode(residentCode: _residentCode),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  NameTextField(
+                      controller: _residentCode,
+                      hint: 'resident code',
+                      nameType: 'Resident Code'),
+
                   BuildPasswordTextField(
                       fieldName: 'Password', passwordController: _password),
                   const SizedBox(

@@ -33,6 +33,9 @@ class MobileNumberTextField extends StatelessWidget {
           hintText: hintText,
           controller: controller,
         ),
+        const SizedBox(
+          height: 20,
+        ),
       ],
     );
   }
