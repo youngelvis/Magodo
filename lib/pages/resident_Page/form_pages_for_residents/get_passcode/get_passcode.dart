@@ -32,8 +32,8 @@ class _GetPasscodeState extends State<GetPasscode> {
   ];
 
   _getPasscode() async {
-    if (_email.text.isEmpty) {
-      var data = await Services().getPasscode(_mobileNumber, _visitorName,
+    if (_visitorName.text.isEmpty|| _visitorName.text.isEmpty||noOfVisitors ==null) {
+      var data = await Services().getPasscode(_mobileNumber.text, _visitorName.text,
           widget.data['resident_code'], noOfVisitors, '');
       var message = data['error']['message'];
 
@@ -57,7 +57,7 @@ class _GetPasscodeState extends State<GetPasscode> {
         widget.data['resident_code'],
         noOfVisitors,
         _email.text);
-    var message = data['error']['message'];
+    var message = data['message'];
 
     return showDialog(
       context: context,

@@ -51,7 +51,7 @@ class ResidentNavigationPage extends StatelessWidget {
                         icon: Icons.directions_car,
                         text: 'Register Vehicle',
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterVechicle(data: data)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterVehicle(data: data)));
                         }),
                     NavTextButton(
                         icon: Icons.access_time_filled_sharp,

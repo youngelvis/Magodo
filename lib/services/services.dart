@@ -133,7 +133,7 @@ class Services {
       "visitor_name": visitorName,
       "resident_code": residentCode,
       "number_visitor": numberVisitor,
-      "email": email,
+      "email": email??"",
     };
     var res = await CallApi().postData(data, 'getPasscode');
     var body = jsonDecode(res.body);

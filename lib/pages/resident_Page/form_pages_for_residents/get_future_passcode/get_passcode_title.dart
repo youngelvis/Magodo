@@ -34,7 +34,7 @@ class _GetPasscodeTitleContainerState extends State<GetPasscodeTitleContainer> {
                         MaterialPageRoute(builder: (context) => ResidentNavigationPage(data: widget.data,)));
                   }
               ),
-              const SizedBox(width: 100,),
+              const SizedBox(width: 91,),
 
               Container(
                 padding: const EdgeInsets.only(

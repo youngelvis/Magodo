@@ -6,23 +6,24 @@ import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 
-class RegisterVechicle extends StatefulWidget {
+class RegisterVehicle extends StatefulWidget {
   final data;
 
-  const RegisterVechicle({Key? key, required this.data}) : super(key: key);
+  const RegisterVehicle({Key? key, required this.data}) : super(key: key);
 
   @override
-  State<RegisterVechicle> createState() => _RegisterVechicleState();
+  State<RegisterVehicle> createState() => _RegisterVehicleState();
 }
+TextEditingController _vehicleCode = TextEditingController();
+TextEditingController _vehicleMake = TextEditingController();
+TextEditingController _vehicleModel = TextEditingController();
+TextEditingController _govtAgency = TextEditingController();
+TextEditingController _registrationNumber = TextEditingController();
+TextEditingController _mraDuesReceiptNo = TextEditingController();
+TextEditingController _amountPaid = TextEditingController();
+class _RegisterVehicleState extends State<RegisterVehicle> {
 
-class _RegisterVechicleState extends State<RegisterVechicle> {
-  TextEditingController _vechicleCode = TextEditingController();
-  TextEditingController _vehicleMake = TextEditingController();
-  TextEditingController _vechicleModel = TextEditingController();
-  TextEditingController _govtAgency = TextEditingController();
-  TextEditingController _registrationNumber = TextEditingController();
-  TextEditingController _mraDuesRecieptNo = TextEditingController();
-  TextEditingController _amountPaid = TextEditingController();
+
   String? colour;
   final colourOptions = [
     'White',
@@ -109,7 +110,7 @@ class _RegisterVechicleState extends State<RegisterVechicle> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               NameTextField(
-                                  controller: _vechicleCode,
+                                  controller: _vehicleCode,
                                   hint: "Enter code",
                                   nameType: "Vehicle Code"),
                               NameTextField(
@@ -117,7 +118,7 @@ class _RegisterVechicleState extends State<RegisterVechicle> {
                                   hint: "Enter make of vehicle",
                                   nameType: "Email (Optional)"),
                               NameTextField(
-                                  controller: _vechicleModel,
+                                  controller: _vehicleModel,
                                   hint: "Enter model of vehicle",
                                   nameType: "Vehicle Make"),
                               const TextForForm(text: "Vehicle Colour"),
@@ -131,19 +132,32 @@ class _RegisterVechicleState extends State<RegisterVechicle> {
                                   hint: "Registration number",
                                   nameType: "Registration No"),
                               NameTextField(
-                                  controller: _mraDuesRecieptNo,
-                                  hint: "mra reciept number",
-                                  nameType: "Mra Dues Reciept No"),
+                                  controller: _mraDuesReceiptNo,
+                                  hint: "mra receipt number",
+                                  nameType: "Mra Dues Receipt No"),
                               MobileNumberTextField(
                                   controller: _amountPaid,
                                   fieldName: '(₦)Amount Paid',
                                   hintText: 'Enter amount paid'),
+                              const TextForForm(text: 'Upload'),
+                              SizedBox(
+                                  height: 140,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          primary: Colors.white,
+                                          onPrimary: Colors.black,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(12.0))),
+                                      onPressed: (){},
+                                      child: const Icon(Icons.add))),
                               const SizedBox(
                                 height: 20,
                               ),
+
                               ActionPageButton(
                                   onPressed: () async {},
-                                  text: 'Submit Request'),
+                                  text: 'Submit'),
                               const SizedBox(
                                 height: 30,
                               ),

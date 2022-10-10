@@ -16,28 +16,49 @@ class GetBulkPasscode extends StatefulWidget {
   @override
   State<GetBulkPasscode> createState() => _GetBulkPasscodeState();
 }
+
 TextEditingController _date = TextEditingController();
 TextEditingController _arrivalTime = TextEditingController();
 TextEditingController _departureTime = TextEditingController();
+
 class _GetBulkPasscodeState extends State<GetBulkPasscode> {
-
   File? file;
-  Future selectFile() async {
 
+  Future selectFile() async {
     final path = await Services().selectFile();
     setState(() {
       file = File(path);
     });
   }
 
-_getBulkPasscode() async {
-    if (file == null) return;
+  _getBulkPasscode() async {
     final fileName = Services().baseName(file!.path);
+    if (_arrivalTime.text.isEmpty ||
+        _departureTime.text.isEmpty ||
+        _date.text.isEmpty) {
+      var data = await Services().getBulkPasscode(fileName,
+          widget.data['resident_code'], _date, _arrivalTime, _departureTime);
 
+      var message = data['error']['message'];
+
+      return showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(message),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("ok"))
+          ],
+        ),
+      );
+    }
     var data = await Services().getBulkPasscode(fileName,
         widget.data['resident_code'], _date, _arrivalTime, _departureTime);
 
-    var message = data['error']['message'];
+    var message = data['message'];
 
     return showDialog(
       context: context,
@@ -124,7 +145,10 @@ _getBulkPasscode() async {
                                 height: 50,
                               ),
                               ActionPageButton(
-                                  onPressed: () {}, text: 'Get Passcode'),
+                                  onPressed: () async {
+                                    await _getBulkPasscode();
+                                  },
+                                  text: 'Get Bulk Passcode'),
                               const SizedBox(
                                 height: 50,
                               ),

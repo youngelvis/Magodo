@@ -27,6 +27,7 @@ TextEditingController _departureTime = TextEditingController();
 
 class _GetFuturePasscodeState extends State<GetFuturePasscode> {
   String? noOfVisitors;
+
   _getFuturePasscode() async {
     if (_mobileNumber.text.isEmpty ||
         _arrivalTime.text.isEmpty ||
@@ -67,7 +68,7 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
         _date.text,
         _arrivalTime.text,
         _departureTime.text);
-    var message = data['error']['message'];
+    var message = data['message'];
 
     return showDialog(
       context: context,
