@@ -7,6 +7,7 @@ import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_p
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_passcode/get_passcode.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/register_vechicle/register_vechicle.dart';
 import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
+import 'package:magodo/pages/resident_Page/view_family/view_family_report.dart';
 
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
@@ -61,8 +62,10 @@ class ResidentNavigationPage extends StatelessWidget {
                         }),
                     NavTextButton(
                         icon: Icons.insert_chart,
-                        text: 'Report',
-                        onPressed: () {}),
+                        text: 'View Family Members',
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ViewFamilyMembers(data: data,)));
+                        }),
                     NavTextButton(
                         icon: Icons.shopping_bag,
                         text: 'Get Passcode',

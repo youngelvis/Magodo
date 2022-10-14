@@ -1,27 +1,25 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:magodo/models/visitordata.dart';
-import 'package:magodo/pages/resident_Page/visitor_passcode_card/visitor_report_card.dart';
+import 'package:magodo/models/familydata.dart';
+import 'package:magodo/pages/resident_Page/view_family/view_family_card.dart';
 import 'package:magodo/services/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../../components/components_for_class_of_varable/colors.dart' as color;
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:magodo/components/roundedTextSearchField.dart';
 import 'package:magodo/components/title.dart';
 
-class ResidentPageLandingPage extends StatefulWidget {
+class ViewFamilyMembers extends StatefulWidget {
   final data;
 
-  const ResidentPageLandingPage({Key? key, required this.data})
-      : super(key: key);
+  const ViewFamilyMembers({Key? key, required this.data}) : super(key: key);
 
   @override
-  State<ResidentPageLandingPage> createState() =>
-      _ResidentPageLandingPageState();
+  State<ViewFamilyMembers> createState() => _ViewFamilyMembersState();
 }
 
 TextEditingController _searchWords = TextEditingController();
 
-class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
+class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
   Timer? debouncer;
 
   @override
@@ -47,13 +45,11 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
 
   int currentPage = 0;
   late int totalPages = 0;
-  List<Visitor> visitors = [];
-
-
+  List<Family> families = [];
   final RefreshController refreshController =
       RefreshController(initialRefresh: true);
 
-  Future<bool> getVisitors({bool isRefresh = false}) async {
+  Future<bool> getFamily({bool isRefresh = false}) async {
     if (isRefresh) {
       currentPage = 0;
     } else {
@@ -63,18 +59,20 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
       }
     }
 
-    var data = await Services().viewSentPasscodeReport(
-      currentPage,
+    var data = await Services().getAddFamilyReport(
       widget.data['resident_code'],
+      currentPage,
+      '',
       _searchWords.text,
     );
+
     print(data);
-    final result = visitorsFromJson(data);
+    final result = familiesFromJson(data);
 
     if (isRefresh) {
-      visitors = result.data;
+      families = result.data;
     } else {
-      visitors.addAll(result.data);
+      families.addAll(result.data);
     }
     setState(() {});
     currentPage = currentPage + 10;
@@ -85,18 +83,19 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
   Future _searchFunction() async => debounce(() async {
         int page = 0;
         print(_searchWords.text);
-        var data = await Services().viewSentPasscodeReport(
+        var data = await Services().getAddFamilyReport(
           page,
           widget.data['resident_code'],
+          '',
           _searchWords.text.toString(),
         );
 
-        final result = visitorsFromJson(data);
+        final result = familiesFromJson(data);
         if (result.data.isEmpty) {
           print('empty');
         }
         setState(() {
-          visitors = result.data;
+          families = result.data;
         });
       });
 
@@ -105,7 +104,7 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
       children: [
         Expanded(
           child: RoundedTextSearchField(
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
             onChanged: (value) async {
               await _searchFunction();
             },
@@ -113,7 +112,6 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
             controller: _searchWords,
           ),
         ),
-
       ],
     );
   }
@@ -129,7 +127,10 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
             top: 20,
           ),
           child: Column(children: [
-            TitleContainer(title: 'Dashboard', data: widget.data,),
+            TitleContainer(
+              title: 'Dashboard',
+              data: widget.data,
+            ),
             Container(
               color: color.AppColor.residentBody,
               padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
@@ -151,25 +152,21 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
               height: 50,
               child: ListTile(
                 leading: Text(
-                  "1-${visitors.length} of $totalPages results",
+                  "1-${families.length} of $totalPages results",
                   style: const TextStyle(fontSize: 16),
                 ),
                 trailing: Text(
-                  "Results per page ${visitors.length}",
+                  "Results per page ${families.length}",
                   style: const TextStyle(fontSize: 16),
                 ),
               ),
             ),
-
-
-
             Expanded(
-
               child: SmartRefresher(
                 controller: refreshController,
                 enablePullUp: true,
                 onRefresh: () async {
-                  final result = await getVisitors(isRefresh: true);
+                  final result = await getFamily(isRefresh: true);
                   if (result) {
                     refreshController.refreshCompleted();
                   } else {
@@ -177,35 +174,31 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
                   }
                 },
                 onLoading: () async {
-                  final result = await getVisitors();
+                  final result = await getFamily();
                   if (result) {
                     refreshController.loadComplete();
                   } else {
                     refreshController.loadFailed();
                   }
                 },
-                child: visitors.isEmpty
+                child: families.isEmpty
                     ? const Text('nothing yet')
                     : ListView.builder(
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, index) {
-                          final visitor = visitors[index];
+                          final family = families[index];
 
                           return SingleChildScrollView(
-
-                            child: VisitorPasscodeReport(
-
-                              visitorsName: visitor.visitorName ?? '',
-                              residentName: visitor.residentName ?? '',
-                              address: visitor.residentAddress ?? '',
-                              residentMobile: visitor.residentMsisdn ?? '',
-                              visitorMobile: visitor.visitorMsisdn ?? '',
-                              visitorCode: visitor.visitor_code ?? '',
-                              date: visitor.createdDate ?? '',
+                            child: ViewFamilyCard(
+                              fullName: family.fullName ?? '',
+                              date: family.lastLoginDate ,
+                              email: family.email ?? '',
+                              dependentCode: family.residentCode ?? '',
+                              status: family.status ?? '',
                             ),
                           );
                         },
-                        itemCount: visitors.length,
+                        itemCount: families.length,
                       ),
               ),
             )

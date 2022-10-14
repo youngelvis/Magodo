@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
+
 class ViewFamilyCard extends StatelessWidget {
-  final fullName,
-      familyType,
-      dependentCode,
-      email,
-      dateOfBirth,
-      dependentMobile,
-      date,
-      contactDetails;
-  const ViewFamilyCard({Key? key,
+  final fullName, status, dependentCode, email, date;
+
+  const ViewFamilyCard({
+    Key? key,
     required this.fullName,
-    required this.familyType,
+    required this.status,
     required this.dependentCode,
     required this.email,
-    required this.dateOfBirth,
-    required this.dependentMobile,
     required this.date,
-    required this.contactDetails,}) : super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +27,7 @@ class ViewFamilyCard extends StatelessWidget {
                 style: const TextStyle(fontSize: 13),
               ),
               trailing: Text(
-                familyType,
+                status,
                 style: const TextStyle(fontSize: 13),
               ),
             ),
@@ -42,28 +36,18 @@ class ViewFamilyCard extends StatelessWidget {
             ),
             ListTile(
               title: Text(dependentCode),
-
             ),
             ListTile(
               title: const Text('Full Name'),
-              subtitle: Text(fullName),
+              trailing: Text(fullName),
             ),
             ListTile(
               title: const Text('Email'),
               trailing: Text(email),
             ),
-            ListTile(
-              title: const Text('Date of Birth'),
-              trailing: Text(dateOfBirth),
-            ),
-            ListTile(
-              title: const Text('Dependent Phone'),
-              trailing: Text(dependentMobile),
-            ),
-
           ],
         ),
       ),
     );
-  }//
+  } //
 }

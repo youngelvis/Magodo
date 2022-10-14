@@ -107,7 +107,7 @@ class Services {
       arrivalDate, timeFrom, timeTo) async {
     var data = {
       "msisdn": sendMsisdn,
-      "visitor_name": visitorName?? '',
+      "visitor_name": visitorName ?? '',
       "resident_code": residentCode,
       "number_visitor": numberVisitor,
       "email": email,
@@ -133,7 +133,7 @@ class Services {
       "visitor_name": visitorName,
       "resident_code": residentCode,
       "number_visitor": numberVisitor,
-      "email": email??"",
+      "email": email ?? "",
     };
     var res = await CallApi().postData(data, 'getPasscode');
     var body = jsonDecode(res.body);
@@ -208,7 +208,7 @@ class Services {
       "resident_phone": residentPhone,
       "full_name": fullName,
       "employ_start": employStart,
-      "dependant_phone": dependantPhone?? '',
+      "dependant_phone": dependantPhone ?? '',
       "relationship": relationship,
       "employment_status": employmentStatus,
       "contact_detail": contactDetail,
@@ -276,6 +276,7 @@ class Services {
     var body = jsonDecode(res.body);
     return body;
   }
+
   //14
   getBulkPasscode(file, residentCode, arrivalDate, timeFrom, timeTo) async {
     var data = {
@@ -290,6 +291,34 @@ class Services {
     var body = jsonDecode(res.body);
     return body;
   }
+
+  //15
+  getAddFamilyReport(residentCode, page, limit, search) async {
+    var data = {
+      "resident_code": residentCode,
+      "page": page,
+      "limit":  "10",
+      "search": search.toString()
+    };
+
+    var res = await CallApi().postData(data, 'addFamilyReport');
+
+    return res.body;
+  }
+
+  //16
+  getAddStaffReport(residentCode, page, limit, search) async {
+    var data = {
+      "resident_code": residentCode,
+      "page": page,
+      "limit":  "10",
+      "search": search.toString()
+    };
+
+    var res = await CallApi().postData(data, 'addStaffReport');
+    return res.body;
+  }
+
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles();
     if (result == null) return;
@@ -300,7 +329,6 @@ class Services {
   }
 
   Future baseName(file) async {
-
     final fileName = basename(file!.path);
     return fileName;
   }
