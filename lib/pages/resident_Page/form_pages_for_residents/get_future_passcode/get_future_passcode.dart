@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
-import 'package:magodo/components/buildNumOfVisitorsDropDown.dart';
+import 'package:magodo/components/textfields_types/buildNumOfVisitorsDropDown.dart';
 import 'package:magodo/components/date_text_field.dart';
 import 'package:magodo/components/text_for_form.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
@@ -68,6 +68,7 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
         _date.text,
         _arrivalTime.text,
         _departureTime.text);
+    print(data);
     var message = data['message'];
 
     return showDialog(

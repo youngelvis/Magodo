@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
-import 'package:magodo/components/roundedInputField.dart';
-import 'package:magodo/components/roundedTextInputField.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
-import 'package:magodo/components/textfields_types/resident_code.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_form1.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_component/forget_password_heading.dart';
 import 'package:magodo/pages/forget_password_page/forget_password_fourth_page.dart';
@@ -23,26 +20,7 @@ TextEditingController _residentCode = TextEditingController();
 TextEditingController _email = TextEditingController();
 
 class _ForgetPasswordState extends State<ForgetPassword> {
-  Widget _buildMobileNumber() {
-    return RoundedInputField(
-      hintText: 'Enter your mobile number',
-      controller: _mobileNumber,
-    );
-  }
 
-  Widget _buildResidentCode() {
-    return RoundedTextInputField(
-      hintText: 'Enter resident code',
-      controller: _residentCode,
-    );
-  }
-
-  Widget _buildEmail() {
-    return RoundedTextInputField(
-      hintText: 'Enter email address',
-      controller: _email,
-    );
-  }
 
   _navigation() {
     Navigator.push(
@@ -101,7 +79,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
@@ -117,8 +94,10 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   height: 20,
                 ),
                 ForgetPasswordForm1(
-                    residentCode: BuildResidentCode(
-                      residentCode: _residentCode,
+                    residentCode: NameTextField(
+                      controller: _email,
+                      hint: 'enter resident code',
+                      nameType: 'Resident Code',
                     ),
                     mobileNumber: MobileNumberTextField(
                       controller: _mobileNumber,

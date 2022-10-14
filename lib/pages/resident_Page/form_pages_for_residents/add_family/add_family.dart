@@ -54,7 +54,7 @@ class _AddFamilyState extends State<AddFamily> {
       }
       var data = await Services().addFamilyMember(widget.data['resident_code'],
           _mobileNumber.text, _fullName.text, _email.text, _password.text, _confirmPassword.text);
-
+print(data);
       var message = data['message'];
 
       return showDialog(
@@ -111,7 +111,7 @@ class _AddFamilyState extends State<AddFamily> {
                               NameTextField(
                                   controller: _fullName,
                                   hint: "Enter full name",
-                                  nameType: "Staff Full Name"),
+                                  nameType: "Full Name"),
 
                               MobileNumberTextField(
                                   controller: _mobileNumber,

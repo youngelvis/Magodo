@@ -106,12 +106,12 @@ class Services {
   getFuturePasscode(sendMsisdn, visitorName, residentCode, numberVisitor, email,
       arrivalDate, timeFrom, timeTo) async {
     var data = {
-      "send_msisdn": sendMsisdn,
+      "msisdn": sendMsisdn,
       "visitor_name": visitorName?? '',
       "resident_code": residentCode,
       "number_visitor": numberVisitor,
       "email": email,
-      "arrival_date": arrivalDate,
+      "arival_date": arrivalDate,
       "time_from": timeFrom,
       "time_to": timeTo,
     };
@@ -129,7 +129,7 @@ class Services {
     email,
   ) async {
     var data = {
-      "send_msisdn": sendMsisdn,
+      "msisdn": sendMsisdn,
       "visitor_name": visitorName,
       "resident_code": residentCode,
       "number_visitor": numberVisitor,
@@ -204,7 +204,7 @@ class Services {
   addStaff(residentPhone, fullName, residentCode, dependantPhone, relationship,
       employmentStatus, contactDetail, employStart) async {
     var data = {
-      "resident_code": residentCode,
+      "resident_reg_code": residentCode,
       "resident_phone": residentPhone,
       "full_name": fullName,
       "employ_start": employStart,
@@ -221,14 +221,14 @@ class Services {
 
   //11
   addFamilyMember(residentCode, residentPhone, fullName, email, password,
-      ConfirmPassword) async {
+      confirmPassword) async {
     var data = {
       "resident_code": residentCode,
       "resident_phone": residentPhone,
       "full_name": fullName,
       "email": email,
       "password": password,
-      "Confirm_password": ConfirmPassword,
+      "confirm_password": confirmPassword,
     };
 
     var res = await CallApi().postData(data, 'addFamilyMember');

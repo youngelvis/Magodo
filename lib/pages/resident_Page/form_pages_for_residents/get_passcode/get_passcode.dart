@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
-import 'package:magodo/components/buildNumOfVisitorsDropDown.dart';
+import 'package:magodo/components/textfields_types/buildNumOfVisitorsDropDown.dart';
 import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
@@ -58,7 +58,7 @@ class _GetPasscodeState extends State<GetPasscode> {
         noOfVisitors,
         _email.text);
     var message = data['message'];
-
+    print(data);
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
