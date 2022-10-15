@@ -8,6 +8,7 @@ import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_passcode
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/register_vechicle/register_vechicle.dart';
 import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
 import 'package:magodo/pages/resident_Page/view_family/view_family_report.dart';
+import 'package:magodo/pages/resident_Page/view_staff/view_staff_report.dart';
 
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
@@ -94,7 +95,7 @@ class ResidentNavigationPage extends StatelessWidget {
                         icon: Icons.engineering,
                         text: 'Staffs',
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) =>  AddStaff(data: data,)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) =>  ViewStaffMembers(data: data,)));
                         }),
                   ],
                 ))

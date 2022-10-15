@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
 class ViewStaffCard extends StatelessWidget {
-  final visitorsName,
+  final staffName,
       employementType,
       staffCode,
       employmentDate,
-      dateOfBirth,
+      validityEnds,
       staffMobile,
       date,
       contactDetails;
 
   const ViewStaffCard({
     Key? key,
-    required this.visitorsName,
+    required this.staffName,
     required this.employementType,
     required this.staffCode,
     required this.employmentDate,
-    required this.dateOfBirth,
+    required this.validityEnds,
     required this.staffMobile,
     required this.date,
     required this.contactDetails,
@@ -50,15 +50,15 @@ class ViewStaffCard extends StatelessWidget {
             ),
             ListTile(
               title: const Text('Staff Name'),
-              subtitle: Text(visitorsName),
+              trailing: Text(staffName),
             ),
             ListTile(
               title: const Text('Employment Date'),
               trailing: Text(employmentDate),
             ),
             ListTile(
-              title: const Text('Date of Birth'),
-              trailing: Text(dateOfBirth),
+              title: const Text('Validity Ends'),
+              trailing: Text(validityEnds),
             ),
             ListTile(
               title: const Text('Staff Phone'),
