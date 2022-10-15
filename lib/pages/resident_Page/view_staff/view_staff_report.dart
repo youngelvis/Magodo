@@ -144,6 +144,7 @@ print(data);
             const Divider(
               thickness: 2,
             ),
+
             Container(
               color: Colors.white,
               height: 50,

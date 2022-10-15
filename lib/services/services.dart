@@ -318,7 +318,18 @@ class Services {
     var res = await CallApi().postData(data, 'addStaffReport');
     return res.body;
   }
+  //17
+  getMemberVehicleReport(residentCode, page, limit, search) async {
+    var data = {
+      "resident_code": residentCode,
+      "page": page,
+      "limit":  "10",
+      "search": search.toString()
+    };
 
+    var res = await CallApi().postData(data, 'memberVehicleReport');
+    return res.body;
+  }
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles();
     if (result == null) return;

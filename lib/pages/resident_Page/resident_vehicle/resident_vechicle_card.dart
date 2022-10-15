@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ResidentVehicle extends StatelessWidget {
-  final visitorsName,
-      employementType,
-      mraReceiptNo,
+class VehicleReportCard extends StatelessWidget {
+  final mraReceiptNo,
       govAgency,
       carMake,
       vehicleCode,
@@ -14,10 +12,8 @@ class ResidentVehicle extends StatelessWidget {
       uploadedFile,
       declineMessage;
 
-  const ResidentVehicle({
+  const VehicleReportCard({
     Key? key,
-    required this.visitorsName,
-    required this.employementType,
     required this.mraReceiptNo,
     required this.govAgency,
     required this.carMake,
@@ -44,10 +40,6 @@ class ResidentVehicle extends StatelessWidget {
                 date,
                 style: const TextStyle(fontSize: 13),
               ),
-              trailing: Text(
-                employementType,
-                style: const TextStyle(fontSize: 13),
-              ),
             ),
             const Divider(
               thickness: 2,
@@ -58,11 +50,7 @@ class ResidentVehicle extends StatelessWidget {
             ),
             ListTile(
               title: const Text('Gov agency'),
-              subtitle: Text(visitorsName),
-            ),
-            ListTile(
-              title: const Text('Employment Date'),
-              trailing: Text(govAgency),
+              subtitle: Text(govAgency),
             ),
             ListTile(
               title: const Text('Make'),
