@@ -19,9 +19,6 @@ TextEditingController _residentCode = TextEditingController();
 TextEditingController _mobileNumber = TextEditingController();
 TextEditingController _fullName = TextEditingController();
 TextEditingController _address = TextEditingController();
-TextEditingController _email = TextEditingController();
-TextEditingController _password = TextEditingController();
-TextEditingController _confirmPassword = TextEditingController();
 TextEditingController _startDate = TextEditingController();
 TextEditingController _finishDate = TextEditingController();
 class _IdentifyNewlyRegisteredMembersState extends State<IdentifyNewlyRegisteredMembers> {

@@ -4,6 +4,7 @@ import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/text_for_form.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
+import 'package:magodo/components/textfields_types/vehicle_color_dropdown_list.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 
 class RegisterVehicle extends StatefulWidget {
@@ -14,6 +15,7 @@ class RegisterVehicle extends StatefulWidget {
   @override
   State<RegisterVehicle> createState() => _RegisterVehicleState();
 }
+
 TextEditingController _vehicleCode = TextEditingController();
 TextEditingController _vehicleMake = TextEditingController();
 TextEditingController _vehicleModel = TextEditingController();
@@ -21,9 +23,8 @@ TextEditingController _govtAgency = TextEditingController();
 TextEditingController _registrationNumber = TextEditingController();
 TextEditingController _mraDuesReceiptNo = TextEditingController();
 TextEditingController _amountPaid = TextEditingController();
+
 class _RegisterVehicleState extends State<RegisterVehicle> {
-
-
   String? colour;
   final colourOptions = [
     'White',
@@ -121,8 +122,11 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                                   controller: _vehicleModel,
                                   hint: "Enter model of vehicle",
                                   nameType: "Vehicle Make"),
-                              const TextForForm(text: "Vehicle Colour"),
-                              _buildPopulationType(),
+                              BuildVehicleColorDropDownList(
+                                  vehicleColor: colour,
+                                  onChanged: (value) => setState(() {
+                                        colour = value as String;
+                                      })),
                               NameTextField(
                                   controller: _govtAgency,
                                   hint: "gov agency",
@@ -148,16 +152,15 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                                           primary: Colors.white,
                                           onPrimary: Colors.black,
                                           shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(12.0))),
-                                      onPressed: (){},
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0))),
+                                      onPressed: () {},
                                       child: const Icon(Icons.add))),
                               const SizedBox(
                                 height: 20,
                               ),
-
                               ActionPageButton(
-                                  onPressed: () async {},
-                                  text: 'Submit'),
+                                  onPressed: () async {}, text: 'Submit'),
                               const SizedBox(
                                 height: 30,
                               ),

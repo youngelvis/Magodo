@@ -65,7 +65,7 @@ class _ViewStaffMembersState extends State<ViewStaffMembers> {
       '',
       _searchWords.text,
     );
-print(data);
+    print(data);
     final result = staffsFromJson(data);
 
     if (isRefresh) {
@@ -136,6 +136,19 @@ print(data);
                 const SizedBox(
                   height: 20,
                 ),
+                Row(
+                  children: const [
+                    Text(
+                      'View Staff Report',
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_down_outlined,
+                      size: 15,
+                    ),
+                  ],
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -144,7 +157,6 @@ print(data);
             const Divider(
               thickness: 2,
             ),
-
             Container(
               color: Colors.white,
               height: 50,

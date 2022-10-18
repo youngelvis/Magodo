@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:magodo/components/action_page_button2.dart';
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 class ViewStaffCard extends StatelessWidget {
   final staffName,
       employementType,
@@ -68,6 +69,32 @@ class ViewStaffCard extends StatelessWidget {
               title: const Text("Contact/Other Detailsd"),
               trailing: Text(contactDetails),
             ),
+            const Divider(
+              thickness: 2,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
+                const SizedBox(
+                  width: 45,
+                ),
+                ActionPageButton2(
+                  onPressed: () {},
+                  primaryColor: color.AppColor.decline,
+                  text: 'Delete',
+                ),
+                const SizedBox(
+                  width: 50,
+                ),
+                ActionPageButton2(
+                  onPressed: () {},
+                  primaryColor: color.AppColor.verifiedColor,
+                  text: 'Edit',
+                ),
+              ],
+            )
           ],
         ),
       ),

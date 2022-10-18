@@ -22,12 +22,10 @@ TextEditingController _confirmPassword = TextEditingController();
 TextEditingController _pinNumber = TextEditingController();
 
 class _ForgetPasswordFourthPageState extends State<ForgetPasswordFourthPage> {
-
-
   _handleSubmit() async {
-    if(_pinNumber.text.isEmpty|| _password.text.isEmpty|| _confirmPassword.text.isEmpty){
-
-    }
+    if (_pinNumber.text.isEmpty ||
+        _password.text.isEmpty ||
+        _confirmPassword.text.isEmpty) {}
     var data = await Services()
         .resetPassword(_pinNumber.text, _password.text, _confirmPassword.text);
 
@@ -38,7 +36,12 @@ class _ForgetPasswordFourthPageState extends State<ForgetPasswordFourthPage> {
         builder: (_) => AlertDialog(
           title: Text(message),
           actions: [
-            TextButton(
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -52,16 +55,21 @@ class _ForgetPasswordFourthPageState extends State<ForgetPasswordFourthPage> {
       builder: (_) => AlertDialog(
         title: const Text('Successfully changed your password'),
         actions: [
-          TextButton(
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder:(context)=> const SignIN()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const SignIN()));
               },
               child: const Text("ok"))
         ],
       ),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +78,7 @@ class _ForgetPasswordFourthPageState extends State<ForgetPasswordFourthPage> {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.only(
-              top: 60, left: 30, right: 30
-            ),
+            padding: const EdgeInsets.only(top: 60, left: 30, right: 30),
             color: color.AppColor.homePageBackground,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

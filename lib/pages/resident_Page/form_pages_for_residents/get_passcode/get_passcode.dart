@@ -23,18 +23,13 @@ TextEditingController _visitorName = TextEditingController();
 
 class _GetPasscodeState extends State<GetPasscode> {
   String? noOfVisitors;
-  final noOfVisitorsOptions = [
-    '0',
-    '1',
-    '2',
-    '3',
-    '4',
-  ];
 
   _getPasscode() async {
-    if (_visitorName.text.isEmpty|| _visitorName.text.isEmpty||noOfVisitors ==null) {
-      var data = await Services().getPasscode(_mobileNumber.text, _visitorName.text,
-          widget.data['resident_code'], noOfVisitors, '');
+    if (_visitorName.text.isEmpty ||
+        _visitorName.text.isEmpty ||
+        noOfVisitors == null) {
+      var data = await Services().getPasscode(_mobileNumber.text,
+          _visitorName.text, widget.data['resident_code'], noOfVisitors, '');
       var message = data['error']['message'];
 
       return showDialog(
@@ -42,7 +37,12 @@ class _GetPasscodeState extends State<GetPasscode> {
         builder: (_) => AlertDialog(
           title: Text(message),
           actions: [
-            TextButton(
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -58,13 +58,17 @@ class _GetPasscodeState extends State<GetPasscode> {
         noOfVisitors,
         _email.text);
     var message = data['message'];
-    print(data);
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
         title: Text(message),
         actions: [
-          TextButton(
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -73,29 +77,6 @@ class _GetPasscodeState extends State<GetPasscode> {
       ),
     );
   }
-
-  Widget _buildNoOfVisitors() {
-    return RoundedDropDownTextField(
-      hint: const Text(
-        'Choose number',
-        style: TextStyle(fontSize: 15),
-      ),
-      value: noOfVisitors,
-      onChanged: (value) => setState(() {
-        noOfVisitors = value as String;
-      }),
-      items: noOfVisitorsOptions.map(buildNoOfVisitorsItem).toList(),
-    );
-  }
-
-  DropdownMenuItem<String> buildNoOfVisitorsItem(String noOfVisitorsOptions) =>
-      DropdownMenuItem(
-        value: noOfVisitorsOptions,
-        child: Text(
-          noOfVisitorsOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
-        ),
-      );
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +120,6 @@ class _GetPasscodeState extends State<GetPasscode> {
                                   controller: _mobileNumber,
                                   fieldName: 'Mobile Number',
                                   hintText: 'Enter your mobile number'),
-
                               NameTextField(
                                   controller: _visitorName,
                                   hint: "Enter your visitor's name",
@@ -148,8 +128,7 @@ class _GetPasscodeState extends State<GetPasscode> {
                                   controller: _email,
                                   hint: 'Enter your Email',
                                   nameType: 'Email (Optional)'),
-
-                              BuildNumberOfEmploymentDropDownList(
+                              BuildNumberOfVisitorsDropDownList(
                                 noOfVisitors: noOfVisitors,
                                 onChanged: (value) => setState(() {
                                   noOfVisitors = value as String;

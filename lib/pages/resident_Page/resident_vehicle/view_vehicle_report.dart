@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:magodo/models/vehicledata.dart';
 import 'package:magodo/pages/resident_Page/resident_vehicle/resident_vechicle_card.dart';
-import 'package:magodo/pages/resident_Page/view_staff/view_staff_card.dart';
 import 'package:magodo/services/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
@@ -66,7 +65,6 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
       '',
       _searchWords.text,
     );
-    print(data);
     final result = vehiclesFromJson(data);
 
     if (isRefresh) {
@@ -136,6 +134,18 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
                 _buildSearchBar(),
                 const SizedBox(
                   height: 20,
+                ),
+                Row(
+                  children: const [
+                    Text(
+                      'View Vehicle Report',
+                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_down_outlined,
+                      size: 15,
+                    ),
+                  ],
                 ),
                 const SizedBox(
                   height: 20,

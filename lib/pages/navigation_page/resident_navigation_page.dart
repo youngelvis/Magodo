@@ -7,6 +7,7 @@ import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_p
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_passcode/get_passcode.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/register_vechicle/register_vechicle.dart';
 import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
+import 'package:magodo/pages/resident_Page/resident_vehicle/view_vehicle_report.dart';
 import 'package:magodo/pages/resident_Page/view_family/view_family_report.dart';
 import 'package:magodo/pages/resident_Page/view_staff/view_staff_report.dart';
 
@@ -53,7 +54,7 @@ class ResidentNavigationPage extends StatelessWidget {
                         icon: Icons.directions_car,
                         text: 'Register Vehicle',
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterVehicle(data: data)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ViewVehicleReport(data: data)));
                         }),
                     NavTextButton(
                         icon: Icons.access_time_filled_sharp,

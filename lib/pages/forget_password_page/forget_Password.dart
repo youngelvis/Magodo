@@ -20,8 +20,6 @@ TextEditingController _residentCode = TextEditingController();
 TextEditingController _email = TextEditingController();
 
 class _ForgetPasswordState extends State<ForgetPassword> {
-
-
   _navigation() {
     Navigator.push(
         context,
@@ -42,7 +40,12 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         builder: (_) => AlertDialog(
           title: Text(message),
           actions: [
-            TextButton(
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -62,7 +65,12 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         builder: (_) => AlertDialog(
           title: Text(message),
           actions: [
-            TextButton(
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },

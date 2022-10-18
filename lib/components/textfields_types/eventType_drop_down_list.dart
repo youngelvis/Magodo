@@ -2,48 +2,48 @@ import 'package:flutter/material.dart';
 import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/text_for_form.dart';
 
-class BuildEmploymentDropDownList extends StatefulWidget {
-  final employment;
+class BuildEventTypeDropDownList extends StatefulWidget {
+  final eventType;
   final onChanged;
 
-  const BuildEmploymentDropDownList(
-      {Key? key, required this.employment, required this.onChanged})
+  const BuildEventTypeDropDownList(
+      {Key? key, required this.eventType, required this.onChanged})
       : super(key: key);
 
   @override
-  State<BuildEmploymentDropDownList> createState() =>
-      _BuildEmploymentDropDownListState();
+  State<BuildEventTypeDropDownList> createState() =>
+      _BuildEventTypeDropDownListState();
 }
 
-class _BuildEmploymentDropDownListState
-    extends State<BuildEmploymentDropDownList> {
-  final employmentOptions = [
-    'Employed',
-    'Resigned',
-    'Dismissed',
-    'Terminated',
-    'Absconded',
-    'Family',
-    'Others'
+class _BuildEventTypeDropDownListState
+    extends State<BuildEventTypeDropDownList> {
+  final eventTypeOptions = [
+    'Birthday',
+    'Child Dedication',
+    'Seminar',
+    'Product Launching',
+    'Job Recruiting Event',
+    'Wedding',
+    'Fashion show and red carpet',
+    'others'
   ];
-
-  Widget _buildEmploymentStatus() {
+  Widget _buildEventType() {
     return RoundedDropDownTextField(
       hint: const Text(
-        'Select employment',
+        'Select event type',
         style: TextStyle(fontSize: 15),
       ),
-      value: widget.employment,
+      value: widget.eventType,
       onChanged: widget.onChanged,
-      items: employmentOptions.map(buildEmploymentItem).toList(),
+      items: eventTypeOptions.map(buildEventTypeItems).toList(),
     );
   }
 
-  DropdownMenuItem<String> buildEmploymentItem(String employmentOptions) =>
+  DropdownMenuItem<String> buildEventTypeItems(String eventTypeOptions) =>
       DropdownMenuItem(
-        value: employmentOptions,
+        value: eventTypeOptions,
         child: Text(
-          employmentOptions,
+          eventTypeOptions,
           style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
         ),
       );
@@ -53,8 +53,8 @@ class _BuildEmploymentDropDownListState
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const TextForForm(text: "Employment Status"),
-          _buildEmploymentStatus(),
+          const TextForForm(text: "event Type"),
+          _buildEventType(),
           const SizedBox(
             height: 20,
           ),

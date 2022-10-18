@@ -39,7 +39,13 @@ class _SignINState extends State<SignIN> {
         builder: (_) => AlertDialog(
           title: Text(message),
           actions: [
-            TextButton(
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary:  color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.circular(20.0))),
                 onPressed: () {
                   _residentCode.clear();
                   _password.clear();
@@ -67,7 +73,13 @@ class _SignINState extends State<SignIN> {
         builder: (_) => AlertDialog(
           title: Text(message),
           actions: [
-            TextButton(
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary:  color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.circular(20.0))),
                 onPressed: () {
                   _residentCode.clear();
                   _password.clear();

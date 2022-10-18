@@ -8,7 +8,7 @@ import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/time_text_field.dart';
 import 'package:magodo/services/services.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
-
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 class GetFuturePasscode extends StatefulWidget {
   final data;
 
@@ -50,7 +50,12 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
         builder: (_) => AlertDialog(
           title: Text(message),
           actions: [
-            TextButton(
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -76,7 +81,12 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
       builder: (_) => AlertDialog(
         title: Text(message),
         actions: [
-          TextButton(
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -132,7 +142,7 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
                                   controller: _visitorName,
                                   hint: "Enter visitor's name",
                                   nameType: "Visitor's Name"),
-                              BuildNumberOfEmploymentDropDownList(
+                              BuildNumberOfVisitorsDropDownList(
                                 noOfVisitors: noOfVisitors,
                                 onChanged: (value) => setState(() {
                                   noOfVisitors = value as String;

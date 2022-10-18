@@ -138,6 +138,19 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
                 const SizedBox(
                   height: 20,
                 ),
+                Row(
+                  children: const [
+                    Text(
+                      'View Visitors Report',
+                      style: TextStyle(
+                          fontSize: 25, fontWeight: FontWeight.bold),
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_down_outlined,
+                      size: 15,
+                    ),
+                  ],
+                ),
                 const SizedBox(
                   height: 20,
                 ),

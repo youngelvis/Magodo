@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/components_for_class_of_varable/category.dart';
 import 'package:magodo/components/roundedDropDownTextfield.dart';
+import 'package:magodo/components/textfields_types/category_drop_down_list.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/pages/register_page/register_page.dart';
@@ -46,42 +47,6 @@ TextEditingController _businessEmail = TextEditingController();
 
 class _Registration_page3State extends State<Registration_page3> {
   String? categoryType;
-  final categoryOptions = [
-    Category.SCHOOL,
-    Category.CHURCH,
-    Category.GYM_HOUSE,
-    Category.HOSPITAL,
-    Category.HOTEL,
-    Category.ENTERTAINMENT,
-    Category.MOSQUE,
-    Category.OFFICE,
-    Category.RESTAURANT,
-    Category.SALOON,
-    Category.SUPER_MARKET,
-  ];
-
-  Widget _buildCategoryOptions() {
-    return RoundedDropDownTextField(
-      hint: const Text(
-        'Select Category type',
-        style: TextStyle(fontSize: 15),
-      ),
-      value: categoryType,
-      onChanged: (value) => setState(() {
-        categoryType = value as String;
-      }),
-      items: categoryOptions.map(buildResidentItem).toList(),
-    );
-  }
-
-  DropdownMenuItem<String> buildResidentItem(String categoryOptions) =>
-      DropdownMenuItem(
-        value: categoryOptions,
-        child: Text(
-          categoryOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
-        ),
-      );
 
   _registerCommercial() async {
     var data = await Services().registerCommercial(
@@ -108,7 +73,13 @@ class _Registration_page3State extends State<Registration_page3> {
         builder: (_) => AlertDialog(
           title: Text(message),
           actions: [
-            TextButton(
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary:  color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.circular(20.0))),
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const SignUp()));
@@ -119,7 +90,6 @@ class _Registration_page3State extends State<Registration_page3> {
       );
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -142,17 +112,12 @@ class _Registration_page3State extends State<Registration_page3> {
                     const SizedBox(
                       height: 40,
                     ),
-                    Text(
-                      'Category',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          color: color.AppColor.homePageTitle),
+                    BuildCategoryDropDownList(
+                      onChanged: (value) => setState(() {
+                        categoryType = value as String;
+                      }),
+                      category: categoryType,
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    _buildCategoryOptions(),
                     const SizedBox(
                       height: 20,
                     ),

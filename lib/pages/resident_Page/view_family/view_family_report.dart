@@ -119,90 +119,107 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-            body: Container(
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: Scaffold(
+        body: Container(
           color: color.AppColor.residentBody,
           padding: const EdgeInsets.only(
             top: 20,
           ),
-          child: Column(children: [
-            TitleContainer(
-              title: 'Dashboard',
-              data: widget.data,
-            ),
-            Container(
-              color: color.AppColor.residentBody,
-              padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
-              child: Column(children: [
-                _buildSearchBar(),
-                const SizedBox(
-                  height: 20,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-              ]),
-            ),
-            const Divider(
-              thickness: 2,
-            ),
-            Container(
-              color: Colors.white,
-              height: 50,
-              child: ListTile(
-                leading: Text(
-                  "1-${families.length} of $totalPages results",
-                  style: const TextStyle(fontSize: 16),
-                ),
-                trailing: Text(
-                  "Results per page ${families.length}",
-                  style: const TextStyle(fontSize: 16),
-                ),
+          child: Column(
+            children: [
+              TitleContainer(
+                title: 'Dashboard',
+                data: widget.data,
               ),
-            ),
-            Expanded(
-              child: SmartRefresher(
-                controller: refreshController,
-                enablePullUp: true,
-                onRefresh: () async {
-                  final result = await getFamily(isRefresh: true);
-                  if (result) {
-                    refreshController.refreshCompleted();
-                  } else {
-                    refreshController.refreshFailed();
-                  }
-                },
-                onLoading: () async {
-                  final result = await getFamily();
-                  if (result) {
-                    refreshController.loadComplete();
-                  } else {
-                    refreshController.loadFailed();
-                  }
-                },
-                child: families.isEmpty
-                    ? const Text('nothing yet')
-                    : ListView.builder(
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext context, index) {
-                          final family = families[index];
-
-                          return SingleChildScrollView(
-                            child: ViewFamilyCard(
-                              fullName: family.fullName ?? '',
-                              date: family.lastLoginDate ,
-                              email: family.email ?? '',
-                              dependentCode: family.residentCode ?? '',
-                              status: family.status ?? '',
-                            ),
-                          );
-                        },
-                        itemCount: families.length,
+              Container(
+                color: color.AppColor.residentBody,
+                padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
+                child: Column(children: [
+                  _buildSearchBar(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: const [
+                      Text(
+                        'View Family Report',
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold),
                       ),
+                      Icon(
+                        Icons.keyboard_arrow_down_outlined,
+                        size: 15,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ]),
               ),
-            )
-          ]),
-        )));
+              const Divider(
+                thickness: 2,
+              ),
+              Container(
+                color: Colors.white,
+                height: 50,
+                child: ListTile(
+                  leading: Text(
+                    "1-${families.length} of $totalPages results",
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  trailing: Text(
+                    "Results per page ${families.length}",
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: SmartRefresher(
+                  controller: refreshController,
+                  enablePullUp: true,
+                  onRefresh: () async {
+                    final result = await getFamily(isRefresh: true);
+                    if (result) {
+                      refreshController.refreshCompleted();
+                    } else {
+                      refreshController.refreshFailed();
+                    }
+                  },
+                  onLoading: () async {
+                    final result = await getFamily();
+                    if (result) {
+                      refreshController.loadComplete();
+                    } else {
+                      refreshController.loadFailed();
+                    }
+                  },
+                  child: families.isEmpty
+                      ? const Text('nothing yet')
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, index) {
+                            final family = families[index];
+
+                            return SingleChildScrollView(
+                              child: ViewFamilyCard(
+                                fullName: family.fullName ?? '',
+                                date: family.lastLoginDate,
+                                email: family.email ?? '',
+                                dependentCode: family.residentCode ?? '',
+                                status: family.status ?? '',
+                              ),
+                            );
+                          },
+                          itemCount: families.length,
+                        ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

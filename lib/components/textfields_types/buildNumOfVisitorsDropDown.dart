@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/text_for_form.dart';
 
-class BuildNumberOfEmploymentDropDownList extends StatefulWidget {
+class BuildNumberOfVisitorsDropDownList extends StatefulWidget {
   final noOfVisitors;
   final onChanged;
 
-  const BuildNumberOfEmploymentDropDownList(
+  const BuildNumberOfVisitorsDropDownList(
       {Key? key, required this.noOfVisitors, required this.onChanged})
       : super(key: key);
 
   @override
-  State<BuildNumberOfEmploymentDropDownList> createState() =>
-      _BuildNumberOfEmploymentDropDownListState();
+  State<BuildNumberOfVisitorsDropDownList> createState() =>
+      _BuildNumberOfVisitorsDropDownListState();
 }
 
-class _BuildNumberOfEmploymentDropDownListState
-    extends State<BuildNumberOfEmploymentDropDownList> {
+class _BuildNumberOfVisitorsDropDownListState
+    extends State<BuildNumberOfVisitorsDropDownList> {
   final noOfVisitorsOptions = [
     '0',
     '1',

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:magodo/components/components_for_class_of_varable/zones.dart';
-import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/terms_and_conditions.dart';
-import 'package:magodo/components/text_for_form.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/textfields_types/password_textfield.dart';
+import 'package:magodo/components/textfields_types/resident_type_dropdown_list.dart';
+import 'package:magodo/components/textfields_types/zones.dart';
 import 'package:magodo/pages/register_page/register_page.dart';
 import 'package:magodo/pages/register_page/registration_page_components/registration_pages_forms.dart';
 import 'package:magodo/pages/login_page/login_component/signUpText.dart';
@@ -35,35 +34,8 @@ TextEditingController _confirmPassword = TextEditingController();
 
 class _RegistrationPage2State extends State<RegistrationPage2> {
   String? zone;
-  final zoneOptions = [
-    Zones.AEA,
-    Zones.AGBOOLA_AJUMOBI,
-    Zones.AKIN_TIJANI,
-    Zones.BASHEER_SHITTU,
-    Zones.BROADWAY,
-    Zones.CENTRAL,
-    Zones.FAA,
-    Zones.FILLING_EGDE,
-    Zones.FORESHORE,
-    Zones.GORGE_VIEW,
-    Zones.KAYODE_TAIWO,
-    Zones.KOLA_AMODU,
-    Zones.MAINLINE,
-    Zones.NELSON_NWEKE,
-    Zones.OGUNYE,
-    Zones.PALM_VIEW,
-    Zones.PEACE_VALLEY,
-    Zones.PSSDC_WALE_TAIWO,
-    Zones.SOUTH_EAST,
-    Zones.SOUTH_WEST,
-    Zones.VALLEY_VIEW
-  ];
+
   String? residentType;
-  final residentialOptions = [
-    'Commercial',
-    'Resident',
-    'Property Owner',
-  ];
 
   bool _selectResidential = false;
   bool checkBoxValue = false;
@@ -88,7 +60,13 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
         builder: (_) => AlertDialog(
           title: Text(message),
           actions: [
-            TextButton(
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary:  color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.circular(20.0))),
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const SignUp()));
@@ -119,57 +97,6 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
     );
   }
 
-  Widget _buildZone() {
-    return RoundedDropDownTextField(
-      hint: const Text(
-        'Select Zone',
-        style: TextStyle(fontSize: 15),
-      ),
-      value: zone,
-      onChanged: (value) => setState(() {
-        zone = value as String;
-      }),
-      items: zoneOptions.map(buildZoneItem).toList(),
-    );
-  }
-
-  DropdownMenuItem<String> buildZoneItem(String zoneOptions) =>
-      DropdownMenuItem(
-        value: zoneOptions,
-        child: Text(
-          zoneOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
-        ),
-      );
-
-  Widget _buildResidentialType() {
-    return RoundedDropDownTextField(
-      hint: const Text(
-        'Select Residential type',
-        style: TextStyle(fontSize: 15),
-      ),
-      value: residentType,
-      onChanged: (value) => setState(() {
-        residentType = value as String;
-        if (residentType == 'Commercial') {
-          _selectResidential = true;
-        } else {
-          _selectResidential = false;
-        }
-      }),
-      items: residentialOptions.map(buildResidentItem).toList(),
-    );
-  }
-
-  DropdownMenuItem<String> buildResidentItem(String residentOptions) =>
-      DropdownMenuItem(
-        value: residentOptions,
-        child: Text(
-          residentOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
-        ),
-      );
-
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -193,14 +120,11 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                     const SizedBox(
                       height: 40,
                     ),
-
-                    const TextForForm(text: "Zone"),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    _buildZone(),
-                    const SizedBox(
-                      height: 20,
+                    BuildZoneDropDownList(
+                      zone: zone,
+                      onChanged: (value) => setState(() {
+                        zone = value as String;
+                      }),
                     ),
                     NameTextField(
                         controller: _address,
@@ -209,11 +133,14 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const TextForForm(text: "Residential Type"),
-                    _buildResidentialType(),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    BuildResidentTypeDropDownList(
+                        residentType: residentType,
+                        onChanged: (value) => setState(() {
+                              residentType = value as String;
+                              residentType == 'Commercial'
+                                  ? _selectResidential = true
+                                  : _selectResidential = false;
+                            })),
                     BuildPasswordTextField(
                         passwordController: _password, fieldName: 'Password'),
                     const SizedBox(

@@ -4,16 +4,17 @@ class ActionPageButton2 extends StatelessWidget {
   final text;
   final onPressed;
   final primaryColor;
-
+final height;
+final width;
 
   const ActionPageButton2({Key? key,
-    required this.onPressed, required this.text, required this.primaryColor }) : super(key: key);
+    required this.onPressed, required this.text, required this.primaryColor, this.height, this.width }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100,
-      height: 55,
+      width: width ?? 150,
+      height:height?? 55,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20)),
       child: ElevatedButton(

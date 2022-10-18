@@ -8,6 +8,7 @@ import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/title.dart';
 import 'package:magodo/services/services.dart';
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 
 class AddStaff extends StatefulWidget {
   final data;
@@ -52,7 +53,12 @@ class _AddStaffState extends State<AddStaff> {
         builder: (_) => AlertDialog(
           title: Text(message),
           actions: [
-            TextButton(
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -78,7 +84,12 @@ class _AddStaffState extends State<AddStaff> {
       builder: (_) => AlertDialog(
         title: Text(message),
         actions: [
-          TextButton(
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
               onPressed: () {
                 Navigator.of(context).pop();
               },

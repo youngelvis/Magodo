@@ -4,6 +4,7 @@ import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/title.dart';
 import 'package:magodo/services/services.dart';
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 
 class AddFamily extends StatefulWidget {
   final data;
@@ -43,7 +44,12 @@ class _AddFamilyState extends State<AddFamily> {
           builder: (_) => AlertDialog(
             title: Text(message),
             actions: [
-              TextButton(
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: color.AppColor.homePageTheme,
+                      onPrimary: color.AppColor.landingPage2,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0))),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -52,9 +58,14 @@ class _AddFamilyState extends State<AddFamily> {
           ),
         );
       }
-      var data = await Services().addFamilyMember(widget.data['resident_code'],
-          _mobileNumber.text, _fullName.text, _email.text, _password.text, _confirmPassword.text);
-print(data);
+      var data = await Services().addFamilyMember(
+          widget.data['resident_code'],
+          _mobileNumber.text,
+          _fullName.text,
+          _email.text,
+          _password.text,
+          _confirmPassword.text);
+
       var message = data['message'];
 
       return showDialog(
@@ -62,7 +73,12 @@ print(data);
         builder: (_) => AlertDialog(
           title: Text(message),
           actions: [
-            TextButton(
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -112,17 +128,14 @@ print(data);
                                   controller: _fullName,
                                   hint: "Enter full name",
                                   nameType: "Full Name"),
-
                               MobileNumberTextField(
                                   controller: _mobileNumber,
                                   fieldName: ' Mobile Number',
                                   hintText: 'Enter mobile number'),
-
                               NameTextField(
                                   controller: _email,
                                   hint: "Enter email",
                                   nameType: "Enter email address"),
-
                               NameTextField(
                                   controller: _password,
                                   hint: "Enter a password",
@@ -135,9 +148,10 @@ print(data);
                                 height: 40,
                               ),
                               ActionPageButton(
-                                  onPressed: () async{
+                                  onPressed: () async {
                                     await _addFamily();
-                                  }, text: 'Add Family'),
+                                  },
+                                  text: 'Add Family'),
                               const SizedBox(
                                 height: 30,
                               ),

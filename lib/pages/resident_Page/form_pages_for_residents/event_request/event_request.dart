@@ -3,6 +3,8 @@ import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/date_text_field.dart';
 import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/text_for_form.dart';
+import 'package:magodo/components/textfields_types/eventType_drop_down_list.dart';
+import 'package:magodo/components/textfields_types/event_population_drop_down_list.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/time_text_field.dart';
@@ -24,62 +26,9 @@ TextEditingController _scheduleTime = TextEditingController();
 
 class _EventRequestState extends State<EventRequest> {
   String? eventType;
-  final eventTypeOptions = [
-    'Birthday',
-    'Child Dedication',
-    'Seminar',
-    'Product Launching',
-    'Job Recruiting Event',
-    'Wedding',
-    'Fashion show and red carpet',
-    'others'
-  ];
+
   String? population;
-  final populationOptions = ['500', '400', '300', '200', '100', '50', '10'];
-  Widget _buildEventType() {
-    return RoundedDropDownTextField(
-      hint: const Text(
-        'Choose event Type',
-        style: TextStyle(fontSize: 15),
-      ),
-      value: eventType,
-      onChanged: (value) => setState(() {
-        eventType = value as String;
-      }),
-      items: eventTypeOptions.map(buildEventTypeItem).toList(),
-    );
-  }
 
-  DropdownMenuItem<String> buildEventTypeItem(String eventTypeOptions) =>
-      DropdownMenuItem(
-        value: eventTypeOptions,
-        child: Text(
-          eventTypeOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
-        ),
-      );
-  Widget _buildPopulationType() {
-    return RoundedDropDownTextField(
-      hint: const Text(
-        'Choose population',
-        style: TextStyle(fontSize: 15),
-      ),
-      value: population,
-      onChanged: (value) => setState(() {
-        population = value as String;
-      }),
-      items: populationOptions.map(buildPopulationItem).toList(),
-    );
-  }
-
-  DropdownMenuItem<String> buildPopulationItem(String populationOptions) =>
-      DropdownMenuItem(
-        value: populationOptions,
-        child: Text(
-          populationOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
-        ),
-      );
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -136,13 +85,18 @@ class _EventRequestState extends State<EventRequest> {
                                 departureTime: _scheduleTime,
                                 hint: 'select Schedule time',
                               ),
-                              const TextForForm(text: "Event Type"),
-                              _buildEventType(),
-                              const SizedBox(
-                                height: 20,
+                              BuildEventTypeDropDownList(
+                                eventType: eventType,
+                                onChanged: (value) => setState(() {
+                                  eventType = value as String;
+                                }),
                               ),
-                              const TextForForm(text: "Population"),
-                              _buildPopulationType(),
+                              BuildEventPopulationDropDownList(
+                                eventPopulation: population,
+                                onChanged: (value) => setState(() {
+                                  population = value as String;
+                                }),
+                              ),
                               const SizedBox(
                                 height: 50,
                               ),
