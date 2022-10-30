@@ -21,11 +21,10 @@ class AddStaff extends StatefulWidget {
 
 TextEditingController _residentMobileNumber = TextEditingController();
 TextEditingController _staffFullName = TextEditingController();
-TextEditingController _staffAddress = TextEditingController();
+
 TextEditingController _staffMobileNumber = TextEditingController();
+TextEditingController _staffAddress = TextEditingController();
 TextEditingController _employmentDate = TextEditingController();
-TextEditingController _contactDetails = TextEditingController();
-TextEditingController _employDate = TextEditingController();
 
 class _AddStaffState extends State<AddStaff> {
   String? relationship;
@@ -35,17 +34,17 @@ class _AddStaffState extends State<AddStaff> {
     if (_staffFullName.text.isEmpty ||
         relationship == null ||
         employment == null ||
-        _contactDetails.text.isEmpty ||
-        _contactDetails.text.isEmpty) {
+        _staffAddress.text.isEmpty ||
+        _employmentDate.text.isEmpty) {
       var data = await Services().addStaff(
-          widget.data['resident_phone'],
+          widget.data['msisdn'],
           _staffFullName.text,
           widget.data['resident_code'],
           _staffMobileNumber.text,
           relationship,
           employment,
-          _contactDetails.text,
-          _employDate.text);
+          _staffAddress.text,
+          _employmentDate.text);
       var message = data['error']['message'];
 
       return showDialog(
@@ -68,14 +67,14 @@ class _AddStaffState extends State<AddStaff> {
       );
     }
     var data = await Services().addStaff(
-        widget.data['resident_phone'],
+        widget.data['msisdn'],
         _staffFullName.text,
         widget.data['resident_code'],
         _staffMobileNumber.text,
         relationship,
         employment,
-        _contactDetails.text,
-        _employDate.text);
+        _staffAddress.text,
+        _employmentDate.text);
 
     var message = data['message'];
 
@@ -137,10 +136,6 @@ class _AddStaffState extends State<AddStaff> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              MobileNumberTextField(
-                                  controller: _residentMobileNumber,
-                                  fieldName: 'Resident Mobile Number',
-                                  hintText: 'Enter your mobile number'),
                               NameTextField(
                                   controller: _staffFullName,
                                   hint: "Enter full name",

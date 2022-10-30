@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:magodo/api/api.dart';
+import 'package:open_file/open_file.dart';
 import 'package:path/path.dart';
 
 class Services {
@@ -35,8 +37,7 @@ class Services {
   }
 
 //3
-  registerCommercial(
-      password,
+  registerCommercial(password,
       surname,
       firstname,
       email,
@@ -75,11 +76,9 @@ class Services {
   }
 
 //4
-  Future<dynamic> viewSentPasscodeReport(
-    page,
-    residentCode,
-    search,
-  ) async {
+  Future<dynamic> viewSentPasscodeReport(page,
+      residentCode,
+      search,) async {
     var data = {
       "page": page,
       "limit": "10",
@@ -92,10 +91,8 @@ class Services {
   }
 
   //5
-  sendSMSPasscode(
-    sendMsisdn,
-    message,
-  ) async {
+  sendSMSPasscode(sendMsisdn,
+      message,) async {
     var data = {"send_msisdn": sendMsisdn, "message": message};
     var res = await CallApi().postData(data, 'sendSMSPasscode');
     var body = jsonDecode(res.body);
@@ -121,13 +118,11 @@ class Services {
   }
 
   //7
-  getPasscode(
-    sendMsisdn,
-    visitorName,
-    residentCode,
-    numberVisitor,
-    email,
-  ) async {
+  getPasscode(sendMsisdn,
+      visitorName,
+      residentCode,
+      numberVisitor,
+      email,) async {
     var data = {
       "msisdn": sendMsisdn,
       "visitor_name": visitorName,
@@ -141,8 +136,7 @@ class Services {
   }
 
   //8
-  updateResidentProfile(
-      residentCode,
+  updateResidentProfile(residentCode,
       fullName,
       residentPhone,
       email,
@@ -171,8 +165,7 @@ class Services {
   }
 
   //9
-  updateCommercialProfile(
-      residentPhone,
+  updateCommercialProfile(residentPhone,
       fullName,
       residentCode,
       email,
@@ -207,7 +200,7 @@ class Services {
       "resident_reg_code": residentCode,
       "resident_phone": residentPhone,
       "full_name": fullName,
-      "employ_start": employStart,
+      "employ_starts": employStart,
       "dependant_phone": dependantPhone ?? '',
       "relationship": relationship,
       "employment_status": employmentStatus,
@@ -237,10 +230,8 @@ class Services {
   }
 
   //11
-  doNotHonor(
-    passcode,
-    isChecked,
-  ) async {
+  doNotHonor(passcode,
+      isChecked,) async {
     var data = {
       "passcode": passcode,
       "isChecked": isChecked,
@@ -286,8 +277,8 @@ class Services {
       "time_from": timeFrom,
       "time_to": timeTo
     };
-
-    var res = await CallApi().putData(data, 'getBulkPasscode');
+    print(data);
+    var res = await CallApi().postData2(data, 'getBulkPasscode');
     var body = jsonDecode(res.body);
     return body;
   }
@@ -297,7 +288,7 @@ class Services {
     var data = {
       "resident_code": residentCode,
       "page": page,
-      "limit":  "10",
+      "limit": "10",
       "search": search.toString()
     };
 
@@ -311,36 +302,49 @@ class Services {
     var data = {
       "resident_code": residentCode,
       "page": page,
-      "limit":  "10",
+      "limit": "10",
       "search": search.toString()
     };
 
     var res = await CallApi().postData(data, 'addStaffReport');
     return res.body;
   }
+
   //17
   getMemberVehicleReport(residentCode, page, limit, search) async {
     var data = {
       "resident_code": residentCode,
       "page": page,
-      "limit":  "10",
+      "limit": "10",
       "search": search.toString()
     };
 
     var res = await CallApi().postData(data, 'memberVehicleReport');
     return res.body;
   }
+
+  //18
+  getDeleteStaff(guidId) async {
+    var data = {
+      "guid_id": guidId,
+    };
+
+    var res = await CallApi().deleteData(data, 'deleteStaff');
+    var body = jsonDecode(res.body);
+    return body;
+  }
+
   Future selectFile() async {
-    final result = await FilePicker.platform.pickFiles();
+    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
     if (result == null) return;
     // final file = result.files.first;
-    final path = result.files.single.path!;
+    final path = result.files.first;
 
     return path;
   }
 
   Future baseName(file) async {
-    final fileName = basename(file!.path);
+    final fileName = basename(file);
     return fileName;
   }
 }

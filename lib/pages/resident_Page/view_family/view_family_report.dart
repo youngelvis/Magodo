@@ -66,7 +66,6 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
       _searchWords.text,
     );
 
-    print(data);
     final result = familiesFromJson(data);
 
     if (isRefresh) {
@@ -82,7 +81,6 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
 
   Future _searchFunction() async => debounce(() async {
         int page = 0;
-        print(_searchWords.text);
         var data = await Services().getAddFamilyReport(
           page,
           widget.data['resident_code'],

@@ -49,7 +49,6 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
   late int totalPages = 0;
   List<Visitor> visitors = [];
 
-
   final RefreshController refreshController =
       RefreshController(initialRefresh: true);
 
@@ -68,7 +67,7 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
       widget.data['resident_code'],
       _searchWords.text,
     );
-    print(data);
+
     final result = visitorsFromJson(data);
 
     if (isRefresh) {
@@ -84,7 +83,6 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
 
   Future _searchFunction() async => debounce(() async {
         int page = 0;
-        print(_searchWords.text);
         var data = await Services().viewSentPasscodeReport(
           page,
           widget.data['resident_code'],
@@ -113,7 +111,6 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
             controller: _searchWords,
           ),
         ),
-
       ],
     );
   }
@@ -129,7 +126,10 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
             top: 20,
           ),
           child: Column(children: [
-            TitleContainer(title: 'Dashboard', data: widget.data,),
+            TitleContainer(
+              title: 'Dashboard',
+              data: widget.data,
+            ),
             Container(
               color: color.AppColor.residentBody,
               padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
@@ -142,8 +142,8 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
                   children: const [
                     Text(
                       'View Visitors Report',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
                     Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -173,11 +173,7 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
                 ),
               ),
             ),
-
-
-
             Expanded(
-
               child: SmartRefresher(
                 controller: refreshController,
                 enablePullUp: true,
@@ -205,9 +201,7 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
                           final visitor = visitors[index];
 
                           return SingleChildScrollView(
-
                             child: VisitorPasscodeReport(
-
                               visitorsName: visitor.visitorName ?? '',
                               residentName: visitor.residentName ?? '',
                               address: visitor.residentAddress ?? '',

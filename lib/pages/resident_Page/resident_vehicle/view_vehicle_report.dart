@@ -80,7 +80,6 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
 
   Future _searchFunction() async => debounce(() async {
         int page = 0;
-        print(_searchWords.text);
         var data = await Services().getMemberVehicleReport(
           page,
           widget.data['resident_code'],

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/date_text_field.dart';
@@ -22,23 +23,24 @@ TextEditingController _arrivalTime = TextEditingController();
 TextEditingController _departureTime = TextEditingController();
 
 class _GetBulkPasscodeState extends State<GetBulkPasscode> {
-  File? file;
+ File? file;
+
 
   Future selectFile() async {
-    final path = await Services().selectFile();
-    setState(() {
-      file = File(path);
-    });
+   file =  File( await Services().selectFile());
+
+
   }
 
   _getBulkPasscode() async {
-    final fileName = Services().baseName(file!.path);
+
+    print(file);
     if (_arrivalTime.text.isEmpty ||
         _departureTime.text.isEmpty ||
         _date.text.isEmpty) {
-      var data = await Services().getBulkPasscode(fileName,
-          widget.data['resident_code'], _date, _arrivalTime, _departureTime);
-
+      var data = await Services().getBulkPasscode(file,
+          widget.data['resident_code'], _date.text, _arrivalTime.text, _departureTime.text);
+      print(data);
       var message = data['error']['message'];
 
       return showDialog(
@@ -55,9 +57,8 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
         ),
       );
     }
-    var data = await Services().getBulkPasscode(fileName,
-        widget.data['resident_code'], _date, _arrivalTime, _departureTime);
-
+    var data = await Services().getBulkPasscode(file,
+        widget.data['resident_code'], _date.text, _arrivalTime.text, _departureTime.text);
     var message = data['message'];
 
     return showDialog(
@@ -119,7 +120,13 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              const Text('Supported file types: csv'),
+                              Row(
+                                children:  const [
+                                  Text('Supported file types: csv'),
+                                  SizedBox(width: 20,),
+
+                                ],
+                              ),
                               const SizedBox(
                                 height: 30,
                               ),

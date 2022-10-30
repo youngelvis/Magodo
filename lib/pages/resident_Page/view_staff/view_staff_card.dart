@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:magodo/components/action_page_button2.dart';
-import '/../../components/components_for_class_of_varable/colors.dart' as color;
-class ViewStaffCard extends StatelessWidget {
+class ViewStaffCard extends StatefulWidget {
   final staffName,
       employementType,
       staffCode,
@@ -24,6 +22,13 @@ class ViewStaffCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<ViewStaffCard> createState() => _ViewStaffCardState();
+}
+
+class _ViewStaffCardState extends State<ViewStaffCard> {
+
+
+  @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 10),
@@ -34,11 +39,11 @@ class ViewStaffCard extends StatelessWidget {
           children: [
             ListTile(
               title: Text(
-                date,
+                widget.date,
                 style: const TextStyle(fontSize: 13),
               ),
               trailing: Text(
-                employementType,
+                widget.employementType,
                 style: const TextStyle(fontSize: 13),
               ),
             ),
@@ -47,27 +52,27 @@ class ViewStaffCard extends StatelessWidget {
             ),
             ListTile(
               title: const Text("staff Passcode"),
-              trailing: Text(staffCode),
+              trailing: Text(widget.staffCode),
             ),
             ListTile(
               title: const Text('Staff Name'),
-              trailing: Text(staffName),
+              trailing: Text(widget.staffName),
             ),
             ListTile(
               title: const Text('Employment Date'),
-              trailing: Text(employmentDate),
+              trailing: Text(widget.employmentDate),
             ),
             ListTile(
               title: const Text('Validity Ends'),
-              trailing: Text(validityEnds),
+              trailing: Text(widget.validityEnds),
             ),
             ListTile(
               title: const Text('Staff Phone'),
-              trailing: Text(staffMobile),
+              trailing: Text(widget.staffMobile),
             ),
             ListTile(
               title: const Text("Contact/Other Detailsd"),
-              trailing: Text(contactDetails),
+              trailing: Text(widget.contactDetails),
             ),
             const Divider(
               thickness: 2,
@@ -75,26 +80,7 @@ class ViewStaffCard extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            Row(
-              children: [
-                const SizedBox(
-                  width: 45,
-                ),
-                ActionPageButton2(
-                  onPressed: () {},
-                  primaryColor: color.AppColor.decline,
-                  text: 'Delete',
-                ),
-                const SizedBox(
-                  width: 50,
-                ),
-                ActionPageButton2(
-                  onPressed: () {},
-                  primaryColor: color.AppColor.verifiedColor,
-                  text: 'Edit',
-                ),
-              ],
-            )
+
           ],
         ),
       ),
