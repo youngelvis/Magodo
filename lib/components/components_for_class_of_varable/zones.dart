@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class Zones{
   static const CENTRAL = "CENTRAL";
   static const OGUNYE = "OGUNYE";

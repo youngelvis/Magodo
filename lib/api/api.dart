@@ -13,7 +13,7 @@ class CallApi {
     var fullUrl = _url + apiUrl;
     String basicAuth =
         'Basic ${base64.encode(utf8.encode('$username:$password'))}';
-    print(basicAuth);
+
    http.Response response = await http.post(
         Uri.parse(fullUrl),
         body: jsonEncode(data),
@@ -29,7 +29,7 @@ class CallApi {
        return 'success';
      }
    }catch(e){
-     print(e);
+
      return 'failed';
    }
 
@@ -40,7 +40,7 @@ class CallApi {
     var fullUrl = _url + apiUrl;
     String basicAuth =
         'Basic ${base64.encode(utf8.encode('$username:$password'))}';
-    print(basicAuth);
+
     http.Response response = await http.put(
       Uri.parse(fullUrl),
       body: jsonEncode(data),
@@ -56,7 +56,7 @@ class CallApi {
         return 'success';
       }
     }catch(e){
-      print(e);
+
       return 'failed';
     }
   }
@@ -66,7 +66,6 @@ class CallApi {
       var fullUrl = _url + apiUrl;
       String basicAuth =
           'Basic ${base64.encode(utf8.encode('$username:$password'))}';
-      print(basicAuth);
       http.Response response = await http.post(
         Uri.parse(fullUrl),
         body: data,
@@ -84,7 +83,7 @@ class CallApi {
         return 'success';
       }
     }catch(e){
-      print(e);
+
       return 'failed';
     }
 
@@ -95,7 +94,7 @@ class CallApi {
     var fullUrl = _url + apiUrl;
     String basicAuth =
         'Basic ${base64.encode(utf8.encode('$username:$password'))}';
-    print(basicAuth);
+
     http.Response response = await http.delete(
       Uri.parse(fullUrl),
       body: jsonEncode(data),
@@ -113,7 +112,6 @@ class CallApi {
         return 'success';
       }
     }catch(e){
-      print(e);
       return 'failed';
     }
 

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:magodo/models/vehicledata.dart';
+import 'package:magodo/pages/resident_Page/forms_component/delete_edit_button.dart';
 import 'package:magodo/pages/resident_Page/resident_vehicle/resident_vechicle_card.dart';
 import 'package:magodo/services/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -78,6 +79,32 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
     return true;
   }
 
+  deleteStaff(info) async {
+    var data = await Services().getDeleteStaff(info);
+
+    var message = data['message'];
+
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                getVehicle(isRefresh: true);
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
+
   Future _searchFunction() async => debounce(() async {
         int page = 0;
         var data = await Services().getMemberVehicleReport(
@@ -138,7 +165,8 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
                   children: const [
                     Text(
                       'View Vehicle Report',
-                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
                     Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -195,17 +223,27 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
                         itemBuilder: (BuildContext context, index) {
                           final vehicle = vehicles[index];
                           return SingleChildScrollView(
-                              child: VehicleReportCard(
-                            mraReceiptNo: vehicle.receiptNo ?? '',
-                            carMake: vehicle.make ?? '',
-                            amountPaid: vehicle.amount ?? '',
-                            vehicleCode: vehicle.vehicleNo ?? '',
-                            vehicleModel: vehicle.model ?? '',
-                            vehicleColour: vehicle.color ?? '',
-                            declineMessage: vehicle.declineMessage ?? '',
-                            uploadedFile: vehicle.doc ?? '',
-                            govAgency: vehicle.govAgency ?? '',
-                            date: vehicle.tstamp ?? '',
+                              child: Card(
+                            child: Column(
+                              children: [
+                                VehicleReportCard(
+                                  mraReceiptNo: vehicle.receiptNo ?? '',
+                                  carMake: vehicle.make ?? '',
+                                  amountPaid: vehicle.amount ?? '',
+                                  vehicleCode: vehicle.vehicleNo ?? '',
+                                  vehicleModel: vehicle.model ?? '',
+                                  vehicleColour: vehicle.color ?? '',
+                                  declineMessage: vehicle.declineMessage ?? '',
+                                  uploadedFile: vehicle.doc ?? '',
+                                  govAgency: vehicle.govAgency ?? '',
+                                  date: vehicle.tstamp ?? '',
+                                ),
+                                DeleteUpdateButton(onPressedDeleteButton:  () async{
+                                  await deleteStaff(vehicle.guid);
+                                },
+                                ),
+                              ],
+                            ),
                           ));
                         },
                         itemCount: vehicles.length,

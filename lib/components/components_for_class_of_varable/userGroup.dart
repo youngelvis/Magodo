@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class UserGroup{
   static const CENTRAL_ADMIN = 'Cadmin';
   static const CENTRAL_SECURITY_ADMIN = 'Csoadmin';

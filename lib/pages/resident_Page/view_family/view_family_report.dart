@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:magodo/models/familydata.dart';
+import 'package:magodo/pages/resident_Page/forms_component/delete_edit_button.dart';
 import 'package:magodo/pages/resident_Page/view_family/view_family_card.dart';
 import 'package:magodo/services/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -90,13 +91,37 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
 
         final result = familiesFromJson(data);
         if (result.data.isEmpty) {
-          print('empty');
         }
         setState(() {
           families = result.data;
         });
       });
+  deleteFamilyMember(info) async {
+    var data = await Services().getDeleteFamilyMember(info);
 
+    var message = data['message'];
+
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+
+                getFamily(isRefresh: true);
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
   Widget _buildSearchBar() {
     return Row(
       children: [
@@ -200,13 +225,24 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
                           itemBuilder: (BuildContext context, index) {
                             final family = families[index];
 
-                            return SingleChildScrollView(
-                              child: ViewFamilyCard(
-                                fullName: family.fullName ?? '',
-                                date: family.lastLoginDate,
-                                email: family.email ?? '',
-                                dependentCode: family.residentCode ?? '',
-                                status: family.status ?? '',
+                            return Card(
+                              child: Column(
+                                children: [
+
+                                  SingleChildScrollView(
+                                    child: ViewFamilyCard(
+                                      fullName: family.fullName ?? '',
+                                      date: family.lastLoginDate,
+                                      email: family.email ?? '',
+                                      dependentCode: family.residentCode ?? '',
+                                      status: family.status ?? '',
+                                    ),
+                                  ),
+                                  DeleteUpdateButton(onPressedDeleteButton:  () async{
+                                    await deleteFamilyMember(family.residentCode);
+                                  },
+                                  ),
+                                ],
                               ),
                             );
                           },

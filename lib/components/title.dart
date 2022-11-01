@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:magodo/pages/navigation_page/resident_navigation_page.dart';
 import 'package:magodo/pages/profile_page/profile_page.dart';
@@ -60,7 +62,7 @@ class _TitleContainerState extends State<TitleContainer> {
                                 ),
                               );
                             },
-                            child: CircleAvatar(
+                            child: const CircleAvatar(
                             backgroundImage: AssetImage('assets/profilePicture.jpeg'),
                           ),)
                         ),),

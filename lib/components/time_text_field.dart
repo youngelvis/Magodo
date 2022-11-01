@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/roundedTextDateInput.dart';
 class CustomTimePicker extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final departureTime;
+  // ignore: prefer_typing_uninitialized_variables
   final hint;
   const CustomTimePicker({Key? key, required this.departureTime, required this.hint}) : super(key: key);
 

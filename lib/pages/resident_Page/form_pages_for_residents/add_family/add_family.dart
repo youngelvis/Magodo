@@ -1,7 +1,10 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
+import 'package:magodo/components/textfields_types/password_textfield.dart';
 import 'package:magodo/components/title.dart';
 import 'package:magodo/services/services.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
@@ -136,14 +139,11 @@ class _AddFamilyState extends State<AddFamily> {
                                   controller: _email,
                                   hint: "Enter email",
                                   nameType: "Enter email address"),
-                              NameTextField(
-                                  controller: _password,
-                                  hint: "Enter a password",
-                                  nameType: "Password"),
-                              NameTextField(
-                                  controller: _confirmPassword,
-                                  hint: "Confirm password",
-                                  nameType: "Confirm Password"),
+                              BuildPasswordTextField(
+                                  fieldName: 'Password', passwordController: _password),
+                              BuildPasswordTextField(
+                                  fieldName: 'ConfirmPassword', passwordController: _confirmPassword),
+
                               const SizedBox(
                                 height: 40,
                               ),

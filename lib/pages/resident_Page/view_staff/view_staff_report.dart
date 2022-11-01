@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:magodo/models/staffdata.dart';
+import 'package:magodo/pages/resident_Page/forms_component/delete_edit_button.dart';
 import 'package:magodo/pages/resident_Page/view_staff/view_staff_card.dart';
 import 'package:magodo/services/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../../../components/action_page_button2.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:magodo/components/roundedTextSearchField.dart';
 import 'package:magodo/components/title.dart';
@@ -224,41 +224,27 @@ Widget build(BuildContext context) {
                     itemBuilder: (BuildContext context, index){
                       final staff = staffs[index];
                       return SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              ViewStaffCard(
-                                staffName: staff.dependantName ?? '',
-                                staffCode: staff.staffPasscode ?? '',
-                                employmentDate: staff.empdateOrDob ?? '',
-                                staffMobile: staff.dependantPhone ?? '',
-                                contactDetails: staff.dependantContacts ?? '',
-                                employementType: staff.relationship ?? '',
-                                date: staff.dateCreated ?? '',
-                                validityEnds: staff.validityEnds ?? '',
-                              ),
-                              Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 45,
-                                  ),
-                                  ActionPageButton2(
-                                    onPressed: () async{
-                                     await deleteStaff(staff.guid);
-                                    },
-                                    primaryColor: color.AppColor.decline,
-                                    text: 'Delete',
-                                  ),
-                                  const SizedBox(
-                                    width: 50,
-                                  ),
-                                  ActionPageButton2(
-                                    onPressed: () {},
-                                    primaryColor: color.AppColor.verifiedColor,
-                                    text: 'Edit',
-                                  ),
-                                ],
-                              )
-                            ],
+                          child: Card(
+                            child: Column(
+                              children: [
+                                ViewStaffCard(
+                                  staffName: staff.dependantName ?? '',
+                                  staffCode: staff.staffPasscode ?? '',
+                                  employmentDate: staff.empdateOrDob ?? '',
+                                  staffMobile: staff.dependantPhone ?? '',
+                                  contactDetails: staff.dependantContacts ?? '',
+                                  employementType: staff.relationship ?? '',
+                                  date: staff.dateCreated ?? '',
+                                  validityEnds: staff.validityEnds ?? '',
+                                ),
+
+                                DeleteUpdateButton(onPressedDeleteButton:  () async{
+                                  await deleteStaff(staff.guid);
+                                },
+                                ),
+
+                              ],
+                            ),
                           ));
                     },
                     itemCount: staffs.length,

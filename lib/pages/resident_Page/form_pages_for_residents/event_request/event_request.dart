@@ -1,7 +1,8 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/date_text_field.dart';
-import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/text_for_form.dart';
 import 'package:magodo/components/textfields_types/eventType_drop_down_list.dart';
 import 'package:magodo/components/textfields_types/event_population_drop_down_list.dart';

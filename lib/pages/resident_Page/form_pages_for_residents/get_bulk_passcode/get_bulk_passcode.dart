@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'dart:io';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/date_text_field.dart';
@@ -34,7 +35,6 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
 
   _getBulkPasscode() async {
 
-    print(file);
     if (_arrivalTime.text.isEmpty ||
         _departureTime.text.isEmpty ||
         _date.text.isEmpty) {

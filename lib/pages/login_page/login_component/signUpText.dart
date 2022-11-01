@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:magodo/components/already_have_an_account.dart';
 import 'package:magodo/pages/login_page/login_page.dart';

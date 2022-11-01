@@ -2,6 +2,8 @@
 //
 //     final visitors = visitorsFromJson(jsonString);
 
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 
 Visitors visitorsFromJson(String str) => Visitors.fromJson(json.decode(str));

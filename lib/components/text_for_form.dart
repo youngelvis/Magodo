@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'components_for_class_of_varable/colors.dart' as color;
 
 class TextForForm extends StatelessWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final text;
 
   const TextForForm({Key? key, required this.text}) : super(key: key);

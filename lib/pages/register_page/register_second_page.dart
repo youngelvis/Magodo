@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:magodo/components/terms_and_conditions.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';

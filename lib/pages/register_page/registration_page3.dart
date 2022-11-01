@@ -1,6 +1,6 @@
+// ignore_for_file: camel_case_types, must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:magodo/components/components_for_class_of_varable/category.dart';
-import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/textfields_types/category_drop_down_list.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
@@ -33,7 +33,7 @@ class Registration_page3 extends StatefulWidget {
     required this.confirmPassword,
     required this.residentialType,
     required this.zone,
-  });
+  }) : super(key: key);
 
   @override
   State<Registration_page3> createState() => _Registration_page3State();

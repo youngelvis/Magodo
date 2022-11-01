@@ -333,6 +333,16 @@ class Services {
     var body = jsonDecode(res.body);
     return body;
   }
+  //19
+  getDeleteFamilyMember(residentCode) async {
+    var data = {
+      "resident_code": residentCode,
+    };
+
+    var res = await CallApi().deleteData(data, 'deleteFamilyMember');
+    var body = jsonDecode(res.body);
+    return body;
+  }
 
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);

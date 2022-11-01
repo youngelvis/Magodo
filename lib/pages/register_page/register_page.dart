@@ -19,7 +19,7 @@ TextEditingController _firstname = TextEditingController();
 TextEditingController _email = TextEditingController();
 
 class _SignUpState extends State<SignUp> {
-  @override
+
   bool isChecked = false;
 
   _nextButton() {

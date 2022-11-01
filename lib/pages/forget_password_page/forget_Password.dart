@@ -1,3 +1,6 @@
+
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';

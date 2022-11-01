@@ -29,86 +29,57 @@ class VehicleReportCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      child: Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ListTile(
-              title: Text(
-                date,
-                style: const TextStyle(fontSize: 13),
-              ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 20, bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ListTile(
+            title: Text(
+              date,
+              style: const TextStyle(fontSize: 13),
             ),
-            const Divider(
-              thickness: 2,
-            ),
-            ListTile(
-              title: const Text("MRA dues receipt No"),
-              trailing: Text(mraReceiptNo),
-            ),
-            ListTile(
-              title: const Text('Gov agency'),
-              subtitle: Text(govAgency),
-            ),
-            ListTile(
-              title: const Text('Make'),
-              trailing: Text(carMake),
-            ),
-            ListTile(
-              title: const Text('Vehicle Code'),
-              trailing: Text(vehicleCode),
-            ),
-            ListTile(
-              title: const Text("Colour"),
-              trailing: Text(vehicleColour),
-            ),
-            ListTile(
-              title: const Text("Model"),
-              trailing: Text(vehicleModel),
-            ),
-            ListTile(
-              title: const Text("Amount Paid"),
-              trailing: Text(amountPaid),
-            ),
-            ListTile(
-              title: const Text("Uploaded File"),
-              trailing: Text(uploadedFile),
-            ),
-            ListTile(
-              title: const Text("Decline Message"),
-              subtitle: Text(declineMessage),
-            ),
-            const Divider(
-              thickness: 2,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                const SizedBox(
-                  width: 45,
-                ),
-                ActionPageButton2(
-                  onPressed: () {},
-                  primaryColor: color.AppColor.decline,
-                  text: 'Delete',
-                ),
-                const SizedBox(
-                  width: 50,
-                ),
-                ActionPageButton2(
-                  onPressed: () {},
-                  primaryColor: color.AppColor.verifiedColor,
-                  text: 'Update',
-                ),
-              ],
-            )
-          ],
-        ),
+          ),
+          const Divider(
+            thickness: 2,
+          ),
+          ListTile(
+            title: const Text("MRA dues receipt No"),
+            trailing: Text(mraReceiptNo),
+          ),
+          ListTile(
+            title: const Text('Gov agency'),
+            subtitle: Text(govAgency),
+          ),
+          ListTile(
+            title: const Text('Make'),
+            trailing: Text(carMake),
+          ),
+          ListTile(
+            title: const Text('Vehicle Code'),
+            trailing: Text(vehicleCode),
+          ),
+          ListTile(
+            title: const Text("Colour"),
+            trailing: Text(vehicleColour),
+          ),
+          ListTile(
+            title: const Text("Model"),
+            trailing: Text(vehicleModel),
+          ),
+          ListTile(
+            title: const Text("Amount Paid"),
+            trailing: Text(amountPaid),
+          ),
+          ListTile(
+            title: const Text("Uploaded File"),
+            trailing: Text(uploadedFile),
+          ),
+          ListTile(
+            title: const Text("Decline Message"),
+            subtitle: Text(declineMessage),
+          ),
+        ],
       ),
     );
   }
