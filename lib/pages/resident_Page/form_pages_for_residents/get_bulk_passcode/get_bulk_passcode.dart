@@ -29,7 +29,7 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
 
   Future selectFile() async {
    file =  File( await Services().selectFile());
-
+   print(file);
 
   }
 
@@ -38,7 +38,7 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
     if (_arrivalTime.text.isEmpty ||
         _departureTime.text.isEmpty ||
         _date.text.isEmpty) {
-      var data = await Services().getBulkPasscode(file,
+      var data = await Services().getBulkPasscodes(file,
           widget.data['resident_code'], _date.text, _arrivalTime.text, _departureTime.text);
       print(data);
       var message = data['error']['message'];
@@ -57,7 +57,7 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
         ),
       );
     }
-    var data = await Services().getBulkPasscode(file,
+    var data = await Services().getBulkPasscodes(file,
         widget.data['resident_code'], _date.text, _arrivalTime.text, _departureTime.text);
     var message = data['message'];
 

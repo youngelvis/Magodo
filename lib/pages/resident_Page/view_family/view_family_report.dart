@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:magodo/models/familydata.dart';
+import 'package:magodo/pages/resident_Page/form_pages_for_residents/update_family/update_family.dart';
 import 'package:magodo/pages/resident_Page/forms_component/delete_edit_button.dart';
 import 'package:magodo/pages/resident_Page/view_family/view_family_card.dart';
 import 'package:magodo/services/services.dart';
@@ -90,12 +91,12 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
         );
 
         final result = familiesFromJson(data);
-        if (result.data.isEmpty) {
-        }
+        if (result.data.isEmpty) {}
         setState(() {
           families = result.data;
         });
       });
+
   deleteFamilyMember(info) async {
     var data = await Services().getDeleteFamilyMember(info);
 
@@ -113,7 +114,6 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0))),
               onPressed: () {
-
                 getFamily(isRefresh: true);
                 Navigator.of(context).pop();
               },
@@ -122,6 +122,7 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
       ),
     );
   }
+
   Widget _buildSearchBar() {
     return Row(
       children: [
@@ -228,7 +229,6 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
                             return Card(
                               child: Column(
                                 children: [
-
                                   SingleChildScrollView(
                                     child: ViewFamilyCard(
                                       fullName: family.fullName ?? '',
@@ -238,9 +238,19 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
                                       status: family.status ?? '',
                                     ),
                                   ),
-                                  DeleteUpdateButton(onPressedDeleteButton:  () async{
-                                    await deleteFamilyMember(family.residentCode);
-                                  },
+                                  DeleteUpdateButton(
+                                    onPressedDeleteButton: () async {
+                                      await deleteFamilyMember(
+                                          family.residentCode);
+                                    },
+                                    onPressedUpdateButton: () async {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  UpdateFamily(
+                                                      data: widget.data)));
+                                    },
                                   ),
                                 ],
                               ),

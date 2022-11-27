@@ -1,9 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:magodo/api/api.dart';
-import 'package:open_file/open_file.dart';
 import 'package:path/path.dart';
 
 class Services {
@@ -37,7 +34,8 @@ class Services {
   }
 
 //3
-  registerCommercial(password,
+  registerCommercial(
+      password,
       surname,
       firstname,
       email,
@@ -76,9 +74,11 @@ class Services {
   }
 
 //4
-  Future<dynamic> viewSentPasscodeReport(page,
-      residentCode,
-      search,) async {
+  Future<dynamic> viewSentPasscodeReport(
+    page,
+    residentCode,
+    search,
+  ) async {
     var data = {
       "page": page,
       "limit": "10",
@@ -91,8 +91,10 @@ class Services {
   }
 
   //5
-  sendSMSPasscode(sendMsisdn,
-      message,) async {
+  sendSMSPasscode(
+    sendMsisdn,
+    message,
+  ) async {
     var data = {"send_msisdn": sendMsisdn, "message": message};
     var res = await CallApi().postData(data, 'sendSMSPasscode');
     var body = jsonDecode(res.body);
@@ -118,11 +120,13 @@ class Services {
   }
 
   //7
-  getPasscode(sendMsisdn,
-      visitorName,
-      residentCode,
-      numberVisitor,
-      email,) async {
+  getPasscode(
+    sendMsisdn,
+    visitorName,
+    residentCode,
+    numberVisitor,
+    email,
+  ) async {
     var data = {
       "msisdn": sendMsisdn,
       "visitor_name": visitorName,
@@ -136,7 +140,8 @@ class Services {
   }
 
   //8
-  updateResidentProfile(residentCode,
+  updateResidentProfile(
+      residentCode,
       fullName,
       residentPhone,
       email,
@@ -145,7 +150,7 @@ class Services {
       address,
       residentType,
       validityStartsDate,
-      ValidityEndsDate) async {
+      validityEndsDate) async {
     var data = {
       "resident_code": residentCode,
       "full_name": fullName,
@@ -156,7 +161,7 @@ class Services {
       "address": address,
       "resident_type": residentType,
       "validity_starts_date": validityStartsDate,
-      "Validity_ends_date": ValidityEndsDate
+      "Validity_ends_date": validityEndsDate
     };
 
     var res = await CallApi().postData(data, 'updateResidentProfile');
@@ -165,7 +170,8 @@ class Services {
   }
 
   //9
-  updateCommercialProfile(residentPhone,
+  updateCommercialProfile(
+      residentPhone,
       fullName,
       residentCode,
       email,
@@ -174,7 +180,7 @@ class Services {
       residentType,
       address,
       validityStartsDate,
-      ValidityEndsDate) async {
+      validityEndsDate) async {
     var data = {
       "resident_code": residentCode,
       "resident_phone": residentPhone,
@@ -185,7 +191,7 @@ class Services {
       "resident_type": residentType,
       "address": address,
       "validity_starts_date": validityStartsDate,
-      "Validity_ends_date": ValidityEndsDate
+      "Validity_ends_date": validityEndsDate
     };
 
     var res = await CallApi().postData(data, 'updateCommercialProfile');
@@ -230,8 +236,10 @@ class Services {
   }
 
   //11
-  doNotHonor(passcode,
-      isChecked,) async {
+  doNotHonor(
+    passcode,
+    isChecked,
+  ) async {
     var data = {
       "passcode": passcode,
       "isChecked": isChecked,
@@ -269,17 +277,16 @@ class Services {
   }
 
   //14
-  getBulkPasscode(file, residentCode, arrivalDate, timeFrom, timeTo) async {
+  getBulkPasscodes(file, residentCode, arrivalDate, timeFrom, timeTo) async {
     var data = {
-      "file": file,
-      "resident_code": residentCode,
-      "arrival_date": arrivalDate,
-      "time_from": timeFrom,
-      "time_to": timeTo
+      'resident_code': '2468',
+      'arival_date': '12/03/2022',
+      'time_from': '2:00pm',
+      'time_to': '4:00pm'
     };
-    print(data);
-    var res = await CallApi().postData2(data, 'getBulkPasscode');
-    var body = jsonDecode(res.body);
+
+    var res = await CallApi().postData2(data, file, 'getBulkPasscodes');
+    var body = res;
     return body;
   }
 
@@ -333,6 +340,7 @@ class Services {
     var body = jsonDecode(res.body);
     return body;
   }
+
   //19
   getDeleteFamilyMember(residentCode) async {
     var data = {
@@ -344,13 +352,29 @@ class Services {
     return body;
   }
 
+  //20
+  updateFamilyMember(fullName, dependentPhone, email, mraZone, status,
+      createdDate, lastLoginDate) async {
+    var data = {
+      "FULL_NAME": fullName,
+      "DEPENDANT_PHONE": dependentPhone,
+      "EMAIL": email,
+      "MRA_ZONE": mraZone,
+      "STATUS": status,
+      "CREATED_DATE": createdDate,
+      "LAST_LOGIN_DATE": lastLoginDate
+    };
+
+    var res = await CallApi().putData(data, 'updateFamilyMember');
+    var body = jsonDecode(res.body);
+    return body;
+  }
+
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
     if (result == null) return;
-    // final file = result.files.first;
-    final path = result.files.first;
-
-    return path;
+    final path = result.files.first.path;
+    return path as String;
   }
 
   Future baseName(file) async {

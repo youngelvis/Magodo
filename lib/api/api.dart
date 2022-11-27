@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
 class CallApi {
@@ -53,6 +53,8 @@ class CallApi {
         return response;
 
       }else {
+
+
         return 'success';
       }
     }catch(e){
@@ -60,24 +62,41 @@ class CallApi {
       return 'failed';
     }
   }
-    Future<dynamic> postData2(data, apiUrl) async {
+    Future<dynamic> postData2(data, file, apiUrl) async {
+      var dio = Dio();
       var username = 'test';
       var password ='benard@1991';
       var fullUrl = _url + apiUrl;
       String basicAuth =
           'Basic ${base64.encode(utf8.encode('$username:$password'))}';
-      http.Response response = await http.post(
-        Uri.parse(fullUrl),
-        body: data,
-        headers: _setHeaders(basicAuth),
+      // http.Response response = await http.post(
+      //   Uri.parse(fullUrl),
+      //   body: data,
+      //   headers: _setHeaders(basicAuth),
+      //
+      // );
 
-      );
+      var formData = FormData.fromMap({
+        'file': file,
+        ...data
+      });
+      dio.options.headers["Content-Type"] = 'multipart/form-data';
+      dio.options.headers["Content-Type"] = 'application/json';
+      dio.options.headers["authorization"] = basicAuth;
+
+        Response response = await dio.post(
+          fullUrl,
+          data: formData,
+        );
+
+        print(response.data["data"][0]);
+
 
 
 
     try{
       if(response.statusCode== 200){
-        return response;
+        return response.data["data"][0];
 
       }else {
         return 'success';
@@ -86,6 +105,7 @@ class CallApi {
 
       return 'failed';
     }
+
 
   }
   Future<dynamic> deleteData(data, apiUrl) async {

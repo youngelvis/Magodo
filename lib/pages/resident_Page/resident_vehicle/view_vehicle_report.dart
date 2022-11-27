@@ -238,10 +238,10 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
                                   govAgency: vehicle.govAgency ?? '',
                                   date: vehicle.tstamp ?? '',
                                 ),
-                                DeleteUpdateButton(onPressedDeleteButton:  () async{
-                                  await deleteStaff(vehicle.guid);
-                                },
-                                ),
+                                // DeleteUpdateButton(onPressedDeleteButton:  () async{
+                                //   await deleteStaff(vehicle.guid);
+                                // },
+                                // ),
                               ],
                             ),
                           ));

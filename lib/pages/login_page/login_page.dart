@@ -6,10 +6,12 @@ import 'package:magodo/components/dont_already_have_an_account.dart';
 import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/textfields_types/password_textfield.dart';
+import 'package:magodo/models/resident_data_model/mainResidentModel.dart';
+import 'package:magodo/models/resident_data_model/residentErrorMessage.dart';
+import 'package:magodo/models/resident_data_model/wrongDetailsResident.dart';
 import 'package:magodo/pages/register_page/register_page.dart';
 import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
 import 'package:magodo/services/services.dart';
-
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
 class SignIN extends StatefulWidget {
@@ -24,6 +26,9 @@ TextEditingController _residentCode = TextEditingController();
 TextEditingController _password = TextEditingController();
 
 class _SignINState extends State<SignIN> {
+  MainResidentModel mainResidentModel = MainResidentModel();
+  MainErrorHandler mainErrorHandler = MainErrorHandler();
+  WrongDetailsResident wrongDetailsResident = WrongDetailsResident();
   bool login = false;
 
   void _navigation(data) {
@@ -33,20 +38,22 @@ class _SignINState extends State<SignIN> {
   _login() async {
     if (_residentCode.text.isEmpty || _password.text.isEmpty) {
       var data = await Services().login(_residentCode.text, _password.text);
-      var message = data['error']['message'];
+      setState(() {
+        mainErrorHandler = MainErrorHandler.fromJson(data);
+      });
+      var message = mainErrorHandler.message;
 
       return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-          title: Text(message),
+          title: Text(message!),
           actions: [
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    primary:  color.AppColor.homePageTheme,
+                    primary: color.AppColor.homePageTheme,
                     onPrimary: color.AppColor.landingPage2,
                     shape: RoundedRectangleBorder(
-                        borderRadius:
-                        BorderRadius.circular(20.0))),
+                        borderRadius: BorderRadius.circular(20.0))),
                 onPressed: () {
                   _residentCode.clear();
                   _password.clear();
@@ -58,29 +65,38 @@ class _SignINState extends State<SignIN> {
       );
     }
     var data = await Services().login(_residentCode.text, _password.text);
-    if (data['error'] == false) {
-      if (data['data']['usr_group'] == UserGroup.MEMBER) {
+
+    if (data['data']!= [])  {
+      setState(() {
+        mainResidentModel = MainResidentModel.fromJson(data);
+      });
+      final resident =  mainResidentModel.data;
+
+
+      if (resident?.usr_group == UserGroup.MEMBER) {
         _navigation(
           ResidentPageLandingPage(
-            data: data['data'],
+            data: resident,
           ),
         );
       } else if (data['data']['usr_group'] == UserGroup.PROPERTY_OWNER) {}
     } else {
-      var message = data['message'];
+      setState(() {
+        wrongDetailsResident = WrongDetailsResident.fromJson(data);
+      });
+      var message = wrongDetailsResident.message;
 
       return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-          title: Text(message),
+          title: Text(message!),
           actions: [
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    primary:  color.AppColor.homePageTheme,
+                    primary: color.AppColor.homePageTheme,
                     onPrimary: color.AppColor.landingPage2,
                     shape: RoundedRectangleBorder(
-                        borderRadius:
-                        BorderRadius.circular(20.0))),
+                        borderRadius: BorderRadius.circular(20.0))),
                 onPressed: () {
                   _residentCode.clear();
                   _password.clear();

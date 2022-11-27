@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/models/visitordata.dart';
 import 'package:magodo/pages/resident_Page/visitor_passcode_card/visitor_report_card.dart';
 import 'package:magodo/services/services.dart';
@@ -9,9 +10,9 @@ import 'package:magodo/components/roundedTextSearchField.dart';
 import 'package:magodo/components/title.dart';
 
 class ResidentPageLandingPage extends StatefulWidget {
-  final data;
+  ResidentModel? data;
 
-  const ResidentPageLandingPage({Key? key, required this.data})
+   ResidentPageLandingPage({Key? key, this.data})
       : super(key: key);
 
   @override
@@ -61,10 +62,9 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
         return false;
       }
     }
-
     var data = await Services().viewSentPasscodeReport(
       currentPage,
-      widget.data['resident_code'],
+      widget.data?.resident_code,
       _searchWords.text,
     );
 
@@ -85,7 +85,7 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
         int page = 0;
         var data = await Services().viewSentPasscodeReport(
           page,
-          widget.data['resident_code'],
+          widget.data?.resident_code,
           _searchWords.text.toString(),
         );
 

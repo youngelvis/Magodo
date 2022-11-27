@@ -238,10 +238,10 @@ Widget build(BuildContext context) {
                                   validityEnds: staff.validityEnds ?? '',
                                 ),
 
-                                DeleteUpdateButton(onPressedDeleteButton:  () async{
-                                  await deleteStaff(staff.guid);
-                                },
-                                ),
+                                // DeleteUpdateButton(onPressedDeleteButton:  () async{
+                                //   await deleteStaff(staff.guid);
+                                // },
+                                // ),
 
                               ],
                             ),

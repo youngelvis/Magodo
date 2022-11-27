@@ -3,12 +3,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
 class ProfilePage extends StatefulWidget {
-  final data;
+  ResidentModel? data;
 
-  const ProfilePage({Key? key, required this.data}) : super(key: key);
+   ProfilePage({Key? key, this.data}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -78,7 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: 170,
                 ),
                 Text(
-                  widget.data['usr_full_name'],
+                  widget.data?.usr_full_name??'',
                   style: const TextStyle(fontSize: 20),
                 ),
                 const Icon(CupertinoIcons.pen)
@@ -86,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(
                 height: 10,
               ),
-              Text(widget.data['usr_group']),
+              Text(widget.data?.usr_group??''),
               const SizedBox(
                 height: 20,
               ),
@@ -95,16 +96,16 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     ListTile(
                       leading: const Text('Status'),
-                      trailing: widget.data['user_status'] == 'Verified'
+                      trailing: widget.data?.user_status == 'Verified'
                           ? Text(
-                              widget.data['user_status'],
+                        widget.data?.user_status??'',
                               style: TextStyle(
                                   color: Colors.white,
                                   backgroundColor:
                                       color.AppColor.verifiedColor),
                             )
                           : Text(
-                              widget.data['user_status'],
+                              widget.data?.user_status??'',
                               style: TextStyle(
                                   color: Colors.white,
                                   backgroundColor:
@@ -113,34 +114,34 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     ListTile(
                       leading: const Text('Zone'),
-                      trailing: Text(widget.data['zone']),
+                      trailing: Text(widget.data?.zone??''),
                     ),
                     ListTile(
                       leading: const Text('Classification'),
-                      trailing: Text(widget.data['usr_group']),
+                      trailing: Text(widget.data?.category??''),
                     ),
                     ListTile(
                       leading: const Text('Resident Type'),
-                      trailing: Text(widget.data['resident_type']),
+                      trailing: Text(widget.data?.resident_type??''),
                     ),
                     ListTile(
                       leading: const Text('Address'),
-                      trailing: Text(widget.data['address']),
+                      trailing: Text(widget.data?.address??''),
                     ),
                     ListTile(
                       leading: const Text('Email'),
-                      trailing: Text(widget.data['email']),
+                      trailing: Text(widget.data?.email??''),
                     ),
                     ListTile(
                         leading: const Text('Mobile Number'),
-                        trailing: Text(widget.data['msisdn'])),
+                        trailing: Text(widget.data?.msisdn??'')),
                     ListTile(
                       leading: const Text('Validity Start'),
-                      trailing: Text(widget.data['validity_starts']),
+                      trailing: Text(widget.data?.validity_starts??''),
                     ),
                     ListTile(
                       leading: const Text('Validity ends'),
-                      trailing: Text(widget.data['validity_ends']),
+                      trailing: Text(widget.data?.validity_ends??''),
                     ),
                   ],
                 ),
