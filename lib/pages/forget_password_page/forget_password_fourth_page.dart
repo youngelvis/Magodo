@@ -6,6 +6,7 @@ import 'package:magodo/pages/forget_password_page/forget_password_component/forg
 import 'package:magodo/pages/login_page/login_page.dart';
 import 'package:magodo/services/services.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
+import '../../models/forget_password_model/forgetPasswordResponse.dart';
 
 class ForgetPasswordFourthPage extends StatefulWidget {
   const ForgetPasswordFourthPage({
@@ -22,19 +23,24 @@ TextEditingController _confirmPassword = TextEditingController();
 TextEditingController _pinNumber = TextEditingController();
 
 class _ForgetPasswordFourthPageState extends State<ForgetPasswordFourthPage> {
+  ForgetPasswordResponse? response;
   _handleSubmit() async {
     if (_pinNumber.text.isEmpty ||
         _password.text.isEmpty ||
-        _confirmPassword.text.isEmpty) {}
+        _confirmPassword.text.isEmpty) {
+
+    }
     var data = await Services()
         .resetPassword(_pinNumber.text, _password.text, _confirmPassword.text);
-
-    if (data['error']) {
-      var message = data['message'];
+    setState(() {
+      response = ForgetPasswordResponse.fromJson(data);
+    });
+    if (response?.error == true) {
+      var message = response?.message;
       return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-          title: Text(message),
+          title: Text(message!),
           actions: [
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -64,6 +70,10 @@ class _ForgetPasswordFourthPageState extends State<ForgetPasswordFourthPage> {
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const SignIN()));
+                _pinNumber.clear();
+                _confirmPassword.clear();
+                _password.clear();
+
               },
               child: const Text("ok"))
         ],

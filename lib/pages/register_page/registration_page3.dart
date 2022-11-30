@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:magodo/components/textfields_types/category_drop_down_list.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
+import 'package:magodo/models/registration_data_model/mainRegistrationData.dart';
+import 'package:magodo/models/resident_data_model/wrongDetailsResident.dart';
 import 'package:magodo/pages/register_page/register_page.dart';
 import 'package:magodo/pages/register_page/registration_page_components/registration_pages_forms.dart';
 import 'package:magodo/pages/login_page/login_component/signUpText.dart';
@@ -47,7 +49,7 @@ TextEditingController _businessEmail = TextEditingController();
 
 class _Registration_page3State extends State<Registration_page3> {
   String? categoryType;
-
+  MainRegistrationDataModel? commercialData;
   _registerCommercial() async {
     var data = await Services().registerCommercial(
         widget.password,
@@ -65,7 +67,8 @@ class _Registration_page3State extends State<Registration_page3> {
         categoryType,
         _streetNameOrNumber.text,
         _businessMobileNumber.text);
-    if (data['error']['status'] == "400") {
+
+    if (commercialData?.code == 400) {
       var message = data['error']['message'];
 
       return showDialog(
@@ -88,6 +91,10 @@ class _Registration_page3State extends State<Registration_page3> {
           ],
         ),
       );
+    }else{
+      setState(() {
+        commercialData = MainRegistrationDataModel.fromJson(data);
+      });
     }
   }
 

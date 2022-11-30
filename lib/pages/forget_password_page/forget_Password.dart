@@ -1,4 +1,3 @@
-
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
@@ -10,6 +9,7 @@ import 'package:magodo/pages/forget_password_page/forget_password_component/forg
 import 'package:magodo/pages/forget_password_page/forget_password_fourth_page.dart';
 import 'package:magodo/services/services.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
+import '../../models/forget_password_model/forgetPasswordResponse.dart';
 
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({Key? key}) : super(key: key);
@@ -23,6 +23,8 @@ TextEditingController _residentCode = TextEditingController();
 TextEditingController _email = TextEditingController();
 
 class _ForgetPasswordState extends State<ForgetPassword> {
+  ForgetPasswordResponse? response;
+
   _navigation() {
     Navigator.push(
         context,
@@ -60,13 +62,16 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     var data = await Services().forgetPasswordGenerateToken(
         _residentCode.text, _email.text, _mobileNumber.text);
 
-    if (data['error'] == true) {
-      var message = data['message'];
+    setState(() {
+      response = ForgetPasswordResponse.fromJson(data);
+    });
+    if (response?.error == true) {
+      var message = response?.message;
 
       return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-          title: Text(message),
+          title: Text(message!),
           actions: [
             ElevatedButton(
                 style: ElevatedButton.styleFrom(

@@ -6,6 +6,7 @@ import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/textfields_types/password_textfield.dart';
 import 'package:magodo/components/textfields_types/resident_type_dropdown_list.dart';
 import 'package:magodo/components/textfields_types/zones.dart';
+import 'package:magodo/models/registration_data_model/mainRegistrationData.dart';
 import 'package:magodo/pages/register_page/register_page.dart';
 import 'package:magodo/pages/register_page/registration_page_components/registration_pages_forms.dart';
 import 'package:magodo/pages/login_page/login_component/signUpText.dart';
@@ -36,6 +37,7 @@ TextEditingController _confirmPassword = TextEditingController();
 
 class _RegistrationPage2State extends State<RegistrationPage2> {
   String? zone;
+  MainRegistrationDataModel? registrationDataModel;
 
   String? residentType;
 
@@ -53,14 +55,16 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
         residentType,
         _confirmPassword.text,
         widget.mobileNumber);
-
-    if (data['error']['status'] == "400") {
-      var message = data['error']['message'];
+setState(() {
+  registrationDataModel = data;
+});
+    if (registrationDataModel?.code == 400) {
+      var message = registrationDataModel?.message;
 
       return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-          title: Text(message),
+          title: Text(message!),
           actions: [
             ElevatedButton(
                 style: ElevatedButton.styleFrom(

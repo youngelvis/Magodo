@@ -12,7 +12,7 @@ class MainErrorHandler {
   MainErrorHandler({this.status, this.message});
 
   factory MainErrorHandler.fromJson(Map<String, dynamic> json) =>
-      _$ResidentErrorHandlerFromJson(json);
+      _$MainErrorHandlerFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ResidentErrorHandlerToJson(this);
+  Map<String, dynamic> toJson() => _$MainErrorHandlerToJson(this);
 }
