@@ -6,13 +6,15 @@ import 'package:magodo/components/text_for_form.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/time_text_field.dart';
+import 'package:magodo/models/passcode_data_model/mainPasscodeData.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/services/services.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 class GetFuturePasscode extends StatefulWidget {
-  final data;
+  ResidentModel? data;
 
-  const GetFuturePasscode({Key? key, required this.data}) : super(key: key);
+  GetFuturePasscode({Key? key, required this.data}) : super(key: key);
 
   @override
   State<GetFuturePasscode> createState() => _GetFuturePasscodeState();
@@ -26,6 +28,7 @@ TextEditingController _arrivalTime = TextEditingController();
 TextEditingController _departureTime = TextEditingController();
 
 class _GetFuturePasscodeState extends State<GetFuturePasscode> {
+  MainPasscodeDataModel? response;
   String? noOfVisitors;
 
   _getFuturePasscode() async {
@@ -37,7 +40,7 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
       var data = await Services().getFuturePasscode(
           _mobileNumber.text,
           _visitorName.text,
-          widget.data['resident_code'],
+          widget.data?.resident_code,
           noOfVisitors,
           '0',
           _date.text,
@@ -67,19 +70,22 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
     var data = await Services().getFuturePasscode(
         _mobileNumber.text,
         _visitorName.text,
-        widget.data['resident_code'],
+        widget.data?.resident_code,
         noOfVisitors,
         _email.text,
         _date.text,
         _arrivalTime.text,
         _departureTime.text);
-    print(data);
-    var message = data['message'];
+    setState(() {
+      response = MainPasscodeDataModel.fromJson(data);
+    });
+
+    var message = response?.message;
 
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text(message),
+        title: Text(message!),
         actions: [
           ElevatedButton(
               style: ElevatedButton.styleFrom(

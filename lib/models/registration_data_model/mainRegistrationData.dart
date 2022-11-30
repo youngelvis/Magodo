@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:magodo/models/registration_data_model/registrationData.dart';
 
 part 'mainRegistrationData.g.dart';
 
@@ -7,7 +8,7 @@ class MainRegistrationDataModel {
   bool? error;
   String? message;
   int? code;
-  MainRegistrationDataModel? data;
+  RegistrationDataModel? data;
   MainRegistrationDataModel({this.error, this.message, this.code, this.data});
 
   factory MainRegistrationDataModel.fromJson(Map<String, dynamic> json) =>
