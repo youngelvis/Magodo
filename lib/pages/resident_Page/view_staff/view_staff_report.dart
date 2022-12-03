@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:magodo/models/staffdata.dart';
+import 'package:magodo/models/add_staff_data_model/staffdata.dart';
 import 'package:magodo/pages/resident_Page/forms_component/delete_edit_button.dart';
 import 'package:magodo/pages/resident_Page/view_staff/view_staff_card.dart';
 import 'package:magodo/services/services.dart';

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
-import 'package:magodo/models/visitordata.dart';
+import 'package:magodo/models/view_passcode_data_model/visitordata.dart';
 import 'package:magodo/pages/resident_Page/visitor_passcode_card/visitor_report_card.dart';
 import 'package:magodo/services/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';

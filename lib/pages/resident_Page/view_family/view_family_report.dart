@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:magodo/models/familydata.dart';
+import 'package:magodo/models/add_family_data_model/familydata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/update_family/update_family.dart';
 import 'package:magodo/pages/resident_Page/forms_component/delete_edit_button.dart';
 import 'package:magodo/pages/resident_Page/view_family/view_family_card.dart';
