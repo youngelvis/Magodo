@@ -62,37 +62,21 @@ class CallApi {
       return 'failed';
     }
   }
-    Future<dynamic> postData2(data, file, apiUrl) async {
+    Future<dynamic> postData2(data,  apiUrl) async {
+
       var dio = Dio();
       var username = 'test';
       var password ='benard@1991';
       var fullUrl = _url + apiUrl;
       String basicAuth =
           'Basic ${base64.encode(utf8.encode('$username:$password'))}';
-      // http.Response response = await http.post(
-      //   Uri.parse(fullUrl),
-      //   body: data,
-      //   headers: _setHeaders(basicAuth),
-      //
-      // );
-
-      var formData = FormData.fromMap({
-        'file': file,
-        ...data
-      });
       dio.options.headers["Content-Type"] = 'multipart/form-data';
-      dio.options.headers["Content-Type"] = 'application/json';
       dio.options.headers["authorization"] = basicAuth;
 
         Response response = await dio.post(
           fullUrl,
-          data: formData,
+          data: data,
         );
-
-        print(response.data["data"][0]);
-
-
-
 
     try{
       if(response.statusCode== 200){

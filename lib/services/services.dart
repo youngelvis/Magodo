@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:magodo/api/api.dart';
 import 'package:path/path.dart';
@@ -277,15 +278,17 @@ class Services {
   }
 
   //14
-  getBulkPasscodes(file, residentCode, arrivalDate, timeFrom, timeTo) async {
-    var data = {
-      'resident_code': '2468',
-      'arival_date': '12/03/2022',
-      'time_from': '2:00pm',
-      'time_to': '4:00pm'
-    };
+  getBulkPasscodes(filePath,fileName, residentCode, arrivalDate, timeFrom, timeTo) async {
 
-    var res = await CallApi().postData2(data, file, 'getBulkPasscodes');
+    FormData formData = FormData.fromMap({
+      'resident_code': residentCode,
+      'arival_date': arrivalDate,
+      'time_from': timeFrom,
+      'time_to': timeTo,
+      "file": await MultipartFile.fromFile(filePath, filename: fileName)
+    });
+
+    var res = await CallApi().postData2( formData, 'getBulkPasscodes');
     var body = res;
     return body;
   }

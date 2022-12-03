@@ -1,19 +1,21 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/date_text_field.dart';
 import 'package:magodo/components/text_for_form.dart';
 import 'package:magodo/components/time_text_field.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_bulk_passcode/upload_file.dart';
 import 'package:magodo/services/services.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
-
+import 'package:dio/dio.dart';
 class GetBulkPasscode extends StatefulWidget {
-  final data;
+  ResidentModel? data;
 
-  const GetBulkPasscode({Key? key, required this.data}) : super(key: key);
+   GetBulkPasscode({Key? key, required this.data}) : super(key: key);
 
   @override
   State<GetBulkPasscode> createState() => _GetBulkPasscodeState();
@@ -24,56 +26,35 @@ TextEditingController _arrivalTime = TextEditingController();
 TextEditingController _departureTime = TextEditingController();
 
 class _GetBulkPasscodeState extends State<GetBulkPasscode> {
- File? file;
+ late File file;
 
 
   Future selectFile() async {
    file =  File( await Services().selectFile());
-   print(file);
 
   }
 
   _getBulkPasscode() async {
+    String filename = await Services().baseName(file.path);
+    try{
+      FormData formData = FormData.fromMap({
+       "resident_code": widget.data?.resident_code,
+        "arival_date": _date.text,
+        "time_from": _arrivalTime.text,
+        "time_to": _departureTime.text,
+        "file": await MultipartFile.fromFile(file.path, filename: filename)
+      });
+      var dio = Dio();
+      var username = 'test';
+      var password ='benard@1991';
+      String basicAuth =
+          'Basic ${base64.encode(utf8.encode('$username:$password'))}';
+      dio.options.headers["Content-Type"] = 'multipart/form-data';
+      dio.options.headers["authorization"] = basicAuth;
 
-    if (_arrivalTime.text.isEmpty ||
-        _departureTime.text.isEmpty ||
-        _date.text.isEmpty) {
-      var data = await Services().getBulkPasscodes(file,
-          widget.data['resident_code'], _date.text, _arrivalTime.text, _departureTime.text);
-      print(data);
-      var message = data['error']['message'];
-
-      return showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text(message),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("ok"))
-          ],
-        ),
-      );
-    }
-    var data = await Services().getBulkPasscodes(file,
-        widget.data['resident_code'], _date.text, _arrivalTime.text, _departureTime.text);
-    var message = data['message'];
-
-    return showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(message),
-        actions: [
-          TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text("ok"))
-        ],
-      ),
-    );
+      Response response = await dio.post("http://132.145.231.191/portal/mraLagosApp/api/getBulkPasscodes",data: formData);
+    print("file upload response: $response");
+    }catch(e){}
   }
 
   @override
