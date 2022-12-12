@@ -7,9 +7,10 @@ import 'package:magodo/components/text_for_form.dart';
 class BuildRelationshipDropDownList extends StatefulWidget {
   final relationship;
   final onChanged;
+  final hints;
 
   const BuildRelationshipDropDownList(
-      {Key? key, required this.relationship, required this.onChanged})
+      {Key? key, required this.relationship, required this.onChanged, this.hints})
       : super(key: key);
 
   @override
@@ -30,9 +31,9 @@ class _BuildRelationshipDropDownListState
 
   Widget _buildRelationship() {
     return RoundedDropDownTextField(
-      hint: const Text(
-        'Select relationship',
-        style: TextStyle(fontSize: 15),
+      hint:Text(
+        widget.hints??'Select relationship',
+        style: const TextStyle(fontSize: 15),
       ),
       value: widget.relationship,
       onChanged: widget.onChanged,

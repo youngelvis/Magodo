@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/models/vehicledata.dart';
 import 'package:magodo/pages/resident_Page/forms_component/delete_edit_button.dart';
 import 'package:magodo/pages/resident_Page/resident_vehicle/resident_vechicle_card.dart';
@@ -10,9 +11,9 @@ import 'package:magodo/components/roundedTextSearchField.dart';
 import 'package:magodo/components/title.dart';
 
 class ViewVehicleReport extends StatefulWidget {
-  final data;
+  ResidentModel? data;
 
-  const ViewVehicleReport({Key? key, required this.data}) : super(key: key);
+  ViewVehicleReport({Key? key, required this.data}) : super(key: key);
 
   @override
   State<ViewVehicleReport> createState() => _ViewVehicleReportState();
@@ -61,7 +62,7 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
     }
 
     var data = await Services().getMemberVehicleReport(
-      widget.data['resident_code'],
+      widget.data?.resident_code,
       currentPage,
       '',
       _searchWords.text,
@@ -109,7 +110,7 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
         int page = 0;
         var data = await Services().getMemberVehicleReport(
           page,
-          widget.data['resident_code'],
+          widget.data?.resident_code,
           '',
           _searchWords.text.toString(),
         );

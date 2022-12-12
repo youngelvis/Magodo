@@ -1,9 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:magodo/models/resident_data_model/residentErrorMessage.dart';
 part 'mainErrorHandler.g.dart';
 
 @JsonSerializable()
 class MainErrorHandler {
- MainErrorHandler? error;
+ ResidentErrorHandler? error;
 
 
   MainErrorHandler({this.error});

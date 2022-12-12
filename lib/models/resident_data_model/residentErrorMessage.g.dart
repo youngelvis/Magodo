@@ -6,13 +6,15 @@ part of 'residentErrorMessage.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-MainErrorHandler _$MainErrorHandlerFromJson(Map<String, dynamic> json) =>
-    MainErrorHandler(
+ResidentErrorHandler _$ResidentErrorHandlerFromJson(
+        Map<String, dynamic> json) =>
+    ResidentErrorHandler(
       status: json['status'] as String?,
       message: json['message'] as String?,
     );
 
-Map<String, dynamic> _$MainErrorHandlerToJson(MainErrorHandler instance) =>
+Map<String, dynamic> _$ResidentErrorHandlerToJson(
+        ResidentErrorHandler instance) =>
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,

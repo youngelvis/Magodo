@@ -4,15 +4,15 @@ import 'package:json_annotation/json_annotation.dart';
 part 'residentErrorMessage.g.dart';
 
 @JsonSerializable()
-class MainErrorHandler {
+class ResidentErrorHandler {
   String? status;
   String? message;
 
 
-  MainErrorHandler({this.status, this.message});
+  ResidentErrorHandler({this.status, this.message});
 
-  factory MainErrorHandler.fromJson(Map<String, dynamic> json) =>
-      _$MainErrorHandlerFromJson(json);
+  factory ResidentErrorHandler.fromJson(Map<String, dynamic> json) =>
+      _$ResidentErrorHandlerFromJson(json);
 
-  Map<String, dynamic> toJson() => _$MainErrorHandlerToJson(this);
+  Map<String, dynamic> toJson() => _$ResidentErrorHandlerToJson(this);
 }

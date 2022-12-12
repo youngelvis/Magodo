@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:magodo/models/add_family_data_model/familydata.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/update_family/update_family.dart';
 import 'package:magodo/pages/resident_Page/forms_component/delete_edit_button.dart';
 import 'package:magodo/pages/resident_Page/view_family/view_family_card.dart';
@@ -11,9 +12,9 @@ import 'package:magodo/components/roundedTextSearchField.dart';
 import 'package:magodo/components/title.dart';
 
 class ViewFamilyMembers extends StatefulWidget {
-  final data;
+ResidentModel? data;
 
-  const ViewFamilyMembers({Key? key, required this.data}) : super(key: key);
+   ViewFamilyMembers({Key? key, required this.data}) : super(key: key);
 
   @override
   State<ViewFamilyMembers> createState() => _ViewFamilyMembersState();
@@ -62,7 +63,7 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
     }
 
     var data = await Services().getAddFamilyReport(
-      widget.data['resident_code'],
+      widget.data?.resident_code,
       currentPage,
       '',
       _searchWords.text,
@@ -85,7 +86,7 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
         int page = 0;
         var data = await Services().getAddFamilyReport(
           page,
-          widget.data['resident_code'],
+          widget.data?.resident_code,
           '',
           _searchWords.text.toString(),
         );
@@ -249,7 +250,8 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   UpdateFamily(
-                                                      data: widget.data)));
+                                                      data: widget.data,
+                                                  response: family,)));
                                     },
                                   ),
                                 ],

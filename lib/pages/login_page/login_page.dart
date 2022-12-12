@@ -6,8 +6,8 @@ import 'package:magodo/components/dont_already_have_an_account.dart';
 import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/textfields_types/password_textfield.dart';
+import 'package:magodo/models/resident_data_model/mainErrorHandler.dart';
 import 'package:magodo/models/resident_data_model/mainResidentModel.dart';
-import 'package:magodo/models/resident_data_model/residentErrorMessage.dart';
 import 'package:magodo/models/resident_data_model/wrongDetailsResident.dart';
 import 'package:magodo/pages/register_page/register_page.dart';
 import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
@@ -38,15 +38,13 @@ class _SignINState extends State<SignIN> {
   _login() async {
     if (_residentCode.text.isEmpty || _password.text.isEmpty) {
       var data = await Services().login(_residentCode.text, _password.text);
-      setState(() {
-        mainErrorHandler = MainErrorHandler.fromJson(data);
-      });
-      var message = mainErrorHandler.message;
+      print(data['error']['message']);
+      var message = data['error']['message'];
 
       return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-          title: Text(message!),
+          title: Text(message),
           actions: [
             ElevatedButton(
                 style: ElevatedButton.styleFrom(

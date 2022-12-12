@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, non_constant_identifier_names
 
 import 'dart:convert';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/date_text_field.dart';
@@ -11,11 +12,12 @@ import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_bulk_passcode/upload_file.dart';
 import 'package:magodo/services/services.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
-import 'package:dio/dio.dart';
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
+
 class GetBulkPasscode extends StatefulWidget {
   ResidentModel? data;
 
-   GetBulkPasscode({Key? key, required this.data}) : super(key: key);
+  GetBulkPasscode({Key? key, required this.data}) : super(key: key);
 
   @override
   State<GetBulkPasscode> createState() => _GetBulkPasscodeState();
@@ -26,35 +28,49 @@ TextEditingController _arrivalTime = TextEditingController();
 TextEditingController _departureTime = TextEditingController();
 
 class _GetBulkPasscodeState extends State<GetBulkPasscode> {
- late File file;
-
+  late File file;
 
   Future selectFile() async {
-   file =  File( await Services().selectFile());
+    file = await Services().selectFile();
+  }
 
+  getBulkPasscode_api(filepath, fileName) async {
+    const String _url = "http://132.145.231.191/portal/mraLagosApp/api/";
+    const String _apiUrl = 'getBulkPasscodes';
+    FormData formData = FormData.fromMap({
+      'resident_code': widget.data?.resident_code,
+      'arival_date': _date.text,
+      'time_from': _arrivalTime.text,
+      'time_to': _departureTime.text,
+      "file": await MultipartFile.fromFile(filepath, filename: fileName)
+    });
+
+    var dio = Dio();
+    var username = 'test';
+    var password = 'benard@1991';
+    var fullUrl = _url + _apiUrl;
+    String basicAuth =
+        'Basic ${base64.encode(utf8.encode('$username:$password'))}';
+    dio.options.headers["Content-Type"] = 'multipart/form-data';
+    dio.options.headers["authorization"] = basicAuth;
+
+    Response response = await dio.post(
+      fullUrl,
+      data: formData,
+    );
+
+    print(response);
+    return response;
   }
 
   _getBulkPasscode() async {
-    String filename = await Services().baseName(file.path);
-    try{
-      FormData formData = FormData.fromMap({
-       "resident_code": widget.data?.resident_code,
-        "arival_date": _date.text,
-        "time_from": _arrivalTime.text,
-        "time_to": _departureTime.text,
-        "file": await MultipartFile.fromFile(file.path, filename: filename)
-      });
-      var dio = Dio();
-      var username = 'test';
-      var password ='benard@1991';
-      String basicAuth =
-          'Basic ${base64.encode(utf8.encode('$username:$password'))}';
-      dio.options.headers["Content-Type"] = 'multipart/form-data';
-      dio.options.headers["authorization"] = basicAuth;
-
-      Response response = await dio.post("http://132.145.231.191/portal/mraLagosApp/api/getBulkPasscodes",data: formData);
-    print("file upload response: $response");
-    }catch(e){}
+    var filename = await Services().baseName(file.path);
+    if (_date.text.isEmpty ||
+        _arrivalTime.text.isEmpty ||
+        _departureTime.text.isEmpty) {
+      getBulkPasscode_api(file.path, filename);
+    }
+    getBulkPasscode_api(file.path, filename);
   }
 
   @override
@@ -102,10 +118,11 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
                                 height: 10,
                               ),
                               Row(
-                                children:  const [
+                                children: const [
                                   Text('Supported file types: csv'),
-                                  SizedBox(width: 20,),
-
+                                  SizedBox(
+                                    width: 20,
+                                  ),
                                 ],
                               ),
                               const SizedBox(

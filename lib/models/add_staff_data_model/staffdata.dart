@@ -40,6 +40,7 @@ class Staff {
     required this.dependantPhone,
     required this.relationship,
     required this.identityStatus,
+    required this.employmentStatus,
     required this.validityStarts,
     required this.validityEnds,
     required this.dependantContacts,
@@ -54,6 +55,7 @@ class Staff {
   String? empdateOrDob;
   String? dependantPhone;
   String? relationship;
+  String? employmentStatus;
   String? identityStatus;
   String? validityStarts;
   String? validityEnds;
@@ -70,6 +72,7 @@ class Staff {
     dependantPhone: json["DEPENDANT_PHONE"],
     relationship: json["RELATIONSHIP"],
     identityStatus: json["IDENTITY_STATUS"],
+    employmentStatus: json["EMPLOYMENT_STATUS"],
     validityStarts: json["VALIDITY_STARTS"],
     validityEnds: json["VALIDITY_ENDS"],
     dependantContacts: json["DEPENDANT_CONTACTS"],
@@ -86,6 +89,7 @@ class Staff {
     "DEPENDANT_PHONE": dependantPhone,
     "RELATIONSHIP": relationship,
     "IDENTITY_STATUS": identityStatus,
+    "EMPLOYMENT_STATUS": employmentStatus,
     "VALIDITY_STARTS": validityStarts,
     "VALIDITY_ENDS": validityEnds,
     "DEPENDANT_CONTACTS": dependantContacts,

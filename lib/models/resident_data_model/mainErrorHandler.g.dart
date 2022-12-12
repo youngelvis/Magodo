@@ -8,9 +8,7 @@ part of 'mainErrorHandler.dart';
 
 MainErrorHandler _$MainErrorHandlerFromJson(Map<String, dynamic> json) =>
     MainErrorHandler(
-      error: json['error'] == null
-          ? null
-          : MainErrorHandler.fromJson(json['error'] as Map<String, dynamic>),
+      error: json['error'],
     );
 
 Map<String, dynamic> _$MainErrorHandlerToJson(MainErrorHandler instance) =>

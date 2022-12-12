@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
-import 'package:magodo/components/textfields_types/password_textfield.dart';
 import 'package:magodo/components/title.dart';
-import 'package:magodo/services/services.dart';
-import '/../../components/components_for_class_of_varable/colors.dart' as color;
+import 'package:magodo/models/add_family_data_model/familydata.dart';
 
 class UpdateFamily extends StatefulWidget {
   final data;
+  Family response;
 
-  const UpdateFamily({Key? key, required this.data}) : super(key: key);
+   UpdateFamily({Key? key, required this.data, required this.response}) : super(key: key);
 
   @override
   State<UpdateFamily> createState() => _UpdateFamilyState();
@@ -26,66 +25,12 @@ class _UpdateFamilyState extends State<UpdateFamily> {
   @override
   Widget build(BuildContext context) {
     _updateFamily() async {
-      if (_mobileNumber.text.isEmpty ||
-          _fullName.text.isEmpty ||
-          _email.text.isEmpty ||
-          _password.text.isEmpty ||
-          _confirmPassword.text.isEmpty) {
-        // var data = await Services().updateFamilyMember(
-        //   widget.data['']
-        // );
-        // var message = data['error']['message'];
-        //
-        // return showDialog(
-        //   context: context,
-        //   builder: (_) => AlertDialog(
-        //     title: Text(message),
-        //     actions: [
-        //       ElevatedButton(
-        //           style: ElevatedButton.styleFrom(
-        //               primary: color.AppColor.homePageTheme,
-        //               onPrimary: color.AppColor.landingPage2,
-        //               shape: RoundedRectangleBorder(
-        //                   borderRadius: BorderRadius.circular(20.0))),
-        //           onPressed: () {
-        //             Navigator.of(context).pop();
-        //           },
-        //           child: const Text("ok"))
-        //     ],
-        //   ),
-        // );
-      }
-      var data = await Services().addFamilyMember(
-          widget.data['resident_code'],
-          _mobileNumber.text,
-          _fullName.text,
-          _email.text,
-          _password.text,
-          _confirmPassword.text);
 
-      var message = data['message'];
 
-      return showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text(message),
-          actions: [
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: color.AppColor.homePageTheme,
-                    onPrimary: color.AppColor.landingPage2,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0))),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("ok"))
-          ],
-        ),
-      );
     }
 
     return GestureDetector(
+
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
@@ -123,15 +68,15 @@ class _UpdateFamilyState extends State<UpdateFamily> {
                             children: [
                               NameTextField(
                                   controller: _fullName,
-                                  hint: "Enter full name",
+                                  hint: "${widget.response.fullName}",
                                   nameType: "Full Name"),
                               MobileNumberTextField(
                                   controller: _mobileNumber,
-                                  fieldName: ' Mobile Number',
-                                  hintText: 'Enter mobile number'),
+                                  fieldName: 'Mobile number',
+                                  hintText: ' ${widget.response.status}'),
                               NameTextField(
                                   controller: _email,
-                                  hint: "Enter email",
+                                  hint: "${widget.response.email}",
                                   nameType: "Enter email address"),
 
                               const SizedBox(

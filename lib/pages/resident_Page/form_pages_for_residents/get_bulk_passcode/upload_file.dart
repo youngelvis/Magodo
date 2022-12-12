@@ -14,10 +14,11 @@ class UploadFile extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text("Upload File"),
-              SizedBox(width: 10,),
+              const Text("Upload File"),
+              const SizedBox(width: 10,),
               Icon(CupertinoIcons.exclamationmark_circle_fill,
               color: color.AppColor.homePageTheme,),
+
             ],
           ),
           const SizedBox(height: 20,),

@@ -7,9 +7,10 @@ import 'package:magodo/components/text_for_form.dart';
 class BuildEmploymentDropDownList extends StatefulWidget {
   final employment;
   final onChanged;
+  final hints;
 
   const BuildEmploymentDropDownList(
-      {Key? key, required this.employment, required this.onChanged})
+      {Key? key, required this.employment, required this.onChanged, this.hints})
       : super(key: key);
 
   @override
@@ -31,9 +32,9 @@ class _BuildEmploymentDropDownListState
 
   Widget _buildEmploymentStatus() {
     return RoundedDropDownTextField(
-      hint: const Text(
-        'Select employment',
-        style: TextStyle(fontSize: 15),
+      hint: Text(
+        widget.hints ??'Select employment',
+        style: const TextStyle(fontSize: 15),
       ),
       value: widget.employment,
       onChanged: widget.onChanged,

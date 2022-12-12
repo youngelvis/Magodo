@@ -6,13 +6,14 @@ import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/textfields_types/password_textfield.dart';
 import 'package:magodo/components/title.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/services/services.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 
 class AddFamily extends StatefulWidget {
-  final data;
+  ResidentModel? data;
 
-  const AddFamily({Key? key, required this.data}) : super(key: key);
+   AddFamily({Key? key, required this.data}) : super(key: key);
 
   @override
   State<AddFamily> createState() => _AddFamilyState();
@@ -34,7 +35,7 @@ class _AddFamilyState extends State<AddFamily> {
           _password.text.isEmpty ||
           _confirmPassword.text.isEmpty) {
         var data = await Services().addFamilyMember(
-            widget.data['resident_code'],
+            widget.data?.resident_code,
             _mobileNumber.text,
             _fullName.text,
             _email.text,
@@ -62,7 +63,7 @@ class _AddFamilyState extends State<AddFamily> {
         );
       }
       var data = await Services().addFamilyMember(
-          widget.data['resident_code'],
+          widget.data?.resident_code,
           _mobileNumber.text,
           _fullName.text,
           _email.text,
@@ -142,7 +143,7 @@ class _AddFamilyState extends State<AddFamily> {
                               BuildPasswordTextField(
                                   fieldName: 'Password', passwordController: _password),
                               BuildPasswordTextField(
-                                  fieldName: 'ConfirmPassword', passwordController: _confirmPassword),
+                                  fieldName: 'Confirm Password', passwordController: _confirmPassword),
 
                               const SizedBox(
                                 height: 40,

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:magodo/api/api.dart';
+import 'package:magodo/models/add_staff_data_model/staffdata.dart';
 import 'package:path/path.dart';
 
 class Services {
@@ -92,11 +93,12 @@ class Services {
   }
 
   //5
-  sendSMSPasscode(
-    sendMsisdn,
-    message,
-  ) async {
-    var data = {"send_msisdn": sendMsisdn, "message": message};
+  sendSMSPasscode(sendMsisdn, message, residentCode) async {
+    var data = {
+      "send_msisdn": sendMsisdn,
+      "message": message,
+      "resident_code": residentCode
+    };
     var res = await CallApi().postData(data, 'sendSMSPasscode');
     var body = jsonDecode(res.body);
     return body;
@@ -278,20 +280,20 @@ class Services {
   }
 
   //14
-  getBulkPasscodes(filePath,fileName, residentCode, arrivalDate, timeFrom, timeTo) async {
-
-    FormData formData = FormData.fromMap({
-      'resident_code': residentCode,
-      'arival_date': arrivalDate,
-      'time_from': timeFrom,
-      'time_to': timeTo,
-      "file": await MultipartFile.fromFile(filePath, filename: fileName)
-    });
-
-    var res = await CallApi().postData2( formData, 'getBulkPasscodes');
-    var body = res;
-    return body;
-  }
+  // getBulkPasscodes(
+  //     filePath, fileName, residentCode, arrivalDate, timeFrom, timeTo) async {
+  //   FormData formData = FormData.fromMap({
+  //     'resident_code': residentCode,
+  //     'arival_date': arrivalDate,
+  //     'time_from': timeFrom,
+  //     'time_to': timeTo,
+  //     "file": await MultipartFile.fromFile(filePath, filename: fileName)
+  //   });
+  //
+  //   var res = await CallApi().postData2(formData, 'getBulkPasscodes');
+  //   var body = res;
+  //   return body;
+  // }
 
   //15
   getAddFamilyReport(residentCode, page, limit, search) async {
@@ -356,16 +358,12 @@ class Services {
   }
 
   //20
-  updateFamilyMember(fullName, dependentPhone, email, mraZone, status,
-      createdDate, lastLoginDate) async {
+  updateFamilyMember(fullName, dependentPhone, email, residentCode) async {
     var data = {
+      "resident_code": residentCode,
       "FULL_NAME": fullName,
       "DEPENDANT_PHONE": dependentPhone,
       "EMAIL": email,
-      "MRA_ZONE": mraZone,
-      "STATUS": status,
-      "CREATED_DATE": createdDate,
-      "LAST_LOGIN_DATE": lastLoginDate
     };
 
     var res = await CallApi().putData(data, 'updateFamilyMember');
@@ -373,6 +371,7 @@ class Services {
     return body;
   }
 
+  //22
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
     if (result == null) return;
@@ -380,8 +379,42 @@ class Services {
     return path as String;
   }
 
+  //23
   Future baseName(file) async {
     final fileName = basename(file);
     return fileName;
+  }
+
+  //24
+  sentWhatsappPasscode(sendMsisdn, message, residentCode) async {
+    var data = {
+      'send_msisdn': sendMsisdn,
+      "message": message,
+      "resident_code": residentCode
+    };
+    var res = await CallApi().postData(data, 'sentWhatsappPasscode');
+    var body = jsonDecode(res.body);
+    print(body);
+    return body;
+  }
+
+//25
+  updateStaff( dependantName, dependentPhone, employmentStatus,
+      empdateOrDob, contactDetail, relationship, mainData) async {
+    Staff staff = mainData;
+    var data = {
+      "guid_id": staff.guid,
+      "dependant_name": dependantName ?? staff.dependantName,
+      "dependant_phone": dependentPhone ?? staff.dependantPhone,
+      "employment_status": employmentStatus ?? staff.identityStatus,
+      "empdate_or_dob": empdateOrDob?? staff.empdateOrDob,
+      "relationship": relationship ?? staff.relationship,
+      "employment_status": employmentStatus ?? staff.identityStatus,
+      "contact_detail": contactDetail ?? staff.dependantContacts
+    };
+
+    var res = await CallApi().putData(data, 'updateFamilyMember');
+    var body = jsonDecode(res.body);
+    return body;
   }
 }

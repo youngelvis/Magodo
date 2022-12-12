@@ -1,18 +1,20 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:magodo/models/add_staff_data_model/staffdata.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/forms_component/delete_edit_button.dart';
 import 'package:magodo/pages/resident_Page/view_staff/view_staff_card.dart';
 import 'package:magodo/services/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../form_pages_for_residents/update_staff/updateStaff.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:magodo/components/roundedTextSearchField.dart';
 import 'package:magodo/components/title.dart';
 
 class ViewStaffMembers extends StatefulWidget {
-  final data;
+  ResidentModel? data;
 
-  const ViewStaffMembers({Key? key, required this.data}) : super(key: key);
+   ViewStaffMembers({Key? key, required this.data}) : super(key: key);
 
   @override
   State<ViewStaffMembers> createState() => _ViewStaffMembersState();
@@ -34,7 +36,8 @@ class _ViewStaffMembersState extends State<ViewStaffMembers> {
     super.dispose();
   }
 
-  void debounce(VoidCallback callback, {
+  void debounce(
+    VoidCallback callback, {
     Duration duration = const Duration(milliseconds: 2000),
   }) {
     if (debouncer != null) {
@@ -47,7 +50,7 @@ class _ViewStaffMembersState extends State<ViewStaffMembers> {
   late int totalPages = 0;
   List<Staff> staffs = [];
   final RefreshController refreshController =
-  RefreshController(initialRefresh: true);
+      RefreshController(initialRefresh: true);
 
   Future<bool> getStaff({bool isRefresh = false}) async {
     if (isRefresh) {
@@ -60,7 +63,7 @@ class _ViewStaffMembersState extends State<ViewStaffMembers> {
     }
 
     var data = await Services().getAddStaffReport(
-      widget.data['resident_code'],
+      widget.data?.resident_code,
       currentPage,
       '',
       _searchWords.text,
@@ -78,12 +81,11 @@ class _ViewStaffMembersState extends State<ViewStaffMembers> {
     return true;
   }
 
-  Future _searchFunction() async =>
-      debounce(() async {
+  Future _searchFunction() async => debounce(() async {
         int page = 0;
         var data = await Services().getAddStaffReport(
           page,
-          widget.data['resident_code'],
+          widget.data?.resident_code,
           '',
           _searchWords.text.toString(),
         );
@@ -112,7 +114,6 @@ class _ViewStaffMembersState extends State<ViewStaffMembers> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0))),
               onPressed: () {
-
                 getStaff(isRefresh: true);
                 Navigator.of(context).pop();
               },
@@ -122,109 +123,109 @@ class _ViewStaffMembersState extends State<ViewStaffMembers> {
     );
   }
 
-Widget _buildSearchBar() {
-  return Row(
-    children: [
-      Expanded(
-        child: RoundedTextSearchField(
-          icon: const Icon(Icons.search),
-          onChanged: (value) async {
-            await _searchFunction();
-          },
-          hintText: 'Search',
-          controller: _searchWords,
+  Widget _buildSearchBar() {
+    return Row(
+      children: [
+        Expanded(
+          child: RoundedTextSearchField(
+            icon: const Icon(Icons.search),
+            onChanged: (value) async {
+              await _searchFunction();
+            },
+            hintText: 'Search',
+            controller: _searchWords,
+          ),
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
 
-@override
-Widget build(BuildContext context) {
-  return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Scaffold(
-          body: Container(
-            color: color.AppColor.residentBody,
-            padding: const EdgeInsets.only(
-              top: 20,
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: Scaffold(
+            body: Container(
+          color: color.AppColor.residentBody,
+          padding: const EdgeInsets.only(
+            top: 20,
+          ),
+          child: Column(children: [
+            TitleContainer(
+              title: 'Dashboard',
+              data: widget.data,
             ),
-            child: Column(children: [
-              TitleContainer(
-                title: 'Dashboard',
-                data: widget.data,
-              ),
-              Container(
-                color: color.AppColor.residentBody,
-                padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
-                child: Column(children: [
-                  _buildSearchBar(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: const [
-                      Text(
-                        'View Staff Report',
-                        style:
-                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                      ),
-                      Icon(
-                        Icons.keyboard_arrow_down_outlined,
-                        size: 15,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                ]),
-              ),
-              const Divider(
-                thickness: 2,
-              ),
-              Container(
-                color: Colors.white,
-                height: 50,
-                child: ListTile(
-                  leading: Text(
-                    "${staffs.length} of $totalPages results",
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  trailing: Text(
-                    "Results per page ${staffs.length}",
-                    style: const TextStyle(fontSize: 16),
-                  ),
+            Container(
+              color: color.AppColor.residentBody,
+              padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
+              child: Column(children: [
+                _buildSearchBar(),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: const [
+                    Text(
+                      'View Staff Report',
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_down_outlined,
+                      size: 15,
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+              ]),
+            ),
+            const Divider(
+              thickness: 2,
+            ),
+            Container(
+              color: Colors.white,
+              height: 50,
+              child: ListTile(
+                leading: Text(
+                  "${staffs.length} of $totalPages results",
+                  style: const TextStyle(fontSize: 16),
+                ),
+                trailing: Text(
+                  "Results per page ${staffs.length}",
+                  style: const TextStyle(fontSize: 16),
                 ),
               ),
-              Expanded(
-                child: SmartRefresher(
-                  controller: refreshController,
-                  enablePullUp: true,
-                  onRefresh: () async {
-                    final result = await getStaff(isRefresh: true);
-                    if (result) {
-                      refreshController.refreshCompleted();
-                    } else {
-                      refreshController.refreshFailed();
-                    }
-                  },
-                  onLoading: () async {
-                    final result = await getStaff();
-                    if (result) {
-                      refreshController.loadComplete();
-                    } else {
-                      refreshController.loadFailed();
-                    }
-                  },
-                  child: staffs.isEmpty
-                      ? const Text('nothing yet')
-                      : ListView.builder(
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, index){
-                      final staff = staffs[index];
-                      return SingleChildScrollView(
-                          child: Card(
+            ),
+            Expanded(
+              child: SmartRefresher(
+                controller: refreshController,
+                enablePullUp: true,
+                onRefresh: () async {
+                  final result = await getStaff(isRefresh: true);
+                  if (result) {
+                    refreshController.refreshCompleted();
+                  } else {
+                    refreshController.refreshFailed();
+                  }
+                },
+                onLoading: () async {
+                  final result = await getStaff();
+                  if (result) {
+                    refreshController.loadComplete();
+                  } else {
+                    refreshController.loadFailed();
+                  }
+                },
+                child: staffs.isEmpty
+                    ? const Text('nothing yet')
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, index) {
+                          final staff = staffs[index];
+                          return SingleChildScrollView(
+                              child: Card(
                             child: Column(
                               children: [
                                 ViewStaffCard(
@@ -237,20 +238,30 @@ Widget build(BuildContext context) {
                                   date: staff.dateCreated ?? '',
                                   validityEnds: staff.validityEnds ?? '',
                                 ),
-
-                                // DeleteUpdateButton(onPressedDeleteButton:  () async{
-                                //   await deleteStaff(staff.guid);
-                                // },
-                                // ),
-
+                                DeleteUpdateButton(
+                                  onPressedDeleteButton: () async {
+                                    await deleteStaff(staff.guid);
+                                  },
+                                  onPressedUpdateButton: () async {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                UpdateStaff(
+                                                  data: widget.data,
+                                                  staff: staff,
+                                                  )));
+                                  },
+                                ),
                               ],
                             ),
                           ));
-                    },
-                    itemCount: staffs.length,
-                  ),
-                ),
-              )
-            ]),
-          )));
-}}
+                        },
+                        itemCount: staffs.length,
+                      ),
+              ),
+            )
+          ]),
+        )));
+  }
+}

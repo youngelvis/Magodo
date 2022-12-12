@@ -5,8 +5,9 @@ import 'package:intl/intl.dart';
 import 'package:magodo/components/roundedTextDateInput.dart';
 import 'components_for_class_of_varable/colors.dart' as color;
 class CustomDatePicker extends StatefulWidget {
+  final hint;
   final date;
-  const CustomDatePicker({Key? key, required this.date}) : super(key: key);
+  const CustomDatePicker({Key? key, required this.date, this.hint}) : super(key: key);
 
   @override
   State<CustomDatePicker> createState() => _CustomDatePickerState();
@@ -16,7 +17,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   @override
   Widget build(BuildContext context) {
     return RoundedTextDateInput(
-      hintText: 'mm/dd/yy',
+      hintText: widget.hint??'mm/dd/yy',
       controller: widget.date,
       onTap: () async {
         DateTime? datePicker = await showDatePicker(

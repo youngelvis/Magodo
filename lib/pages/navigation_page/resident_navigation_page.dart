@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:magodo/components/text_button_nav_page.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/add_family/add_family.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_bulk_passcode/get_bulk_passcode.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_future_passcode.dart';
@@ -14,9 +15,9 @@ import 'package:magodo/pages/resident_Page/view_staff/view_staff_report.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
 class ResidentNavigationPage extends StatelessWidget {
-  final data;
+  ResidentModel? data;
 
-  const ResidentNavigationPage({Key? key, required this.data})
+ ResidentNavigationPage({Key? key, required this.data})
       : super(key: key);
 
   @override

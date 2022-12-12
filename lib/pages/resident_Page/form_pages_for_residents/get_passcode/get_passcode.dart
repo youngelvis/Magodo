@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/textfields_types/buildNumOfVisitorsDropDown.dart';
-import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
+import 'package:magodo/pages/resident_Page/form_pages_for_residents/sendMessagesButtons/sendMessagesButtons.dart';
 import 'package:magodo/services/services.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 
 class GetPasscode extends StatefulWidget {
-  final data;
+  ResidentModel? data;
 
-  const GetPasscode({Key? key, required this.data}) : super(key: key);
+   GetPasscode({Key? key, required this.data}) : super(key: key);
 
   @override
   State<GetPasscode> createState() => _GetPasscodeState();
@@ -29,7 +30,7 @@ class _GetPasscodeState extends State<GetPasscode> {
         _visitorName.text.isEmpty ||
         noOfVisitors == null) {
       var data = await Services().getPasscode(_mobileNumber.text,
-          _visitorName.text, widget.data['resident_code'], noOfVisitors, '');
+          _visitorName.text, widget.data?.resident_code, noOfVisitors, '');
       var message = data['error']['message'];
 
       return showDialog(
@@ -54,7 +55,7 @@ class _GetPasscodeState extends State<GetPasscode> {
     var data = await Services().getPasscode(
         _mobileNumber.text,
         _visitorName.text,
-        widget.data['resident_code'],
+        widget.data?.resident_code,
         noOfVisitors,
         _email.text);
     var message = data['message'];
@@ -63,16 +64,7 @@ class _GetPasscodeState extends State<GetPasscode> {
       builder: (_) => AlertDialog(
         title: Text(message),
         actions: [
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: color.AppColor.homePageTheme,
-                  onPrimary: color.AppColor.landingPage2,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0))),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text("ok"))
+          SendMessagesButtons(data: data, residentCode: widget.data?.resident_code,)
         ],
       ),
     );
