@@ -399,21 +399,20 @@ class Services {
   }
 
 //25
-  updateStaff( dependantName, dependentPhone, employmentStatus,
+  updateStaff(  dependantName, dependentPhone, employmentStatus,
       empdateOrDob, contactDetail, relationship, mainData) async {
     Staff staff = mainData;
+
     var data = {
       "guid_id": staff.guid,
-      "dependant_name": dependantName ?? staff.dependantName,
-      "dependant_phone": dependentPhone ?? staff.dependantPhone,
-      "employment_status": employmentStatus ?? staff.identityStatus,
-      "empdate_or_dob": empdateOrDob?? staff.empdateOrDob,
+      "dependant_name": dependantName ,
+      "dependant_phone": dependentPhone ,
+      "employment_status": employmentStatus ?? staff.employmentStatus,
+      "empdate_or_dob": empdateOrDob,
       "relationship": relationship ?? staff.relationship,
-      "employment_status": employmentStatus ?? staff.identityStatus,
-      "contact_detail": contactDetail ?? staff.dependantContacts
+      "contact_detail": contactDetail
     };
-
-    var res = await CallApi().putData(data, 'updateFamilyMember');
+    var res = await CallApi().putData(data, 'updateStaff');
     var body = jsonDecode(res.body);
     return body;
   }

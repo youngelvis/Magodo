@@ -36,11 +36,11 @@ class _UpdateStaffState extends State<UpdateStaff> {
 
   _updateStaff() async {
     var data = await Services().updateStaff(
-        _staffFullName.text,
-        _staffMobileNumber.text,
+        _staffFullName.text.isEmpty ? widget.staff?.dependantName: _staffFullName.text,
+        _staffMobileNumber.text.isEmpty ? widget.staff?.dependantPhone:_staffMobileNumber.text,
         employment,
-        _employmentDate.text,
-        _staffAddress.text,
+        _employmentDate.text.isEmpty ? widget.staff?.empdateOrDob:_employmentDate.text,
+        _staffAddress.text.isEmpty ? widget.staff?.dependantContacts:_staffAddress.text,
         relationship,
         widget.staff);
 
