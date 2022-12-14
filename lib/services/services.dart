@@ -357,19 +357,6 @@ class Services {
     return body;
   }
 
-  //20
-  updateFamilyMember(fullName, dependentPhone, email, residentCode) async {
-    var data = {
-      "resident_code": residentCode,
-      "FULL_NAME": fullName,
-      "DEPENDANT_PHONE": dependentPhone,
-      "EMAIL": email,
-    };
-
-    var res = await CallApi().putData(data, 'updateFamilyMember');
-    var body = jsonDecode(res.body);
-    return body;
-  }
 
   //22
   Future selectFile() async {
@@ -399,14 +386,14 @@ class Services {
   }
 
 //25
-  updateStaff(  dependantName, dependentPhone, employmentStatus,
-      empdateOrDob, contactDetail, relationship, mainData) async {
+  updateStaff(dependantName, dependentPhone, employmentStatus, empdateOrDob,
+      contactDetail, relationship, mainData) async {
     Staff staff = mainData;
 
     var data = {
       "guid_id": staff.guid,
-      "dependant_name": dependantName ,
-      "dependant_phone": dependentPhone ,
+      "dependant_name": dependantName,
+      "dependant_phone": dependentPhone,
       "employment_status": employmentStatus ?? staff.employmentStatus,
       "empdate_or_dob": empdateOrDob,
       "relationship": relationship ?? staff.relationship,
@@ -416,4 +403,21 @@ class Services {
     var body = jsonDecode(res.body);
     return body;
   }
+  //26
+  updateFamily(residentCode, fullName, mobileNumber, email) async {
+    print(email);
+    var data = {
+      "resident_code": residentCode,
+      "full_name": fullName,
+      "dependant_phone": mobileNumber,
+      "email" : email
+    };
+
+    var res = await CallApi().putData(data, 'updateFamilyMember');
+    var body = jsonDecode(res.body);
+    return body;
+  }
 }
+
+
+

@@ -4,12 +4,16 @@ import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/title.dart';
 import 'package:magodo/models/add_family_data_model/familydata.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
+import 'package:magodo/services/services.dart';
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 
 class UpdateFamily extends StatefulWidget {
-  final data;
+  ResidentModel? data;
   Family response;
 
-   UpdateFamily({Key? key, required this.data, required this.response}) : super(key: key);
+  UpdateFamily({Key? key, required this.data, required this.response})
+      : super(key: key);
 
   @override
   State<UpdateFamily> createState() => _UpdateFamilyState();
@@ -18,19 +22,43 @@ class UpdateFamily extends StatefulWidget {
 TextEditingController _mobileNumber = TextEditingController();
 TextEditingController _fullName = TextEditingController();
 TextEditingController _email = TextEditingController();
-TextEditingController _password = TextEditingController();
-TextEditingController _confirmPassword = TextEditingController();
 
 class _UpdateFamilyState extends State<UpdateFamily> {
   @override
   Widget build(BuildContext context) {
     _updateFamily() async {
+      var data = await Services().updateFamily(
+        widget.response.residentCode,
+        _fullName.text.isEmpty ? widget.response.fullName : _fullName.text,
+        _mobileNumber.text.isEmpty
+            ? widget.response.dependantPhone
+            : _mobileNumber.text,
+        _email.text.isEmpty ? widget.response.email : _email.text,
+      );
+      print(data);
+      var message = data['message'];
 
-
+      return showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(message),
+          actions: [
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("ok"))
+          ],
+        ),
+      );
     }
 
     return GestureDetector(
-
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
@@ -73,12 +101,12 @@ class _UpdateFamilyState extends State<UpdateFamily> {
                               MobileNumberTextField(
                                   controller: _mobileNumber,
                                   fieldName: 'Mobile number',
-                                  hintText: ' ${widget.response.status}'),
+                                  hintText:
+                                      ' ${widget.response.dependantPhone}'),
                               NameTextField(
                                   controller: _email,
                                   hint: "${widget.response.email}",
-                                  nameType: "Enter email address"),
-
+                                  nameType: "Email"),
                               const SizedBox(
                                 height: 40,
                               ),

@@ -42,6 +42,7 @@ class Family {
     required this.validityEndsDate,
     required this.lastLoginDate,
     required this.rowNumber,
+    required this.dependantPhone,
   });
 
   String? residentCode;
@@ -52,6 +53,7 @@ class Family {
   String? validityEndsDate;
   String? lastLoginDate;
   String? rowNumber;
+  String? dependantPhone;
 
   factory Family.fromJson(Map<String, dynamic> json) => Family(
     residentCode: json["RESIDENT_CODE"],
@@ -62,10 +64,12 @@ class Family {
     validityEndsDate: json["VALIDITY_ENDS_DATE"],
     lastLoginDate: json["LAST_LOGIN_DATE"],
     rowNumber: json["ROW_NUMBER"],
+    dependantPhone: json["MSISDN"]
   );
 
   Map<String, dynamic> toJson() => {
     "RESIDENT_CODE": residentCode,
+    "MSISDN": dependantPhone,
     "EMAIL": email,
     "STATUS": status,
     "FULL_NAME": fullName,
