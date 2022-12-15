@@ -1,5 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.magodo">
+    <queries>
+        <intent>
+            <action android:name="andriod.intent.action.VIEW"/>
+            <data android:scheme = "tel"/>
+        </intent>
+    </queries>
    <application
         android:label="magodo"
         android:name="${applicationName}"

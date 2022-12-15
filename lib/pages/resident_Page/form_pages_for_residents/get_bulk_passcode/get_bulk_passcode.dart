@@ -31,7 +31,8 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
   late File file;
 
   Future selectFile() async {
-    file = await Services().selectFile();
+    file = File(await Services().selectFile());
+    print('this is a ${file}');
   }
 
   getBulkPasscode_api(filepath, fileName) async {

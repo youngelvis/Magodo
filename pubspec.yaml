@@ -43,7 +43,8 @@ dependencies:
   open_file: ^3.2.1
   path: ^1.8.1
   dio: ^4.0.6
-
+  url_launcher: ^6.1.6
+permission_handler: ^9.2.0
 
 
 dev_dependencies:

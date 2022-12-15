@@ -373,13 +373,13 @@ class Services {
   }
 
   //24
-  sentWhatsappPasscode(sendMsisdn, message, residentCode) async {
+  sendWhatsappPasscode(sendMsisdn, message, residentCode) async {
     var data = {
       'send_msisdn': sendMsisdn,
       "message": message,
       "resident_code": residentCode
     };
-    var res = await CallApi().postData(data, 'sentWhatsappPasscode');
+    var res = await CallApi().postData(data, 'sendWhatsappPasscode');
     var body = jsonDecode(res.body);
     print(body);
     return body;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/services/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 
 class SendMessagesButtons extends StatefulWidget {
@@ -16,17 +17,23 @@ class SendMessagesButtons extends StatefulWidget {
 
 class _SendMessagesButtonsState extends State<SendMessagesButtons> {
   whatApp() async {
-    final data = await Services().sentWhatsappPasscode(
+    final data = await Services().sendWhatsappPasscode(
         widget.data['data']['visitor_number'],
         widget.data['message'],
         widget.residentCode!);
 
     print("this is message:${data}");
+    Uri whatsapp = Uri.parse(data['data']['url']);
+    await launchUrl(whatsapp,
+    mode: LaunchMode.externalApplication);
   }
 
   sendSMSPasscode() async {
-    await Services().sendSMSPasscode(widget.data['data']['visitor_number'],
-        widget.data['message'], widget.residentCode!);
+    final data = await Services().sendSMSPasscode(
+        widget.data['data']['visitor_number'],
+        widget.data['message'],
+        widget.residentCode!);
+    print(data);
   }
 
   @override
