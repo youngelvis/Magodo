@@ -103,7 +103,7 @@ class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
       children: [
         Expanded(
           child: RoundedTextSearchField(
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
             onChanged: (value) async {
               await _searchFunction();
             },

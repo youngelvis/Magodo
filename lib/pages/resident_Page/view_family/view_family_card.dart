@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 class ViewFamilyCard extends StatelessWidget {
-  final fullName, status, dependentCode, email, date;
+  final fullName, status, dependentCode, email, date, dependantPhone;
 
   const ViewFamilyCard({
     Key? key,
@@ -12,6 +12,8 @@ class ViewFamilyCard extends StatelessWidget {
     required this.dependentCode,
     required this.email,
     required this.date,
+    required this.dependantPhone
+
   }) : super(key: key);
 
   @override
@@ -47,6 +49,16 @@ class ViewFamilyCard extends StatelessWidget {
             ),
             trailing: Text(
               fullName,
+              style: const TextStyle(fontSize: 25),
+            ),
+          ),
+          ListTile(
+            title: const Text(
+              'Phone Number',
+              style: TextStyle(fontSize: 25),
+            ),
+            trailing: Text(
+              dependantPhone,
               style: const TextStyle(fontSize: 25),
             ),
           ),

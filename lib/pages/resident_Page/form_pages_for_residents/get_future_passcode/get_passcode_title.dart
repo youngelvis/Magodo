@@ -1,11 +1,15 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/navigation_page/resident_navigation_page.dart';
+import 'package:magodo/pages/profile_page/profile_page.dart';
 
 class GetPasscodeTitleContainer extends StatefulWidget {
-  final data;
+  ResidentModel? data;
   final title;
 
-  const GetPasscodeTitleContainer({Key? key, this.title, required this.data}) : super(key: key);
+   GetPasscodeTitleContainer({Key? key, this.title, required this.data}) : super(key: key);
 
   @override
   State<GetPasscodeTitleContainer> createState() => _GetPasscodeTitleContainerState();
@@ -48,12 +52,24 @@ class _GetPasscodeTitleContainerState extends State<GetPasscodeTitleContainer> {
                     ),),
                     const SizedBox(width: 80),
                     Stack(
-                      children: const [
+                      children: [
                         Positioned(child: SizedBox(
                           width: 30,
                           height: 30,
-                          child: CircleAvatar(
-                            backgroundImage: AssetImage('assets/profilePicture.jpeg'),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProfilePage(
+                                    data: widget.data,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: const CircleAvatar(
+                              backgroundImage: AssetImage('assets/profilePicture.jpeg'),
+                            ),
                           ),
                         ),),
                       ],

@@ -237,6 +237,7 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
                                       email: family.email ?? '',
                                       dependentCode: family.residentCode ?? '',
                                       status: family.status ?? '',
+                                      dependantPhone: family.dependantPhone ?? '',
                                     ),
                                   ),
                                   DeleteUpdateButton(
