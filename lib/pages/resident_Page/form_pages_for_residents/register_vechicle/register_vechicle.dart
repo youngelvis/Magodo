@@ -1,16 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
-import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/text_for_form.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/textfields_types/vehicle_color_dropdown_list.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
+import 'package:magodo/services/services.dart';
 
 class RegisterVehicle extends StatefulWidget {
-  final data;
+  ResidentModel? data;
 
-  const RegisterVehicle({Key? key, required this.data}) : super(key: key);
+   RegisterVehicle({Key? key, required this.data}) : super(key: key);
 
   @override
   State<RegisterVehicle> createState() => _RegisterVehicleState();
@@ -45,28 +48,12 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
     'Wine'
   ];
 
-  Widget _buildPopulationType() {
-    return RoundedDropDownTextField(
-      hint: const Text(
-        'Choose colour',
-        style: TextStyle(fontSize: 15),
-      ),
-      value: colour,
-      onChanged: (value) => setState(() {
-        colour = value as String;
-      }),
-      items: colourOptions.map(buildColourItem).toList(),
-    );
-  }
+  late File file;
 
-  DropdownMenuItem<String> buildColourItem(String colourOptions) =>
-      DropdownMenuItem(
-        value: colourOptions,
-        child: Text(
-          colourOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
-        ),
-      );
+  Future selectFile() async {
+    file = File(await Services().selectFile());
+    print('this is a ${file}');
+  }
 
   @override
   Widget build(BuildContext context) {

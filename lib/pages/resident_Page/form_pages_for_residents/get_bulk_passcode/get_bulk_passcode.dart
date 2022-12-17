@@ -55,13 +55,13 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
     dio.options.headers["Content-Type"] = 'multipart/form-data';
     dio.options.headers["authorization"] = basicAuth;
 
-    Response response = await dio.post(
+    final response = await dio.post(
       fullUrl,
       data: formData,
     );
 
-    print(response);
-    return response;
+    final responseBody = response.data;
+    return responseBody;
   }
 
   _getBulkPasscode() async {
@@ -69,9 +69,58 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
     if (_date.text.isEmpty ||
         _arrivalTime.text.isEmpty ||
         _departureTime.text.isEmpty) {
-      getBulkPasscode_api(file.path, filename);
+      var data = await getBulkPasscode_api(file.path, filename);
+      var message = data['error']['message'];
+
+      return showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(message),
+          actions: [
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
+                onPressed: () {
+                  _date.clear();
+                  _departureTime.clear();
+                  _arrivalTime.clear();
+                  file.delete();
+
+                  Navigator.of(context).pop();
+                },
+                child: const Text("ok"))
+          ],
+        ),
+      );
     }
-    getBulkPasscode_api(file.path, filename);
+    var data = await getBulkPasscode_api(file.path, filename);
+    var message = data['message'];
+
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                _date.clear();
+                _departureTime.clear();
+                _arrivalTime.clear();
+                file.delete();
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
   }
 
   @override
