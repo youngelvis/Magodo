@@ -3,23 +3,50 @@ import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/textfields_types/resident_type_dropdown_list.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
+import 'package:magodo/services/services.dart';
 
 class EditProfile extends StatefulWidget {
-  final data;
-  const EditProfile({Key? key, required this.data}) : super(key: key);
+  ResidentModel? data;
+
+  EditProfile({Key? key, required this.data}) : super(key: key);
 
   @override
   State<EditProfile> createState() => _EditProfileState();
 }
 
+TextEditingController _firstName = TextEditingController();
+TextEditingController _surname = TextEditingController();
+TextEditingController _email = TextEditingController();
+TextEditingController _address = TextEditingController();
+TextEditingController _mobileNumber = TextEditingController();
+
 class _EditProfileState extends State<EditProfile> {
-  TextEditingController _firstName = TextEditingController();
-  TextEditingController _surname = TextEditingController();
-  TextEditingController _email = TextEditingController();
-  TextEditingController _address = TextEditingController();
-  TextEditingController _mobileNumber = TextEditingController();
   String? residentType;
+
+  editProfile() async {
+    if(_firstName.text.isEmpty|| _surname.text.isEmpty||_mobileNumber.text.isEmpty||_email.text.isEmpty){
+      final data = await Services().updateProfile(
+          _firstName.text,
+          _surname.text,
+          _mobileNumber.text,
+          _email.text,
+          residentType,
+          _address.text,
+          widget.data);
+      print(data);
+    }
+    final data = await Services().updateProfile(
+        _firstName.text,
+        _surname.text,
+        _mobileNumber.text,
+        _email.text,
+        residentType,
+        _address.text,
+        widget.data);
+    print(data);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,9 +109,8 @@ class _EditProfileState extends State<EditProfile> {
                               BuildResidentTypeDropDownList(
                                   residentType: residentType,
                                   onChanged: (value) => setState(() {
-                                    residentType = value as String;
-                                  })),
-
+                                        residentType = value as String;
+                                      })),
                               const SizedBox(
                                 height: 50,
                               ),

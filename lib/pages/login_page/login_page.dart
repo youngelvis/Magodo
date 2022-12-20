@@ -11,6 +11,7 @@ import 'package:magodo/models/resident_data_model/mainResidentModel.dart';
 import 'package:magodo/models/resident_data_model/wrongDetailsResident.dart';
 import 'package:magodo/pages/register_page/register_page.dart';
 import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
+import 'package:magodo/pages/super_admin/super_admin_forms/add_new_administrative_user.dart';
 import 'package:magodo/services/services.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
@@ -64,12 +65,11 @@ class _SignINState extends State<SignIN> {
     }
     var data = await Services().login(_residentCode.text, _password.text);
 
-    if (data['data']!= [])  {
+    if (data['data'] != []) {
       setState(() {
         mainResidentModel = MainResidentModel.fromJson(data);
       });
-      final resident =  mainResidentModel.data;
-
+      final resident = mainResidentModel.data;
 
       if (resident?.usr_group == UserGroup.MEMBER) {
         _navigation(
@@ -77,7 +77,13 @@ class _SignINState extends State<SignIN> {
             data: resident,
           ),
         );
-      } else if (data['data']['usr_group'] == UserGroup.PROPERTY_OWNER) {}
+      } else if (data['data']['usr_group'] == UserGroup.SUPER_ADMIN) {
+        _navigation(
+          AddNewAdministrativeUser(
+            data: resident,
+          ),
+        );
+      }
     } else {
       setState(() {
         wrongDetailsResident = WrongDetailsResident.fromJson(data);
@@ -158,7 +164,6 @@ class _SignINState extends State<SignIN> {
                       controller: _residentCode,
                       hint: 'resident code',
                       nameType: 'Resident Code'),
-
                   BuildPasswordTextField(
                       fieldName: 'Password', passwordController: _password),
                   const SizedBox(

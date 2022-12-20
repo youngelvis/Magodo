@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:magodo/api/api.dart';
 import 'package:magodo/models/add_staff_data_model/staffdata.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:path/path.dart';
 
 class Services {
@@ -380,7 +381,6 @@ class Services {
     };
     var res = await CallApi().postData(data, 'sendWhatsappPasscode');
     var body = jsonDecode(res.body);
-    print(body);
     return body;
   }
 
@@ -431,4 +431,73 @@ class Services {
     var body = jsonDecode(res.body);
     return body;
   }
+
+  //28
+  addNewAdministrativeUser(
+      residentCode,
+      residentPhone,
+      surname,
+      firstName,
+      email,
+      userGroup,
+      status,
+      address,
+      zone,
+      validityStart,
+      validityEnd,
+      password,
+      confirmPassword) async {
+    var data = {
+      "resident_reg_code": residentCode,
+      "resident_phone": residentPhone,
+      "surname": surname,
+      "firstname": firstName,
+      "email": email,
+      "user_group": userGroup,
+      "status": status,
+      "address": address,
+      "zone": zone,
+      "validity_start_date": validityStart,
+      "validity_end_date": validityEnd,
+      "password": password,
+      "confirm_password": confirmPassword,
+      "action_user": "sadmin"
+    };
+    var res = await CallApi().postData(data, 'createAdmin');
+    var body = jsonDecode(res.body);
+    return body;
+  }
+
+  //29
+
+  updateProfile(
+      firstName,
+      surname,
+      residentPhone,
+      email,
+      residentType,
+      address,
+      residentData
+      ) async{
+    ResidentModel? residentModel = residentData;
+    var data = {
+      "resident_code": residentModel!.resident_code,
+      "firstname": firstName,
+      "surname": surname,
+      "resident_phone": residentPhone,
+      "email": email,
+      "user_group": residentModel.usr_group,
+      "status": residentModel.user_status,
+      "mra_zone": residentModel.zone,
+      "resident_type": residentType,
+      "address": address,
+      "validity_starts_date": residentModel.validity_starts,
+      "validity_ends_date": residentModel.validity_ends
+    };
+    var res = await CallApi().postData(data, 'updateResidentProfile');
+    var body = jsonDecode(res.body);
+    return body;
+  }
+  // 30
+
 }
