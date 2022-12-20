@@ -5,6 +5,7 @@ import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/text_for_form.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
+import 'package:magodo/components/textfields_types/zones.dart';
 import 'package:magodo/components/title.dart';
 
 import '../../../components/app_page_theme_action_button.dart';
@@ -26,60 +27,40 @@ TextEditingController _startDate = TextEditingController();
 TextEditingController _finishDate = TextEditingController();
 class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
   String? classification;
-  final classificationOptions = ['0', '1', '2', '3', '4', '5', '6'];
-  String? status;
-  final statusOptions = ['0', '1', '2', '3', '4', '5', '6'];
-  String? zone;
-  final zoneOptions = [
-    Zones.AEA,
-    Zones.AGBOOLA_AJUMOBI,
-    Zones.AKIN_TIJANI,
-    Zones.BASHEER_SHITTU,
-    Zones.BROADWAY,
-    Zones.CENTRAL,
-    Zones.FAA,
-    Zones.FILLING_EGDE,
-    Zones.FORESHORE,
-    Zones.GORGE_VIEW,
-    Zones.KAYODE_TAIWO,
-    Zones.KOLA_AMODU,
-    Zones.MAINLINE,
-    Zones.NELSON_NWEKE,
-    Zones.OGUNYE,
-    Zones.PALM_VIEW,
-    Zones.PEACE_VALLEY,
-    Zones.PSSDC_WALE_TAIWO,
-    Zones.SOUTH_EAST,
-    Zones.SOUTH_WEST,
-    Zones.VALLEY_VIEW
+  final classificationOptions = [
+    '-- Select Class --',
+    'Security',
+    'Admin',
+    'Super Admin',
+    'Zonal Admin',
+    'Zonal Super Admin',
+    'Member',
+    'Hotel',
+    'Schools',
+    'Super market',
+    'Mosque',
+    'Church',
+    'Gym House',
+    'Hospital',
+    'Restaurant',
+    'Office',
+    'Pharmacy',
+    'Saloon/Spa',
+    'Others'
   ];
-  Widget _buildZone() {
-    return RoundedDropDownTextField(
-      hint: const Text(
-        'Select Zone',
-        style: TextStyle(fontSize: 15),
-      ),
-      value: zone,
-      onChanged: (value) => setState(() {
-        zone = value as String;
-      }),
-      items: zoneOptions.map(buildZoneItem).toList(),
-    );
-  }
-
-  DropdownMenuItem<String> buildZoneItem(String zoneOptions) =>
-      DropdownMenuItem(
-        value: zoneOptions,
-        child: Text(
-          zoneOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
-        ),
-      );
+  String? status;
+  final statusOptions = [
+    '-- Select Status ',
+    'Unverified',
+    'Declined',
+    'Verified',
+  ];
+  String? zone;
 
   Widget _buildClassification() {
     return RoundedDropDownTextField(
       hint: const Text(
-        'Choose number',
+        '-- Select Class --',
         style: TextStyle(fontSize: 15),
       ),
       value: classification,
@@ -103,7 +84,7 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
   Widget _buildStatus() {
     return RoundedDropDownTextField(
       hint: const Text(
-        'Choose number',
+        '-- Select Status --',
         style: TextStyle(fontSize: 15),
       ),
       value: status,
@@ -214,8 +195,12 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              const TextForForm(text: "Zone"),
-                              _buildZone(),
+                              BuildZoneDropDownList(
+                                zone: zone,
+                                onChanged: (value) => setState(() {
+                                  zone = value as String;
+                                }),
+                              ),
                               const SizedBox(
                                 height: 20,
                               ),

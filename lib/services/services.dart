@@ -357,7 +357,6 @@ class Services {
     return body;
   }
 
-
   //22
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
@@ -403,21 +402,33 @@ class Services {
     var body = jsonDecode(res.body);
     return body;
   }
+
   //26
   updateFamily(residentCode, fullName, mobileNumber, email) async {
-    print(email);
     var data = {
       "resident_code": residentCode,
       "full_name": fullName,
       "dependant_phone": mobileNumber,
-      "email" : email
+      "email": email
     };
 
     var res = await CallApi().putData(data, 'updateFamilyMember');
     var body = jsonDecode(res.body);
     return body;
   }
+
+  //27
+  changePassword(
+      residentCode, currentPassword, newPassword, newConfirmPassword) async {
+    var data = {
+      "resident_code": residentCode,
+      "current_password": currentPassword,
+      "newPassword": newPassword,
+      "confirm_password": newConfirmPassword
+    };
+
+    var res = await CallApi().putData(data, 'changePassword');
+    var body = jsonDecode(res.body);
+    return body;
+  }
 }
-
-
-

@@ -19,7 +19,8 @@ class UpdateMember extends StatefulWidget {
 }
 
 TextEditingController _mobileNumber = TextEditingController();
-TextEditingController _fullName = TextEditingController();
+TextEditingController _firstName = TextEditingController();
+TextEditingController _surname = TextEditingController();
 TextEditingController _address = TextEditingController();
 TextEditingController _email = TextEditingController();
 TextEditingController _startDate = TextEditingController();
@@ -27,9 +28,34 @@ TextEditingController _finishDate = TextEditingController();
 
 class _UpdateMemberState extends State<UpdateMember> {
   String? classification;
-  final classificationOptions = ['0', '1', '2', '3', '4', '5', '6'];
+  final classificationOptions = [
+    '-- Select Class --',
+    'Security',
+    'Admin',
+    'Super Admin',
+    'Zonal Admin',
+    'Zonal Super Admin',
+    'Member',
+    'Hotel',
+    'Schools',
+    'Super market',
+    'Mosque',
+    'Church',
+    'Gym House',
+    'Hospital',
+    'Restaurant',
+    'Office',
+    'Pharmacy',
+    'Saloon/Spa',
+    'Others'
+  ];
   String? status;
-  final statusOptions = ['0', '1', '2', '3', '4', '5', '6'];
+  final statusOptions = [
+    '-- Select Status ',
+    'Unverified',
+    'Declined',
+    'Verified',
+  ];
   String? zone;
   final zoneOptions = [
     Zones.AEA,
@@ -124,31 +150,6 @@ class _UpdateMemberState extends State<UpdateMember> {
           style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
         ),
       );
-  String? resident;
-  final residentOptions = ['0', '1', '2', '3', '4', '5', '6'];
-
-  Widget _buildResident() {
-    return RoundedDropDownTextField(
-      hint: const Text(
-        'Choose number',
-        style: TextStyle(fontSize: 15),
-      ),
-      value: resident,
-      onChanged: (value) => setState(() {
-        resident = value as String;
-      }),
-      items: residentOptions.map(buildResidentItem).toList(),
-    );
-  }
-
-  DropdownMenuItem<String> buildResidentItem(String residentOptions) =>
-      DropdownMenuItem(
-        value: residentOptions,
-        child: Text(
-          residentOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
-        ),
-      );
 
   @override
   Widget build(BuildContext context) {
@@ -188,8 +189,28 @@ class _UpdateMemberState extends State<UpdateMember> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const TextForForm(text: "Resident Code"),
-                              _buildResident(),
+                              NameTextField(
+                                  controller: _firstName,
+                                  hint: "Enter full name",
+                                  nameType: "first Name"),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              NameTextField(
+                                  controller: _surname,
+                                  hint: "Enter surname",
+                                  nameType: "surName"),
+                              MobileNumberTextField(
+                                  controller: _mobileNumber,
+                                  fieldName: ' Mobile Number',
+                                  hintText: 'Enter mobile number'),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              NameTextField(
+                                  controller: _address,
+                                  hint: "Enter address",
+                                  nameType: " Email"),
                               const SizedBox(
                                 height: 20,
                               ),
@@ -205,36 +226,6 @@ class _UpdateMemberState extends State<UpdateMember> {
                               ),
                               const TextForForm(text: "Classification"),
                               _buildClassification(),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              NameTextField(
-                                  controller: _fullName,
-                                  hint: "Enter full name",
-                                  nameType: "Staff Full Name"),
-                              const SizedBox(
-                                height: 20,
-                              ),
-
-                              MobileNumberTextField(
-                                  controller: _mobileNumber,
-                                  fieldName: ' Mobile Number',
-                                  hintText: 'Enter mobile number'),
-                              const SizedBox(
-                                height: 20,
-                              ),
-
-                              NameTextField(
-                                  controller: _address,
-                                  hint: "Enter address",
-                                  nameType: " Email"),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              NameTextField(
-                                  controller: _email,
-                                  hint: "Enter email",
-                                  nameType: "Email"),
                               const SizedBox(
                                 height: 20,
                               ),
