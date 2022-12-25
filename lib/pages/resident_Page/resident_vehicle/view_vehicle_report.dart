@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
-import 'package:magodo/models/vehicledata.dart';
+import 'package:magodo/models/vehicle_dataModel/vehicledata.dart';
 import 'package:magodo/pages/resident_Page/forms_component/delete_edit_button.dart';
 import 'package:magodo/pages/resident_Page/resident_vehicle/resident_vechicle_card.dart';
 import 'package:magodo/services/services.dart';

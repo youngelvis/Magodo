@@ -26,7 +26,11 @@ class _EditProfileState extends State<EditProfile> {
   String? residentType;
 
   editProfile() async {
-    if(_firstName.text.isEmpty|| _surname.text.isEmpty||_mobileNumber.text.isEmpty||_email.text.isEmpty){
+    if (_firstName.text.isEmpty ||
+        _surname.text.isEmpty ||
+        _mobileNumber.text.isEmpty ||
+        _email.text.isEmpty ||
+        residentType == null) {
       final data = await Services().updateProfile(
           _firstName.text,
           _surname.text,
@@ -115,7 +119,9 @@ class _EditProfileState extends State<EditProfile> {
                                 height: 50,
                               ),
                               ActionPageButton(
-                                  onPressed: () async {},
+                                  onPressed: () async {
+                                    editProfile();
+                                  },
                                   text: 'Update Profile'),
                               const SizedBox(
                                 height: 30,

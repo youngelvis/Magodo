@@ -223,7 +223,7 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
                               NameTextField(
                                   controller: _address,
                                   hint: "Enter address",
-                                  nameType: " Email"),
+                                  nameType: " Address"),
                               const SizedBox(
                                 height: 20,
                               ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
+import 'package:magodo/components/textfields_types/zones.dart';
+import 'package:magodo/pages/super_admin/super_admin_component/searchableDropDownList_UM.dart';
 
 import '../../../components/app_page_theme_action_button.dart';
 import '../../../components/components_for_class_of_varable/zones.dart';
@@ -7,6 +9,7 @@ import '../../../components/date_text_field.dart';
 import '../../../components/roundedDropDownTextfield.dart';
 import '../../../components/text_for_form.dart';
 import '../../../components/textfields_types/name_textfield.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import '../../../components/title.dart';
 
 class UpdateMember extends StatefulWidget {
@@ -57,52 +60,6 @@ class _UpdateMemberState extends State<UpdateMember> {
     'Verified',
   ];
   String? zone;
-  final zoneOptions = [
-    Zones.AEA,
-    Zones.AGBOOLA_AJUMOBI,
-    Zones.AKIN_TIJANI,
-    Zones.BASHEER_SHITTU,
-    Zones.BROADWAY,
-    Zones.CENTRAL,
-    Zones.FAA,
-    Zones.FILLING_EGDE,
-    Zones.FORESHORE,
-    Zones.GORGE_VIEW,
-    Zones.KAYODE_TAIWO,
-    Zones.KOLA_AMODU,
-    Zones.MAINLINE,
-    Zones.NELSON_NWEKE,
-    Zones.OGUNYE,
-    Zones.PALM_VIEW,
-    Zones.PEACE_VALLEY,
-    Zones.PSSDC_WALE_TAIWO,
-    Zones.SOUTH_EAST,
-    Zones.SOUTH_WEST,
-    Zones.VALLEY_VIEW
-  ];
-
-  Widget _buildZone() {
-    return RoundedDropDownTextField(
-      hint: const Text(
-        'Select Zone',
-        style: TextStyle(fontSize: 15),
-      ),
-      value: zone,
-      onChanged: (value) => setState(() {
-        zone = value as String;
-      }),
-      items: zoneOptions.map(buildZoneItem).toList(),
-    );
-  }
-
-  DropdownMenuItem<String> buildZoneItem(String zoneOptions) =>
-      DropdownMenuItem(
-        value: zoneOptions,
-        child: Text(
-          zoneOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
-        ),
-      );
 
   Widget _buildClassification() {
     return RoundedDropDownTextField(
@@ -189,6 +146,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              SearchableDropDownList1(),
                               NameTextField(
                                   controller: _firstName,
                                   hint: "Enter full name",
@@ -220,7 +178,12 @@ class _UpdateMemberState extends State<UpdateMember> {
                                 height: 20,
                               ),
                               const TextForForm(text: "Zone"),
-                              _buildZone(),
+                              BuildZoneDropDownList(
+                                zone: zone,
+                                onChanged: (value) => setState(() {
+                                  zone = value as String;
+                                }),
+                              ),
                               const SizedBox(
                                 height: 20,
                               ),

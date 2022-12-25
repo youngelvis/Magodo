@@ -25,11 +25,12 @@ class _ChangePasswordState extends State<ChangePassword> {
     if (_currentPassword.text.isEmpty ||
         _newPassword.text.isEmpty ||
         _confirmPassword.text.isEmpty) {
-      final data = Services().changePassword(widget.data!.resident_code,
+      final data = await Services().changePassword(widget.data!.resident_code,
           _currentPassword.text, _newPassword.text, _confirmPassword.text);
     }
-    final data = Services().changePassword(widget.data!.resident_code,
+    final data2 = await Services().changePassword(widget.data!.resident_code,
         _currentPassword.text, _newPassword.text, _confirmPassword.text);
+    print("THIS ${data2}");
   }
 
   @override
@@ -68,7 +69,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                                 height: 50,
                               ),
                               ActionPageButton(
-                                  onPressed: () async {},
+                                  onPressed: () async {
+                                    changePasscode();
+                                  },
                                   text: 'Submit Request'),
                               const SizedBox(
                                 height: 30,

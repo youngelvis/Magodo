@@ -50,7 +50,7 @@ class _GetPasscodeTitleContainerState extends State<GetPasscodeTitleContainer> {
                         fontWeight: FontWeight.bold,
                         fontSize: 25
                     ),),
-                    const SizedBox(width: 80),
+                    const SizedBox(width: 70),
                     Stack(
                       children: [
                         Positioned(child: SizedBox(
