@@ -140,7 +140,7 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
                 Row(
                   children: const [
                     Text(
-                      'View Member Report',
+                      "View Member's Staff",
                       style:
                       TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
@@ -212,6 +212,6 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
           ]),
         ),
       ),
-    );;
+    );
   }
 }

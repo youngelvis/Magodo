@@ -493,13 +493,12 @@ class Services {
   }
 
   // 30
-  viewMembersReportForSadmin(page, userGroup, zone, startDate, endDate) async {
+  viewMembersReportForSAdmin(page) async {
     var data = {
       "page": page,
       "limit": "10",
       "user_group": "sadmin",
-      "startDate": startDate,
-      "endDate": endDate
+
     };
     var res = await CallApi().postData(data, 'updateResidentProfile');
     var body = jsonDecode(res.body);

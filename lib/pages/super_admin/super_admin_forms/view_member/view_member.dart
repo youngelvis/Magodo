@@ -60,11 +60,7 @@ class _ViewMemberState extends State<ViewMember> {
         return false;
       }
     }
-    var data = await Services().viewSentPasscodeReport(
-      currentPage,
-      widget.data?.resident_code,
-      _searchWords.text,
-    );
+    var data = await Services().viewMembersReportForSAdmin(currentPage);
 
     final result = viewMembersFromJson(data);
 
@@ -80,12 +76,8 @@ class _ViewMemberState extends State<ViewMember> {
   }
 
   Future _searchFunction() async => debounce(() async {
-        int page = 0;
-        var data = await Services().viewSentPasscodeReport(
-          page,
-          widget.data?.resident_code,
-          _searchWords.text.toString(),
-        );
+        int currentPage = 0;
+        var data = await Services().viewMembersReportForSAdmin(currentPage);
 
         final result = viewMembersFromJson(data);
         if (result.data.isEmpty) {
