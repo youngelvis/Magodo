@@ -17,12 +17,12 @@ class ViewMembers {
 
   int recordsTotal;
   int recordsFiltered;
-  List<ViewMember> data;
+  List<ViewMemberModel> data;
 
   factory ViewMembers.fromJson(Map<String, dynamic> json) => ViewMembers(
     recordsTotal: json["recordsTotal"],
     recordsFiltered: json["recordsFiltered"],
-    data: List<ViewMember>.from(json["data"].map((x) => ViewMember.fromJson(x))),
+    data: List<ViewMemberModel>.from(json["data"].map((x) => ViewMemberModel.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -32,8 +32,8 @@ class ViewMembers {
   };
 }
 
-class ViewMember {
-  ViewMember({
+class ViewMemberModel {
+  ViewMemberModel({
     required this.residentCode,
     required this.email,
     required this.msisdn,
@@ -69,7 +69,7 @@ class ViewMember {
   String? authorizedBy;
   String? authorizedDate;
 
-  factory ViewMember.fromJson(Map<String, dynamic> json) => ViewMember(
+  factory ViewMemberModel.fromJson(Map<String, dynamic> json) => ViewMemberModel(
     residentCode: json["RESIDENT_CODE"],
     email: json["EMAIL"],
     msisdn: json["MSISDN"],

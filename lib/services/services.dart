@@ -470,15 +470,8 @@ class Services {
 
   //29
 
-  updateProfile(
-      firstName,
-      surname,
-      residentPhone,
-      email,
-      residentType,
-      address,
-      residentData
-      ) async{
+  updateProfile(firstName, surname, residentPhone, email, residentType, address,
+      residentData) async {
     ResidentModel? residentModel = residentData;
     var data = {
       "resident_code": residentModel!.resident_code,
@@ -498,6 +491,18 @@ class Services {
     var body = jsonDecode(res.body);
     return body;
   }
-  // 30
 
+  // 30
+  viewMembersReportForSadmin(page, userGroup, zone, startDate, endDate) async {
+    var data = {
+      "page": page,
+      "limit": "10",
+      "user_group": "sadmin",
+      "startDate": startDate,
+      "endDate": endDate
+    };
+    var res = await CallApi().postData(data, 'updateResidentProfile');
+    var body = jsonDecode(res.body);
+    return body;
+  }
 }
