@@ -4,10 +4,10 @@
 
 import 'dart:convert';
 
-MemberStaffs memeberStaffsFromJson(String str) =>
+MemberStaffs memberStaffsFromJson(String str) =>
     MemberStaffs.fromJson(json.decode(str));
 
-String memeberStaffsToJson(MemberStaffs data) => json.encode(data.toJson());
+String memberStaffsToJson(MemberStaffs data) => json.encode(data.toJson());
 
 class MemberStaffs {
   MemberStaffs({
@@ -44,7 +44,7 @@ class MemberStaff {
     required this.empdateOrDob,
     required this.dependantPhone,
     required this.relationship,
-    required employmentStatus,
+    required this.employmentStatus,
     required this.dependantContacts,
     required this.identityStatus,
     required this.dateLastModified,
