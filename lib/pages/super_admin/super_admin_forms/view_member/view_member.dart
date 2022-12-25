@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/models/view_memberModel/view_memberModel.dart';
-import 'package:magodo/models/view_passcode_data_model/visitordata.dart';
-import 'package:magodo/pages/resident_Page/visitor_passcode_card/visitor_report_card.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/view_member/view_memberCard.dart';
 import 'package:magodo/services/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
