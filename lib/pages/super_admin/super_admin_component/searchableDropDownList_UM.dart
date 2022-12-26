@@ -6,7 +6,8 @@ import 'package:magodo/api/api.dart';
 import 'package:magodo/models/fetch_member_model/fetch_MemberMainData.dart';
 
 class SearchableDropDownList1 extends StatefulWidget {
-  const SearchableDropDownList1({Key? key}) : super(key: key);
+  final onChange;
+  const SearchableDropDownList1({Key? key, this.onChange}) : super(key: key);
 
   @override
   State<SearchableDropDownList1> createState() =>
@@ -30,11 +31,7 @@ class _SearchableDropDownList1State extends State<SearchableDropDownList1> {
     });
   }
 
-  onSelectionChanged(String? s){
-    print(s?.split(" - "));
-    var residentCode = s?.split("- ");
-    print(residentCode?[0]);
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +46,7 @@ class _SearchableDropDownList1State extends State<SearchableDropDownList1> {
           dropdownSearchDecoration: const InputDecoration(
               labelText: "Select Resident", hintText: "select resident"),
           showSearchBox: true,
-          onChanged: onSelectionChanged,
+          onChanged: widget.onChange,
           searchFieldProps: const TextFieldProps(
             cursorColor: Colors.blue,
           ),

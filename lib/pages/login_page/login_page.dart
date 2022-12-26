@@ -84,7 +84,7 @@ class _SignINState extends State<SignIN> {
         );
       } else if (data['data']['usr_group'] == UserGroup.SUPER_ADMIN) {
         _navigation(
-          ViewMemberStaff(
+          UpdateMember(
             data: resident,
           ),
         );

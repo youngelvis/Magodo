@@ -30,6 +30,7 @@ TextEditingController _startDate = TextEditingController();
 TextEditingController _finishDate = TextEditingController();
 
 class _UpdateMemberState extends State<UpdateMember> {
+  String? residentcode;
   String? classification;
   final classificationOptions = [
     '-- Select Class --',
@@ -146,7 +147,15 @@ class _UpdateMemberState extends State<UpdateMember> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SearchableDropDownList1(),
+                              SearchableDropDownList1(
+                                onChange: (String? s) {
+                                  var residentCode = s?.split("- ");
+                                  residentcode =residentCode?[0];
+                                  setState(() {
+                                  });
+                                  print(residentcode);
+                                },
+                              ),
                               NameTextField(
                                   controller: _firstName,
                                   hint: "Enter full name",
