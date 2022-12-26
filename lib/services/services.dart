@@ -525,6 +525,13 @@ class Services {
     var res = await CallApi().postData(data, 'activityLogReport');
     return res.body;
   }
+//34
 
+changeResident(residentCode) async{
+    var data ={ "resident_reg_code": residentCode};
+    var res = await CallApi().postData(data, 'changeResident');
+    var body = jsonDecode(res.body);
+    return body;
+}
 
 }

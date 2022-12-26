@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/zones.dart';
 import 'package:magodo/pages/super_admin/super_admin_component/searchableDropDownList_UM.dart';
-
+import 'package:magodo/services/services.dart';
 import '../../../components/app_page_theme_action_button.dart';
-import '../../../components/components_for_class_of_varable/zones.dart';
 import '../../../components/date_text_field.dart';
 import '../../../components/roundedDropDownTextfield.dart';
 import '../../../components/text_for_form.dart';
 import '../../../components/textfields_types/name_textfield.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import '../../../components/title.dart';
 
 class UpdateMember extends StatefulWidget {
@@ -64,9 +62,9 @@ class _UpdateMemberState extends State<UpdateMember> {
 
   Widget _buildClassification() {
     return RoundedDropDownTextField(
-      hint: const Text(
-        'Choose number',
-        style: TextStyle(fontSize: 15),
+      hint: Text(
+        response['user_group'],
+        style: const TextStyle(fontSize: 15),
       ),
       value: classification,
       onChanged: (value) => setState(() {
@@ -88,9 +86,9 @@ class _UpdateMemberState extends State<UpdateMember> {
 
   Widget _buildStatus() {
     return RoundedDropDownTextField(
-      hint: const Text(
-        'Choose number',
-        style: TextStyle(fontSize: 15),
+      hint: Text(
+        response['status'],
+        style: const TextStyle(fontSize: 15),
       ),
       value: status,
       onChanged: (value) => setState(() {
@@ -108,6 +106,15 @@ class _UpdateMemberState extends State<UpdateMember> {
           style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
         ),
       );
+  var response;
+
+  onChange(String? s) async {
+    var residentCode = s?.split("- ");
+    residentcode = residentCode?[0];
+    final data = await Services().changeResident(residentcode);
+    response = data['data'];
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -147,36 +154,28 @@ class _UpdateMemberState extends State<UpdateMember> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SearchableDropDownList1(
-                                onChange: (String? s) {
-                                  var residentCode = s?.split("- ");
-                                  residentcode =residentCode?[0];
-                                  setState(() {
-                                  });
-                                  print(residentcode);
-                                },
-                              ),
+                              SearchableDropDownList1(onChange: onChange),
                               NameTextField(
                                   controller: _firstName,
-                                  hint: "Enter full name",
+                                  hint: response['firstname'],
                                   nameType: "first Name"),
                               const SizedBox(
                                 height: 20,
                               ),
                               NameTextField(
                                   controller: _surname,
-                                  hint: "Enter surname",
-                                  nameType: "surName"),
+                                  hint: response['surname'],
+                                  nameType: "surname"),
                               MobileNumberTextField(
                                   controller: _mobileNumber,
-                                  fieldName: ' Mobile Number',
-                                  hintText: 'Enter mobile number'),
+                                  fieldName: "Mobile Number",
+                                  hintText: response['resident_phone']),
                               const SizedBox(
                                 height: 20,
                               ),
                               NameTextField(
-                                  controller: _address,
-                                  hint: "Enter address",
+                                  controller: _email,
+                                  hint: response['email'],
                                   nameType: " Email"),
                               const SizedBox(
                                 height: 20,
@@ -186,9 +185,9 @@ class _UpdateMemberState extends State<UpdateMember> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              const TextForForm(text: "Zone"),
                               BuildZoneDropDownList(
                                 zone: zone,
+                                hint: response['zone'],
                                 onChanged: (value) => setState(() {
                                   zone = value as String;
                                 }),
@@ -202,9 +201,14 @@ class _UpdateMemberState extends State<UpdateMember> {
                                 height: 20,
                               ),
                               const TextForForm(text: "Validity Starts"),
-                              CustomDatePicker(date: _startDate),
+                              CustomDatePicker(
+                                date: _startDate,
+                                hint: response['validity_starts'],
+                              ),
                               const TextForForm(text: "Validity Ends"),
-                              CustomDatePicker(date: _finishDate),
+                              CustomDatePicker(
+                                  date: _finishDate,
+                                  hint: response['validity_ends']),
                               ActionPageButton(
                                   onPressed: () async {}, text: 'Update'),
                               const SizedBox(

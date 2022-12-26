@@ -8,9 +8,10 @@ import 'package:magodo/components/text_for_form.dart';
 class BuildZoneDropDownList extends StatefulWidget {
   final zone;
   final onChanged;
+  final hint;
 
   const BuildZoneDropDownList(
-      {Key? key, required this.zone, required this.onChanged})
+      {Key? key, required this.zone, required this.onChanged, this.hint})
       : super(key: key);
 
   @override
@@ -46,9 +47,9 @@ class _BuildZoneDropDownListState
 
   Widget _buildZone() {
     return RoundedDropDownTextField(
-      hint: const Text(
-        'Select zone',
-        style: TextStyle(fontSize: 15),
+      hint:  Text(
+        widget.hint ?? 'Select zone',
+        style: const TextStyle(fontSize: 15),
       ),
       value: widget.zone,
       onChanged: widget.onChanged,
