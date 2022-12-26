@@ -62,7 +62,7 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
         return false;
       }
     }
-    var data = await Services().viewMovementRegister(
+    var data = await Services().viewActivityLogReport(
       currentPage,
       _searchWords.text,
     );
@@ -71,6 +71,7 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
 
     if (isRefresh) {
       viewMembers = result.data;
+      print(viewMembers.first);
     } else {
       viewMembers.addAll(result.data);
     }
@@ -82,7 +83,7 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
 
   Future _searchFunction() async => debounce(() async {
         int currentPage = 0;
-        var data = await Services().viewMovementRegister(
+        var data = await Services().viewActivityLogReport(
           currentPage,
           _searchWords.text,
         );
@@ -124,92 +125,101 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
           padding: const EdgeInsets.only(
             top: 20,
           ),
-          child: Column(children: [
-            TitleContainer(
-              title: 'Dashboard',
-              data: widget.data,
-            ),
-            Container(
-              color: color.AppColor.residentBody,
-              padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
-              child: Column(children: [
-                _buildSearchBar(),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: const [
-                    Text(
-                      "Activity Log report",
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Icon(
-                      Icons.keyboard_arrow_down_outlined,
-                      size: 15,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-              ]),
-            ),
-            const Divider(
-              thickness: 2,
-            ),
-            Container(
-              color: Colors.white,
-              height: 50,
-              child: ListTile(
-                leading: Text(
-                  "1-${viewMembers.length} of $totalPages results",
-                  style: const TextStyle(fontSize: 16),
-                ),
-                trailing: Text(
-                  "Results per page ${viewMembers.length}",
-                  style: const TextStyle(fontSize: 16),
-                ),
+          child: Column(
+            children: [
+              TitleContainer(
+                title: 'Dashboard',
+                data: widget.data,
               ),
-            ),
-            Expanded(
-              child: SmartRefresher(
-                controller: refreshController,
-                enablePullUp: true,
-                onRefresh: () async {
-                  final result = await getViewMemberReport(isRefresh: true);
-                  if (result) {
-                    refreshController.refreshCompleted();
-                  } else {
-                    refreshController.refreshFailed();
-                  }
-                },
-                onLoading: () async {
-                  final result = await getViewMemberReport();
-                  if (result) {
-                    refreshController.loadComplete();
-                  } else {
-                    refreshController.loadFailed();
-                  }
-                },
-                child: viewMembers.isEmpty
-                    ? const Text('nothing yet')
-                    : ListView.builder(
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext context, index) {
-                          final member = viewMembers[index];
-
-                          return SingleChildScrollView(
-                            child: ActivityLogReportCard(
-                              data: member,
-                            ),
-                          );
-                        },
-                        itemCount: viewMembers.length,
+              Container(
+                color: color.AppColor.residentBody,
+                padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
+                child: Column(children: [
+                  _buildSearchBar(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: const [
+                      Text(
+                        "Activity Log report",
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold),
                       ),
+                      Icon(
+                        Icons.keyboard_arrow_down_outlined,
+                        size: 15,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ]),
               ),
-            )
-          ]),
+              const Divider(
+                thickness: 2,
+              ),
+              Container(
+                color: Colors.white,
+                height: 50,
+                child: ListTile(
+                  leading: Text(
+                    "1-${viewMembers.length} of $totalPages results",
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  trailing: Text(
+                    "Results per page ${viewMembers.length}",
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: SmartRefresher(
+                  controller: refreshController,
+                  enablePullUp: true,
+                  onRefresh: () async {
+                    final result = await getViewMemberReport(isRefresh: true);
+                    if (result) {
+                      refreshController.refreshCompleted();
+                    } else {
+                      refreshController.refreshFailed();
+                    }
+                  },
+                  onLoading: () async {
+                    final result = await getViewMemberReport();
+                    if (result) {
+                      refreshController.loadComplete();
+                    } else {
+                      refreshController.loadFailed();
+                    }
+                  },
+                  child: viewMembers.isEmpty
+                      ? const Text('nothing yet')
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, index) {
+                            final member = viewMembers[index];
+
+                            return SingleChildScrollView(
+                              child: ActivityLogReportCard(
+                                action: member.action ?? "",
+                                actionDescription:
+                                    member.actionDescription ?? "",
+                                actionUser: member.actionUser ?? "",
+                                otherDetails: member.otherDetails ?? "",
+                                fullName: member.fullName,
+                                residentCode: member.residentCode ?? "",
+                                createdDate: member.createdDate ?? "",
+                              ),
+                            );
+                          },
+                          itemCount: viewMembers.length,
+                        ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

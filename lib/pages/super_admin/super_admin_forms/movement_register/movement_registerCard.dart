@@ -26,77 +26,77 @@ class MovementRegisterCard extends StatelessWidget {
           ListTile(
             title: Text(
               data.passcode ?? '',
-              style: const TextStyle(fontSize: 25),
+              style: const TextStyle(fontSize: 15),
             ),
           ),
           const ListTile(
             title: Text(
               "Visitor's Name",
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 15),
             ),
             trailing: Text(
               '',
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 15),
             ),
           ),
           ListTile(
             title: const Text(
               'Resident Code',
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 15),
             ),
             trailing: Text(
               data.residentCode ?? '',
-              style: const TextStyle(fontSize: 25),
+              style: const TextStyle(fontSize: 15),
             ),
           ),
           ListTile(
             title: const Text(
               " Visitor's phone",
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 15),
             ),
             trailing: Text(
               data.visitorMsisdn ?? '',
-              style: const TextStyle(fontSize: 25),
+              style: const TextStyle(fontSize: 15),
             ),
           ),
           ListTile(
             title: const Text(
               "Resident Phone",
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 15),
             ),
             trailing: Text(
               data.residentMsisdn ?? '',
-              style: const TextStyle(fontSize: 25),
+              style: const TextStyle(fontSize: 15),
             ),
           ),
           ListTile(
             title: const Text(
               "Resident Name",
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 15),
             ),
             trailing: Text(
               data.residentFullName ?? '',
-              style: const TextStyle(fontSize: 25),
+              style: const TextStyle(fontSize: 15),
             ),
           ),
           ListTile(
             title: const Text(
               "Time in",
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 15),
             ),
             trailing: Text(
               data.timeIn ?? '',
-              style: const TextStyle(fontSize: 25),
+              style: const TextStyle(fontSize: 15),
             ),
           ),
           ListTile(
             title: const Text(
               "Time out",
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 15),
             ),
             trailing: Text(
               data.timeOut ?? '',
-              style: const TextStyle(fontSize: 25),
+              style: const TextStyle(fontSize: 15),
             ),
           ),
           const SizedBox(

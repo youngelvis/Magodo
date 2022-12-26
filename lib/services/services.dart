@@ -500,8 +500,7 @@ class Services {
       "user_group": "sadmin",
     };
     var res = await CallApi().postData(data, 'membersReport');
-    var body = jsonDecode(res.body);
-    return body;
+    return res.body;
   }
 
   //31
@@ -509,23 +508,23 @@ class Services {
   viewMemberStaffReport(page, search) async {
     var data = {"page": page, "limit": "10", "search": search.toString()};
     var res = await CallApi().postData(data, 'dependantsReport');
-    var body = jsonDecode(res.body);
-    return body;
+    return res.body;
   }
 
   // 32
   viewMovementRegister(page, search) async {
     var data = {"page": page, "limit": "10", "search": search.toString()};
     var res = await CallApi().postData(data, 'movementRegisterReport');
-    var body = jsonDecode(res.body);
-    return body;
+    return res.body;
   }
 
   // 33
+
   viewActivityLogReport(page, search) async {
     var data = {"page": page, "limit": "10", "search": search.toString()};
     var res = await CallApi().postData(data, 'activityLogReport');
-    var body = jsonDecode(res.body);
-    return body;
+    return res.body;
   }
+
+
 }
