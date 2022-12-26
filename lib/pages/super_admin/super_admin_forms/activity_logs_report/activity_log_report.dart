@@ -71,7 +71,6 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
 
     if (isRefresh) {
       viewMembers = result.data;
-      print(viewMembers.first);
     } else {
       viewMembers.addAll(result.data);
     }
