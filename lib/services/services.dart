@@ -498,9 +498,25 @@ class Services {
       "page": page,
       "limit": "10",
       "user_group": "sadmin",
-
     };
-    var res = await CallApi().postData(data, 'updateResidentProfile');
+    var res = await CallApi().postData(data, 'membersReport');
+    var body = jsonDecode(res.body);
+    return body;
+  }
+
+  //31
+
+  viewMemberStaffReport(page, search) async {
+    var data = {"page": page, "limit": "10", "search": search.toString()};
+    var res = await CallApi().postData(data, 'dependantsReport');
+    var body = jsonDecode(res.body);
+    return body;
+  }
+
+  // 32
+  viewMovementRegister(page, search) async {
+    var data = {"page": page, "limit": "10", "search": search.toString()};
+    var res = await CallApi().postData(data, 'dependantsReport');
     var body = jsonDecode(res.body);
     return body;
   }

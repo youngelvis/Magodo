@@ -21,7 +21,6 @@ class ViewMemberStaff extends StatefulWidget {
 TextEditingController _searchWords = TextEditingController();
 
 class _ViewMemberStaffState extends State<ViewMemberStaff> {
-
   Timer? debouncer;
 
   @override
@@ -36,9 +35,9 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
   }
 
   void debounce(
-      VoidCallback callback, {
-        Duration duration = const Duration(milliseconds: 2000),
-      }) {
+    VoidCallback callback, {
+    Duration duration = const Duration(milliseconds: 2000),
+  }) {
     if (debouncer != null) {
       debouncer!.cancel();
     }
@@ -50,7 +49,7 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
   List<MemberStaff> memberStaff = [];
 
   final RefreshController refreshController =
-  RefreshController(initialRefresh: true);
+      RefreshController(initialRefresh: true);
 
   Future<bool> getViewMemberStaff({bool isRefresh = false}) async {
     if (isRefresh) {
@@ -61,9 +60,8 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
         return false;
       }
     }
-    var data = await Services().viewSentPasscodeReport(
+    var data = await Services().viewMemberStaffReport(
       currentPage,
-      widget.data?.resident_code,
       _searchWords.text,
     );
 
@@ -81,21 +79,20 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
   }
 
   Future _searchFunction() async => debounce(() async {
-    int page = 0;
-    var data = await Services().viewSentPasscodeReport(
-      page,
-      widget.data?.resident_code,
-      _searchWords.text.toString(),
-    );
+        int currentPage = 0;
+        var data = await Services().viewMemberStaffReport(
+          currentPage,
+          _searchWords.text,
+        );
 
-    final result = memberStaffsFromJson(data);
-    if (result.data.isEmpty) {
-      print('empty');
-    }
-    setState(() {
-      memberStaff = result.data;
-    });
-  });
+        final result = memberStaffsFromJson(data);
+        if (result.data.isEmpty) {
+          print('empty');
+        }
+        setState(() {
+          memberStaff = result.data;
+        });
+      });
 
   Widget _buildSearchBar() {
     return Row(
@@ -142,7 +139,7 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
                     Text(
                       "View Member's Staff",
                       style:
-                      TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
                     Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -195,18 +192,112 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
                 child: memberStaff.isEmpty
                     ? const Text('nothing yet')
                     : ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, index) {
-                    final member = memberStaff[index];
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, index) {GestureDetector(
+                          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+                          child: Scaffold(
+                            body: Container(
+                              color: color.AppColor.residentBody,
+                              padding: const EdgeInsets.only(
+                                top: 20,
+                              ),
+                              child: Column(children: [
+                                TitleContainer(
+                                  title: 'Dashboard',
+                                  data: widget.data,
+                                ),
+                                Container(
+                                  color: color.AppColor.residentBody,
+                                  padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
+                                  child: Column(children: [
+                                    _buildSearchBar(),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Row(
+                                      children: const [
+                                        Text(
+                                          "View Member's Staff",
+                                          style:
+                                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                        ),
+                                        Icon(
+                                          Icons.keyboard_arrow_down_outlined,
+                                          size: 15,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                  ]),
+                                ),
+                                const Divider(
+                                  thickness: 2,
+                                ),
+                                Container(
+                                  color: Colors.white,
+                                  height: 50,
+                                  child: ListTile(
+                                    leading: Text(
+                                      "1-${memberStaff.length} of $totalPages results",
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                    trailing: Text(
+                                      "Results per page ${memberStaff.length}",
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: SmartRefresher(
+                                    controller: refreshController,
+                                    enablePullUp: true,
+                                    onRefresh: () async {
+                                      final result = await getViewMemberStaff(isRefresh: true);
+                                      if (result) {
+                                        refreshController.refreshCompleted();
+                                      } else {
+                                        refreshController.refreshFailed();
+                                      }
+                                    },
+                                    onLoading: () async {
+                                      final result = await getViewMemberStaff();
+                                      if (result) {
+                                        refreshController.loadComplete();
+                                      } else {
+                                        refreshController.loadFailed();
+                                      }
+                                    },
+                                    child: memberStaff.isEmpty
+                                        ? const Text('nothing yet')
+                                        : ListView.builder(
+                                      shrinkWrap: true,
+                                      itemBuilder: (BuildContext context, index) {
+                                        final member = memberStaff[index];
 
-                    return SingleChildScrollView(
-                      child: ViewMemberStaffCard(
-                        data: member,
-                      )
-                    );
-                  },
-                  itemCount: memberStaff.length,
-                ),
+                                        return SingleChildScrollView(
+                                            child: ViewMemberStaffCard(
+                                              data: member,
+                                            ));
+                                      },
+                                      itemCount: memberStaff.length,
+                                    ),
+                                  ),
+                                )
+                              ]),
+                            ),
+                          ),
+                        );
+                          final member = memberStaff[index];
+
+                          return SingleChildScrollView(
+                              child: ViewMemberStaffCard(
+                            data: member,
+                          ));
+                        },
+                        itemCount: memberStaff.length,
+                      ),
               ),
             )
           ]),
