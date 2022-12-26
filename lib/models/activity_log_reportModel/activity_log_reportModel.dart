@@ -44,14 +44,14 @@ class ActivityLogReport {
     required this.rowNumber,
   });
 
-  String residentCode;
-  String fullName;
-  String action;
-  String actionDescription;
-  String otherDetails;
-  String actionUser;
-  DateTime createdDate;
-  String rowNumber;
+  String? residentCode;
+  String? fullName;
+  String? action;
+  String? actionDescription;
+  String? otherDetails;
+  String? actionUser;
+  String? createdDate;
+  String? rowNumber;
 
   factory ActivityLogReport.fromJson(Map<String, dynamic> json) => ActivityLogReport(
     residentCode: json["RESIDENT_CODE"],

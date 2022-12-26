@@ -516,7 +516,15 @@ class Services {
   // 32
   viewMovementRegister(page, search) async {
     var data = {"page": page, "limit": "10", "search": search.toString()};
-    var res = await CallApi().postData(data, 'dependantsReport');
+    var res = await CallApi().postData(data, 'movementRegisterReport');
+    var body = jsonDecode(res.body);
+    return body;
+  }
+
+  // 33
+  viewActivityLogReport(page, search) async {
+    var data = {"page": page, "limit": "10", "search": search.toString()};
+    var res = await CallApi().postData(data, 'activityLogReport');
     var body = jsonDecode(res.body);
     return body;
   }
