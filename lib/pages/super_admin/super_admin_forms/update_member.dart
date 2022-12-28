@@ -9,11 +9,12 @@ import '../../../components/roundedDropDownTextfield.dart';
 import '../../../components/text_for_form.dart';
 import '../../../components/textfields_types/name_textfield.dart';
 import '../../../components/title.dart';
-
+import '../../../models/resident_data_model/residentdata.dart';
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 class UpdateMember extends StatefulWidget {
-  final data;
+  ResidentModel? data;
 
-  const UpdateMember({Key? key, required this.data}) : super(key: key);
+  UpdateMember({Key? key, required this.data}) : super(key: key);
 
   @override
   State<UpdateMember> createState() => _UpdateMemberState();
@@ -115,6 +116,48 @@ class _UpdateMemberState extends State<UpdateMember> {
     response = data['data'];
     setState(() {});
   }
+callMessage(message){
+
+
+  return showDialog(
+    context: context,
+    builder: (_) => AlertDialog(
+      title: Text(message),
+      actions: [
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: color.AppColor.homePageTheme,
+                onPrimary: color.AppColor.landingPage2,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0))),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text("ok"))
+      ],
+    ),
+  );
+}
+  updateMember() async {
+    final data = await Services().updateMember(
+        widget.data?.resident_code,
+        _mobileNumber.text.isEmpty
+            ? response['resident_phone']
+            : _mobileNumber.text,
+        _firstName.text.isEmpty ? response['firstname'] : _firstName.text,
+        _surname.text.isEmpty ? response['surname'] : _surname.text,
+        _email.text.isEmpty ? response['email'] : _email.text,
+        response['user_group'],
+        status ?? response['status'],
+        _address.text.isEmpty ? response['address'] : _address.text,
+        zone ?? response['zone'],
+        _startDate.text.isEmpty ? response['validity_starts'] : _startDate.text,
+        _finishDate.text.isEmpty
+            ? response['validity_ends']
+            : _finishDate.text);
+    print(data);
+    callMessage(data['message']);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,28 +201,23 @@ class _UpdateMemberState extends State<UpdateMember> {
                               NameTextField(
                                   controller: _firstName,
                                   hint: response['firstname'],
-                                  nameType: "first Name"),
-                              const SizedBox(
-                                height: 20,
-                              ),
+                                  nameType: "First Name"),
                               NameTextField(
                                   controller: _surname,
                                   hint: response['surname'],
-                                  nameType: "surname"),
+                                  nameType: "Surname"),
                               MobileNumberTextField(
                                   controller: _mobileNumber,
                                   fieldName: "Mobile Number",
                                   hintText: response['resident_phone']),
-                              const SizedBox(
-                                height: 20,
-                              ),
                               NameTextField(
                                   controller: _email,
                                   hint: response['email'],
                                   nameType: " Email"),
-                              const SizedBox(
-                                height: 20,
-                              ),
+                              NameTextField(
+                                  controller: _address,
+                                  hint: response['address'],
+                                  nameType: "Address"),
                               const TextForForm(text: "Status"),
                               _buildStatus(),
                               const SizedBox(
@@ -192,9 +230,6 @@ class _UpdateMemberState extends State<UpdateMember> {
                                   zone = value as String;
                                 }),
                               ),
-                              const SizedBox(
-                                height: 20,
-                              ),
                               const TextForForm(text: "Classification"),
                               _buildClassification(),
                               const SizedBox(
@@ -205,10 +240,16 @@ class _UpdateMemberState extends State<UpdateMember> {
                                 date: _startDate,
                                 hint: response['validity_starts'],
                               ),
+                              const SizedBox(
+                                height: 20,
+                              ),
                               const TextForForm(text: "Validity Ends"),
                               CustomDatePicker(
                                   date: _finishDate,
                                   hint: response['validity_ends']),
+                              const SizedBox(
+                                height: 20,
+                              ),
                               ActionPageButton(
                                   onPressed: () async {}, text: 'Update'),
                               const SizedBox(

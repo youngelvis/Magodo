@@ -35,7 +35,7 @@ class _UpdateFamilyState extends State<UpdateFamily> {
             : _mobileNumber.text,
         _email.text.isEmpty ? widget.response.email : _email.text,
       );
-      print(data);
+
       var message = data['message'];
 
       return showDialog(

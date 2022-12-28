@@ -525,13 +525,36 @@ class Services {
     var res = await CallApi().postData(data, 'activityLogReport');
     return res.body;
   }
+
 //34
 
-changeResident(residentCode) async{
-    var data ={ "resident_reg_code": residentCode};
+  changeResident(residentCode) async {
+    var data = {"resident_reg_code": residentCode};
     var res = await CallApi().postData(data, 'changeResident');
     var body = jsonDecode(res.body);
     return body;
-}
+  }
 
+  //35
+
+  updateMember(residentCode, residentPhone, firstname, surname, email,
+      userGroup, status, address, zone, validityStart, validityEnd) async {
+    final data = {
+      "resident_reg_code": residentCode,
+      "resident_phone": residentPhone,
+      "firstname": firstname,
+      "surname": surname,
+      "email": email,
+      "user_group": userGroup,
+      "status": status,
+      "address": address,
+      "zone": zone,
+      "validity_start_date": validityStart,
+      "validity_end_date": validityEnd,
+      "action_user": "sadmin"
+    };
+    var res = await CallApi().putData(data, 'updateMember');
+    var body = jsonDecode(res.body);
+    return body;
+  }
 }

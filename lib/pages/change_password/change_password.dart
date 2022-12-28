@@ -6,7 +6,7 @@ import 'package:magodo/components/textfields_types/password_textfield.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 import 'package:magodo/services/services.dart';
-
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 class ChangePassword extends StatefulWidget {
   ResidentModel? data;
 
@@ -21,16 +21,38 @@ class _ChangePasswordState extends State<ChangePassword> {
   final TextEditingController _newPassword = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
 
+  callMessage(message) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
+
   changePasscode() async {
     if (_currentPassword.text.isEmpty ||
         _newPassword.text.isEmpty ||
         _confirmPassword.text.isEmpty) {
       final data = await Services().changePassword(widget.data!.resident_code,
           _currentPassword.text, _newPassword.text, _confirmPassword.text);
+      callMessage(data['error']['message']);
     }
-    final data2 = await Services().changePassword(widget.data!.resident_code,
+    final data = await Services().changePassword(widget.data!.resident_code,
         _currentPassword.text, _newPassword.text, _confirmPassword.text);
-    print("THIS ${data2}");
+    callMessage(data['message']);
   }
 
   @override

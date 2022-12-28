@@ -8,7 +8,7 @@ import 'package:magodo/components/textfields_types/zones.dart';
 import 'package:magodo/components/title.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/services/services.dart';
-
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import '../../../components/app_page_theme_action_button.dart';
 
 class AddNewAdministrativeUser extends StatefulWidget {
@@ -110,7 +110,28 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
           style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
         ),
       );
+  callMessage(message){
 
+
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
   addNewUser() async{
     if (_residentCode.text.isEmpty ||
         _mobileNumber.text.isEmpty ||
@@ -138,7 +159,7 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
           _finishDate.text,
           _password.text,
           _confirmPassword.text);
-      print(data);
+      callMessage(data["error"]['message']);
     }
     final data = await Services().addNewAdministrativeUser(
         _residentCode.text,
@@ -154,7 +175,7 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
         _finishDate.text,
         _password.text,
         _confirmPassword.text);
-    print(data);
+    callMessage(data['message']);
   }
 
   @override
