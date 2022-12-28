@@ -6,22 +6,21 @@ import 'package:magodo/components/date_text_field.dart';
 import 'package:magodo/components/text_for_form.dart';
 import 'package:magodo/components/textfields_types/eventType_drop_down_list.dart';
 import 'package:magodo/components/textfields_types/event_population_drop_down_list.dart';
-import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
-import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/time_text_field.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
+import 'package:magodo/services/services.dart';
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 
 class EventRequest extends StatefulWidget {
-  final data;
+  ResidentModel? data;
 
-  const EventRequest({Key? key, required this.data}) : super(key: key);
+  EventRequest({Key? key, required this.data}) : super(key: key);
 
   @override
   State<EventRequest> createState() => _EventRequestState();
 }
 
-TextEditingController _email = TextEditingController();
-TextEditingController _mobileNumber = TextEditingController();
 TextEditingController _scheduleDate = TextEditingController();
 TextEditingController _scheduleTime = TextEditingController();
 
@@ -29,6 +28,39 @@ class _EventRequestState extends State<EventRequest> {
   String? eventType;
 
   String? population;
+  callMessage(message){
+
+
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
+  requestEvent() async {
+    if (_scheduleDate.text.isEmpty || _scheduleTime.text.isEmpty) {
+      final data = await Services().requestEvent(widget.data?.resident_code,
+          population, _scheduleDate.text, _scheduleTime.text, eventType);
+      callMessage(data["error"]["message"]);
+
+    }
+    final data = await Services().requestEvent(widget.data?.resident_code,
+        population, _scheduleDate.text, _scheduleTime.text, eventType);
+    callMessage(data["message"]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,17 +100,6 @@ class _EventRequestState extends State<EventRequest> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              NameTextField(
-                                  controller: _email,
-                                  hint: "Enter email",
-                                  nameType: "Email (Optional)"),
-                              MobileNumberTextField(
-                                  controller: _mobileNumber,
-                                  fieldName: 'Mobile Number',
-                                  hintText: 'Enter your mobile number'),
-                              const SizedBox(
-                                height: 20,
-                              ),
                               const TextForForm(text: "Schedule Date"),
                               CustomDatePicker(date: _scheduleDate),
                               const TextForForm(text: "Schedule Time"),

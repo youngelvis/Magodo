@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:magodo/api/api.dart';
 import 'package:magodo/models/add_staff_data_model/staffdata.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
@@ -554,6 +555,21 @@ class Services {
       "action_user": "sadmin"
     };
     var res = await CallApi().putData(data, 'updateMember');
+    var body = jsonDecode(res.body);
+    return body;
+  }
+
+  //36
+
+  requestEvent(residentCode, population, scheduleDate, scheduleTime, eventType) async{
+    final data = {
+      "resident_code": residentCode,
+      "population": population,
+      "schedule_date": scheduleDate,
+      "schedule_time":scheduleTime,
+      "event_type": eventType
+    };
+    var res = await CallApi().postData(data, 'eventRequest');
     var body = jsonDecode(res.body);
     return body;
   }
