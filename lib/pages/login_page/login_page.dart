@@ -13,6 +13,7 @@ import 'package:magodo/pages/change_password/change_password.dart';
 import 'package:magodo/pages/register_page/register_page.dart';
 import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/activity_logs_report/activity_log_report.dart';
+import 'package:magodo/pages/super_admin/super_admin_forms/event_request/event_request_report.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/movement_register/movement_register.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/update_member.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/view_member/view_member.dart';
@@ -84,7 +85,7 @@ class _SignINState extends State<SignIN> {
         );
       } else if (data['data']['usr_group'] == UserGroup.SUPER_ADMIN) {
         _navigation(
-          UpdateMember(
+          EventRequestReport(
             data: resident,
           ),
         );

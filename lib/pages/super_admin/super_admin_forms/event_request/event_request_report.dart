@@ -1,26 +1,26 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:magodo/models/member_staffModel/view_memberStaffModel.dart';
+import 'package:magodo/components/roundedTextSearchField.dart';
+import 'package:magodo/components/title.dart';
+import 'package:magodo/models/event_requestModel/event_requestModel.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
-import 'package:magodo/pages/super_admin/super_admin_forms/view_member_staff/view_memberStaffCard.dart';
+import 'package:magodo/pages/super_admin/super_admin_forms/event_request/event_request_reportCard.dart';
 import 'package:magodo/services/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '/../components/components_for_class_of_varable/colors.dart' as color;
-import 'package:magodo/components/roundedTextSearchField.dart';
-import 'package:magodo/components/title.dart';
 
-class ViewMemberStaff extends StatefulWidget {
+class EventRequestReport extends StatefulWidget {
   ResidentModel? data;
 
-  ViewMemberStaff({Key? key, this.data}) : super(key: key);
+  EventRequestReport({Key? key, required this.data}) : super(key: key);
 
   @override
-  State<ViewMemberStaff> createState() => _ViewMemberStaffState();
+  State<EventRequestReport> createState() => _EventRequestReportState();
 }
 
 TextEditingController _searchWords = TextEditingController();
 
-class _ViewMemberStaffState extends State<ViewMemberStaff> {
+class _EventRequestReportState extends State<EventRequestReport> {
   Timer? debouncer;
 
   @override
@@ -46,12 +46,12 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
 
   int currentPage = 0;
   late int totalPages = 0;
-  List<MemberStaff> memberStaff = [];
+  List<EventReport> memberStaff = [];
 
   final RefreshController refreshController =
       RefreshController(initialRefresh: true);
 
-  Future<bool> getViewMemberStaff({bool isRefresh = false}) async {
+  Future<bool> viewEventReports({bool isRefresh = false}) async {
     if (isRefresh) {
       currentPage = 0;
     } else {
@@ -60,12 +60,9 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
         return false;
       }
     }
-    var data = await Services().viewMemberStaffReport(
-      currentPage,
-      _searchWords.text,
-    );
-
-    final result = memberStaffsFromJson(data);
+    var data =
+        await Services().viewEventRequest(currentPage, _searchWords.text);
+    final result = eventReportsFromJson(data);
 
     if (isRefresh) {
       memberStaff = result.data;
@@ -80,18 +77,20 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
 
   Future _searchFunction() async => debounce(() async {
         int currentPage = 0;
-        var data = await Services().viewMemberStaffReport(
-          currentPage,
-          _searchWords.text,
-        );
+        var data =
+            await Services().viewEventRequest(currentPage, _searchWords.text);
 
-        final result = memberStaffsFromJson(data);
+        final result = eventReportsFromJson(data);
         if (result.data.isEmpty) {
-          print('empty');
-        }
-        setState(() {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('No record found'),
+            ),
+          );
+        } else {
           memberStaff = result.data;
-        });
+          setState(() {});
+        }
       });
 
   Widget _buildSearchBar() {
@@ -137,7 +136,7 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
                 Row(
                   children: const [
                     Text(
-                      "View Member's Staff",
+                      "View Event Request",
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
@@ -174,7 +173,7 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
                 controller: refreshController,
                 enablePullUp: true,
                 onRefresh: () async {
-                  final result = await getViewMemberStaff(isRefresh: true);
+                  final result = await viewEventReports(isRefresh: true);
                   if (result) {
                     refreshController.refreshCompleted();
                   } else {
@@ -182,7 +181,7 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
                   }
                 },
                 onLoading: () async {
-                  final result = await getViewMemberStaff();
+                  final result = await viewEventReports();
                   if (result) {
                     refreshController.loadComplete();
                   } else {
@@ -190,14 +189,16 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
                   }
                 },
                 child: memberStaff.isEmpty
-                    ? const Text('nothing yet')
+                    ? const Center(
+                        child: Text('No record found'),
+                      )
                     : ListView.builder(
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, index) {
                           final member = memberStaff[index];
 
                           return SingleChildScrollView(
-                              child: ViewMemberStaffCard(
+                              child: EventRequestReportCard(
                             data: member,
                           ));
                         },

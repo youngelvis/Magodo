@@ -573,4 +573,11 @@ class Services {
     var body = jsonDecode(res.body);
     return body;
   }
+  //37
+
+  viewEventRequest(page, search) async {
+    var data = {"page": page, "limit": "10", "search": search.toString()};
+    var res = await CallApi().postData(data, 'eventRequestReport');
+    return res.body;
+  }
 }

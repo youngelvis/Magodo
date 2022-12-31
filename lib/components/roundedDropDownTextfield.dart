@@ -8,13 +8,15 @@ class RoundedDropDownTextField extends StatelessWidget {
   final value;
   final onChanged;
   final items;
+  final sizes;
 
   const RoundedDropDownTextField({
     Key? key,
     required this.hint,
     this.value,
     this.onChanged,
-    this.items
+    this.items,
+    this.sizes
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
