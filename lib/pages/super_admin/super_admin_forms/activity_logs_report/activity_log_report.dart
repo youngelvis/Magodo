@@ -88,7 +88,7 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
         );
 
         final result = activityLogReportsFromJson(data);
-        ;
+
         if (result.data.isEmpty) {
           print('empty');
         }

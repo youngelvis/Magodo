@@ -38,8 +38,7 @@ class Services {
   }
 
 //3
-  registerCommercial(
-      password,
+  registerCommercial(password,
       surname,
       firstname,
       email,
@@ -78,11 +77,9 @@ class Services {
   }
 
 //4
-  Future<dynamic> viewSentPasscodeReport(
-    page,
-    residentCode,
-    search,
-  ) async {
+  Future<dynamic> viewSentPasscodeReport(page,
+      residentCode,
+      search,) async {
     var data = {
       "page": page,
       "limit": "10",
@@ -125,13 +122,11 @@ class Services {
   }
 
   //7
-  getPasscode(
-    sendMsisdn,
-    visitorName,
-    residentCode,
-    numberVisitor,
-    email,
-  ) async {
+  getPasscode(sendMsisdn,
+      visitorName,
+      residentCode,
+      numberVisitor,
+      email,) async {
     var data = {
       "msisdn": sendMsisdn,
       "visitor_name": visitorName,
@@ -145,8 +140,7 @@ class Services {
   }
 
   //8
-  updateResidentProfile(
-      residentCode,
+  updateResidentProfile(residentCode,
       fullName,
       residentPhone,
       email,
@@ -175,8 +169,7 @@ class Services {
   }
 
   //9
-  updateCommercialProfile(
-      residentPhone,
+  updateCommercialProfile(residentPhone,
       fullName,
       residentCode,
       email,
@@ -241,10 +234,8 @@ class Services {
   }
 
   //11
-  doNotHonor(
-    passcode,
-    isChecked,
-  ) async {
+  doNotHonor(passcode,
+      isChecked,) async {
     var data = {
       "passcode": passcode,
       "isChecked": isChecked,
@@ -419,8 +410,8 @@ class Services {
   }
 
   //27
-  changePassword(
-      residentCode, currentPassword, newPassword, newConfirmPassword) async {
+  changePassword(residentCode, currentPassword, newPassword,
+      newConfirmPassword) async {
     var data = {
       "resident_code": residentCode,
       "current_password": currentPassword,
@@ -434,8 +425,7 @@ class Services {
   }
 
   //28
-  addNewAdministrativeUser(
-      residentCode,
+  addNewAdministrativeUser(residentCode,
       residentPhone,
       surname,
       firstName,
@@ -561,18 +551,20 @@ class Services {
 
   //36
 
-  requestEvent(residentCode, population, scheduleDate, scheduleTime, eventType) async{
+  requestEvent(residentCode, population, scheduleDate, scheduleTime,
+      eventType) async {
     final data = {
       "resident_code": residentCode,
       "population": population,
       "schedule_date": scheduleDate,
-      "schedule_time":scheduleTime,
+      "schedule_time": scheduleTime,
       "event_type": eventType
     };
     var res = await CallApi().postData(data, 'eventRequest');
     var body = jsonDecode(res.body);
     return body;
   }
+
   //37
 
   viewEventRequest(page, search) async {
@@ -580,4 +572,36 @@ class Services {
     var res = await CallApi().postData(data, 'eventRequestReport');
     return res.body;
   }
+
+  //38
+
+  viewResidentReport(page, search) async {
+    var data = {"page": page, "limit": "10", "search": search.toString()};
+    var res = await CallApi().postData(data, 'validateResidentReport');
+    return res.body;
+  }
+
+  //39
+
+  viewStaffReport(page, search) async {
+    var data = {"page": page, "limit": "10", "search": search.toString()};
+    var res = await CallApi().postData(data, 'validateStaffReport');
+    return res.body;
+  }
+  //40
+
+  viewParentReport(page, search) async {
+    var data = {"page": page, "limit": "10", "search": search.toString()};
+    var res = await CallApi().postData(data, 'validateParentReport');
+    return res.body;
+  }
+
+  //41
+
+viewPasscode(page, search) async {
+    var data = {"page": page, "limit": "10", "search": search.toString()};
+    var res = await CallApi().postData(data, 'passcodeHistory');
+    return res.body;
+  }
+
 }
