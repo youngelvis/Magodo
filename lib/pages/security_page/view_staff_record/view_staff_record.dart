@@ -1,26 +1,24 @@
 import 'dart:async';
+import 'package:magodo/pages/security_page/view_staff_record/view_staff_record_card.dart';
+
+import '/../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:flutter/material.dart';
 import 'package:magodo/components/roundedTextSearchField.dart';
-import 'package:magodo/models/parent_report_data_model/parent_report_data_model.dart';
-import 'package:magodo/pages/security_page/view_parent_record/view_parent_record_Card.dart';
+import 'package:magodo/components/title.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
+import 'package:magodo/models/staff_report_data_model/staff_report_data_model.dart';
 import 'package:magodo/services/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../../../models/resident_data_model/residentdata.dart';
-import '/../components/components_for_class_of_varable/colors.dart' as color;
-import '../../../components/title.dart';
 
-class ViewParentRecord extends StatefulWidget {
+class ViewStaffRecord extends StatefulWidget {
   ResidentModel? data;
-
-  ViewParentRecord({Key? key, this.data}) : super(key: key);
+   ViewStaffRecord({Key? key, this.data}) : super(key: key);
 
   @override
-  State<ViewParentRecord> createState() => _ViewParentRecordState();
+  State<ViewStaffRecord> createState() => _ViewStaffRecordState();
 }
-
 TextEditingController _searchWords = TextEditingController();
-
-class _ViewParentRecordState extends State<ViewParentRecord> {
+class _ViewStaffRecordState extends State<ViewStaffRecord> {
   Timer? debouncer;
 
   @override
@@ -35,9 +33,9 @@ class _ViewParentRecordState extends State<ViewParentRecord> {
   }
 
   void debounce(
-    VoidCallback callback, {
-    Duration duration = const Duration(milliseconds: 2000),
-  }) {
+      VoidCallback callback, {
+        Duration duration = const Duration(milliseconds: 2000),
+      }) {
     if (debouncer != null) {
       debouncer!.cancel();
     }
@@ -46,10 +44,10 @@ class _ViewParentRecordState extends State<ViewParentRecord> {
 
   int currentPage = 0;
   late int totalPages = 0;
-  List<ParentReport> viewMembers = [];
+  List<StaffReport> viewMembers = [];
 
   final RefreshController refreshController =
-      RefreshController(initialRefresh: true);
+  RefreshController(initialRefresh: true);
 
   Future<bool> getViewResidentReport({bool isRefresh = false}) async {
     if (isRefresh) {
@@ -65,7 +63,7 @@ class _ViewParentRecordState extends State<ViewParentRecord> {
       _searchWords.text,
     );
 
-    final result = parentReportsFromJson(data);
+    final result = staffReportsFromJson(data);
 
     if (isRefresh) {
       viewMembers = result.data;
@@ -79,24 +77,24 @@ class _ViewParentRecordState extends State<ViewParentRecord> {
   }
 
   Future _searchFunction() async => debounce(() async {
-        int currentPage = 0;
-        var data = await Services().viewResidentReport(
-          currentPage,
-          _searchWords.text,
-        );
+    int currentPage = 0;
+    var data = await Services().viewResidentReport(
+      currentPage,
+      _searchWords.text,
+    );
 
-        final result = parentReportsFromJson(data);
-        if (result.data.isEmpty) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('No record found'),
-            ),
-          );
-        }
-        setState(() {
-          viewMembers = result.data;
-        });
-      });
+    final result = staffReportsFromJson(data);
+    if (result.data.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('No record found'),
+        ),
+      );
+    }
+    setState(() {
+      viewMembers = result.data;
+    });
+  });
 
   Widget _buildSearchBar() {
     return Row(
@@ -114,7 +112,6 @@ class _ViewParentRecordState extends State<ViewParentRecord> {
       ],
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -142,7 +139,7 @@ class _ViewParentRecordState extends State<ViewParentRecord> {
                   Row(
                     children: const [
                       Text(
-                        "View Parent Record",
+                        "View Staff Record",
                         style: TextStyle(
                             fontSize: 25, fontWeight: FontWeight.bold),
                       ),
@@ -196,21 +193,21 @@ class _ViewParentRecordState extends State<ViewParentRecord> {
                   },
                   child: viewMembers.isEmpty
                       ? const Center(
-                          child: Text('No record found'),
-                        )
+                    child: Text('No record found'),
+                  )
                       : ListView.builder(
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext context, index) {
-                            final member = viewMembers[index];
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, index) {
+                      final member = viewMembers[index];
 
-                            return SingleChildScrollView(
-                              child: ViewParentRecordCard(
-                                data: member,
-                              ),
-                            );
-                          },
-                          itemCount: viewMembers.length,
+                      return SingleChildScrollView(
+                        child: ViewStaffRecordCard(
+                          data: member,
                         ),
+                      );
+                    },
+                    itemCount: viewMembers.length,
+                  ),
                 ),
               )
             ],

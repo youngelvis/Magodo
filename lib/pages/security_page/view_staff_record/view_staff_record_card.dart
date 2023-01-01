@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:magodo/models/parent_report_data_model/parent_report_data_model.dart';
-class ViewParentRecordCard extends StatelessWidget {
-  ParentReport data;
-   ViewParentRecordCard({Key? key, required this.data}) : super(key: key);
+import 'package:magodo/models/staff_report_data_model/staff_report_data_model.dart';
+import '/../components/components_for_class_of_varable/colors.dart' as color;
+
+class ViewStaffRecordCard extends StatelessWidget {
+  StaffReport data;
+
+  ViewStaffRecordCard({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,56 +20,61 @@ class ViewParentRecordCard extends StatelessWidget {
                 data.dateCreated ?? '',
                 style: const TextStyle(fontSize: 15),
               ),
-
+              trailing: Text(
+                data.employmentStatus ?? '',
+                style: TextStyle(
+                    fontSize: 15, color: color.AppColor.homePageTheme),
+              ),
             ),
             const Divider(
               thickness: 2,
             ),
             ListTile(
-              title: Text(data.parentPasscode ?? ''),
+              title: Text(data.staffPasscode ?? ''),
             ),
             ListTile(
-              trailing: Text(data.status ?? '',
+              trailing: Text(data.identityStatus ?? '',
                   style: TextStyle(
+                      color: Colors.white,
                       fontSize: 15,
-                      backgroundColor: data.status == 'verified'
+                      backgroundColor: data.identityStatus == 'verified'
                           ? Colors.green
                           : Colors.red)),
             ),
             ListTile(
-              title: const Text("Resident Name",
+              title: const Text("Dependant Name",
                   style: TextStyle(fontSize: 15, color: Colors.black)),
-              trailing: Text(data.residentName ?? '',
+              trailing: Text(data.dependantName ?? '',
                   style: const TextStyle(fontSize: 15, color: Colors.black)),
             ),
             ListTile(
-              title: const Text("Parent Name",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
-              trailing: Text(data.parentName ?? '',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
-            ),
-            ListTile(
-              title: const Text("Parent Phone",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
-              trailing: Text(data.parentMobile ?? '',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
-            ),
-            ListTile(
-              title: const Text("Parent Address",
+              title: const Text("Dependant Address",
                   style: TextStyle(fontSize: 15, color: Colors.black)),
               trailing: Container(
                 alignment: Alignment.centerRight,
                 width: 190,
                 child: Text(
-                  data.parentAddress ?? '',
+                  data.dependantContacts ?? '',
                   style: const TextStyle(fontSize: 15),
                 ),
               ),
             ),
             ListTile(
-              title: const Text("Business Name",
+              title: const Text("Dependant Phone",
                   style: TextStyle(fontSize: 15, color: Colors.black)),
-              trailing: Text(data.businessName ?? '-',
+              trailing: Text(data.dependantPhone ?? '',
+                  style: const TextStyle(fontSize: 15, color: Colors.black)),
+            ),
+            ListTile(
+              title: const Text("Relationship",
+                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              trailing: Text(data.relationship ?? '-',
+                  style: const TextStyle(fontSize: 15, color: Colors.black)),
+            ),
+            ListTile(
+              title: const Text("date of employment",
+                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              trailing: Text(data.empdateOrDob ?? '-',
                   style: const TextStyle(fontSize: 15, color: Colors.black)),
             ),
             ListTile(
@@ -87,6 +95,5 @@ class ViewParentRecordCard extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
+    );}
 }
