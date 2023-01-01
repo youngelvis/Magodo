@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/models/event_requestModel/event_requestModel.dart';
 
 class EventRequestReportCard extends StatefulWidget {

@@ -1,28 +1,27 @@
 import 'dart:async';
-import 'package:magodo/components/title.dart';
 
-import '/../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:flutter/material.dart';
 import 'package:magodo/components/roundedTextSearchField.dart';
-import 'package:magodo/models/activity_log_reportModel/activity_log_reportModel.dart';
-import 'package:magodo/models/resident_data_model/residentdata.dart';
+import 'package:magodo/components/title.dart';
+import 'package:magodo/models/resident_report_data_model/resident_report_data_model.dart';
+import 'package:magodo/pages/security_page/view_resident_record/view_resident_recordCard.dart';
 import 'package:magodo/services/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '/../components/components_for_class_of_varable/colors.dart' as color;
+import '../../../models/resident_data_model/residentdata.dart';
 
-import 'activity_log_reportCard.dart';
-
-class ViewActivityReport extends StatefulWidget {
+class ViewResidentRecords extends StatefulWidget {
   ResidentModel? data;
 
-  ViewActivityReport({Key? key, this.data}) : super(key: key);
+  ViewResidentRecords({Key? key, this.data}) : super(key: key);
 
   @override
-  State<ViewActivityReport> createState() => _ViewActivityReportState();
+  State<ViewResidentRecords> createState() => _ViewResidentRecordsState();
 }
 
 TextEditingController _searchWords = TextEditingController();
 
-class _ViewActivityReportState extends State<ViewActivityReport> {
+class _ViewResidentRecordsState extends State<ViewResidentRecords> {
   Timer? debouncer;
 
   @override
@@ -48,12 +47,12 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
 
   int currentPage = 0;
   late int totalPages = 0;
-  List<ActivityLogReport> viewMembers = [];
+  List<ResidentReport> viewMembers = [];
 
   final RefreshController refreshController =
       RefreshController(initialRefresh: true);
 
-  Future<bool> getViewMemberReport({bool isRefresh = false}) async {
+  Future<bool> getViewResidentReport({bool isRefresh = false}) async {
     if (isRefresh) {
       currentPage = 0;
     } else {
@@ -67,7 +66,7 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
       _searchWords.text,
     );
 
-    final result = activityLogReportsFromJson(data);
+    final result = residentReportsFromJson(data);
 
     if (isRefresh) {
       viewMembers = result.data;
@@ -87,10 +86,13 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
           _searchWords.text,
         );
 
-        final result = activityLogReportsFromJson(data);
-
+        final result = residentReportsFromJson(data);
         if (result.data.isEmpty) {
-          print('empty');
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('No record found'),
+            ),
+          );
         }
         setState(() {
           viewMembers = result.data;
@@ -141,7 +143,7 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
                   Row(
                     children: const [
                       Text(
-                        "Activity Log report",
+                        "View Resident Records",
                         style: TextStyle(
                             fontSize: 25, fontWeight: FontWeight.bold),
                       ),
@@ -178,7 +180,7 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
                   controller: refreshController,
                   enablePullUp: true,
                   onRefresh: () async {
-                    final result = await getViewMemberReport(isRefresh: true);
+                    final result = await getViewResidentReport(isRefresh: true);
                     if (result) {
                       refreshController.refreshCompleted();
                     } else {
@@ -186,7 +188,7 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
                     }
                   },
                   onLoading: () async {
-                    final result = await getViewMemberReport();
+                    final result = await getViewResidentReport();
                     if (result) {
                       refreshController.loadComplete();
                     } else {
@@ -194,24 +196,15 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
                     }
                   },
                   child: viewMembers.isEmpty
-                      ? const Center(
-                          child: Text('No data'),
-                        )
+                      ? const Text('nothing yet')
                       : ListView.builder(
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, index) {
                             final member = viewMembers[index];
 
                             return SingleChildScrollView(
-                              child: ActivityLogReportCard(
-                                action: member.action ?? "",
-                                actionDescription:
-                                    member.actionDescription ?? "",
-                                actionUser: member.actionUser ?? "",
-                                otherDetails: member.otherDetails ?? "",
-                                fullName: member.fullName,
-                                residentCode: member.residentCode ?? "",
-                                createdDate: member.createdDate ?? "",
+                              child: ViewResidentRecordCard(
+                                data: member,
                               ),
                             );
                           },
