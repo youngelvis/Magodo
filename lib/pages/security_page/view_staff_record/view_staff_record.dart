@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:magodo/pages/security_page/view_staff_record/view_staff_record_card.dart';
-
 import '/../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:flutter/material.dart';
 import 'package:magodo/components/roundedTextSearchField.dart';
@@ -58,7 +57,7 @@ class _ViewStaffRecordState extends State<ViewStaffRecord> {
         return false;
       }
     }
-    var data = await Services().viewResidentReport(
+    var data = await Services().viewStaffReport(
       currentPage,
       _searchWords.text,
     );
@@ -78,7 +77,7 @@ class _ViewStaffRecordState extends State<ViewStaffRecord> {
 
   Future _searchFunction() async => debounce(() async {
     int currentPage = 0;
-    var data = await Services().viewResidentReport(
+    var data = await Services().viewStaffReport(
       currentPage,
       _searchWords.text,
     );

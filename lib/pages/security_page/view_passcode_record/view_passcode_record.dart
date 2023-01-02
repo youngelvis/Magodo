@@ -1,26 +1,23 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:magodo/components/roundedTextSearchField.dart';
-import 'package:magodo/models/parent_report_data_model/parent_report_data_model.dart';
-import 'package:magodo/pages/security_page/view_parent_record/view_parent_record_Card.dart';
-import 'package:magodo/services/services.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
+import 'package:magodo/pages/security_page/view_passcode_record/view_passcode_record_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../../../models/resident_data_model/residentdata.dart';
 import '/../components/components_for_class_of_varable/colors.dart' as color;
+import '../../../components/roundedTextSearchField.dart';
 import '../../../components/title.dart';
-
-class ViewParentRecord extends StatefulWidget {
+import '../../../models/passcode_report_data_model/passcode_report_data_model.dart';
+import '../../../services/services.dart';
+class ViewPasscodeRecord extends StatefulWidget {
   ResidentModel? data;
-
-  ViewParentRecord({Key? key, this.data}) : super(key: key);
+   ViewPasscodeRecord({Key? key, this.data}) : super(key: key);
 
   @override
-  State<ViewParentRecord> createState() => _ViewParentRecordState();
+  State<ViewPasscodeRecord> createState() => _ViewPasscodeRecordState();
 }
-
 TextEditingController _searchWords = TextEditingController();
-
-class _ViewParentRecordState extends State<ViewParentRecord> {
+class _ViewPasscodeRecordState extends State<ViewPasscodeRecord> {
   Timer? debouncer;
 
   @override
@@ -35,9 +32,9 @@ class _ViewParentRecordState extends State<ViewParentRecord> {
   }
 
   void debounce(
-    VoidCallback callback, {
-    Duration duration = const Duration(milliseconds: 2000),
-  }) {
+      VoidCallback callback, {
+        Duration duration = const Duration(milliseconds: 2000),
+      }) {
     if (debouncer != null) {
       debouncer!.cancel();
     }
@@ -46,10 +43,10 @@ class _ViewParentRecordState extends State<ViewParentRecord> {
 
   int currentPage = 0;
   late int totalPages = 0;
-  List<ParentReport> viewMembers = [];
+  List<PasscodeReport> viewMembers = [];
 
   final RefreshController refreshController =
-      RefreshController(initialRefresh: true);
+  RefreshController(initialRefresh: true);
 
   Future<bool> getViewResidentReport({bool isRefresh = false}) async {
     if (isRefresh) {
@@ -60,12 +57,12 @@ class _ViewParentRecordState extends State<ViewParentRecord> {
         return false;
       }
     }
-    var data = await Services().viewParentReport(
+    var data = await Services().viewPasscode(
       currentPage,
       _searchWords.text,
     );
 
-    final result = parentReportsFromJson(data);
+    final result = passcodeReportsFromJson(data);
 
     if (isRefresh) {
       viewMembers = result.data;
@@ -79,24 +76,24 @@ class _ViewParentRecordState extends State<ViewParentRecord> {
   }
 
   Future _searchFunction() async => debounce(() async {
-        int currentPage = 0;
-        var data = await Services().viewParentReport(
-          currentPage,
-          _searchWords.text,
-        );
+    int currentPage = 0;
+    var data = await Services().viewPasscode(
+      currentPage,
+      _searchWords.text,
+    );
 
-        final result = parentReportsFromJson(data);
-        if (result.data.isEmpty) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('No record found'),
-            ),
-          );
-        }
-        setState(() {
-          viewMembers = result.data;
-        });
-      });
+    final result = passcodeReportsFromJson(data);
+    if (result.data.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('No record found'),
+        ),
+      );
+    }
+    setState(() {
+      viewMembers = result.data;
+    });
+  });
 
   Widget _buildSearchBar() {
     return Row(
@@ -114,7 +111,6 @@ class _ViewParentRecordState extends State<ViewParentRecord> {
       ],
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -142,7 +138,7 @@ class _ViewParentRecordState extends State<ViewParentRecord> {
                   Row(
                     children: const [
                       Text(
-                        "View Parent Record",
+                        "View Passcode Record",
                         style: TextStyle(
                             fontSize: 25, fontWeight: FontWeight.bold),
                       ),
@@ -196,21 +192,21 @@ class _ViewParentRecordState extends State<ViewParentRecord> {
                   },
                   child: viewMembers.isEmpty
                       ? const Center(
-                          child: Text('No record found'),
-                        )
+                    child: Text('No record found'),
+                  )
                       : ListView.builder(
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext context, index) {
-                            final member = viewMembers[index];
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, index) {
+                      final member = viewMembers[index];
 
-                            return SingleChildScrollView(
-                              child: ViewParentRecordCard(
-                                data: member,
-                              ),
-                            );
-                          },
-                          itemCount: viewMembers.length,
+                      return SingleChildScrollView(
+                        child: ViewPasscodeRecordCard(
+                          data: member,
                         ),
+                      );
+                    },
+                    itemCount: viewMembers.length,
+                  ),
                 ),
               )
             ],
