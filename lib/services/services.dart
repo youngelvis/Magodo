@@ -657,10 +657,10 @@ class Services {
   }
 
   //46
-  signOutVisitor(passcode, actionUser, userGroup) async {
+  signOutVisitor(passcode,  userGroup) async {
     var data = {
       "passcode": passcode,
-      "action_user": actionUser,
+      "action_user": "security",
       "user_group": userGroup
     };
     var res = await CallApi().postData(data, 'validatePasscode');

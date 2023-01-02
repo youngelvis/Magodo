@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
-
+import 'package:magodo/services/services.dart';
+import '/../components/components_for_class_of_varable/colors.dart' as color;
 class GuestSignOut extends StatefulWidget {
-  final data;
+  ResidentModel? data;
 
-  const GuestSignOut({Key? key, required this.data}) : super(key: key);
+  GuestSignOut({Key? key,  this.data}) : super(key: key);
 
   @override
   State<GuestSignOut> createState() => _GuestSignOutState();
@@ -15,6 +17,35 @@ class GuestSignOut extends StatefulWidget {
 TextEditingController _passcode = TextEditingController();
 
 class _GuestSignOutState extends State<GuestSignOut> {
+  callMessage(message) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
+  guestSignOut()async{
+    if(_passcode.text.isNotEmpty){
+      var result = await Services().signOutVisitor(_passcode.text, widget.data?.usr_group);
+      callMessage(result['error']["message"]);
+
+    }
+    final data = await Services().signOutVisitor(_passcode.text, widget.data?.usr_group);
+    callMessage(data["message"]);
+  }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
