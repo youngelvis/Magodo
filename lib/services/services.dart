@@ -615,10 +615,10 @@ class Services {
   }
 
   //42
-  validatePasscode(passcode, actionUser, userGroup) async {
+  validatePasscode(passcode, userGroup) async {
     var data = {
       "passcode": passcode,
-      "action_user": actionUser,
+      "action_user": "security",
       "user_group": userGroup
     };
     var res = await CallApi().postData(data, 'validatePasscode');
