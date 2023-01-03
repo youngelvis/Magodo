@@ -12,6 +12,9 @@ import 'package:magodo/models/resident_data_model/wrongDetailsResident.dart';
 import 'package:magodo/pages/change_password/change_password.dart';
 import 'package:magodo/pages/register_page/register_page.dart';
 import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
+import 'package:magodo/pages/security_page/security_form/validate_resident.dart';
+import 'package:magodo/pages/security_page/view_parent_record/view_parent_record.dart';
+import 'package:magodo/pages/security_page/view_passcode_record/view_passcode_record.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/activity_logs_report/activity_log_report.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/event_request/event_request_report.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/movement_register/movement_register.dart';
@@ -20,6 +23,12 @@ import 'package:magodo/pages/super_admin/super_admin_forms/view_member/view_memb
 import 'package:magodo/pages/super_admin/super_admin_forms/view_member_staff/view_member_staff.dart';
 import 'package:magodo/services/services.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
+import '../security_page/security_form/guest_sign_out.dart';
+import '../security_page/security_form/validate_parent.dart';
+import '../security_page/security_form/validate_passcode.dart';
+import '../security_page/security_form/validate_staff.dart';
+import '../security_page/view_resident_record/view_resident_record.dart';
+import '../security_page/view_staff_record/view_staff_record.dart';
 
 class SignIN extends StatefulWidget {
   const SignIN({Key? key}) : super(key: key);
@@ -85,7 +94,14 @@ class _SignINState extends State<SignIN> {
         );
       } else if (data['data']['usr_group'] == UserGroup.SUPER_ADMIN) {
         _navigation(
-          EventRequestReport(
+          ViewResidentRecords(
+            data: resident,
+          ),
+        );
+      }
+      else if(data['data']['usr_group'] == UserGroup.SECURITY) {
+        _navigation(
+          ValidateStaff(
             data: resident,
           ),
         );

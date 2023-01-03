@@ -3,7 +3,8 @@ import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
-import 'package:magodo/services/services.dart';
+
+import '../../../services/services.dart';
 import '/../components/components_for_class_of_varable/colors.dart' as color;
 
 class ValidateParent extends StatefulWidget {
@@ -40,7 +41,7 @@ class _ValidateParentState extends State<ValidateParent> {
   }
 
   validateParent() async {
-    if (_passcode.text.isNotEmpty) {
+    if (_passcode.text.isEmpty) {
       var result = await Services().validateParent(_passcode.text);
       callMessage(result['error']["message"]);
     }

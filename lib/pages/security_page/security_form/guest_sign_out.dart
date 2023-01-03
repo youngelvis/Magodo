@@ -38,13 +38,15 @@ class _GuestSignOutState extends State<GuestSignOut> {
     );
   }
   guestSignOut()async{
-    if(_passcode.text.isNotEmpty){
-      var result = await Services().signOutVisitor(_passcode.text, widget.data?.usr_group);
+    if(_passcode.text.isEmpty){
+      var result = await Services().GuestSignOut(_passcode.text, widget.data?.usr_group);
       callMessage(result['error']["message"]);
+      print(result['error']["message"]);
 
     }
-    final data = await Services().signOutVisitor(_passcode.text, widget.data?.usr_group);
+    final data = await Services().GuestSignOut(_passcode.text, widget.data?.usr_group);
     callMessage(data["message"]);
+    print(data["message"]);
   }
   @override
   Widget build(BuildContext context) {
@@ -92,7 +94,10 @@ class _GuestSignOutState extends State<GuestSignOut> {
                                 height: 100,
                               ),
                               ActionPageButton(
-                                  onPressed: () {}, text: 'Sign Out Passcode'),
+                                  onPressed: () {
+                                    guestSignOut();
+
+                                  }, text: 'Sign Out Passcode'),
                               const SizedBox(
                                 height: 50,
                               ),

@@ -40,7 +40,7 @@ class _ValidateResidentState extends State<ValidateResident> {
   }
 
   validateResident() async {
-    if (_residentCode.text.isNotEmpty) {
+    if (_residentCode.text.isEmpty) {
       var result = await Services().validateResident(_residentCode.text);
       callMessage(result['error']["message"]);
     }

@@ -38,7 +38,7 @@ class _ValidatePasscodeState extends State<ValidatePasscode> {
     );
   }
   validatePasscode()async{
-    if(_passcode.text.isNotEmpty){
+    if(_passcode.text.isEmpty){
       var result = await Services().validatePasscode(_passcode.text, widget.data?.usr_group);
       callMessage(result['error']["message"]);
 

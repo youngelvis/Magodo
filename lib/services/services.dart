@@ -281,21 +281,6 @@ class Services {
     return body;
   }
 
-  //14
-  // getBulkPasscodes(
-  //     filePath, fileName, residentCode, arrivalDate, timeFrom, timeTo) async {
-  //   FormData formData = FormData.fromMap({
-  //     'resident_code': residentCode,
-  //     'arival_date': arrivalDate,
-  //     'time_from': timeFrom,
-  //     'time_to': timeTo,
-  //     "file": await MultipartFile.fromFile(filePath, filename: fileName)
-  //   });
-  //
-  //   var res = await CallApi().postData2(formData, 'getBulkPasscodes');
-  //   var body = res;
-  //   return body;
-  // }
 
   //15
   getAddFamilyReport(residentCode, page, limit, search) async {
@@ -657,13 +642,13 @@ class Services {
   }
 
   //46
-  signOutVisitor(passcode,  userGroup) async {
+  GuestSignOut(passcode,  userGroup) async {
     var data = {
       "passcode": passcode,
       "action_user": "security",
       "user_group": userGroup
     };
-    var res = await CallApi().postData(data, 'validatePasscode');
+    var res = await CallApi().putData(data, 'signOutVisitor');
     var body = jsonDecode(res.body);
     return body;
   }

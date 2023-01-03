@@ -61,7 +61,7 @@ class _ViewResidentRecordsState extends State<ViewResidentRecords> {
         return false;
       }
     }
-    var data = await Services().viewActivityLogReport(
+    var data = await Services().viewResidentReport(
       currentPage,
       _searchWords.text,
     );
@@ -81,7 +81,7 @@ class _ViewResidentRecordsState extends State<ViewResidentRecords> {
 
   Future _searchFunction() async => debounce(() async {
         int currentPage = 0;
-        var data = await Services().viewActivityLogReport(
+        var data = await Services().viewResidentReport(
           currentPage,
           _searchWords.text,
         );

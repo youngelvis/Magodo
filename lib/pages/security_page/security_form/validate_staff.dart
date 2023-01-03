@@ -40,7 +40,7 @@ class _ValidateStaffState extends State<ValidateStaff> {
   }
 
   validateStaff() async {
-    if (_passcode.text.isNotEmpty) {
+    if (_passcode.text.isEmpty) {
       var result = await Services().validateStaff(_passcode.text);
       callMessage(result['error']["message"]);
     }

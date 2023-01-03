@@ -33,10 +33,10 @@ class ViewResidentRecordCard extends StatelessWidget {
               title: Text(data.residentCode ?? ''),
             ),
             ListTile(
-              title: Text(data.status ?? '',
+              trailing: Text(data.status ?? '',
                   style: TextStyle(
                       fontSize: 15,
-                      backgroundColor: data.status == 'verified'
+                      backgroundColor: data.status == 'Verified'
                           ? Colors.green
                           : Colors.red)),
             ),
@@ -58,23 +58,18 @@ class ViewResidentRecordCard extends StatelessWidget {
                 ),
               ),
             ),
-            ListTile(
-              title: const Text("Business Name",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
-              trailing: Text(data.businessName ?? '-',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
-            ),
+
             ListTile(
               title: const Text("Zone",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+                  style: TextStyle(fontSize: 15,)),
               trailing: Text(data.mraZone ?? '',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  style: const TextStyle(fontSize: 15, )),
             ),
             ListTile(
               title: const Text("Validity End Date",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+                  style: TextStyle(fontSize: 15, )),
               trailing: Text(data.validityEndsDate ?? '',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  style: const TextStyle(fontSize: 15,)),
             ),
             const SizedBox(
               height: 25,
