@@ -13,21 +13,20 @@ class EventRequestReportCard extends StatefulWidget {
 class _EventRequestReportCardState extends State<EventRequestReportCard> {
   String? eventDecision;
   final eventDecisionOptions = [
-
-    'Approved',
-    'Unapproved'
+    '-- Action --',
+    'Accepted',
+    'Declined',
   ];
 
   _buildEventDecision() {
-    String? selectedValue = widget.data.status;
+    String? selectedValue = eventDecisionOptions[0];
     return DropdownButtonHideUnderline(
       child: DropdownButton<String>(
         value: selectedValue,
         icon: const Icon(Icons.arrow_drop_down),
         iconSize: 24,
         elevation: 16,
-        style: TextStyle(color: Colors.white,
-        backgroundColor: widget.data.status == 'Approved' ? Colors.green : Colors.red),
+        style: const TextStyle(color: Colors.white,),
         onChanged: (String? newValue) {
           setState(() {
             selectedValue = newValue!;
@@ -37,7 +36,7 @@ class _EventRequestReportCardState extends State<EventRequestReportCard> {
             eventDecisionOptions.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
-            child: Text(value, style: TextStyle(backgroundColor: value == 'Approved' ? Colors.green : Colors.red)),
+            child: Text(value, style: TextStyle(backgroundColor: value == 'Accepted' ? Colors.green : Colors.red)),
           );
         }).toList(),
       ),
@@ -67,6 +66,7 @@ class _EventRequestReportCardState extends State<EventRequestReportCard> {
             ),
             ListTile(
               title: Text(widget.data.passcode ?? ''),
+              trailing: Text(widget.data.status?? '', style: TextStyle(backgroundColor: widget.data.status == 'Accepted' ? Colors.green : Colors.red)),
             ),
             ListTile(trailing: _buildEventDecision()),
 

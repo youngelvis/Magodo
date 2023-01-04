@@ -64,7 +64,7 @@ class _UpdateMemberState extends State<UpdateMember> {
   Widget _buildClassification() {
     return RoundedDropDownTextField(
       hint: Text(
-        response['user_group'],
+        response==null? classificationOptions[0]:response['status'],
         style: const TextStyle(fontSize: 15),
       ),
       value: classification,
@@ -88,7 +88,7 @@ class _UpdateMemberState extends State<UpdateMember> {
   Widget _buildStatus() {
     return RoundedDropDownTextField(
       hint: Text(
-        response['status'],
+        response==null?statusOptions[0]:response['status'],
         style: const TextStyle(fontSize: 15),
       ),
       value: status,
@@ -200,23 +200,23 @@ callMessage(message){
                               SearchableDropDownList1(onChange: onChange),
                               NameTextField(
                                   controller: _firstName,
-                                  hint: response['firstname'],
+                                  hint: response==null ? 'First Name': response['firstname'],
                                   nameType: "First Name"),
                               NameTextField(
                                   controller: _surname,
-                                  hint: response['surname'],
+                                  hint: response==null ? 'Surname': response['surname'],
                                   nameType: "Surname"),
                               MobileNumberTextField(
                                   controller: _mobileNumber,
                                   fieldName: "Mobile Number",
-                                  hintText: response['resident_phone']),
+                                  hintText: response==null ? 'Mobile Number': response['resident_phone']),
                               NameTextField(
                                   controller: _email,
-                                  hint: response['email'],
+                                  hint: response==null ? 'Email': response['email'],
                                   nameType: " Email"),
                               NameTextField(
                                   controller: _address,
-                                  hint: response['address'],
+                                  hint: response==null ? 'Address': response['address'],
                                   nameType: "Address"),
                               const TextForForm(text: "Status"),
                               _buildStatus(),
@@ -225,7 +225,7 @@ callMessage(message){
                               ),
                               BuildZoneDropDownList(
                                 zone: zone,
-                                hint: response['zone'],
+                                hint: response==null ? 'Zone': response['zone'],
                                 onChanged: (value) => setState(() {
                                   zone = value as String;
                                 }),
@@ -238,7 +238,7 @@ callMessage(message){
                               const TextForForm(text: "Validity Starts"),
                               CustomDatePicker(
                                 date: _startDate,
-                                hint: response['validity_starts'],
+                                hint: response==null ? 'Validity Starts': response['validity_starts'],
                               ),
                               const SizedBox(
                                 height: 20,
@@ -246,7 +246,7 @@ callMessage(message){
                               const TextForForm(text: "Validity Ends"),
                               CustomDatePicker(
                                   date: _finishDate,
-                                  hint: response['validity_ends']),
+                                  hint: response==null ? 'validity end': response['validity_ends']),
                               const SizedBox(
                                 height: 20,
                               ),
