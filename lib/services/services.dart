@@ -537,8 +537,9 @@ class Services {
       "zone": zone,
       "validity_start_date": validityStart,
       "validity_end_date": validityEnd,
-      "action_user": "sadmin"
+      "action_user": "Sadmin"
     };
+    print(data);
     var res = await CallApi().putData(data, 'updateMember');
     var body = jsonDecode(res.body);
     return body;

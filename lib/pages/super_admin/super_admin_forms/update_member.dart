@@ -64,7 +64,7 @@ class _UpdateMemberState extends State<UpdateMember> {
   Widget _buildClassification() {
     return RoundedDropDownTextField(
       hint: Text(
-        response==null? classificationOptions[0]:response['status'],
+        response==null? classificationOptions[0]:response['user_group'],
         style: const TextStyle(fontSize: 15),
       ),
       value: classification,
@@ -113,8 +113,10 @@ class _UpdateMemberState extends State<UpdateMember> {
     var residentCode = s?.split("- ");
     residentcode = residentCode?[0];
     final data = await Services().changeResident(residentcode);
-    response = data['data'];
-    setState(() {});
+
+    setState(() {
+      response = data['data'];
+    });
   }
 callMessage(message){
 
@@ -140,7 +142,7 @@ callMessage(message){
 }
   updateMember() async {
     final data = await Services().updateMember(
-        widget.data?.resident_code,
+        response['resident_reg_code']?? '',
         _mobileNumber.text.isEmpty
             ? response['resident_phone']
             : _mobileNumber.text,
@@ -155,7 +157,18 @@ callMessage(message){
         _finishDate.text.isEmpty
             ? response['validity_ends']
             : _finishDate.text);
-    print(data);
+
+
+    _firstName.clear();
+    _surname.clear();
+    _email.clear();
+    _address.clear();
+    _startDate.clear();
+    _finishDate.clear();
+    _mobileNumber.clear();
+    zone= null;
+    status = null;
+    classification = null;
     callMessage(data['message']);
   }
 
@@ -251,7 +264,9 @@ callMessage(message){
                                 height: 20,
                               ),
                               ActionPageButton(
-                                  onPressed: () async {}, text: 'Update'),
+                                  onPressed: () async {
+                                    updateMember();
+                                  }, text: 'Update'),
                               const SizedBox(
                                 height: 30,
                               ),
