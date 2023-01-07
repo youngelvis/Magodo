@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/navigation_page/resident_navigation_page.dart';
 import 'package:magodo/pages/profile_page/profile_page.dart';
+import 'package:magodo/pages/super_admin/super_admin_navigation_page/superAdminNavigation.dart';
 
 class TitleContainer extends StatefulWidget {
   ResidentModel? data;
@@ -16,6 +17,23 @@ class TitleContainer extends StatefulWidget {
 }
 
 class _TitleContainerState extends State<TitleContainer> {
+  navigateToProfilePage(Widget page) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => page,
+        ));
+  }
+
+  navbarController() {
+    print(widget.data?.usr_group);
+    if (widget.data?.usr_group == 'member') {
+      navigateToProfilePage(ResidentNavigationPage(data: widget.data));
+    } else if (widget.data?.usr_group == 'Sadmin') {
+      navigateToProfilePage(SuperAdminNavigation(data: widget.data));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,12 +52,7 @@ class _TitleContainerState extends State<TitleContainer> {
                     size: 50,
                   ),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ResidentNavigationPage(
-                                  data: widget.data,
-                                )));
+                    navbarController();
                   }),
               const SizedBox(
                 width: 100,

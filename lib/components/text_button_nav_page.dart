@@ -10,7 +10,7 @@ class NavTextButton extends StatelessWidget {
 
   const NavTextButton(
       {Key? key,
-      required this.icon,
+       this.icon,
       required this.text,
       required this.onPressed})
       : super(key: key);
