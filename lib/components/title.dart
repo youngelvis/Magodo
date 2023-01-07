@@ -6,6 +6,8 @@ import 'package:magodo/pages/navigation_page/resident_navigation_page.dart';
 import 'package:magodo/pages/profile_page/profile_page.dart';
 import 'package:magodo/pages/super_admin/super_admin_navigation_page/superAdminNavigation.dart';
 
+import '../pages/security_page/security_form/validate_passcode.dart';
+
 class TitleContainer extends StatefulWidget {
   ResidentModel? data;
   final title;
@@ -31,6 +33,8 @@ class _TitleContainerState extends State<TitleContainer> {
       navigateToProfilePage(ResidentNavigationPage(data: widget.data));
     } else if (widget.data?.usr_group == 'Sadmin') {
       navigateToProfilePage(SuperAdminNavigation(data: widget.data));
+    }else if(widget.data?.usr_group == 'Security'){
+      navigateToProfilePage(ValidatePasscode(data: widget.data));
     }
   }
 

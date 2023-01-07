@@ -94,15 +94,21 @@ class _SignINState extends State<SignIN> {
             data: resident,
           ),
         );
+        _residentCode.clear();
+        _password.clear();
       } else if (data['data']['usr_group'] == UserGroup.SUPER_ADMIN) {
         _navigation(
             AddNewAdministrativeUser(data: resident)
         );
+        _residentCode.clear();
+        _password.clear();
       }
       else if(data['data']['usr_group'] == UserGroup.SECURITY) {
         _navigation(
-            SuperAdminNavigation(data: resident)
+            ValidatePasscode(data: resident)
         );
+        _residentCode.clear();
+        _password.clear();
       }
     } else {
       setState(() {
