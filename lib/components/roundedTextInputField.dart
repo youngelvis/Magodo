@@ -22,7 +22,8 @@ class RoundedTextInputField extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hintText,
           border: InputBorder.none,
-          icon: icon
+          icon: icon,
+
         ),
         validator: validator,
       ),

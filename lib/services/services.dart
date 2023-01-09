@@ -281,7 +281,6 @@ class Services {
     return body;
   }
 
-
   //15
   getAddFamilyReport(residentCode, page, limit, search) async {
     var data = {
@@ -643,13 +642,47 @@ class Services {
   }
 
   //46
-  GuestSignOut(passcode,  userGroup) async {
+  guestSignOut(passcode, userGroup) async {
     var data = {
       "passcode": passcode,
       "action_user": "security",
       "user_group": userGroup
     };
     var res = await CallApi().putData(data, 'signOutVisitor');
+    var body = jsonDecode(res.body);
+    return body;
+  }
+
+  //47
+
+  authorisedMember(
+    residentCode,
+    validityStart,
+    validityEnd,
+    status,
+    userGroup,
+  ) async {
+    var data = {
+      "resident_code": residentCode,
+      "validity_starts": validityStart,
+      "validity_ends": validityEnd,
+      "status": status,
+      "user_group": userGroup,
+      "action_user": "Sadmin"
+    };
+    var res = await CallApi().postData(data, 'finalAuthorization');
+    var body = jsonDecode(res.body);
+    return body;
+  }
+
+  //48
+  eventRequestSelection(residentCode, action, eventId) async {
+    var data = {
+      "resident_code": residentCode,
+      "action": action,
+      "event_id": eventId
+    };
+    var res = await CallApi().postData(data, 'approveEventRequest');
     var body = jsonDecode(res.body);
     return body;
   }

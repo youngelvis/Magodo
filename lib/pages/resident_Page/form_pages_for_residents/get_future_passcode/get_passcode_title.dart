@@ -6,6 +6,7 @@ import 'package:magodo/pages/navigation_page/resident_navigation_page.dart';
 import 'package:magodo/pages/profile_page/profile_page.dart';
 
 import '../../../security_page/security_form/validate_passcode.dart';
+import '../../../security_page/security_navigation_page/security_navigation_page.dart';
 import '../../../super_admin/super_admin_navigation_page/superAdminNavigation.dart';
 
 class GetPasscodeTitleContainer extends StatefulWidget {
@@ -36,7 +37,7 @@ class _GetPasscodeTitleContainerState extends State<GetPasscodeTitleContainer> {
     } else if (widget.data?.usr_group == 'Sadmin') {
       navigateToProfilePage(SuperAdminNavigation(data: widget.data));
     } else if (widget.data?.usr_group == 'Security') {
-      navigateToProfilePage(ValidatePasscode(data: widget.data));
+      navigateToProfilePage(SecurityNavigationPage(data: widget.data));
     }
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/navigation_page/resident_navigation_page.dart';
 import 'package:magodo/pages/profile_page/profile_page.dart';
+import 'package:magodo/pages/security_page/security_navigation_page/security_navigation_page.dart';
 import 'package:magodo/pages/super_admin/super_admin_navigation_page/superAdminNavigation.dart';
 
 import '../pages/security_page/security_form/validate_passcode.dart';
@@ -34,7 +35,7 @@ class _TitleContainerState extends State<TitleContainer> {
     } else if (widget.data?.usr_group == 'Sadmin') {
       navigateToProfilePage(SuperAdminNavigation(data: widget.data));
     }else if(widget.data?.usr_group == 'Security'){
-      navigateToProfilePage(ValidatePasscode(data: widget.data));
+      navigateToProfilePage(SecurityNavigationPage(data: widget.data));
     }
   }
 
