@@ -205,6 +205,7 @@ class _ViewMemberState extends State<ViewMember> {
                           return SingleChildScrollView(
                             child: ViewMemberCard(
                               data: member,
+                              userGroup: widget.data?.usr_group ?? '',
                             ),
                           );
                         },

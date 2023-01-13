@@ -4,11 +4,14 @@ import 'package:magodo/services/services.dart';
 
 import '../../../components/app_page_theme_action_button.dart';
 import '../../../components/roundedDropDownTextfield.dart';
+import '../../../models/view_memberModel/view_memberModel.dart';
 
 class AuthorizeMember extends StatefulWidget {
-  final response;
+  ViewMemberModel response;
+  final userGroup;
 
-  const AuthorizeMember({Key? key, required this.response}) : super(key: key);
+  AuthorizeMember({Key? key, required this.response, this.userGroup})
+      : super(key: key);
 
   @override
   State<AuthorizeMember> createState() => _AuthorizeMemberState();
@@ -29,7 +32,7 @@ class _AuthorizeMemberState extends State<AuthorizeMember> {
   Widget _buildStatus() {
     return RoundedDropDownTextField(
       hint: Text(
-        widget.response['status'],
+        widget.response?.status ?? statusOptions[0],
         style: const TextStyle(fontSize: 15),
       ),
       value: status,
@@ -51,11 +54,11 @@ class _AuthorizeMemberState extends State<AuthorizeMember> {
 
   authoriseMember() async {
     final data = await Services().authorisedMember(
-        widget.response['resident_reg_code'],
-        widget.response['validity_starts'],
-        widget.response['validity_ends'],
-        widget.response['status'],
-        widget.response['user_group']);
+        widget.response.residentCode,
+        widget.response.validityStartsDate,
+        widget.response.validityEndsDate,
+        widget.response.status,
+        widget.userGroup);
     print(data);
   }
 
@@ -96,18 +99,20 @@ class _AuthorizeMemberState extends State<AuthorizeMember> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                  'Full Name : ${widget.response['full_name']} '),
+                              Text('Full Name : ${widget.response.fullName} '),
                               _buildStatus(),
                               CustomDatePicker(
                                   date: _startDate,
                                   hint:
-                                      '${widget.response['validity_starts']}'),
+                                      '${widget.response.validityStartsDate}'),
                               CustomDatePicker(
                                   date: _finishDate,
-                                  hint: '${widget.response['validity_ends']}'),
+                                  hint: '${widget.response.validityEndsDate}'),
                               ActionPageButton(
-                                  onPressed: () {}, text: 'Authorize Member'),
+                                  onPressed: () {
+                                    authoriseMember();
+                                  },
+                                  text: 'Authorize Member'),
                               const SizedBox(
                                 height: 50,
                               ),
