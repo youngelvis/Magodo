@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/navigation_page/resident_navigation_page.dart';
 import 'package:magodo/pages/profile_page/profile_page.dart';
@@ -32,7 +33,7 @@ class _TitleContainerState extends State<TitleContainer> {
     print(widget.data?.usr_group);
     if (widget.data?.usr_group == 'member') {
       navigateToProfilePage(ResidentNavigationPage(data: widget.data));
-    } else if (widget.data?.usr_group == 'Sadmin') {
+    } else if (widget.data?.usr_group == UserGroup.SUPER_ADMIN|| widget.data?.usr_group == UserGroup.ZONAL_SUPER_ADMIN) {
       navigateToProfilePage(SuperAdminNavigation(data: widget.data));
     }else if(widget.data?.usr_group == 'Security'){
       navigateToProfilePage(SecurityNavigationPage(data: widget.data));

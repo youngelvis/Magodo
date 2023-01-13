@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../models/member_staffModel/view_memberStaffModel.dart';
 
-
 class ViewMemberStaffCard extends StatelessWidget {
   MemberStaff data;
 
@@ -31,16 +30,25 @@ class ViewMemberStaffCard extends StatelessWidget {
             ),
             ListTile(
               title: Text(
-                data.staffPasscode??''
-              ),
-            ),
-            ListTile(
-              title: Text(
-                data.empdateOrDob?? '',
+                data.empdateOrDob ?? '',
                 style: const TextStyle(fontSize: 15),
               ),
-              trailing: Text(
-                data.identityStatus ?? '',
+              trailing: Container(
+                decoration: BoxDecoration(
+                    color: data.identityStatus == 'Verified'
+                        ? Colors.green
+                        : Colors.red,
+                    border: Border.all(color: Colors.white),
+                    borderRadius: BorderRadius.circular(6.0)),
+                child: Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Text(data.identityStatus ?? '',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        color: Colors.white,
+                      )),
+                ),
               ),
             ),
             ListTile(
@@ -88,9 +96,13 @@ class ViewMemberStaffCard extends StatelessWidget {
                 'Dependant Address',
                 style: TextStyle(fontSize: 15),
               ),
-              trailing: Text(
-                data.dependantContacts ?? '',
-                style: const TextStyle(fontSize: 15),
+              trailing: Container(
+                alignment: Alignment.centerRight,
+                width: 190,
+                child: Text(
+                  data.dependantContacts ?? '',
+                  style: const TextStyle(fontSize: 15),
+                ),
               ),
             ),
             ListTile(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
 import 'package:magodo/pages/security_page/view_staff_record/view_staff_record_card.dart';
 import '/../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:flutter/material.dart';
@@ -11,12 +12,15 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ViewStaffRecord extends StatefulWidget {
   ResidentModel? data;
-   ViewStaffRecord({Key? key, this.data}) : super(key: key);
+
+  ViewStaffRecord({Key? key, this.data}) : super(key: key);
 
   @override
   State<ViewStaffRecord> createState() => _ViewStaffRecordState();
 }
+
 TextEditingController _searchWords = TextEditingController();
+
 class _ViewStaffRecordState extends State<ViewStaffRecord> {
   Timer? debouncer;
 
@@ -32,9 +36,9 @@ class _ViewStaffRecordState extends State<ViewStaffRecord> {
   }
 
   void debounce(
-      VoidCallback callback, {
-        Duration duration = const Duration(milliseconds: 2000),
-      }) {
+    VoidCallback callback, {
+    Duration duration = const Duration(milliseconds: 2000),
+  }) {
     if (debouncer != null) {
       debouncer!.cancel();
     }
@@ -46,9 +50,9 @@ class _ViewStaffRecordState extends State<ViewStaffRecord> {
   List<StaffReport> viewMembers = [];
 
   final RefreshController refreshController =
-  RefreshController(initialRefresh: true);
+      RefreshController(initialRefresh: true);
 
-  Future<bool> getViewResidentReport({bool isRefresh = false}) async {
+  Future<bool> getViewStaffReport({bool isRefresh = false}) async {
     if (isRefresh) {
       currentPage = 0;
     } else {
@@ -57,11 +61,24 @@ class _ViewStaffRecordState extends State<ViewStaffRecord> {
         return false;
       }
     }
-    var data = await Services().viewStaffReport(
+    String zone= widget.data?.zone ??'';
+    var data;
+    if (widget.data?.usr_group == UserGroup.SECURITY ) {
+      data = await Services().validateStaffReport(
+        currentPage,
+        _searchWords.text,
+      );
+    }
+    if(
+    widget.data?.usr_group == UserGroup.SUPER_ADMIN ||
+        widget.data?.usr_group == UserGroup.ADMIN){
+      zone = '';
+    }
+    data = await Services().viewDependantsRecord(
       currentPage,
       _searchWords.text,
+      widget.data?.zone,
     );
-
     final result = staffReportsFromJson(data);
 
     if (isRefresh) {
@@ -76,24 +93,26 @@ class _ViewStaffRecordState extends State<ViewStaffRecord> {
   }
 
   Future _searchFunction() async => debounce(() async {
-    int currentPage = 0;
-    var data = await Services().viewStaffReport(
-      currentPage,
-      _searchWords.text,
-    );
+        int currentPage = 0;
 
-    final result = staffReportsFromJson(data);
-    if (result.data.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('No record found'),
-        ),
-      );
-    }
-    setState(() {
-      viewMembers = result.data;
-    });
-  });
+        var data = await Services().validateStaffReport(
+          currentPage,
+          _searchWords.text,
+        );
+
+
+        final result = staffReportsFromJson(data);
+        if (result.data.isEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('No record found'),
+            ),
+          );
+        }
+        setState(() {
+          viewMembers = result.data;
+        });
+      });
 
   Widget _buildSearchBar() {
     return Row(
@@ -111,6 +130,7 @@ class _ViewStaffRecordState extends State<ViewStaffRecord> {
       ],
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -175,7 +195,7 @@ class _ViewStaffRecordState extends State<ViewStaffRecord> {
                   controller: refreshController,
                   enablePullUp: true,
                   onRefresh: () async {
-                    final result = await getViewResidentReport(isRefresh: true);
+                    final result = await getViewStaffReport(isRefresh: true);
                     if (result) {
                       refreshController.refreshCompleted();
                     } else {
@@ -183,7 +203,7 @@ class _ViewStaffRecordState extends State<ViewStaffRecord> {
                     }
                   },
                   onLoading: () async {
-                    final result = await getViewResidentReport();
+                    final result = await getViewStaffReport();
                     if (result) {
                       refreshController.loadComplete();
                     } else {
@@ -192,21 +212,21 @@ class _ViewStaffRecordState extends State<ViewStaffRecord> {
                   },
                   child: viewMembers.isEmpty
                       ? const Center(
-                    child: Text('No record found'),
-                  )
+                          child: Text('No record found'),
+                        )
                       : ListView.builder(
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, index) {
-                      final member = viewMembers[index];
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, index) {
+                            final member = viewMembers[index];
 
-                      return SingleChildScrollView(
-                        child: ViewStaffRecordCard(
-                          data: member,
+                            return SingleChildScrollView(
+                              child: ViewStaffRecordCard(
+                                data: member,
+                              ),
+                            );
+                          },
+                          itemCount: viewMembers.length,
                         ),
-                      );
-                    },
-                    itemCount: viewMembers.length,
-                  ),
                 ),
               )
             ],

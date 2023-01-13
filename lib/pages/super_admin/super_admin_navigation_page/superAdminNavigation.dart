@@ -10,6 +10,7 @@ import 'package:magodo/pages/super_admin/super_admin_forms/view_member/view_memb
 import 'package:magodo/pages/super_admin/super_admin_forms/view_member_staff/view_member_staff.dart';
 import '../../profile_page/edit_profile/edit_profile.dart';
 import '../../security_page/view_passcode_record/view_passcode_record.dart';
+import '../../security_page/view_staff_record/view_staff_record.dart';
 import '../super_admin_forms/activity_logs_report/activity_log_report.dart';
 import '../super_admin_forms/add_new_administrative_user.dart';
 import '../super_admin_forms/event_request/event_request_report.dart';

@@ -4,10 +4,14 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:magodo/api/api.dart';
 import 'package:magodo/models/fetch_member_model/fetch_MemberMainData.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
+
+import '../../../components/components_for_class_of_varable/userGroup.dart';
 
 class SearchableDropDownList1 extends StatefulWidget {
+  ResidentModel? data;
   final onChange;
-  const SearchableDropDownList1({Key? key, this.onChange}) : super(key: key);
+  SearchableDropDownList1({Key? key, this.onChange, this.data}) : super(key: key);
 
   @override
   State<SearchableDropDownList1> createState() =>
@@ -24,14 +28,22 @@ class _SearchableDropDownList1State extends State<SearchableDropDownList1> {
   }
 
   void getData() async {
-    var res = await CallApi().getData('fetchMember');
-    var r = jsonDecode(res.body);
+     var userGroup = widget.data?.usr_group;
+    var zone = widget.data?.zone;
+    String url = '';
+
+    if(userGroup == UserGroup.SUPER_ADMIN){
+      url = 'fetchMember';
+    }
+    url = 'fetchMember?mra_zone=$zone';
+
+      var res = await CallApi().getData(url);
+      var r = jsonDecode(res.body);
+      print("this ${r}");
     setState(() {
       fetchMemberMainData = FetchMemberMainData.fromJson(r);
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {

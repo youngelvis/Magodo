@@ -63,9 +63,13 @@ class ViewMemberCard extends StatelessWidget {
                 'Address',
                 style: TextStyle(fontSize: 15),
               ),
-              trailing: Text(
-                data.address ?? '',
-                style: const TextStyle(fontSize: 15),
+              trailing: Container(
+                alignment: Alignment.centerRight,
+                width: 190,
+                child: Text(
+                  data.address ?? '',
+                  style: const TextStyle(fontSize: 15),
+                ),
               ),
             ),
             ListTile(

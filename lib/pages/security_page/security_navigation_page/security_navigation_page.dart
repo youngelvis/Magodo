@@ -63,14 +63,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                     data: widget.data,
                   ));
                 }),
-            NavTextButton(
-                icon: Icons.speed,
-                text: 'Guest Sign-Out',
-                onPressed: () {
-                  navigateToPage(GuestSignOut(
-                    data: widget.data,
-                  ));
-                }),
+
             NavTextButton(
                 icon: Icons.speed,
                 text: 'Validate Resident',
@@ -95,6 +88,14 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                     data: widget.data,
                   ));
                 }),
+                NavTextButton(
+                    icon: Icons.speed,
+                    text: 'Guest Sign-Out',
+                    onPressed: () {
+                      navigateToPage(GuestSignOut(
+                        data: widget.data,
+                      ));
+                    }),
             ExpansionTile(
               title: Row(
                 children: [

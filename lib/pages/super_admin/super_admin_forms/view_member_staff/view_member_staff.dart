@@ -5,6 +5,7 @@ import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/view_member_staff/view_memberStaffCard.dart';
 import 'package:magodo/services/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../../../components/components_for_class_of_varable/userGroup.dart';
 import '/../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:magodo/components/roundedTextSearchField.dart';
 import 'package:magodo/components/title.dart';
@@ -60,9 +61,16 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
         return false;
       }
     }
-    var data = await Services().viewMemberStaffReport(
+    String zone = widget.data?.zone ?? '';
+    var data;
+    if(
+    widget.data?.usr_group == UserGroup.SUPER_ADMIN){
+      zone = '';
+    }
+    data = await Services().viewDependantsRecord(
       currentPage,
       _searchWords.text,
+      widget.data?.zone,
     );
 
     final result = memberStaffsFromJson(data);
@@ -80,11 +88,17 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
 
   Future _searchFunction() async => debounce(() async {
         int currentPage = 0;
-        var data = await Services().viewMemberStaffReport(
+        String zone = widget.data?.zone ?? '';
+        var data;
+        if(
+        widget.data?.usr_group == UserGroup.SUPER_ADMIN){
+          zone = '';
+        }
+        data = await Services().viewDependantsRecord(
           currentPage,
           _searchWords.text,
+          widget.data?.zone,
         );
-
         final result = memberStaffsFromJson(data);
         if (result.data.isEmpty) {
           print('empty');

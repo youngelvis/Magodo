@@ -2,6 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:magodo/components/action_page_button2.dart';
+import 'package:magodo/components/textfields_types/zones.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
+import 'package:magodo/services/services.dart';
+import '../../super_admin/super_admin_component/searchableDropDownList_UM.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import '../../../components/components_for_class_of_varable/zones.dart';
 import '../../../components/date_text_field.dart';
@@ -10,100 +14,52 @@ import '../../../components/text_for_form.dart';
 import '../../../components/textfields_types/mobile_num_textfield.dart';
 import '../../../components/textfields_types/name_textfield.dart';
 import '../../../components/title.dart';
+
 class IdentifyNewlyRegisteredMembers extends StatefulWidget {
-  final data;
-  const IdentifyNewlyRegisteredMembers({Key? key, required this.data}) : super(key: key);
+  ResidentModel? data;
+
+  IdentifyNewlyRegisteredMembers({Key? key, this.data}) : super(key: key);
 
   @override
-  State<IdentifyNewlyRegisteredMembers> createState() => _IdentifyNewlyRegisteredMembersState();
+  State<IdentifyNewlyRegisteredMembers> createState() =>
+      _IdentifyNewlyRegisteredMembersState();
 }
-TextEditingController _residentCode = TextEditingController();
+
 TextEditingController _mobileNumber = TextEditingController();
 TextEditingController _fullName = TextEditingController();
 TextEditingController _address = TextEditingController();
 TextEditingController _startDate = TextEditingController();
 TextEditingController _finishDate = TextEditingController();
-class _IdentifyNewlyRegisteredMembersState extends State<IdentifyNewlyRegisteredMembers> {
-  String? status;
-  final statusOptions = ['0', '1', '2', '3', '4', '5', '6'];
-  String? resident;
 
-  final residentOptions = ['0', '1', '2', '3', '4', '5', '6'];
+class _IdentifyNewlyRegisteredMembersState
+    extends State<IdentifyNewlyRegisteredMembers> {
+
   String? zone;
-  final zoneOptions = [
-    Zones.AEA,
-    Zones.AGBOOLA_AJUMOBI,
-    Zones.AKIN_TIJANI,
-    Zones.BASHEER_SHITTU,
-    Zones.BROADWAY,
-    Zones.CENTRAL,
-    Zones.FAA,
-    Zones.FILLING_EGDE,
-    Zones.FORESHORE,
-    Zones.GORGE_VIEW,
-    Zones.KAYODE_TAIWO,
-    Zones.KOLA_AMODU,
-    Zones.MAINLINE,
-    Zones.NELSON_NWEKE,
-    Zones.OGUNYE,
-    Zones.PALM_VIEW,
-    Zones.PEACE_VALLEY,
-    Zones.PSSDC_WALE_TAIWO,
-    Zones.SOUTH_EAST,
-    Zones.SOUTH_WEST,
-    Zones.VALLEY_VIEW
+
+  var response;
+  String? residentcode;
+
+  onChange(String? s) async {
+    var residentCode = s?.split("- ");
+    residentcode = residentCode?[0];
+    final data = await Services().changeResident(residentcode);
+
+    setState(() {
+      response = data['data'];
+    });
+  }
+  String? status;
+  final statusOptions = [
+    '-- Select Status ',
+    'Unverified',
+    'Declined',
+    'Verified',
   ];
-  Widget _buildZone() {
-    return RoundedDropDownTextField(
-      hint: const Text(
-        'Select Zone',
-        style: TextStyle(fontSize: 15),
-      ),
-      value: zone,
-      onChanged: (value) => setState(() {
-        zone = value as String;
-      }),
-      items: zoneOptions.map(buildZoneItem).toList(),
-    );
-  }
-
-  DropdownMenuItem<String> buildZoneItem(String zoneOptions) =>
-      DropdownMenuItem(
-        value: zoneOptions,
-        child: Text(
-          zoneOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
-        ),
-      );
-
-
-  Widget _buildResident() {
-    return RoundedDropDownTextField(
-      hint: const Text(
-        'Choose number',
-        style: TextStyle(fontSize: 15),
-      ),
-      value: resident,
-      onChanged: (value) => setState(() {
-        resident = value as String;
-      }),
-      items: residentOptions.map(buildResidentItem).toList(),
-    );
-  }
-
-  DropdownMenuItem<String> buildResidentItem(String residentOptions) =>
-      DropdownMenuItem(
-        value: residentOptions,
-        child: Text(
-          residentOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
-        ),
-      );
   Widget _buildStatus() {
     return RoundedDropDownTextField(
-      hint: const Text(
-        'Choose number',
-        style: TextStyle(fontSize: 15),
+      hint: Text(
+        response==null?statusOptions[0]:response['status'],
+        style: const TextStyle(fontSize: 15),
       ),
       value: status,
       onChanged: (value) => setState(() {
@@ -121,6 +77,7 @@ class _IdentifyNewlyRegisteredMembersState extends State<IdentifyNewlyRegistered
           style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
         ),
       );
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -140,7 +97,7 @@ class _IdentifyNewlyRegisteredMembersState extends State<IdentifyNewlyRegistered
                 Row(
                   children: const [
                     Text(
-                      'Add New Administrative User',
+                      'Identify Newly Registered Members',
                       style: TextStyle(fontSize: 30),
                     ),
                     Icon(
@@ -159,49 +116,29 @@ class _IdentifyNewlyRegisteredMembersState extends State<IdentifyNewlyRegistered
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const TextForForm(text: "Resident"),
-                              _buildResident(),
-                              const SizedBox(
-                                height: 20,
+                              const TextForForm(
+                                text: 'Select Resident',
                               ),
-                              NameTextField(
-                                  controller: _residentCode,
-                                  hint: "Enter resident code",
-                                  nameType: "Staff Resident Code"),
-                              const SizedBox(
-                                height: 20,
-                              ),
+                              SearchableDropDownList1(onChange: onChange,
+                                data: widget.data,),
                               MobileNumberTextField(
                                   controller: _mobileNumber,
-                                  fieldName: ' Mobile Number',
-                                  hintText: 'Enter mobile number'),
-                              const SizedBox(
-                                height: 20,
-                              ),
+                                  fieldName: "Mobile Number",
+                                  hintText: 'Mobile Number'),
                               NameTextField(
                                   controller: _fullName,
-                                  hint: "Enter full name",
-                                  nameType: "Staff Full Name"),
-                              const SizedBox(
-                                height: 20,
-                              ),
+                                  hint: 'Full Name',
+                                  nameType: "Full Name"),
+                              BuildZoneDropDownList(zone: zone,
+                                  onChanged: (value) =>
+                                      setState(() {
+                                        zone = value as String;
+                                      }), ),
+                              _buildStatus(),
                               NameTextField(
                                   controller: _address,
-                                  hint: "Enter address",
-                                  nameType: " Email"),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              const TextForForm(text: "Zone"),
-                              _buildZone(),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              const TextForForm(text: "Status"),
-                              _buildStatus(),
-                              const SizedBox(
-                                height: 20,
-                              ),
+                                  hint: 'Address',
+                                  nameType: "Address"),
                               const TextForForm(text: "Validity Starts"),
                               CustomDatePicker(date: _startDate),
                               const TextForForm(text: "Validity Ends"),

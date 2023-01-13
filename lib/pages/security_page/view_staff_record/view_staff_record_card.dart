@@ -33,14 +33,23 @@ class ViewStaffRecordCard extends StatelessWidget {
               title: Text(data.staffPasscode ?? ''),
             ),
             ListTile(
-              trailing: Text(data.identityStatus ?? '',
-                  style: TextStyle(
-                      color: Colors.white,
+                trailing: Container(
+              decoration: BoxDecoration(
+                  color: data.identityStatus == 'Verified'
+                      ? Colors.green
+                      : Colors.red,
+                  border: Border.all(color: Colors.white),
+                  borderRadius: BorderRadius.circular(6.0)),
+              child: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: Text(data.identityStatus ?? '',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
                       fontSize: 15,
-                      backgroundColor: data.identityStatus == 'verified'
-                          ? Colors.green
-                          : Colors.red)),
-            ),
+                      color: Colors.white,
+                    )),
+              ),
+            )),
             ListTile(
               title: const Text("Dependant Name",
                   style: TextStyle(fontSize: 15, color: Colors.black)),
@@ -95,5 +104,6 @@ class ViewStaffRecordCard extends StatelessWidget {
           ],
         ),
       ),
-    );}
+    );
+  }
 }

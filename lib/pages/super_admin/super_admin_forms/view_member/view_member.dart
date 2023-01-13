@@ -5,6 +5,7 @@ import 'package:magodo/models/view_memberModel/view_memberModel.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/view_member/view_memberCard.dart';
 import 'package:magodo/services/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../../../components/components_for_class_of_varable/userGroup.dart';
 import '/../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:magodo/components/roundedTextSearchField.dart';
 import 'package:magodo/components/title.dart';
@@ -12,7 +13,7 @@ import 'package:magodo/components/title.dart';
 class ViewMember extends StatefulWidget {
   ResidentModel? data;
 
-  ViewMember({Key? key, data}) : super(key: key);
+  ViewMember({Key? key, this.data}) : super(key: key);
 
   @override
   State<ViewMember> createState() => _ViewMemberState();
@@ -60,7 +61,13 @@ class _ViewMemberState extends State<ViewMember> {
         return false;
       }
     }
-    var data = await Services().viewMembersReportForSAdmin(currentPage);
+    String zone = widget.data?.zone  ?? '';
+    if(
+    widget.data?.usr_group == UserGroup.SUPER_ADMIN){
+      zone = '';
+    }
+
+    var data = await Services().viewMembersReportForSAdmin(currentPage, widget.data?.usr_group ?? '', zone);
 
     final result = viewMembersFromJson(data);
 
@@ -77,7 +84,12 @@ class _ViewMemberState extends State<ViewMember> {
 
   Future _searchFunction() async => debounce(() async {
         int currentPage = 0;
-        var data = await Services().viewMembersReportForSAdmin(currentPage);
+        String zone = widget.data?.zone  ?? '';
+        if(
+        widget.data?.usr_group == UserGroup.SUPER_ADMIN){
+          zone = '';
+        }
+        var data = await Services().viewMembersReportForSAdmin(currentPage, widget.data?.usr_group ?? '', zone);
 
         final result = viewMembersFromJson(data);
         if (result.data.isEmpty) {

@@ -141,6 +141,7 @@ callMessage(message){
   );
 }
   updateMember() async {
+
     final data = await Services().updateMember(
         response['resident_reg_code']?? '',
         _mobileNumber.text.isEmpty
@@ -210,7 +211,7 @@ callMessage(message){
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SearchableDropDownList1(onChange: onChange),
+                              SearchableDropDownList1(onChange: onChange, data: widget.data,),
                               NameTextField(
                                   controller: _firstName,
                                   hint: response==null ? 'First Name': response['firstname'],

@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
 import 'package:magodo/api/api.dart';
 import 'package:magodo/models/add_staff_data_model/staffdata.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
@@ -478,11 +476,12 @@ class Services {
   }
 
   // 30
-  viewMembersReportForSAdmin(page) async {
+  viewMembersReportForSAdmin(page, userGroup, zone) async {
     var data = {
       "page": page,
       "limit": "10",
-      "user_group": "sadmin",
+      "user_group": userGroup,
+      "zone": zone
     };
     var res = await CallApi().postData(data, 'membersReport');
     return res.body;
@@ -538,7 +537,7 @@ class Services {
       "validity_end_date": validityEnd,
       "action_user": "Sadmin"
     };
-    print(data);
+
     var res = await CallApi().putData(data, 'updateMember');
     var body = jsonDecode(res.body);
     return body;
@@ -578,8 +577,13 @@ class Services {
 
   //39
 
-  viewStaffReport(page, search) async {
-    var data = {"page": page, "limit": "10", "search": search.toString()};
+  validateStaffReport(page, search) async {
+    var data = {
+      "page": page,
+      "limit": "10",
+      "search": search.toString(),
+    };
+
     var res = await CallApi().postData(data, 'validateStaffReport');
     return res.body;
   }
@@ -603,7 +607,7 @@ class Services {
   validatePasscode(passcode, userGroup) async {
     var data = {
       "passcode": passcode,
-      "action_user": "security",
+      "action_user": userGroup,
       "user_group": userGroup
     };
     var res = await CallApi().postData(data, 'validatePasscode');
@@ -642,10 +646,13 @@ class Services {
   }
 
   //46
-  guestSignOut(passcode, userGroup) async {
+  guestSignOut(
+    passcode,
+    userGroup,
+  ) async {
     var data = {
       "passcode": passcode,
-      "action_user": "security",
+      "action_user": userGroup,
       "user_group": userGroup
     };
     var res = await CallApi().putData(data, 'signOutVisitor');
@@ -668,7 +675,7 @@ class Services {
       "validity_ends": validityEnd,
       "status": status,
       "user_group": userGroup,
-      "action_user": "Sadmin"
+      "action_user": userGroup
     };
     var res = await CallApi().postData(data, 'finalAuthorization');
     var body = jsonDecode(res.body);
@@ -685,5 +692,17 @@ class Services {
     var res = await CallApi().postData(data, 'approveEventRequest');
     var body = jsonDecode(res.body);
     return body;
+  }
+
+  //49
+  viewDependantsRecord(page, search, zone) async {
+    var data = {
+      "page": page,
+      "limit": "10",
+      "search": search.toString(),
+      "zone": zone
+    };
+    var res = await CallApi().postData(data, 'dependantsReport');
+    return res.body;
   }
 }

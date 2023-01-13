@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/models/passcode_report_data_model/passcode_report_data_model.dart';
 
-
 class ViewPasscodeRecordCard extends StatelessWidget {
   PasscodeReport data;
 
@@ -31,15 +30,23 @@ class ViewPasscodeRecordCard extends StatelessWidget {
                   fontSize: 15,
                 ),
               ),
-            ),
-            ListTile(
-              trailing: Text(data.doNotHonorStatus ?? '',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      backgroundColor: data.doNotHonorStatus == 'Honor'
-                          ? Colors.green
-                          : Colors.red)),
+              trailing: Container(
+                decoration: BoxDecoration(
+                    color: data.doNotHonorStatus == 'Honor'
+                        ? Colors.green
+                        : Colors.red,
+                    border: Border.all(color: Colors.white),
+                    borderRadius: BorderRadius.circular(6.0)),
+                child: Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Text(data.doNotHonorStatus ?? '',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        color: Colors.white,
+                      )),
+                ),
+              ),
             ),
             ListTile(
               title: const Text("Visitor Name",
@@ -83,7 +90,6 @@ class ViewPasscodeRecordCard extends StatelessWidget {
               trailing: Text(data.residentMsisdn ?? '',
                   style: const TextStyle(fontSize: 15, color: Colors.black)),
             ),
-
             const SizedBox(
               height: 25,
             ),
