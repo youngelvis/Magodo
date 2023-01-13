@@ -5,6 +5,7 @@ import 'package:magodo/pages/change_password/change_password.dart';
 import 'package:magodo/pages/login_page/login_page.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_passcode/get_passcode.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/register_vechicle/register_vechicle.dart';
+import 'package:magodo/pages/super_admin/super_admin_forms/breakdown_summary/breakdown_summary.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/movement_register/movement_register.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/view_member/view_member.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/view_member_staff/view_member_staff.dart';
@@ -214,6 +215,18 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                                     data: widget.data,
                                   ),
                                 );
+                              }),
+                          ListTile(
+                              title: Text(
+                                'Break Down Report',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: color.AppColor.landingPage2),
+                              ),
+                              onTap: () {
+                                navigateToPage(BreakdownSummary(
+                                  data: widget.data,
+                                ));
                               }),
                         ],
                       ),
