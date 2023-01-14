@@ -597,7 +597,7 @@ class Services {
   }
 
   //41
-  viewPasscode(page, search) async {
+  passcodeHistory(page, search) async {
     var data = {"page": page, "limit": "10", "search": search.toString()};
     var res = await CallApi().postData(data, 'passcodeHistory');
     return res.body;
@@ -646,7 +646,7 @@ class Services {
   }
 
   //46
-  guestSignOut(
+  signOutVisitor(
     passcode,
     userGroup,
   ) async {
@@ -662,7 +662,7 @@ class Services {
 
   //47
 
-  authorisedMember(
+  finalAuthorization(
     residentCode,
     validityStart,
     validityEnd,
@@ -683,7 +683,7 @@ class Services {
   }
 
   //48
-  eventRequestSelection(residentCode, action, eventId) async {
+  approveEventRequest(residentCode, action, eventId) async {
     var data = {
       "resident_code": residentCode,
       "action": action,
@@ -695,7 +695,7 @@ class Services {
   }
 
   //49
-  viewDependantsRecord(page, search, zone) async {
+  dependantsReport(page, search, zone) async {
     var data = {
       "page": page,
       "limit": "10",
@@ -706,5 +706,24 @@ class Services {
     return res.body;
   }
   //50
-
+  adminPasscodeHistory(page, search, zone) async {
+    var data = {
+      "page": page,
+      "limit": "10",
+      "search": search.toString(),
+      "zone": zone
+    };
+    var res = await CallApi().postData(data, 'adminPasscodeHistory');
+    return res.body;
+  }
+  superAdminPasscodeHistory(page, search, zone) async {
+    var data = {
+      "page": page,
+      "limit": "10",
+      "search": search.toString(),
+      "zone": zone
+    };
+    var res = await CallApi().postData(data, 'superAdminPasscodeHistory');
+    return res.body;
+  }
 }

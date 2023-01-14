@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/security_page/view_passcode_record/view_passcode_record_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -9,14 +10,18 @@ import '../../../components/roundedTextSearchField.dart';
 import '../../../components/title.dart';
 import '../../../models/passcode_report_data_model/passcode_report_data_model.dart';
 import '../../../services/services.dart';
+
 class ViewPasscodeRecord extends StatefulWidget {
   ResidentModel? data;
-   ViewPasscodeRecord({Key? key, this.data}) : super(key: key);
+
+  ViewPasscodeRecord({Key? key, this.data}) : super(key: key);
 
   @override
   State<ViewPasscodeRecord> createState() => _ViewPasscodeRecordState();
 }
+
 TextEditingController _searchWords = TextEditingController();
+
 class _ViewPasscodeRecordState extends State<ViewPasscodeRecord> {
   Timer? debouncer;
 
@@ -32,9 +37,9 @@ class _ViewPasscodeRecordState extends State<ViewPasscodeRecord> {
   }
 
   void debounce(
-      VoidCallback callback, {
-        Duration duration = const Duration(milliseconds: 2000),
-      }) {
+    VoidCallback callback, {
+    Duration duration = const Duration(milliseconds: 2000),
+  }) {
     if (debouncer != null) {
       debouncer!.cancel();
     }
@@ -46,7 +51,7 @@ class _ViewPasscodeRecordState extends State<ViewPasscodeRecord> {
   List<PasscodeReport> viewMembers = [];
 
   final RefreshController refreshController =
-  RefreshController(initialRefresh: true);
+      RefreshController(initialRefresh: true);
 
   Future<bool> getViewResidentReport({bool isRefresh = false}) async {
     if (isRefresh) {
@@ -57,10 +62,20 @@ class _ViewPasscodeRecordState extends State<ViewPasscodeRecord> {
         return false;
       }
     }
-    var data = await Services().viewPasscode(
-      currentPage,
-      _searchWords.text,
-    );
+    var data;
+    var zone = widget.data?.zone;
+    if (widget.data?.usr_group == UserGroup.SECURITY) {
+      data = await Services().passcodeHistory(
+        currentPage,
+        _searchWords.text,
+      );
+    } else if (widget.data?.usr_group == UserGroup.SUPER_ADMIN) {
+      data = await Services()
+          .superAdminPasscodeHistory(currentPage, _searchWords.text, zone);
+    } else {
+      data = await Services()
+          .adminPasscodeHistory(currentPage, _searchWords.text, zone);
+    }
 
     final result = passcodeReportsFromJson(data);
 
@@ -76,24 +91,34 @@ class _ViewPasscodeRecordState extends State<ViewPasscodeRecord> {
   }
 
   Future _searchFunction() async => debounce(() async {
-    int currentPage = 0;
-    var data = await Services().viewPasscode(
-      currentPage,
-      _searchWords.text,
-    );
+        int currentPage = 0;
+        var data;
+        var zone = widget.data?.zone;
+        if (widget.data?.usr_group == UserGroup.SECURITY) {
+          data = await Services().passcodeHistory(
+            currentPage,
+            _searchWords.text,
+          );
+        } else if (widget.data?.usr_group == UserGroup.SUPER_ADMIN) {
+          data = await Services()
+              .superAdminPasscodeHistory(currentPage, _searchWords.text, zone);
+        } else {
+          data = await Services()
+              .adminPasscodeHistory(currentPage, _searchWords.text, zone);
+        }
 
-    final result = passcodeReportsFromJson(data);
-    if (result.data.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('No record found'),
-        ),
-      );
-    }
-    setState(() {
-      viewMembers = result.data;
-    });
-  });
+        final result = passcodeReportsFromJson(data);
+        if (result.data.isEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('No record found'),
+            ),
+          );
+        }
+        setState(() {
+          viewMembers = result.data;
+        });
+      });
 
   Widget _buildSearchBar() {
     return Row(
@@ -111,6 +136,7 @@ class _ViewPasscodeRecordState extends State<ViewPasscodeRecord> {
       ],
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -192,21 +218,21 @@ class _ViewPasscodeRecordState extends State<ViewPasscodeRecord> {
                   },
                   child: viewMembers.isEmpty
                       ? const Center(
-                    child: Text('No record found'),
-                  )
+                          child: Text('No record found'),
+                        )
                       : ListView.builder(
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, index) {
-                      final member = viewMembers[index];
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, index) {
+                            final member = viewMembers[index];
 
-                      return SingleChildScrollView(
-                        child: ViewPasscodeRecordCard(
-                          data: member,
+                            return SingleChildScrollView(
+                              child: ViewPasscodeRecordCard(
+                                data: member,
+                              ),
+                            );
+                          },
+                          itemCount: viewMembers.length,
                         ),
-                      );
-                    },
-                    itemCount: viewMembers.length,
-                  ),
                 ),
               )
             ],

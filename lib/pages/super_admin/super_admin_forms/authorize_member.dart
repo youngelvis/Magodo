@@ -32,7 +32,7 @@ class _AuthorizeMemberState extends State<AuthorizeMember> {
   Widget _buildStatus() {
     return RoundedDropDownTextField(
       hint: Text(
-        widget.response?.status ?? statusOptions[0],
+        widget.response.status ?? statusOptions[0],
         style: const TextStyle(fontSize: 15),
       ),
       value: status,
@@ -53,7 +53,7 @@ class _AuthorizeMemberState extends State<AuthorizeMember> {
       );
 
   authoriseMember() async {
-    final data = await Services().authorisedMember(
+    final data = await Services().finalAuthorization(
         widget.response.residentCode,
         widget.response.validityStartsDate,
         widget.response.validityEndsDate,

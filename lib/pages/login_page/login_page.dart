@@ -16,6 +16,7 @@ import 'package:magodo/pages/super_admin/super_admin_forms/add_new_administrativ
 
 import 'package:magodo/services/services.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
+import '../admin_page/admin_forms/identify_newly_registered_members.dart';
 import '../security_page/security_form/validate_passcode.dart';
 
 class SignIN extends StatefulWidget {
@@ -37,6 +38,8 @@ class _SignINState extends State<SignIN> {
 
   void _navigation(data) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => data));
+    _residentCode.clear();
+    _password.clear();
   }
 
   _login() async {
@@ -68,7 +71,7 @@ class _SignINState extends State<SignIN> {
     }
     var data = await Services().login(_residentCode.text, _password.text);
 
-    if (data['data'] != []) {
+    if (data['code'] == 200) {
       setState(() {
         mainResidentModel = MainResidentModel.fromJson(data);
       });
@@ -80,49 +83,41 @@ class _SignINState extends State<SignIN> {
             data: resident,
           ),
         );
-        _residentCode.clear();
-        _password.clear();
       } else if (data['data']['usr_group'] == UserGroup.SUPER_ADMIN ||
           data['data']['usr_group'] == UserGroup.ZONAL_SUPER_ADMIN) {
-        _navigation(
-            AddNewAdministrativeUser(data: resident)
-        );
-        _residentCode.clear();
-        _password.clear();
-      }
-      else if(data['data']['usr_group'] == UserGroup.SECURITY) {
-        _navigation(
-            ValidatePasscode(data: resident)
-        );
-        _residentCode.clear();
-        _password.clear();
-      }
-    } else {
-      setState(() {
-        wrongDetailsResident = WrongDetailsResident.fromJson(data);
-      });
-      var message = wrongDetailsResident.message;
+        _navigation(AddNewAdministrativeUser(data: resident));
+      } else if (data['data']['usr_group'] == UserGroup.SECURITY) {
+        _navigation(ValidatePasscode(data: resident));
+      } else if (data['data']['usr_group'] == UserGroup.ADMIN ||
+          data['data']['usr_group'] == UserGroup.ZONAL_ADMIN) {
+        _navigation(IdentifyNewlyRegisteredMembers(data: resident));
+      } else {
+        setState(() {
+          wrongDetailsResident = WrongDetailsResident.fromJson(data);
+        });
+        var message = wrongDetailsResident.message;
 
-      return showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text(message!),
-          actions: [
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: color.AppColor.homePageTheme,
-                    onPrimary: color.AppColor.landingPage2,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0))),
-                onPressed: () {
-                  _residentCode.clear();
-                  _password.clear();
-                  Navigator.of(context).pop();
-                },
-                child: const Text("ok"))
-          ],
-        ),
-      );
+        return showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: Text(message!),
+            actions: [
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: color.AppColor.homePageTheme,
+                      onPrimary: color.AppColor.landingPage2,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0))),
+                  onPressed: () {
+                    _residentCode.clear();
+                    _password.clear();
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("ok"))
+            ],
+          ),
+        );
+      }
     }
   }
 

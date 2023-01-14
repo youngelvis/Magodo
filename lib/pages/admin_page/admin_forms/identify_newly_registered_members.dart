@@ -7,7 +7,6 @@ import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/services/services.dart';
 import '../../super_admin/super_admin_component/searchableDropDownList_UM.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
-import '../../../components/components_for_class_of_varable/zones.dart';
 import '../../../components/date_text_field.dart';
 import '../../../components/roundedDropDownTextfield.dart';
 import '../../../components/text_for_form.dart';
@@ -98,7 +97,7 @@ class _IdentifyNewlyRegisteredMembersState
                   children: const [
                     Text(
                       'Identify Newly Registered Members',
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -119,7 +118,7 @@ class _IdentifyNewlyRegisteredMembersState
                               const TextForForm(
                                 text: 'Select Resident',
                               ),
-                              SearchableDropDownList1(onChange: onChange,
+                              SearchableDropDownListForFetchMember(onChange: onChange,
                                 data: widget.data,),
                               MobileNumberTextField(
                                   controller: _mobileNumber,
@@ -134,7 +133,11 @@ class _IdentifyNewlyRegisteredMembersState
                                       setState(() {
                                         zone = value as String;
                                       }), ),
+                              const TextForForm(text: "Status"),
                               _buildStatus(),
+                              const SizedBox(
+                                height: 20,
+                              ),
                               NameTextField(
                                   controller: _address,
                                   hint: 'Address',
@@ -145,23 +148,30 @@ class _IdentifyNewlyRegisteredMembersState
                               CustomDatePicker(date: _finishDate),
 
                               const SizedBox(
-                                height: 30,
+                                height: 40,
                               ),
-                              Row(
-                                children: [
-                                  ActionPageButton2(
-                                    onPressed: () {},
-                                    primaryColor: color.AppColor.homePageTheme,
-                                    text: 'Authorize',
-                                  ),
-                                  const SizedBox(width: 50,),
-                                  ActionPageButton2(
-                                    onPressed: () {},
-                                    primaryColor: color.AppColor.decline,
-                                    text: 'Decline',
-                                  ),
-                                ],
-                              )
+                              Center(
+
+                                child: Row(
+                                  children: [
+                                    const SizedBox(width: 50,),
+                                    ActionPageButton2(
+                                      onPressed: () {},
+                                      primaryColor: color.AppColor.verifiedColor,
+                                      text: 'Authorize',
+                                    ),
+                                    const SizedBox(width: 50,),
+                                    ActionPageButton2(
+                                      onPressed: () {},
+                                      primaryColor: color.AppColor.decline,
+                                      text: 'Decline',
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 40,
+                              ),
                             ]),
                       ),
                     ),

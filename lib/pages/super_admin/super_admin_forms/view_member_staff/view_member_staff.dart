@@ -67,7 +67,7 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
     widget.data?.usr_group == UserGroup.SUPER_ADMIN){
       zone = '';
     }
-    data = await Services().viewDependantsRecord(
+    data = await Services().dependantsReport(
       currentPage,
       _searchWords.text,
       widget.data?.zone,
@@ -94,7 +94,7 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
         widget.data?.usr_group == UserGroup.SUPER_ADMIN){
           zone = '';
         }
-        data = await Services().viewDependantsRecord(
+        data = await Services().dependantsReport(
           currentPage,
           _searchWords.text,
           widget.data?.zone,

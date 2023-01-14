@@ -30,12 +30,13 @@ class _TitleContainerState extends State<TitleContainer> {
   }
 
   navbarController() {
-    print(widget.data?.usr_group);
-    if (widget.data?.usr_group == 'member') {
+    if (widget.data?.usr_group == UserGroup.MEMBER) {
       navigateToProfilePage(ResidentNavigationPage(data: widget.data));
     } else if (widget.data?.usr_group == UserGroup.SUPER_ADMIN|| widget.data?.usr_group == UserGroup.ZONAL_SUPER_ADMIN) {
       navigateToProfilePage(SuperAdminNavigation(data: widget.data));
-    }else if(widget.data?.usr_group == 'Security'){
+    }else if(widget.data?.usr_group == UserGroup.SECURITY){
+      navigateToProfilePage(SecurityNavigationPage(data: widget.data));
+    }else if(widget.data?.usr_group == UserGroup.ZONAL_ADMIN|| widget.data?.usr_group == UserGroup.ADMIN){
       navigateToProfilePage(SecurityNavigationPage(data: widget.data));
     }
   }

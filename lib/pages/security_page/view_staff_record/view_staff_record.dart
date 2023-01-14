@@ -74,7 +74,7 @@ class _ViewStaffRecordState extends State<ViewStaffRecord> {
         widget.data?.usr_group == UserGroup.ADMIN){
       zone = '';
     }
-    data = await Services().viewDependantsRecord(
+    data = await Services().dependantsReport(
       currentPage,
       _searchWords.text,
       widget.data?.zone,

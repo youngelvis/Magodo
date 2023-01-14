@@ -20,7 +20,7 @@ class _EventRequestReportCardState extends State<EventRequestReportCard> {
   String? selectedValue;
 
   selectedDecision() async {
-    final data = await Services().eventRequestSelection(
+    final data = await Services().approveEventRequest(
         widget.data.passcode, selectedValue, widget.data.id);
     print(data);
   }

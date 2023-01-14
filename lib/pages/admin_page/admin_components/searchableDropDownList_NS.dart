@@ -4,22 +4,23 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:magodo/api/api.dart';
 import 'package:magodo/models/fetch_member_model/fetch_MemberMainData.dart';
+import 'package:magodo/models/fetch_staff_model/fetch_staff_model.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 
 import '../../../components/components_for_class_of_varable/userGroup.dart';
 
-class SearchableDropDownListForFetchMember extends StatefulWidget {
+class SearchableDropDownListForMemberStaff extends StatefulWidget {
   ResidentModel? data;
   final onChange;
-  SearchableDropDownListForFetchMember({Key? key, this.onChange, this.data}) : super(key: key);
+  SearchableDropDownListForMemberStaff({Key? key, this.onChange, this.data}) : super(key: key);
 
   @override
-  State<SearchableDropDownListForFetchMember> createState() =>
-      _SearchableDropDownListForFetchMemberState();
+  State<SearchableDropDownListForMemberStaff> createState() =>
+      _SearchableDropDownListForMemberStaffState();
 }
 
-class _SearchableDropDownListForFetchMemberState extends State<SearchableDropDownListForFetchMember> {
-  FetchMemberMainData? fetchMemberMainData = FetchMemberMainData();
+class _SearchableDropDownListForMemberStaffState extends State<SearchableDropDownListForMemberStaff> {
+  FetchStaffs? fetchStaffs;
 
   @override
   // ignore: must_call_super
@@ -33,15 +34,15 @@ class _SearchableDropDownListForFetchMemberState extends State<SearchableDropDow
     String url = '';
 
     if(userGroup == UserGroup.SUPER_ADMIN){
-      url = 'fetchMember';
+      url = 'fetchEmployedStaffs';
     }
-    url = 'fetchMember?mra_zone=$zone';
+    url = 'fetchEmployedStaffs/$zone';
 
       var res = await CallApi().getData(url);
       var r = jsonDecode(res.body);
       print("this ${r}");
     setState(() {
-      fetchMemberMainData = FetchMemberMainData.fromJson(r);
+      fetchStaffs = FetchStaffs.fromJson(r);
     });
   }
 
@@ -52,11 +53,11 @@ class _SearchableDropDownListForFetchMemberState extends State<SearchableDropDow
         DropdownSearch<String>(
           mode: Mode.MENU,
           showSelectedItems: true,
-          items: fetchMemberMainData?.data
-              ?.map((e) => "${e?.RESIDENT_CODE} - ${e?.FULL_NAME}")
+          items: fetchStaffs?.data
+              ?.map((e) => "${e?.residentCode} - ${e?.dependantName}")
               .toList(),
           dropdownSearchDecoration: const InputDecoration(
-              labelText: "Select Resident", hintText: "select resident"),
+              labelText: "Select Staff", hintText: "select staff"),
           showSearchBox: true,
           onChanged: widget.onChange,
           searchFieldProps: const TextFieldProps(

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/models/passcode_report_data_model/passcode_report_data_model.dart';
 
+import '../../../models/resident_data_model/residentdata.dart';
+
 class ViewPasscodeRecordCard extends StatelessWidget {
   PasscodeReport data;
-
-  ViewPasscodeRecordCard({Key? key, required this.data}) : super(key: key);
+  ResidentModel? residentData;
+  ViewPasscodeRecordCard({Key? key, required this.data, this.residentData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -39,12 +39,12 @@ class _GuestSignOutState extends State<GuestSignOut> {
   }
   guestSignOut()async{
     if(_passcode.text.isEmpty){
-      var result = await Services().guestSignOut(_passcode.text, widget.data?.usr_group, );
+      var result = await Services().signOutVisitor(_passcode.text, widget.data?.usr_group, );
       callMessage(result['error']["message"]);
       print(result['error']["message"]);
 
     }
-    final data = await Services().guestSignOut(_passcode.text, widget.data?.usr_group);
+    final data = await Services().signOutVisitor(_passcode.text, widget.data?.usr_group);
     callMessage(data["message"]);
     print(data["message"]);
   }
