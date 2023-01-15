@@ -6,6 +6,7 @@ import 'package:magodo/components/text_for_form.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/time_text_field.dart';
+import 'package:magodo/components/title.dart';
 import 'package:magodo/models/passcode_data_model/mainPasscodeData.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/services/services.dart';
@@ -111,12 +112,12 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
             padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
             child: Column(
               children: [
-                GetPasscodeTitleContainer(
-                  title: 'Get Passcode',
+                TitleContainer(
+                  title: 'Dashboard',
                   data: widget.data,
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 40,
                 ),
                 Row(
                   children: const [

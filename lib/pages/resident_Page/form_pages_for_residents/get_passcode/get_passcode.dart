@@ -3,6 +3,7 @@ import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/textfields_types/buildNumOfVisitorsDropDown.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
+import 'package:magodo/components/title.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/sendMessagesButtons/sendMessagesButtons.dart';
@@ -79,8 +80,8 @@ class _GetPasscodeState extends State<GetPasscode> {
             padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
             child: Column(
               children: [
-                GetPasscodeTitleContainer(
-                  title: 'Get Passcode',
+                TitleContainer(
+                  title: 'Dashboard',
                   data: widget.data,
                 ),
                 const SizedBox(

@@ -10,6 +10,8 @@ import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 import 'package:magodo/services/services.dart';
 
+import '../../../../components/title.dart';
+
 class RegisterVehicle extends StatefulWidget {
   ResidentModel? data;
 
@@ -64,8 +66,8 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
             padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
             child: Column(
               children: [
-                GetPasscodeTitleContainer(
-                  title: 'Resident Vehicle',
+                TitleContainer(
+                  title: 'Dashboard',
                   data: widget.data,
                 ),
                 const SizedBox(

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/textfields_types/buildEmploymentStatus.dart';
 import 'package:magodo/components/textfields_types/buildStaffRelationshipDropdownList.dart';
@@ -105,7 +106,7 @@ class _AddStaffState extends State<AddStaff> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            padding:  EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
             child: Column(
               children: [
                 TitleContainer(
@@ -116,12 +117,12 @@ class _AddStaffState extends State<AddStaff> {
                   height: 50,
                 ),
                 Row(
-                  children: const [
+                  children:  [
                     Text(
                       'Add Staff',
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 30.sp),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.keyboard_arrow_down_outlined,
                       size: 15,
                     ),

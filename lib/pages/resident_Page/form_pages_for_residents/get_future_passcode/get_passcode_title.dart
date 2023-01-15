@@ -5,6 +5,8 @@ import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/navigation_page/resident_navigation_page.dart';
 import 'package:magodo/pages/profile_page/profile_page.dart';
 
+import '../../../../components/components_for_class_of_varable/userGroup.dart';
+import '../../../admin_page/admin_navigation_page/admin_navigation_page.dart';
 import '../../../security_page/security_form/validate_passcode.dart';
 import '../../../security_page/security_navigation_page/security_navigation_page.dart';
 import '../../../super_admin/super_admin_navigation_page/superAdminNavigation.dart';
@@ -31,13 +33,14 @@ class _GetPasscodeTitleContainerState extends State<GetPasscodeTitleContainer> {
   }
 
   navbarController() {
-    print(widget.data?.usr_group);
-    if (widget.data?.usr_group == 'member') {
+    if (widget.data?.usr_group == UserGroup.MEMBER) {
       navigateToProfilePage(ResidentNavigationPage(data: widget.data));
-    } else if (widget.data?.usr_group == 'Sadmin') {
+    } else if (widget.data?.usr_group == UserGroup.SUPER_ADMIN|| widget.data?.usr_group == UserGroup.ZONAL_SUPER_ADMIN) {
       navigateToProfilePage(SuperAdminNavigation(data: widget.data));
-    } else if (widget.data?.usr_group == 'Security') {
+    }else if(widget.data?.usr_group == UserGroup.SECURITY){
       navigateToProfilePage(SecurityNavigationPage(data: widget.data));
+    }else if(widget.data?.usr_group == UserGroup.ZONAL_ADMIN|| widget.data?.usr_group == UserGroup.ADMIN){
+      navigateToProfilePage(AdminNavPage(residentModel: widget.data,));
     }
   }
 

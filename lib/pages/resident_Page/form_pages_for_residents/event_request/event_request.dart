@@ -10,6 +10,7 @@ import 'package:magodo/components/time_text_field.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 import 'package:magodo/services/services.dart';
+import '../../../../components/title.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 
 class EventRequest extends StatefulWidget {
@@ -71,8 +72,8 @@ class _EventRequestState extends State<EventRequest> {
             padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
             child: Column(
               children: [
-                GetPasscodeTitleContainer(
-                  title: 'Event Request',
+                TitleContainer(
+                  title: 'Dashboard',
                   data: widget.data,
                 ),
                 const SizedBox(
