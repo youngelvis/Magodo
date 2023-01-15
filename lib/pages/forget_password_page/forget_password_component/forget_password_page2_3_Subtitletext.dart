@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../components/components_for_class_of_varable/colors.dart'
     as color;
 
@@ -18,7 +19,7 @@ class ForgetPasswordPage2_3SubtitleText extends StatelessWidget {
       child.toString(),
       style: TextStyle(
           color: color.AppColor.landingPageTitle,
-          fontSize: 22,
+          fontSize: 20.sp,
           fontWeight: FontWeight.w400),
     );
   }

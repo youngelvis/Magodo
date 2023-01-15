@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
@@ -100,7 +101,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.only(top: 60, left: 30, right: 30),
+            padding:  EdgeInsets.only(top: 60.h, left: 30.w, right: 30.w),
             color: color.AppColor.homePageBackground,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +112,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 ),
                 ForgetPasswordForm1(
                     residentCode: NameTextField(
-                      controller: _email,
+                      controller: _residentCode,
                       hint: 'enter resident code',
                       nameType: 'Resident Code',
                     ),
@@ -126,7 +127,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       nameType: ' E-mail',
                     )),
                 const SizedBox(
-                  height: 120,
+                  height: 50,
                 ),
                 ActionPageButton(
                     onPressed: () async {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/textfields_types/password_textfield.dart';
@@ -101,25 +102,16 @@ class _ForgetPasswordFourthPageState extends State<ForgetPasswordFourthPage> {
                     controller: _pinNumber,
                     hint: 'pin',
                     nameType: 'Pin from sms'),
-                const SizedBox(
-                  height: 20,
-                ),
+
                 BuildPasswordTextField(
                     passwordController: _password, fieldName: 'Password'),
-                const SizedBox(
-                  height: 20,
-                ),
+
                 BuildPasswordTextField(
                     passwordController: _confirmPassword,
                     fieldName: 'Confirm Password'),
-                const SizedBox(
-                  height: 20,
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                const SizedBox(
-                  height: 120,
+
+                 SizedBox(
+                  height: 50.h,
                 ),
                 ActionPageButton(
                     onPressed: () async {
