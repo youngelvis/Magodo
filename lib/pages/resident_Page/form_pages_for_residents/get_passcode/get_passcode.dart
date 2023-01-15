@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/textfields_types/buildNumOfVisitorsDropDown.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
@@ -77,7 +78,7 @@ class _GetPasscodeState extends State<GetPasscode> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            padding:   EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
             child: Column(
               children: [
                 TitleContainer(
@@ -88,19 +89,19 @@ class _GetPasscodeState extends State<GetPasscode> {
                   height: 50,
                 ),
                 Row(
-                  children: const [
+                  children: [
                     Text(
                       'Generate Passcode(Visitor)',
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.keyboard_arrow_down_outlined,
                       size: 15,
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 40,
+                 SizedBox(
+                  height: 40.h,
                 ),
                 Expanded(
                   child: OverflowBox(

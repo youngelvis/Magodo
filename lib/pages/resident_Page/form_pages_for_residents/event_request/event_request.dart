@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/date_text_field.dart';
 import 'package:magodo/components/text_for_form.dart';
@@ -69,30 +70,30 @@ class _EventRequestState extends State<EventRequest> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            padding:  EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
             child: Column(
               children: [
                 TitleContainer(
                   title: 'Dashboard',
                   data: widget.data,
                 ),
-                const SizedBox(
-                  height: 50,
+                 SizedBox(
+                  height: 40.h,
                 ),
                 Row(
-                  children: const [
+                  children:  [
                     Text(
                       'Event request form',
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 30.sp),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.keyboard_arrow_down_outlined,
                       size: 15,
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 40,
+                 SizedBox(
+                  height: 40.h,
                 ),
                 Expanded(
                   child: OverflowBox(
@@ -124,7 +125,9 @@ class _EventRequestState extends State<EventRequest> {
                                 height: 50,
                               ),
                               ActionPageButton(
-                                  onPressed: () async {},
+                                  onPressed: () async {
+                                    requestEvent();
+                                  },
                                   text: 'Submit Request'),
                               const SizedBox(
                                 height: 30,

@@ -113,8 +113,8 @@ class _AddStaffState extends State<AddStaff> {
                   title: 'Dashboard',
                   data: widget.data,
                 ),
-                const SizedBox(
-                  height: 50,
+                SizedBox(
+                  height: 40.h,
                 ),
                 Row(
                   children:  [
@@ -128,8 +128,8 @@ class _AddStaffState extends State<AddStaff> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 40,
+                 SizedBox(
+                  height: 40.h,
                 ),
                 Expanded(
                   child: OverflowBox(

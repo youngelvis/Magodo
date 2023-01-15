@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/textfields_types/buildNumOfVisitorsDropDown.dart';
 import 'package:magodo/components/date_text_field.dart';
@@ -10,7 +11,6 @@ import 'package:magodo/components/title.dart';
 import 'package:magodo/models/passcode_data_model/mainPasscodeData.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/services/services.dart';
-import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 class GetFuturePasscode extends StatefulWidget {
   ResidentModel? data;
@@ -109,7 +109,7 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            padding:  EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
             child: Column(
               children: [
                 TitleContainer(
@@ -120,19 +120,19 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
                   height: 40,
                 ),
                 Row(
-                  children: const [
+                  children:  [
                     Text(
                       'Get Future Passcode',
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 30.sp),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.keyboard_arrow_down_outlined,
                       size: 15,
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 40,
+                SizedBox(
+                  height: 40.h,
                 ),
                 Expanded(
                   child: OverflowBox(

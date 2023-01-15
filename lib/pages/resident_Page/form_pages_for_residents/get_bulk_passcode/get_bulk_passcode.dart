@@ -4,10 +4,12 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/date_text_field.dart';
 import 'package:magodo/components/text_for_form.dart';
 import 'package:magodo/components/time_text_field.dart';
+import 'package:magodo/components/title.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_bulk_passcode/upload_file.dart';
 import 'package:magodo/services/services.dart';
@@ -129,23 +131,23 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            padding: EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
             child: Column(
               children: [
-                GetPasscodeTitleContainer(
-                  title: 'Get Passcode',
+                TitleContainer(
+                  title: 'Dashboard',
                   data: widget.data,
                 ),
-                const SizedBox(
-                  height: 50,
+                 SizedBox(
+                  height: 50.h,
                 ),
                 Row(
-                  children: const [
+                  children:  [
                     Text(
                       'Get Bulk Passcode',
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 30.sp),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.keyboard_arrow_down_outlined,
                       size: 15,
                     ),
@@ -164,40 +166,34 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
                               UploadFile(onPressed: () async {
                                 await selectFile();
                               }),
-                              const SizedBox(
-                                height: 10,
+                               SizedBox(
+                                height: 10.h,
                               ),
                               Row(
-                                children: const [
-                                  Text('Supported file types: csv'),
+                                children:  [
+                                 const Text('Supported file types: csv'),
                                   SizedBox(
-                                    width: 20,
+                                    width: 20.w,
                                   ),
                                 ],
                               ),
-                              const SizedBox(
-                                height: 30,
+                               SizedBox(
+                                height: 30.h,
                               ),
                               const TextForForm(text: "Arrival Date"),
                               CustomDatePicker(date: _date),
-                              const SizedBox(
-                                height: 20,
-                              ),
                               const TextForForm(text: "Arrival Time"),
                               CustomTimePicker(
                                 departureTime: _arrivalTime,
                                 hint: 'select arrival time',
-                              ),
-                              const SizedBox(
-                                height: 30,
                               ),
                               const TextForForm(text: "Departure Time"),
                               CustomTimePicker(
                                 departureTime: _departureTime,
                                 hint: 'select departure time',
                               ),
-                              const SizedBox(
-                                height: 50,
+                              SizedBox(
+                                height: 50.h,
                               ),
                               ActionPageButton(
                                   onPressed: () async {

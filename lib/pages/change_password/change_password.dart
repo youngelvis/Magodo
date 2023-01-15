@@ -1,11 +1,13 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/textfields_types/password_textfield.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 import 'package:magodo/services/services.dart';
+import '../../components/title.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 class ChangePassword extends StatefulWidget {
   ResidentModel? data;
@@ -61,15 +63,30 @@ class _ChangePasswordState extends State<ChangePassword> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            padding: EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
             child: Column(
               children: [
-                GetPasscodeTitleContainer(
-                  title: 'Change Password',
+                TitleContainer(
+                  title: 'Dashboard',
                   data: widget.data,
                 ),
-                const SizedBox(
-                  height: 50,
+                SizedBox(
+                  height: 50.h,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'Change Password',
+                      style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold),
+                    ),
+                    const Icon(
+                      Icons.keyboard_arrow_down_outlined,
+                      size: 15,
+                    ),
+                  ],
+                ),
+                 SizedBox(
+                  height: 40.h,
                 ),
                 Expanded(
                   child: OverflowBox(
@@ -78,6 +95,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+
                               BuildPasswordTextField(
                                   fieldName: 'Current Password',
                                   passwordController: _currentPassword),
