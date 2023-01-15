@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
 import 'package:magodo/components/roundedTextSearchField.dart';
 import 'package:magodo/components/title.dart';
 import 'package:magodo/models/movement_register_reportModel/movement_register_reportModel.dart';
@@ -61,10 +62,19 @@ class _MovementRegisterState extends State<MovementRegister> {
         return false;
       }
     }
-    var data = await Services().viewMovementRegister(
-      currentPage,
-      _searchWords.text,
-    );
+    var data;
+   if(widget.data?.usr_group== UserGroup.SUPER_ADMIN) {
+      data = await Services().viewMovementRegister(
+        currentPage,
+        _searchWords.text,
+      );
+    }else{
+     data = await Services().adminMovementRegisterReport(
+        currentPage,
+        _searchWords.text,
+        widget.data?.zone,
+      );
+   }
 
     final result = movementRegisterReportsFromJson(data);
 
@@ -81,10 +91,20 @@ class _MovementRegisterState extends State<MovementRegister> {
 
   Future _searchFunction() async => debounce(() async {
         int currentPage = 0;
-        var data = await Services().viewMovementRegister(
-          currentPage,
-          _searchWords.text,
-        );
+        var data;
+        if(widget.data?.usr_group== UserGroup.SUPER_ADMIN) {
+          data = await Services().viewMovementRegister(
+            currentPage,
+            _searchWords.text,
+          );
+        }else{
+          data = await Services().adminMovementRegisterReport(
+            currentPage,
+            _searchWords.text,
+            widget.data?.zone,
+          );
+        }
+
 
         final result = movementRegisterReportsFromJson(data);
         if (result.data.isEmpty) {

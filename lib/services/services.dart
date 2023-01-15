@@ -765,4 +765,24 @@ class Services {
   var body = jsonDecode(res.body);
   return body;
   }
+  adminActivityLogReport(page, search, zone) async {
+    var data = {
+      "page": page,
+      "limit": "10",
+      "search": search.toString(),
+      "zone": zone
+    };
+    var res = await CallApi().postData(data, 'adminActivityLogReport');
+    return res.body;
+  }
+  adminMovementRegisterReport(page, search, zone) async {
+    var data = {
+      "page": page,
+      "limit": "10",
+      "search": search.toString(),
+      "zone": zone
+    };
+    var res = await CallApi().postData(data, 'adminMovementRegisterReport');
+    return res.body;
+  }
 }

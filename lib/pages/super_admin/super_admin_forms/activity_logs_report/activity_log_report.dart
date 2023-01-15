@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
 import 'package:magodo/components/title.dart';
 
 import '/../components/components_for_class_of_varable/colors.dart' as color;
@@ -62,10 +63,19 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
         return false;
       }
     }
-    var data = await Services().viewActivityLogReport(
-      currentPage,
-      _searchWords.text,
-    );
+    var data;
+   if(widget.data?.usr_group == UserGroup.SUPER_ADMIN){
+       data = await Services().viewActivityLogReport(
+        currentPage,
+        _searchWords.text,
+      );
+    }else{
+     data = await Services().adminActivityLogReport(
+       currentPage,
+       _searchWords.text,
+       widget.data?.zone,
+     );
+   }
 
     final result = activityLogReportsFromJson(data);
 
@@ -82,11 +92,19 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
 
   Future _searchFunction() async => debounce(() async {
         int currentPage = 0;
-        var data = await Services().viewActivityLogReport(
-          currentPage,
-          _searchWords.text,
-        );
-
+        var data;
+        if(widget.data?.usr_group == UserGroup.SUPER_ADMIN){
+          data = await Services().viewActivityLogReport(
+            currentPage,
+            _searchWords.text,
+          );
+        }else{
+          data = await Services().adminActivityLogReport(
+            currentPage,
+            _searchWords.text,
+            widget.data?.zone,
+          );
+        }
         final result = activityLogReportsFromJson(data);
 
         if (result.data.isEmpty) {
