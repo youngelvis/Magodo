@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/admin_page/admin_navigation_page/admin_navigation_page.dart';
@@ -45,71 +46,67 @@ class _TitleContainerState extends State<TitleContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            children: [
-              IconButton(
-                  icon: const Icon(
-                    Icons.menu,
-                    size: 50,
-                  ),
-                  onPressed: () {
-                    navbarController();
-                  }),
-              const SizedBox(
-                width: 100,
+    return Column(
+      children: [
+         SizedBox(
+          height: 20.h,
+        ),
+        Row(
+          children: [
+            IconButton(
+                icon: const Icon(
+                  Icons.menu,
+                  size: 50,
+                ),
+                onPressed: () {
+                  navbarController();
+                }),
+             SizedBox(
+              width: 80.w,
+            ),
+            Container(
+              padding: EdgeInsets.only(
+                top: 20.h,
               ),
-              Container(
-                padding: const EdgeInsets.only(
-                  top: 20,
-                ),
-                child: Row(
-                  children: [
-                    Text(
-                      widget.title,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 25),
-                    ),
-                    const SizedBox(width: 120),
-                    Stack(
-                      children: [
-                        Positioned(
-                          child: SizedBox(
-                              width: 30,
-                              height: 30,
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProfilePage(
-                                        data: widget.data,
-                                      ),
+              child: Row(
+                children: [
+                  Text(
+                    widget.title,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 25.sp),
+                  ),
+                   SizedBox(width: 85.w),
+                  Stack(
+                    children: [
+                      Positioned(
+                        child: SizedBox(
+                            width: 30.w,
+                            height: 30.h,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProfilePage(
+                                      data: widget.data,
                                     ),
-                                  );
-                                },
-                                child: const CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage('assets/profilePicture.jpeg'),
-                                ),
-                              )),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ],
-      ),
+                                  ),
+                                );
+                              },
+                              child: const CircleAvatar(
+                                backgroundImage:
+                                    AssetImage('assets/profilePicture.jpeg'),
+                              ),
+                            )),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ],
     );
   }
 }

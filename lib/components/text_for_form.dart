@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'components_for_class_of_varable/colors.dart' as color;
 
 class TextForForm extends StatelessWidget {
@@ -14,7 +15,7 @@ class TextForForm extends StatelessWidget {
         Text(
           text,
           style: TextStyle(
-              fontSize: 20,
+              fontSize: 20.sp,
               fontWeight: FontWeight.w400,
               color: color.AppColor.homePageTitle),
         ),

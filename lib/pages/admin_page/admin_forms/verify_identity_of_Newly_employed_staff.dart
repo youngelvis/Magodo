@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/services/services.dart';
@@ -163,12 +164,12 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
                   height: 50,
                 ),
                 Row(
-                  children: const [
+                  children:  [
                     Text(
                       'Identify Newly Employed Staff',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.keyboard_arrow_down_outlined,
                       size: 15,
                     ),

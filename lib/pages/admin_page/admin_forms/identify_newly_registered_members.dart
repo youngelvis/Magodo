@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/action_page_button2.dart';
 import 'package:magodo/components/textfields_types/zones.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
@@ -95,12 +96,12 @@ class _IdentifyNewlyRegisteredMembersState
                   height: 50,
                 ),
                 Row(
-                  children: const [
+                  children:  [
                     Text(
                       'Identify Newly Registered Members',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.keyboard_arrow_down_outlined,
                       size: 15,
                     ),
@@ -134,7 +135,7 @@ class _IdentifyNewlyRegisteredMembersState
                                       setState(() {
                                         zone = value as String;
                                       }),
-                              hint: response==null ? 'Full Name': response['zone'],),
+                              hint: response==null ? 'Zone': response['zone'],),
                               const TextForForm(text: "Status"),
                               _buildStatus(),
                               const SizedBox(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
@@ -6,6 +7,8 @@ import 'package:magodo/components/textfields_types/resident_type_dropdown_list.d
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 import 'package:magodo/services/services.dart';
+
+import '../../../components/title.dart';
 
 class EditProfile extends StatefulWidget {
   ResidentModel? data;
@@ -61,20 +64,20 @@ class _EditProfileState extends State<EditProfile> {
             padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
             child: Column(
               children: [
-                GetPasscodeTitleContainer(
-                  title: 'Edit Profile',
+                TitleContainer(
+                  title: 'Dashboard',
                   data: widget.data,
                 ),
                 const SizedBox(
                   height: 50,
                 ),
                 Row(
-                  children: const [
+                  children: [
                     Text(
                       'Edit Profile',
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 30.sp),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.keyboard_arrow_down_outlined,
                       size: 15,
                     ),
@@ -90,10 +93,14 @@ class _EditProfileState extends State<EditProfile> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Center(child: Text(widget.data?.usr_full_name??'', style: TextStyle(fontSize: 20.sp),)),
+                              const SizedBox(
+                                height: 20,
+                              ),
                               MobileNumberTextField(
                                   controller: _mobileNumber,
                                   fieldName: 'Mobile Number',
-                                  hintText: 'Enter your mobile number'),
+                                  hintText: widget.data?.mobile_number??'Enter your mobile number'),
                               NameTextField(
                                   controller: _firstName,
                                   hint: "Enter First Name",
@@ -104,7 +111,7 @@ class _EditProfileState extends State<EditProfile> {
                                   nameType: "Surname"),
                               NameTextField(
                                   controller: _email,
-                                  hint: "Enter email",
+                                  hint: widget.data?.email ??"Enter email",
                                   nameType: "Email"),
                               NameTextField(
                                   controller: _address,
@@ -114,9 +121,10 @@ class _EditProfileState extends State<EditProfile> {
                                   residentType: residentType,
                                   onChanged: (value) => setState(() {
                                         residentType = value as String;
-                                      })),
-                              const SizedBox(
-                                height: 50,
+                                      }),
+                              hintText: widget.data?.resident_type??'Select Resident Type'),
+                              SizedBox(
+                                height: 40.h,
                               ),
                               ActionPageButton(
                                   onPressed: () async {

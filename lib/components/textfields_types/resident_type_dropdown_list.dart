@@ -5,11 +5,12 @@ import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/text_for_form.dart';
 
 class BuildResidentTypeDropDownList extends StatefulWidget {
+ final hintText;
   final residentType;
   final onChanged;
 
   const BuildResidentTypeDropDownList(
-      {Key? key, required this.residentType, required this.onChanged})
+      {Key? key, required this.residentType, required this.onChanged, this.hintText})
       : super(key: key);
 
   @override
@@ -28,7 +29,7 @@ class _BuildResidentTypeDropDownListState
 
   Widget _buildResidentType() {
     return RoundedDropDownTextField(
-      hint: const Text(
+      hint:  Text(
         'Select resident type',
         style: TextStyle(fontSize: 15),
       ),
