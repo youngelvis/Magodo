@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ViewStaffCard extends StatefulWidget {
   final staffName,
       employementType,
@@ -31,18 +32,18 @@ class _ViewStaffCardState extends State<ViewStaffCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20, bottom: 20),
+      padding:  EdgeInsets.only(top: 20.h, bottom: 20.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
             title: Text(
               widget.date,
-              style: const TextStyle(fontSize: 13),
+              style:  TextStyle(fontSize: 13.sp),
             ),
             trailing: Text(
               widget.employementType,
-              style: const TextStyle(fontSize: 13),
+              style:  TextStyle(fontSize: 13.sp),
             ),
           ),
           const Divider(

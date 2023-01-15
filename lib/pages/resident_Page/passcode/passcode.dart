@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Passcode extends StatelessWidget {
   final mraPasscode,
@@ -25,16 +26,16 @@ class Passcode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 10),
+      margin:  EdgeInsets.symmetric(vertical: 10.w),
       child: Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 20),
+        padding:  EdgeInsets.only(top: 20.h, bottom: 20.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
               title: Text(
                 date,
-                style: const TextStyle(fontSize: 13),
+                style:  TextStyle(fontSize: 13.sp),
               ),
               ),
 

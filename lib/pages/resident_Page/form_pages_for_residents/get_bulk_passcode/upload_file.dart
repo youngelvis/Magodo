@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:flutter/cupertino.dart';
 
@@ -33,12 +34,12 @@ class UploadFile extends StatelessWidget {
                 .of(context)
                 .size
                 .width,
-            height: 170,
+            height: 170.h,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(
-                  height: 40,
+                SizedBox(
+                  height: 40.h,
                 ),
                 const Text("11 digits mobile numbers on each row"),
                 const Text("of an excel sheet"),
@@ -46,8 +47,8 @@ class UploadFile extends StatelessWidget {
                   height: 30,
                 ),
                 SizedBox(
-                    height: 40,
-                    width: 130,
+                    height: 40.h,
+                    width: 130.w,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             primary: color.AppColor.homeSecondaryTheme,

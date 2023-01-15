@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/add_family_data_model/familydata.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/update_family/update_family.dart';
@@ -159,27 +160,27 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
               ),
               Container(
                 color: color.AppColor.residentBody,
-                padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
+                padding:  EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
                 child: Column(children: [
                   _buildSearchBar(),
-                  const SizedBox(
-                    height: 20,
+                   SizedBox(
+                    height: 20.h,
                   ),
                   Row(
-                    children: const [
+                    children:  [
                       Text(
                         'View Family Report',
                         style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                            fontSize: 25.sp, fontWeight: FontWeight.bold),
                       ),
-                      Icon(
+                     const Icon(
                         Icons.keyboard_arrow_down_outlined,
                         size: 15,
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 20.h,
                   ),
                 ]),
               ),
@@ -192,11 +193,11 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
                 child: ListTile(
                   leading: Text(
                     "1-${families.length} of $totalPages results",
-                    style: const TextStyle(fontSize: 16),
+                    style:  TextStyle(fontSize: 16.sp),
                   ),
                   trailing: Text(
                     "Results per page ${families.length}",
-                    style: const TextStyle(fontSize: 16),
+                    style:  TextStyle(fontSize: 16.sp),
                   ),
                 ),
               ),

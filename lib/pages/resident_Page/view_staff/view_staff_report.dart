@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/add_staff_data_model/staffdata.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/forms_component/delete_edit_button.dart';
@@ -157,27 +158,27 @@ class _ViewStaffMembersState extends State<ViewStaffMembers> {
             ),
             Container(
               color: color.AppColor.residentBody,
-              padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
+              padding:  EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
               child: Column(children: [
                 _buildSearchBar(),
-                const SizedBox(
-                  height: 20,
+                 SizedBox(
+                  height: 20.h,
                 ),
                 Row(
-                  children: const [
+                  children:  [
                     Text(
                       'View Staff Report',
                       style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.keyboard_arrow_down_outlined,
                       size: 15,
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 20,
+                 SizedBox(
+                  height: 20.h,
                 ),
               ]),
             ),
@@ -190,11 +191,11 @@ class _ViewStaffMembersState extends State<ViewStaffMembers> {
               child: ListTile(
                 leading: Text(
                   "${staffs.length} of $totalPages results",
-                  style: const TextStyle(fontSize: 16),
+                  style:  TextStyle(fontSize: 16.sp),
                 ),
                 trailing: Text(
                   "Results per page ${staffs.length}",
-                  style: const TextStyle(fontSize: 16),
+                  style:  TextStyle(fontSize: 16.sp),
                 ),
               ),
             ),
