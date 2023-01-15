@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/activity_log_reportModel/activity_log_reportModel.dart';
 import '../../../../models/movement_register_reportModel/movement_register_reportModel.dart';
 
@@ -27,14 +28,14 @@ class ActivityLogReportCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 10),
+        padding:  EdgeInsets.only(top: 20.h, bottom: 10.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
               title: Text(
                 createdDate,
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
             const Divider(
@@ -43,59 +44,59 @@ class ActivityLogReportCard extends StatelessWidget {
             ListTile(
               title: Text(
                 otherDetails,
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
             ListTile(
-              title: const Text(
+              title: Text(
                 "Full Name",
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 fullName,
-                style: const TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
             ),
             ListTile(
-              title: const Text(
+              title:  Text(
                 'Resident Code',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 residentCode,
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
             ListTile(
-              title: const Text(
+              title:  Text(
                 "Action Performed",
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 action,
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
             ListTile(
-              title: const Text(
+              title:  Text(
                 " Action By",
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 actionUser,
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
              ListTile(
-              title: const Text("Action Description"),
+              title:  const Text("Action Description"),
               subtitle: Text(
                 actionDescription,
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
 
-            const SizedBox(
-              height: 15,
+             SizedBox(
+              height: 15.h,
             ),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/break_down_summaryModel/breakdownSummaryModel.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import '/../components/components_for_class_of_varable/colors.dart' as color;
@@ -63,24 +64,24 @@ class _BreakdownSummaryState extends State<BreakdownSummary> {
               ),
               Container(
                 color: color.AppColor.residentBody,
-                padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
+                padding: EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
                 child: Column(children: [
 
                   Row(
-                    children: const [
+                    children: [
                       Text(
                         "Breakdown Summary",
                         style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                            fontSize: 25.sp, fontWeight: FontWeight.bold),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.keyboard_arrow_down_outlined,
                         size: 15,
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 20.h,
                   ),
                 ]),
               ),

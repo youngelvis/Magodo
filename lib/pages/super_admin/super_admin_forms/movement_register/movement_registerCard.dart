@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../models/movement_register_reportModel/movement_register_reportModel.dart';
 
 class MovementRegisterCard extends StatelessWidget {
@@ -11,14 +12,14 @@ class MovementRegisterCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 20),
+        padding:  EdgeInsets.only(top: 20.h, bottom: 20.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
               title: Text(
                 data.createdDate ?? '',
-                style: const TextStyle(fontSize: 20),
+                style:  TextStyle(fontSize: 20.sp),
               ),
             ),
             const Divider(
@@ -27,77 +28,68 @@ class MovementRegisterCard extends StatelessWidget {
             ListTile(
               title: Text(
                 data.passcode ?? '',
-                style: const TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
             ),
-            const ListTile(
-              title: Text(
-                "Visitor's Name",
-                style: TextStyle(fontSize: 15),
-              ),
-              trailing: Text(
-                '',
-                style: TextStyle(fontSize: 15),
-              ),
-            ),
+
             ListTile(
-              title: const Text(
+              title:  Text(
                 'Resident Code',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 data.residentCode ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
             ListTile(
-              title: const Text(
+              title:  Text(
                 " Visitor's phone",
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 data.visitorMsisdn ?? '',
-                style: const TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
             ),
             ListTile(
-              title: const Text(
+              title: Text(
                 "Resident Phone",
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 data.residentMsisdn ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
             ListTile(
-              title: const Text(
+              title:  Text(
                 "Resident Name",
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 data.residentFullName ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
             ListTile(
-              title: const Text(
+              title:  Text(
                 "Time in",
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 data.timeIn ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
             ListTile(
-              title: const Text(
+              title: Text(
                 "Time out",
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 data.timeOut ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
             const SizedBox(

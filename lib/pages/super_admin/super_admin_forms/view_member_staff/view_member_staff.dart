@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/member_staffModel/view_memberStaffModel.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/view_member_staff/view_memberStaffCard.dart';
@@ -132,8 +133,8 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
       child: Scaffold(
         body: Container(
           color: color.AppColor.residentBody,
-          padding: const EdgeInsets.only(
-            top: 20,
+          padding:  EdgeInsets.only(
+            top: 20.h,
           ),
           child: Column(children: [
             TitleContainer(
@@ -142,20 +143,20 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
             ),
             Container(
               color: color.AppColor.residentBody,
-              padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
+              padding: EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
               child: Column(children: [
                 _buildSearchBar(),
                 const SizedBox(
                   height: 20,
                 ),
                 Row(
-                  children: const [
+                  children:  [
                     Text(
                       "View Member's Staff",
                       style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 25.h, fontWeight: FontWeight.bold),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.keyboard_arrow_down_outlined,
                       size: 15,
                     ),
@@ -171,15 +172,15 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
             ),
             Container(
               color: Colors.white,
-              height: 50,
+              height: 50.h,
               child: ListTile(
                 leading: Text(
                   "1-${memberStaff.length} of $totalPages results",
-                  style: const TextStyle(fontSize: 16),
+                  style:  TextStyle(fontSize: 16.sp),
                 ),
                 trailing: Text(
                   "Results per page ${memberStaff.length}",
-                  style: const TextStyle(fontSize: 16),
+                  style:  TextStyle(fontSize: 16.sp),
                 ),
               ),
             ),

@@ -3,6 +3,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/view_memberModel/view_memberModel.dart';
 import '../authorize_member.dart';
 import '/../components/components_for_class_of_varable/colors.dart' as color;
@@ -27,18 +28,18 @@ class _ViewMemberCardState extends State<ViewMemberCard> {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 20),
+        padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
               title: Text(
                 widget.data.createdDate ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 widget.data.residentType ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
             const Divider(
@@ -60,54 +61,54 @@ class _ViewMemberCardState extends State<ViewMemberCard> {
             ListTile(
               title: Text(
                 "${widget.data.validityStartsDate ?? ''} - ${widget.data.validityEndsDate ?? ''}",
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 widget.data.status ?? '',
               ),
             ),
             ListTile(
-              title: const Text(
+              title:  Text(
                 'Name',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 widget.data.fullName ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
             ListTile(
-              title: const Text(
+              title: Text(
                 'Email',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 widget.data.email ?? '',
-                style: const TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
             ),
             ListTile(
-              title: const Text(
+              title:  Text(
                 'Address',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
               trailing: Container(
                 alignment: Alignment.centerRight,
                 width: 190,
                 child: Text(
                   widget.data.address ?? '',
-                  style: const TextStyle(fontSize: 15),
+                  style:  TextStyle(fontSize: 15.sp),
                 ),
               ),
             ),
             ListTile(
-              title: const Text(
+              title:  Text(
                 'Zone',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 widget.data.mraZone ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
             ListTile(
@@ -116,7 +117,7 @@ class _ViewMemberCardState extends State<ViewMemberCard> {
               ),
               trailing: Text(
                 widget.data.validityStartsDate ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
             ListTile(
@@ -125,7 +126,7 @@ class _ViewMemberCardState extends State<ViewMemberCard> {
               ),
               trailing: Text(
                 widget.data.validityEndsDate ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
 

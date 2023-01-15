@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/event_requestModel/event_requestModel.dart';
 import 'package:magodo/services/services.dart';
-
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 class EventRequestReportCard extends StatefulWidget {
   EventReport data;
 
@@ -66,18 +67,18 @@ class _EventRequestReportCardState extends State<EventRequestReportCard> {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 20),
+        padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
               title: Text(
                 widget.data.createdDate ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 widget.data.eventType ?? '',
-                style: const TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
             ),
             const Divider(
@@ -88,16 +89,16 @@ class _EventRequestReportCardState extends State<EventRequestReportCard> {
               trailing: Container(
                 decoration: BoxDecoration(
                     color: widget.data.status == 'Approved'
-                        ? Colors.green
-                        : Colors.red,
+                        ? color.AppColor.verifiedColor
+                        : color.AppColor.decline,
                     border: Border.all(color: Colors.white),
                     borderRadius: BorderRadius.circular(6.0)),
                 child: Padding(
                   padding: const EdgeInsets.all(6.0),
                   child: Text(widget.data.status ?? '',
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 15,
+                      style: TextStyle(
+                        fontSize: 15.sp,
                         color: Colors.white,
                       )),
                 ),
@@ -105,27 +106,27 @@ class _EventRequestReportCardState extends State<EventRequestReportCard> {
             ),
             ListTile(trailing: _buildEventDecision()),
             ListTile(
-              title: const Text(
+              title:  Text(
                 'Name',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
               trailing: Container(
                 alignment: Alignment.centerRight,
-                width: 190,
+                width: 190.w,
                 child: Text(
                   widget.data.fullname ?? '',
-                  style: const TextStyle(fontSize: 15),
+                  style:  TextStyle(fontSize: 15.sp),
                 ),
               ),
             ),
             ListTile(
-              title: const Text(
+              title:  Text(
                 'Population',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 widget.data.population ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
             const SizedBox(

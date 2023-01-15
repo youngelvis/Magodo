@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../models/member_staffModel/view_memberStaffModel.dart';
-
+import '/../components/components_for_class_of_varable/colors.dart' as color;
 class ViewMemberStaffCard extends StatelessWidget {
   MemberStaff data;
 
@@ -11,18 +12,18 @@ class ViewMemberStaffCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 20),
+        padding:  EdgeInsets.only(top: 20.h, bottom: 20.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
               title: Text(
                 data.dateLastModified ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 data.employmentStatus ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize:  15.sp),
               ),
             ),
             const Divider(
@@ -31,13 +32,13 @@ class ViewMemberStaffCard extends StatelessWidget {
             ListTile(
               title: Text(
                 data.empdateOrDob ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize:  15.sp),
               ),
               trailing: Container(
                 decoration: BoxDecoration(
                     color: data.identityStatus == 'Verified'
-                        ? Colors.green
-                        : Colors.red,
+                        ? color.AppColor.verifiedColor
+                        : color.AppColor.decline,
                     border: Border.all(color: Colors.white),
                     borderRadius: BorderRadius.circular(6.0)),
                 child: Padding(
@@ -52,56 +53,56 @@ class ViewMemberStaffCard extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: const Text(
+              title:  Text(
                 'Dependant Name',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize:  15.sp),
               ),
               trailing: Text(
                 data.dependantName ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
             ListTile(
-              title: const Text(
+              title:  Text(
                 'Resident Code',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize:  15.sp),
               ),
               trailing: Text(
                 data.residentCode ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize:  15.sp),
               ),
             ),
             ListTile(
-              title: const Text(
+              title:  Text(
                 'Resident Phone',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize:  15.sp),
               ),
               trailing: Text(
                 data.residentNo ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize:  15.sp),
               ),
             ),
             ListTile(
-              title: const Text(
+              title:  Text(
                 'Dependant Phone',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize:  15.sp),
               ),
               trailing: Text(
                 data.dependantPhone ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize:  15.sp),
               ),
             ),
             ListTile(
-              title: const Text(
+              title:  Text(
                 'Dependant Address',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize:  15.sp),
               ),
               trailing: Container(
                 alignment: Alignment.centerRight,
                 width: 190,
                 child: Text(
                   data.dependantContacts ?? '',
-                  style: const TextStyle(fontSize: 15),
+                  style: TextStyle(fontSize:  15.sp),
                 ),
               ),
             ),

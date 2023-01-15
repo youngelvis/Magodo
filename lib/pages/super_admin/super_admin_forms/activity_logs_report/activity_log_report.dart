@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
 import 'package:magodo/components/title.dart';
 
@@ -139,8 +140,8 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
       child: Scaffold(
         body: Container(
           color: color.AppColor.residentBody,
-          padding: const EdgeInsets.only(
-            top: 20,
+          padding:  EdgeInsets.only(
+            top: 20.h,
           ),
           child: Column(
             children: [
@@ -150,27 +151,27 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
               ),
               Container(
                 color: color.AppColor.residentBody,
-                padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
+                padding:  EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
                 child: Column(children: [
                   _buildSearchBar(),
                   const SizedBox(
                     height: 20,
                   ),
                   Row(
-                    children: const [
+                    children: [
                       Text(
                         "Activity Log report",
                         style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                            fontSize: 25.sp, fontWeight: FontWeight.bold),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.keyboard_arrow_down_outlined,
                         size: 15,
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
+                   SizedBox(
+                    height: 20.h,
                   ),
                 ]),
               ),
@@ -183,11 +184,11 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
                 child: ListTile(
                   leading: Text(
                     "1-${viewMembers.length} of $totalPages results",
-                    style: const TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16.sp),
                   ),
                   trailing: Text(
                     "Results per page ${viewMembers.length}",
-                    style: const TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16.sp),
                   ),
                 ),
               ),
