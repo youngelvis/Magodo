@@ -4,6 +4,8 @@ part 'residentdata.g.dart';
 
 @JsonSerializable()
 class ResidentModel {
+  String? firstname;
+  String? surname;
   String? resident_code;
   String? msisdn;
   String? email;
@@ -45,7 +47,9 @@ class ResidentModel {
       this.business_email,
       this.category,
       this.authorized_by,
-      this.authorized_date});
+      this.authorized_date,
+      this.firstname,
+      this.surname});
 
   factory ResidentModel.fromJson(Map<String, dynamic> json) =>
       _$ResidentModelFromJson(json);

@@ -103,11 +103,11 @@ class _EditProfileState extends State<EditProfile> {
                                   hintText: widget.data?.mobile_number??'Enter your mobile number'),
                               NameTextField(
                                   controller: _firstName,
-                                  hint: "Enter First Name",
+                                  hint: widget.data?.firstname??"Enter First Name",
                                   nameType: "First Name"),
                               NameTextField(
                                   controller: _surname,
-                                  hint: "Enter Surname",
+                                  hint: widget.data?.surname??"Enter Surname",
                                   nameType: "Surname"),
                               NameTextField(
                                   controller: _email,

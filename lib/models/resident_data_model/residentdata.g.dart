@@ -28,10 +28,14 @@ ResidentModel _$ResidentModelFromJson(Map<String, dynamic> json) =>
       category: json['category'] as String?,
       authorized_by: json['authorized_by'] as String?,
       authorized_date: json['authorized_date'] as String?,
+      firstname: json['firstname'] as String?,
+      surname: json['surname'] as String?,
     );
 
 Map<String, dynamic> _$ResidentModelToJson(ResidentModel instance) =>
     <String, dynamic>{
+      'firstname': instance.firstname,
+      'surname': instance.surname,
       'resident_code': instance.resident_code,
       'msisdn': instance.msisdn,
       'email': instance.email,
