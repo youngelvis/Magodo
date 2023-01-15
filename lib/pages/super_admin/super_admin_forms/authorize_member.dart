@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/date_text_field.dart';
 import 'package:magodo/services/services.dart';
 
@@ -33,7 +34,7 @@ class _AuthorizeMemberState extends State<AuthorizeMember> {
     return RoundedDropDownTextField(
       hint: Text(
         widget.response.status ?? statusOptions[0],
-        style: const TextStyle(fontSize: 15),
+        style:  TextStyle(fontSize: 15.sp),
       ),
       value: status,
       onChanged: (value) => setState(() {
@@ -48,7 +49,7 @@ class _AuthorizeMemberState extends State<AuthorizeMember> {
         value: statusOptions,
         child: Text(
           statusOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
+          style:  TextStyle(fontWeight: FontWeight.normal, fontSize: 17.sp),
         ),
       );
 
@@ -68,7 +69,7 @@ class _AuthorizeMemberState extends State<AuthorizeMember> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            padding:  EdgeInsets.only(top: 20.sp, left: 10.sp, right: 10.sp),
             child: Column(
               children: [
                 Row(children: [
@@ -81,10 +82,10 @@ class _AuthorizeMemberState extends State<AuthorizeMember> {
                       Navigator.of(context).pop();
                     },
                   ),
-                  const Center(
+                   Center(
                     child: Text(
                       'Authorize Member',
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 30.sp),
                     ),
                   ),
                 ]),

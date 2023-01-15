@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/date_text_field.dart';
 import 'package:magodo/components/roundedDropDownTextfield.dart';
 import 'package:magodo/components/text_for_form.dart';
@@ -66,9 +67,9 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
 
   Widget _buildClassification() {
     return RoundedDropDownTextField(
-      hint: const Text(
+      hint:  Text(
         '-- Select Class --',
-        style: TextStyle(fontSize: 15),
+        style: TextStyle(fontSize: 15.sp),
       ),
       value: classification,
       onChanged: (value) => setState(() {
@@ -84,15 +85,15 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
         value: classificationOptions,
         child: Text(
           classificationOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
+          style:  TextStyle(fontWeight: FontWeight.normal, fontSize: 17.sp),
         ),
       );
 
   Widget _buildStatus() {
     return RoundedDropDownTextField(
-      hint: const Text(
+      hint:  Text(
         '-- Select Status --',
-        style: TextStyle(fontSize: 15),
+        style: TextStyle(fontSize: 15.sp),
       ),
       value: status,
       onChanged: (value) => setState(() {
@@ -107,7 +108,7 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
         value: statusOptions,
         child: Text(
           statusOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
+          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17.sp),
         ),
       );
   callMessage(message){
@@ -184,23 +185,23 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            padding: EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
             child: Column(
               children: [
                 TitleContainer(
                   title: 'Dashboard',
                   data: widget.data,
                 ),
-                const SizedBox(
-                  height: 50,
+                 SizedBox(
+                  height: 50.h,
                 ),
                 Row(
-                  children: const [
+                  children:  [
                     Text(
                       'Add New Administrative User',
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 25.sp),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.keyboard_arrow_down_outlined,
                       size: 15,
                     ),
@@ -220,16 +221,12 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
                                   controller: _residentCode,
                                   hint: "Enter resident code",
                                   nameType: "Staff Resident Code"),
-                              const SizedBox(
-                                height: 20,
-                              ),
+
                               MobileNumberTextField(
                                   controller: _mobileNumber,
                                   fieldName: ' Mobile Number',
                                   hintText: 'Enter mobile number'),
-                              const SizedBox(
-                                height: 20,
-                              ),
+
                               NameTextField(
                                   controller: _surname,
                                   hint: "Enter Surname",
@@ -238,37 +235,25 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
                                   controller: _firstName,
                                   hint: "Enter First Name",
                                   nameType: " First Name"),
-                              const SizedBox(
-                                height: 20,
-                              ),
                               NameTextField(
                                   controller: _address,
                                   hint: "Enter address",
                                   nameType: " Address"),
-                              const SizedBox(
-                                height: 20,
-                              ),
                               NameTextField(
                                   controller: _email,
                                   hint: "Enter email",
                                   nameType: "Email"),
-                              const SizedBox(
-                                height: 20,
-                              ),
+
                               NameTextField(
                                   controller: _password,
                                   hint: "Enter a password",
                                   nameType: "Password"),
-                              const SizedBox(
-                                height: 20,
-                              ),
+
                               NameTextField(
                                   controller: _confirmPassword,
                                   hint: "Confirm password",
                                   nameType: "Confirm Password"),
-                              const SizedBox(
-                                height: 20,
-                              ),
+
                               const TextForForm(text: "Zone"),
                               _buildClassification(),
                               const SizedBox(

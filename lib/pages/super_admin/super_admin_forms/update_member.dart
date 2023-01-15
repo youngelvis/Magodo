@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/zones.dart';
 import 'package:magodo/pages/super_admin/super_admin_component/searchableDropDownList_UM.dart';
@@ -65,7 +66,7 @@ class _UpdateMemberState extends State<UpdateMember> {
     return RoundedDropDownTextField(
       hint: Text(
         response==null? classificationOptions[0]:response['user_group'],
-        style: const TextStyle(fontSize: 15),
+        style: TextStyle(fontSize: 15.sp),
       ),
       value: classification,
       onChanged: (value) => setState(() {
@@ -81,7 +82,7 @@ class _UpdateMemberState extends State<UpdateMember> {
         value: classificationOptions,
         child: Text(
           classificationOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
+          style:  TextStyle(fontWeight: FontWeight.normal, fontSize: 17.sp),
         ),
       );
 
@@ -89,7 +90,7 @@ class _UpdateMemberState extends State<UpdateMember> {
     return RoundedDropDownTextField(
       hint: Text(
         response==null?statusOptions[0]:response['status'],
-        style: const TextStyle(fontSize: 15),
+        style: TextStyle(fontSize: 15.sp),
       ),
       value: status,
       onChanged: (value) => setState(() {
@@ -104,7 +105,7 @@ class _UpdateMemberState extends State<UpdateMember> {
         value: statusOptions,
         child: Text(
           statusOptions,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
+          style:  TextStyle(fontWeight: FontWeight.normal, fontSize: 17.sp),
         ),
       );
   var response;
@@ -179,30 +180,30 @@ callMessage(message){
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            padding: EdgeInsets.only(top: 20.sp, left: 10.sp, right: 10.sp),
             child: Column(
               children: [
                 TitleContainer(
                   title: 'Dashboard',
                   data: widget.data,
                 ),
-                const SizedBox(
-                  height: 50,
+                SizedBox(
+                  height: 50.h,
                 ),
                 Row(
-                  children: const [
+                  children:  [
                     Text(
                       'Update Member',
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 30.sp),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.keyboard_arrow_down_outlined,
                       size: 15,
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 40,
+                 SizedBox(
+                  height: 40.h,
                 ),
                 Expanded(
                   child: OverflowBox(
@@ -234,8 +235,8 @@ callMessage(message){
                                   nameType: "Address"),
                               const TextForForm(text: "Status"),
                               _buildStatus(),
-                              const SizedBox(
-                                height: 20,
+                               SizedBox(
+                                height: 20.h,
                               ),
                               BuildZoneDropDownList(
                                 zone: zone,
@@ -246,23 +247,23 @@ callMessage(message){
                               ),
                               const TextForForm(text: "Classification"),
                               _buildClassification(),
-                              const SizedBox(
-                                height: 20,
+                              SizedBox(
+                                height: 20.h,
                               ),
                               const TextForForm(text: "Validity Starts"),
                               CustomDatePicker(
                                 date: _startDate,
                                 hint: response==null ? 'Validity Starts': response['validity_starts'],
                               ),
-                              const SizedBox(
-                                height: 20,
+                               SizedBox(
+                                height: 20.h,
                               ),
                               const TextForForm(text: "Validity Ends"),
                               CustomDatePicker(
                                   date: _finishDate,
                                   hint: response==null ? 'validity end': response['validity_ends']),
-                              const SizedBox(
-                                height: 20,
+                              SizedBox(
+                                height: 20.h,
                               ),
                               ActionPageButton(
                                   onPressed: () async {

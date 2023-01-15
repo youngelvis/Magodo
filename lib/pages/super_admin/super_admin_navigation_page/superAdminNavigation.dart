@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/text_button_nav_page.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/change_password/change_password.dart';
@@ -47,8 +48,8 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 50,
+                       SizedBox(
+                        height: 50.sp,
                       ),
                       IconButton(
                           icon: Icon(
@@ -59,8 +60,8 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                           onPressed: () {
                             Navigator.of(context).pop();
                           }),
-                      const SizedBox(
-                        height: 50,
+                       SizedBox(
+                        height: 50.h,
                       ),
                       NavTextButton(
                           icon: Icons.speed,
@@ -78,12 +79,12 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               color: color.AppColor.landingPage2,
                               size: 50,
                             ),
-                            const SizedBox(
-                              width: 10,
+                             SizedBox(
+                              width: 10.w,
                             ),
                             Text('Profile',
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2)),
                           ],
                         ),
@@ -92,7 +93,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               title: Text(
                                 'Edit Profile',
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -104,7 +105,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               title: Text(
                                 'Change Password',
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -134,8 +135,8 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               color: color.AppColor.landingPage2,
                               size: 50,
                             ),
-                            const SizedBox(
-                              width: 10,
+                             SizedBox(
+                              width: 10.w,
                             ),
                              Text('Reports',
                                 style: TextStyle(fontSize: 20, color: color.AppColor.landingPage2)),
@@ -146,7 +147,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               title: Text(
                                 'Event Request Report',
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -158,7 +159,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               title: Text(
                                 'View Member',
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -170,7 +171,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               title: Text(
                                 'View Passcode Record',
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -182,7 +183,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               title: Text(
                                 ' Member Staff',
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -194,7 +195,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               title: Text(
                                 'Movement Register',
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -206,7 +207,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               title: Text(
                                 'Activity Log',
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -220,7 +221,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               title: Text(
                                 'Break Down Report',
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
