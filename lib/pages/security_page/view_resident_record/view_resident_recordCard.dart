@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/resident_report_data_model/resident_report_data_model.dart';
 import '/../components/components_for_class_of_varable/colors.dart' as color;
 
@@ -11,19 +12,19 @@ class ViewResidentRecordCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 20),
+        padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
               title: Text(
                 data.createdDate ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 data.residentType ?? '',
                 style: TextStyle(
-                    fontSize: 15, color: color.AppColor.homePageTheme),
+                    fontSize: 15.sp, color: color.AppColor.homePageTheme),
               ),
             ),
             const Divider(
@@ -35,41 +36,41 @@ class ViewResidentRecordCard extends StatelessWidget {
             ListTile(
               trailing: Text(data.status ?? '',
                   style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 15.sp,
                       backgroundColor: data.status == 'Verified'
                           ? Colors.green
                           : Colors.red)),
             ),
             ListTile(
-              title: const Text("Resident Name",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              title:  Text("Resident Name",
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Text(data.fullName ?? '',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  style:  TextStyle(fontSize: 15.sp, color: Colors.black)),
             ),
             ListTile(
-              title: const Text("Resident Address",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              title:  Text("Resident Address",
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Container(
                 alignment: Alignment.centerRight,
                 width: 190,
                 child: Text(
                   data.address ?? '',
-                  style: const TextStyle(fontSize: 15),
+                  style:  TextStyle(fontSize: 15.sp),
                 ),
               ),
             ),
 
             ListTile(
-              title: const Text("Zone",
-                  style: TextStyle(fontSize: 15,)),
+              title:  Text("Zone",
+                  style: TextStyle(fontSize: 15.sp,)),
               trailing: Text(data.mraZone ?? '',
-                  style: const TextStyle(fontSize: 15, )),
+                  style:  TextStyle(fontSize: 15.sp, )),
             ),
             ListTile(
-              title: const Text("Validity End Date",
-                  style: TextStyle(fontSize: 15, )),
+              title:  Text("Validity End Date",
+                  style: TextStyle(fontSize: 15.sp, )),
               trailing: Text(data.validityEndsDate ?? '',
-                  style: const TextStyle(fontSize: 15,)),
+                  style:  TextStyle(fontSize:15.sp,)),
             ),
             const SizedBox(
               height: 25,

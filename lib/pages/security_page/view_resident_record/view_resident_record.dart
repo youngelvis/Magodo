@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/roundedTextSearchField.dart';
 import 'package:magodo/components/title.dart';
 import 'package:magodo/models/resident_report_data_model/resident_report_data_model.dart';
@@ -123,8 +124,8 @@ class _ViewResidentRecordsState extends State<ViewResidentRecords> {
       child: Scaffold(
         body: Container(
           color: color.AppColor.residentBody,
-          padding: const EdgeInsets.only(
-            top: 20,
+          padding: EdgeInsets.only(
+            top: 20.h,
           ),
           child: Column(
             children: [
@@ -134,20 +135,20 @@ class _ViewResidentRecordsState extends State<ViewResidentRecords> {
               ),
               Container(
                 color: color.AppColor.residentBody,
-                padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
+                padding:  EdgeInsets.only(right: 20.w, left: 20.w, top: 40.w),
                 child: Column(children: [
                   _buildSearchBar(),
                   const SizedBox(
                     height: 20,
                   ),
                   Row(
-                    children: const [
+                    children: [
                       Text(
                         "View Resident Records",
                         style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                            fontSize: 25.sp, fontWeight: FontWeight.bold),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.keyboard_arrow_down_outlined,
                         size: 15,
                       ),
@@ -167,11 +168,11 @@ class _ViewResidentRecordsState extends State<ViewResidentRecords> {
                 child: ListTile(
                   leading: Text(
                     "1-${viewMembers.length} of $totalPages results",
-                    style: const TextStyle(fontSize: 16),
+                    style:  TextStyle(fontSize: 16.sp),
                   ),
                   trailing: Text(
                     "Results per page ${viewMembers.length}",
-                    style: const TextStyle(fontSize: 16),
+                    style:  TextStyle(fontSize: 16.sp),
                   ),
                 ),
               ),

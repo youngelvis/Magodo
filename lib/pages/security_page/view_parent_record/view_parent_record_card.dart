@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/parent_report_data_model/parent_report_data_model.dart';
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 class ViewParentRecordCard extends StatelessWidget {
   ParentReport data;
    ViewParentRecordCard({Key? key, required this.data}) : super(key: key);
@@ -8,14 +10,14 @@ class ViewParentRecordCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 20),
+        padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
               title: Text(
                 data.dateCreated ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
 
             ),
@@ -28,58 +30,58 @@ class ViewParentRecordCard extends StatelessWidget {
             ListTile(
               trailing: Text(data.status ?? '',
                   style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 15.sp,
                       backgroundColor: data.status == 'verified'
-                          ? Colors.green
-                          : Colors.red)),
+                          ? color.AppColor.verifiedColor
+                          : color.AppColor.decline)),
             ),
             ListTile(
-              title: const Text("Resident Name",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              title:  Text("Resident Name",
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Text(data.residentName ?? '',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
             ),
             ListTile(
-              title: const Text("Parent Name",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              title:  Text("Parent Name",
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Text(data.parentName ?? '',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  style:  TextStyle(fontSize: 15.sp, color: Colors.black)),
             ),
             ListTile(
-              title: const Text("Parent Phone",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              title:  Text("Parent Phone",
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Text(data.parentMobile ?? '',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  style:  TextStyle(fontSize: 15.sp, color: Colors.black)),
             ),
             ListTile(
-              title: const Text("Parent Address",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              title: Text("Parent Address",
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Container(
                 alignment: Alignment.centerRight,
                 width: 190,
                 child: Text(
                   data.parentAddress ?? '',
-                  style: const TextStyle(fontSize: 15),
+                  style: TextStyle(fontSize: 15.sp),
                 ),
               ),
             ),
             ListTile(
-              title: const Text("Business Name",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              title:  Text("Business Name",
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Text(data.businessName ?? '-',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  style:  TextStyle(fontSize: 15.sp, color: Colors.black)),
             ),
             ListTile(
-              title: const Text("Zone",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              title:  Text("Zone",
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Text(data.zone ?? '',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  style:  TextStyle(fontSize: 15.sp, color: Colors.black)),
             ),
             ListTile(
-              title: const Text("Validity End Date",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              title:  Text("Validity End Date",
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Text(data.validityEnds ?? '',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  style:  TextStyle(fontSize: 15.sp, color: Colors.black)),
             ),
             const SizedBox(
               height: 25,

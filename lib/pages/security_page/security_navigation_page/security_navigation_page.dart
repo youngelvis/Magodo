@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/pages/security_page/security_form/validate_passcode.dart';
 import '../../../components/text_button_nav_page.dart';
 import '../../../models/resident_data_model/residentdata.dart';
@@ -40,8 +41,8 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
           width: MediaQuery.of(context).size.width / 1.5,
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const SizedBox(
-              height: 50,
+             SizedBox(
+              height: 50.h,
             ),
             IconButton(
                 icon: Icon(
@@ -52,8 +53,8 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 }),
-            const SizedBox(
-              height: 50,
+             SizedBox(
+              height: 50.h,
             ),
             NavTextButton(
                 icon: Icons.speed,
@@ -109,7 +110,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                   ),
                   Text('Profile',
                       style: TextStyle(
-                          fontSize: 20, color: color.AppColor.landingPage2)),
+                          fontSize: 15.sp, color: color.AppColor.landingPage2)),
                 ],
               ),
               children: [
@@ -117,7 +118,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                     title: Text(
                       'Edit Profile',
                       style: TextStyle(
-                          fontSize: 20, color: color.AppColor.landingPage2),
+                          fontSize: 15.sp, color: color.AppColor.landingPage2),
                     ),
                     onTap: () {
                       navigateToPage(EditProfile(
@@ -128,7 +129,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                     title: Text(
                       'Change Password',
                       style: TextStyle(
-                          fontSize: 20, color: color.AppColor.landingPage2),
+                          fontSize: 15.sp, color: color.AppColor.landingPage2),
                     ),
                     onTap: () {
                       navigateToPage(ChangePassword(
@@ -150,7 +151,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                     ),
                     Text('Reports',
                         style: TextStyle(
-                            fontSize: 20, color: color.AppColor.landingPage2)),
+                            fontSize: 15.sp, color: color.AppColor.landingPage2)),
                   ],
                 ),
                 children: [
@@ -158,7 +159,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                       title: Text(
                         'View Passcode',
                         style: TextStyle(
-                            fontSize: 20, color: color.AppColor.landingPage2),
+                            fontSize: 15.sp, color: color.AppColor.landingPage2),
                       ),
                       onTap: () {
                         navigateToPage(ViewPasscodeRecord(
@@ -169,7 +170,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                       title: Text(
                         'View parent Records',
                         style: TextStyle(
-                            fontSize: 20, color: color.AppColor.landingPage2),
+                            fontSize: 15.sp, color: color.AppColor.landingPage2),
                       ),
                       onTap: () {
                         navigateToPage(ViewParentRecord(
@@ -180,7 +181,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                       title: Text(
                         'View Staff Records',
                         style: TextStyle(
-                            fontSize: 20, color: color.AppColor.landingPage2),
+                            fontSize: 15.sp, color: color.AppColor.landingPage2),
                       ),
                       onTap: () {
                         navigateToPage(ViewStaffRecord(
@@ -191,7 +192,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                       title: Text(
                         'View Resident Records',
                         style: TextStyle(
-                            fontSize: 20, color: color.AppColor.landingPage2),
+                            fontSize: 15.sp, color: color.AppColor.landingPage2),
                       ),
                       onTap: () {
                         navigateToPage(ViewResidentRecords(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/staff_report_data_model/staff_report_data_model.dart';
 import '/../components/components_for_class_of_varable/colors.dart' as color;
 
@@ -11,14 +12,14 @@ class ViewStaffRecordCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 20),
+        padding:  EdgeInsets.only(top: 20.h, bottom: 20.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
               title: Text(
                 data.dateCreated ?? '',
-                style: const TextStyle(fontSize: 15),
+                style:  TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
                 data.employmentStatus ?? '',
@@ -44,59 +45,59 @@ class ViewStaffRecordCard extends StatelessWidget {
                 padding: const EdgeInsets.all(6.0),
                 child: Text(data.identityStatus ?? '',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 15,
+                    style:  TextStyle(
+                      fontSize: 15.sp,
                       color: Colors.white,
                     )),
               ),
             )),
             ListTile(
-              title: const Text("Dependant Name",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              title:  Text("Dependant Name",
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Text(data.dependantName ?? '',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  style:  TextStyle(fontSize: 15.sp, color: Colors.black)),
             ),
             ListTile(
-              title: const Text("Dependant Address",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              title:  Text("Dependant Address",
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Container(
                 alignment: Alignment.centerRight,
                 width: 190,
                 child: Text(
                   data.dependantContacts ?? '',
-                  style: const TextStyle(fontSize: 15),
+                  style:  TextStyle(fontSize: 15.sp),
                 ),
               ),
             ),
             ListTile(
-              title: const Text("Dependant Phone",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              title:  Text("Dependant Phone",
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Text(data.dependantPhone ?? '',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  style:  TextStyle(fontSize: 15.sp, color: Colors.black)),
             ),
             ListTile(
-              title: const Text("Relationship",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              title:  Text("Relationship",
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Text(data.relationship ?? '-',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  style:  TextStyle(fontSize: 15.sp, color: Colors.black)),
             ),
             ListTile(
-              title: const Text("date of employment",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              title:  Text("date of employment",
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Text(data.empdateOrDob ?? '-',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
             ),
             ListTile(
-              title: const Text("Zone",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              title:  Text("Zone",
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Text(data.zone ?? '',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  style:  TextStyle(fontSize: 15.sp, color: Colors.black)),
             ),
             ListTile(
-              title: const Text("Validity End Date",
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              title:  Text("Validity End Date",
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Text(data.validityEnds ?? '',
-                  style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  style:  TextStyle(fontSize: 15, color: Colors.black)),
             ),
             const SizedBox(
               height: 25,

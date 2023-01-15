@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/security_page/view_passcode_record/view_passcode_record_card.dart';
@@ -155,20 +156,20 @@ class _ViewPasscodeRecordState extends State<ViewPasscodeRecord> {
               ),
               Container(
                 color: color.AppColor.residentBody,
-                padding: const EdgeInsets.only(right: 20, left: 20, top: 40),
+                padding:  EdgeInsets.only(right: 20.w, left: 2.w, top: 40.h),
                 child: Column(children: [
                   _buildSearchBar(),
                   const SizedBox(
                     height: 20,
                   ),
                   Row(
-                    children: const [
+                    children:  [
                       Text(
                         "View Passcode Record",
                         style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                            fontSize: 25.sp, fontWeight: FontWeight.bold),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.keyboard_arrow_down_outlined,
                         size: 15,
                       ),
@@ -188,11 +189,11 @@ class _ViewPasscodeRecordState extends State<ViewPasscodeRecord> {
                 child: ListTile(
                   leading: Text(
                     "1-${viewMembers.length} of $totalPages results",
-                    style: const TextStyle(fontSize: 16),
+                    style:  TextStyle(fontSize: 16.sp),
                   ),
                   trailing: Text(
                     "Results per page ${viewMembers.length}",
-                    style: const TextStyle(fontSize: 16),
+                    style:  TextStyle(fontSize: 16.sp),
                   ),
                 ),
               ),
