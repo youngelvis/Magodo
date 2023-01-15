@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/pages/forget_password_page/forget_Password.dart';
 import 'components_for_class_of_varable/colors.dart' as color;
 class RememberMe extends StatefulWidget {
@@ -28,12 +29,12 @@ class _RememberMeState extends State<RememberMe> {
             checkColor: Colors.white,
           ),
         ),
-        const Text(
+         Text(
           'Remember me',
-          style: TextStyle(fontSize: 15, color: Colors.black26),
+          style: TextStyle(fontSize: 15.sp, color: Colors.black26),
         ),
-        const SizedBox(
-          width: 80,
+         SizedBox(
+          width: 55.w,
         ),
         GestureDetector(
           onTap: () {
@@ -47,7 +48,7 @@ class _RememberMeState extends State<RememberMe> {
           child: Text(
             'Forgot Password',
             style: TextStyle(
-                fontSize: 20,
+                fontSize: 20.sp,
                 color: color.AppColor.homeSecondaryTheme),
           ),
         )

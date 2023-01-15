@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/terms_and_conditions.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/textfields_types/password_textfield.dart';
@@ -123,8 +124,8 @@ setState(() {
                 RegistrationPageBody: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 40,
+                     SizedBox(
+                      height: 40.h,
                     ),
                     BuildZoneDropDownList(
                       zone: zone,
@@ -136,9 +137,7 @@ setState(() {
                         controller: _address,
                         hint: 'Enter your address',
                         nameType: 'Address'),
-                    const SizedBox(
-                      height: 20,
-                    ),
+
                     BuildResidentTypeDropDownList(
                         residentType: residentType,
                         onChanged: (value) => setState(() {
@@ -149,9 +148,7 @@ setState(() {
                             })),
                     BuildPasswordTextField(
                         passwordController: _password, fieldName: 'Password'),
-                    const SizedBox(
-                      height: 20,
-                    ),
+
                     BuildPasswordTextField(
                         passwordController: _confirmPassword,
                         fieldName: 'Confirm Password'),
@@ -159,8 +156,8 @@ setState(() {
                       height: 15,
                     ),
                     const TermsAndConditions(),
-                    const SizedBox(
-                      height: 50,
+                    SizedBox(
+                      height: 40.h,
                     ),
                   ],
                 ),
@@ -170,8 +167,8 @@ setState(() {
                       _selectResidential ? _nextPage() : await _register();
                     }),
               ),
-              const SizedBox(
-                height: 50,
+              SizedBox(
+                height: 50.h,
               ),
             ],
           ),

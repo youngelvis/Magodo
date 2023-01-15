@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/textfields_types/category_drop_down_list.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
@@ -116,8 +117,8 @@ class _Registration_page3State extends State<Registration_page3> {
                 RegistrationPageBody: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 40,
+                     SizedBox(
+                      height: 40.h,
                     ),
                     BuildCategoryDropDownList(
                       onChanged: (value) => setState(() {
@@ -125,43 +126,33 @@ class _Registration_page3State extends State<Registration_page3> {
                       }),
                       category: categoryType,
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+
                     NameTextField(
                         controller: _streetNameOrNumber,
                         hint: 'Enter your street name',
                         nameType: "Street Name/Address"),
-                    const SizedBox(
-                      height: 20,
-                    ),
+
                     NameTextField(
                         controller: _businessName,
                         hint: 'Enter business name',
                         nameType: "Business Name"),
-                    const SizedBox(
-                      height: 20,
-                    ),
+
                     NameTextField(
                         controller: _numberOfStaff,
                         hint: 'Enter number of staff',
                         nameType: "Number of Staffs"),
-                    const SizedBox(
-                      height: 20,
-                    ),
+
                     MobileNumberTextField(
                         controller: _businessMobileNumber,
                         fieldName: 'Business Mobile Number',
                         hintText: 'Enter business mobile number'),
-                    const SizedBox(
-                      height: 20,
-                    ),
+
                     NameTextField(
                         controller: _businessEmail,
                         hint: 'Enter business email',
                         nameType: "Business Email"),
-                    const SizedBox(
-                      height: 50,
+                    SizedBox(
+                      height: 30.h,
                     )
                   ],
                 ),
@@ -171,8 +162,8 @@ class _Registration_page3State extends State<Registration_page3> {
                     },
                     text: 'Register Now'),
               ),
-              const SizedBox(
-                height: 50,
+               SizedBox(
+                height: 40.h,
               )
             ],
           ),

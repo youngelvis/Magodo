@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/roundedPasswordInput.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
@@ -28,7 +29,7 @@ class _BuildPasswordTextFieldState extends State<BuildPasswordTextField> {
         Text(
           widget.fieldName,
           style: TextStyle(
-              fontSize: 20,
+              fontSize: 20.sp,
               fontWeight: FontWeight.w400,
               color: color.AppColor.homePageTitle),
         ),
@@ -48,8 +49,8 @@ class _BuildPasswordTextFieldState extends State<BuildPasswordTextField> {
                   _obscureText ? Icons.visibility : Icons.visibility_off,
                   color: color.AppColor.landingPageTitle)),
         ),
-        const SizedBox(
-          height: 20,
+         SizedBox(
+          height: 20.h,
         ),
       ],
     );

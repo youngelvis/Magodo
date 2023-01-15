@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/pages/landing_page/welcome_screen.dart';
 void main() {
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -9,10 +10,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      title: 'Magodo Estate App',
-      theme: ThemeData(),
-      home: const WelcomeScreen(),
+    return ScreenUtilInit(
+       builder:(context, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Magodo Estate App',
+        theme: ThemeData(),
+        home:  WelcomeScreen(),
+      ),
+      designSize: const Size(411,896),
     );
 
   }

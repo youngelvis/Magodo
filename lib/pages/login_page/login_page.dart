@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/remember_me.dart';
 import 'package:magodo/components/dont_already_have_an_account.dart';
@@ -129,7 +130,7 @@ class _SignINState extends State<SignIN> {
           body: SingleChildScrollView(
             child: Container(
               color: color.AppColor.homePageBackground,
-              padding: const EdgeInsets.only(top: 60, left: 30, right: 30),
+              padding: EdgeInsets.only(top: 60.h, left: 30.w, right: 30.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -138,24 +139,24 @@ class _SignINState extends State<SignIN> {
                       'Sign In',
                       style: TextStyle(
                           color: color.AppColor.landingPageTitle,
-                          fontSize: 35,
+                          fontSize: 30.sp,
                           fontWeight: FontWeight.w900),
                     ),
                   ),
-                  const SizedBox(
-                    height: 50,
+                   SizedBox(
+                    height: 45.h,
                   ),
                   Center(
                     child: Text(
                       'Welcome Back',
                       style: TextStyle(
                           color: color.AppColor.homeSecondaryTheme,
-                          fontSize: 30,
+                          fontSize: 30.sp,
                           fontWeight: FontWeight.w900),
                     ),
                   ),
-                  const SizedBox(
-                    height: 30,
+                   SizedBox(
+                    height: 30.h,
                   ),
                   Center(child: DontAlreadyHaveAnAccount(
                     onPressed: () {
@@ -165,8 +166,8 @@ class _SignINState extends State<SignIN> {
                               builder: (context) => const SignUp()));
                     },
                   )),
-                  const SizedBox(
-                    height: 40,
+                  SizedBox(
+                    height: 40.h,
                   ),
                   NameTextField(
                       controller: _residentCode,
@@ -174,19 +175,22 @@ class _SignINState extends State<SignIN> {
                       nameType: 'Resident Code'),
                   BuildPasswordTextField(
                       fieldName: 'Password', passwordController: _password),
-                  const SizedBox(
-                    height: 20,
+                   SizedBox(
+                    height: 20.h,
                   ),
                   const RememberMe(),
-                  const SizedBox(
-                    height: 200,
+                   SizedBox(
+                    height: 120.h,
                   ),
                   ActionPageButton(
                     text: 'Log in',
                     onPressed: () async {
                       await _login();
                     },
-                  )
+                  ),
+                  SizedBox(
+                    height: 30.h,
+                  ),
                 ],
               ),
             ),

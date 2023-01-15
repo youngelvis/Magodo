@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/pages/register_page/registration_page_components/registration_pages_forms.dart';
 import 'package:magodo/pages/login_page/login_component/signUpText.dart';
@@ -45,8 +46,8 @@ class _SignUpState extends State<SignUp> {
         key: scaffoldKey,
         body: Form(
           child: Container(
-            padding: const EdgeInsets.only(
-              top: 60,
+            padding:  EdgeInsets.only(
+              top: 60.h,
             ),
             color: color.AppColor.homePageBackground,
             child: Column(
@@ -56,36 +57,23 @@ class _SignUpState extends State<SignUp> {
                 RegistrationPagesForms(
                   RegistrationPageBody: Column(
                     children: [
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      const SizedBox(
-                        height: 20,
+                      SizedBox(
+                        height: 30.h,
                       ),
                       NameTextField(
                           controller: _surname,
                           hint: 'Enter Your surname',
                           nameType: 'Surname'),
-                      const SizedBox(
-                        height: 20,
-                      ),
+
                       NameTextField(
                           controller: _firstname,
                           hint: 'Enter Your firstname',
                           nameType: 'First Name'),
-                      const SizedBox(
-                        height: 20,
-                      ),
+
                       NameTextField(
                           controller: _email,
                           hint: 'Enter Your email address',
                           nameType: 'E-mail'),
-                      const SizedBox(
-                        height: 50,
-                      ),
                     ],
                   ),
                   reistrationPageButton: ActionPageButton(

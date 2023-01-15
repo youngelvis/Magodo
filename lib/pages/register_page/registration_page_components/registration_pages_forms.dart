@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RegistrationPagesForms extends StatelessWidget {
   final RegistrationPageBody;
@@ -17,7 +18,7 @@ class RegistrationPagesForms extends StatelessWidget {
       child: OverflowBox(
         child: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.only(left: 30, right: 30),
+            padding:  EdgeInsets.only(left: 30.w, right: 30.w),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
