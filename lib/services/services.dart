@@ -677,7 +677,7 @@ class Services {
       "user_group": userGroup,
       "action_user": userGroup
     };
-    var res = await CallApi().postData(data, 'finalAuthorization');
+    var res = await CallApi().putData(data, 'finalAuthorization');
     var body = jsonDecode(res.body);
     return body;
   }
@@ -705,6 +705,7 @@ class Services {
     var res = await CallApi().postData(data, 'dependantsReport');
     return res.body;
   }
+
   //50
   adminPasscodeHistory(page, search, zone) async {
     var data = {
@@ -716,6 +717,8 @@ class Services {
     var res = await CallApi().postData(data, 'adminPasscodeHistory');
     return res.body;
   }
+
+  //51
   superAdminPasscodeHistory(page, search, zone) async {
     var data = {
       "page": page,
@@ -725,5 +728,41 @@ class Services {
     };
     var res = await CallApi().postData(data, 'superAdminPasscodeHistory');
     return res.body;
+  }
+
+//52
+  authorizeUser(residentCode, residentPhone, fullName, validityStart,
+      validityEnds, actionAdmin, status) async {
+    var data= {
+      "resident_reg_code": residentCode,
+      "resident_phone": residentPhone,
+      "full_name": fullName,
+      "validity_starts": validityStart,
+      "validity_ends": validityEnds,
+      "action_admin": actionAdmin,
+      "status": status
+    };
+    var res = await CallApi().putData(data, 'authorizeUser');
+    return res.body;
+  }
+  //53
+
+  declineUser(residentCode, actionAdmin)async{
+    var data= {
+      "resident_reg_code": residentCode,
+      "action_admin": actionAdmin,
+    };
+    var res = await CallApi().putData(data, 'declineUser');
+    return res.body;
+  }
+
+  //54
+  changeStaff(guid) async{
+    var data= {
+      "guid_id": guid,
+  };
+  var res = await CallApi().postData(data, 'changeStaff');
+  var body = jsonDecode(res.body);
+  return body;
   }
 }

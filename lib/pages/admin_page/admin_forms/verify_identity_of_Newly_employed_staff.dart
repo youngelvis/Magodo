@@ -1,8 +1,16 @@
+import 'dart:convert';
+
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
+import 'package:magodo/services/services.dart';
+import '../../../api/api.dart';
+import '../../../components/components_for_class_of_varable/userGroup.dart';
 import '../../../components/roundedDropDownTextfield.dart';
 import '../../../components/textfields_types/buildEmploymentStatus.dart';
 import '../../../components/textfields_types/buildStaffRelationshipDropdownList.dart';
+import '../../../models/fetch_staff_model/fetch_staff_model.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import '../../../components/action_page_button2.dart';
 import '../../../components/date_text_field.dart';
@@ -32,11 +40,80 @@ TextEditingController _staffAddress = TextEditingController();
 class _VerifyNewStaffState extends State<VerifyNewStaff> {
   String? relationship;
   String? employmentStatus;
-  var staff;
+  var staffGUID;
+  var response;
+  FetchStaffs? fetchStaffs;
 
-  onChange(String? s) async {
-    staff = s?.split("- ");
-  }
+  @override
+  // ignore: must_call_super
+    initState() {
+      getData();
+    }
+    var sessionManager = SessionManager();
+    void getData() async {
+      var userGroup = widget.data?.usr_group;
+      var zone = widget.data?.zone;
+      String url = '';
+
+      if(userGroup == UserGroup.SUPER_ADMIN){
+        url = 'fetchEmployedStaffs';
+      }
+      url = 'fetchEmployedStaffs/$zone';
+
+      var res = await CallApi().getData(url);
+      var r = jsonDecode(res.body);
+
+      setState(() {
+        fetchStaffs = FetchStaffs.fromJson(r);
+
+      });
+
+    }
+
+    onChange(String? s) async {
+      var residentCode = s?.split("- ");
+      String? name = residentCode?[1];
+
+      for (FetchStaff item in fetchStaffs?.data ?? []) {
+        if (item.dependantName == name?.trim()) {
+          setState(() {
+            staffGUID = item.guid;
+          });
+        }
+      }
+      final data = await Services().changeStaff(staffGUID);
+
+      setState(() {
+        response = data['data'];
+      });
+      print(response);
+    }
+
+    _buildSearchableDropDownList() {
+      return Column(
+        children: [
+          DropdownSearch<String>(
+
+            mode: Mode.MENU,
+            showSelectedItems: true,
+            items: fetchStaffs?.data
+                ?.map((e) => "${e.residentCode} - ${e.dependantName}")
+                .toList(),
+            dropdownSearchDecoration: const InputDecoration(
+                hintText: "select staff"),
+            showSearchBox: true,
+            onChanged:  onChange,
+            searchFieldProps: const TextFieldProps(
+              cursorColor: Colors.blue,
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          )
+        ],
+
+      );
+    }
 
   String? status;
   final statusOptions = [
@@ -48,9 +125,9 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
 
   Widget _buildStatus() {
     return RoundedDropDownTextField(
-      hint: const Text(
-        'status',
-        style: TextStyle(fontSize: 15),
+      hint:Text(
+        response==null ? 'Staff Name': response['status'],
+        style: const TextStyle(fontSize: 15),
       ),
       value: status,
       onChanged: (value) => setState(() {
@@ -88,8 +165,8 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
                 Row(
                   children: const [
                     Text(
-                      'Identify Newly Registered Members',
-                      style: TextStyle(fontSize: 30),
+                      'Identify Newly Employed Staff',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -110,36 +187,35 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
                               const TextForForm(
                                 text: 'Select Resident',
                               ),
-                              SearchableDropDownListForMemberStaff(
-                                onChange: onChange,
-                                data: widget.data,
-                              ),
+                              _buildSearchableDropDownList(),
                               NameTextField(
                                   controller: _residentCode,
-                                  hint: 'Resident Code',
+                                  hint: response==null ? 'Staff Name': response['resident_code'],
                                   nameType: "Resident Code"),
                               MobileNumberTextField(
                                   controller: _staffPhone,
                                   fieldName: "Staff Phone Number",
-                                  hintText: 'Staff Phone Number'),
+                                  hintText: response==null ? 'Staff Name': response['staff_msisdn'],),
                               NameTextField(
                                   controller: _staffName,
-                                  hint: 'Staff Name',
+                                  hint: response==null ? 'Staff Name': response['staff_name'],
                                   nameType: "Staff Name"),
-                              const TextForForm(text: "Employment Date"),
-                              CustomDatePicker(date: _employmentDate),
+                              const TextForForm(text: "Employment Date",),
+                              CustomDatePicker(date: _employmentDate, hint: response==null ? 'Employment date': response['employment_date'], ),
 
                               BuildEmploymentDropDownList(
                                 onChanged: (value) => setState(() {
                                   employmentStatus = value as String;
                                 }),
                                 employment: employmentStatus,
+                                hints: response==null ? 'Employment Status': response['employment_status'],
                               ),
                               BuildRelationshipDropDownList(
                                 onChanged: (value) => setState(() {
                                   relationship = value as String;
                                 }),
                                 relationship: relationship,
+                                hints: response==null ? 'Relationship': response['relationship'],
                               ),
                               const TextForForm(text: "Identity Status"),
                               _buildStatus(),
@@ -148,13 +224,14 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
                               ),
                               NameTextField(
                                   controller: _staffAddress,
-                                  hint: 'Staff Address',
+                                  hint: response==null ? 'Staff Address': response['staff_contact'],
                                   nameType: "Staff Contact Details"),
                               const SizedBox(
                                 height: 30,
                               ),
                               Row(
                                 children: [
+                                  const SizedBox(width: 50,),
                                   ActionPageButton2(
                                     onPressed: () {},
                                     primaryColor: color.AppColor.homePageTheme,
@@ -166,7 +243,7 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
                                   ActionPageButton2(
                                     onPressed: () {},
                                     primaryColor: color.AppColor.decline,
-                                    text: 'Decline Verification',
+                                    text: 'Decline staff',
                                   ),
                                 ],
                               )

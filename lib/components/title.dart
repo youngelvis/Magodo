@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
+import 'package:magodo/pages/admin_page/admin_navigation_page/admin_navigation_page.dart';
+import 'package:magodo/pages/admin_page/admin_page.dart';
 import 'package:magodo/pages/navigation_page/resident_navigation_page.dart';
 import 'package:magodo/pages/profile_page/profile_page.dart';
 import 'package:magodo/pages/security_page/security_navigation_page/security_navigation_page.dart';
@@ -37,7 +39,7 @@ class _TitleContainerState extends State<TitleContainer> {
     }else if(widget.data?.usr_group == UserGroup.SECURITY){
       navigateToProfilePage(SecurityNavigationPage(data: widget.data));
     }else if(widget.data?.usr_group == UserGroup.ZONAL_ADMIN|| widget.data?.usr_group == UserGroup.ADMIN){
-      navigateToProfilePage(SecurityNavigationPage(data: widget.data));
+      navigateToProfilePage(AdminNavPage(residentModel: widget.data,));
     }
   }
 

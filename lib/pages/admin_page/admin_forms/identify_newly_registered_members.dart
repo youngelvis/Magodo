@@ -46,6 +46,7 @@ class _IdentifyNewlyRegisteredMembersState
     setState(() {
       response = data['data'];
     });
+    print(response);
   }
   String? status;
   final statusOptions = [
@@ -123,16 +124,17 @@ class _IdentifyNewlyRegisteredMembersState
                               MobileNumberTextField(
                                   controller: _mobileNumber,
                                   fieldName: "Mobile Number",
-                                  hintText: 'Mobile Number'),
+                                  hintText: response==null ? 'Mobile Number': response['resident_phone'],),
                               NameTextField(
                                   controller: _fullName,
-                                  hint: 'Full Name',
+                                  hint: response==null ? 'Full Name': response['full_name'],
                                   nameType: "Full Name"),
                               BuildZoneDropDownList(zone: zone,
                                   onChanged: (value) =>
                                       setState(() {
                                         zone = value as String;
-                                      }), ),
+                                      }),
+                              hint: response==null ? 'Full Name': response['zone'],),
                               const TextForForm(text: "Status"),
                               _buildStatus(),
                               const SizedBox(
@@ -140,34 +142,34 @@ class _IdentifyNewlyRegisteredMembersState
                               ),
                               NameTextField(
                                   controller: _address,
-                                  hint: 'Address',
+                                  hint: response==null ? 'Address': response['address'],
                                   nameType: "Address"),
                               const TextForForm(text: "Validity Starts"),
-                              CustomDatePicker(date: _startDate),
+                              CustomDatePicker(date: _startDate, hint: response==null ? 'Validity Start': response['validity_starts'],),
+                              const SizedBox(
+                                height: 20,
+                              ),
                               const TextForForm(text: "Validity Ends"),
-                              CustomDatePicker(date: _finishDate),
+                              CustomDatePicker(date: _finishDate, hint: response==null ? 'Validity End': response['validity_ends'],),
 
                               const SizedBox(
                                 height: 40,
                               ),
-                              Center(
-
-                                child: Row(
-                                  children: [
-                                    const SizedBox(width: 50,),
-                                    ActionPageButton2(
-                                      onPressed: () {},
-                                      primaryColor: color.AppColor.verifiedColor,
-                                      text: 'Authorize',
-                                    ),
-                                    const SizedBox(width: 50,),
-                                    ActionPageButton2(
-                                      onPressed: () {},
-                                      primaryColor: color.AppColor.decline,
-                                      text: 'Decline',
-                                    ),
-                                  ],
-                                ),
+                              Row(
+                                children: [
+                                  const SizedBox(width: 50,),
+                                  ActionPageButton2(
+                                    onPressed: () {},
+                                    primaryColor: color.AppColor.verifiedColor,
+                                    text: 'Authorize',
+                                  ),
+                                  const SizedBox(width: 50,),
+                                  ActionPageButton2(
+                                    onPressed: () {},
+                                    primaryColor: color.AppColor.decline,
+                                    text: 'Decline',
+                                  ),
+                                ],
                               ),
                               const SizedBox(
                                 height: 40,

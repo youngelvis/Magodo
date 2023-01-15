@@ -39,7 +39,6 @@ class _SearchableDropDownListForFetchMemberState extends State<SearchableDropDow
 
       var res = await CallApi().getData(url);
       var r = jsonDecode(res.body);
-      print("this ${r}");
     setState(() {
       fetchMemberMainData = FetchMemberMainData.fromJson(r);
     });
@@ -56,7 +55,7 @@ class _SearchableDropDownListForFetchMemberState extends State<SearchableDropDow
               ?.map((e) => "${e?.RESIDENT_CODE} - ${e?.FULL_NAME}")
               .toList(),
           dropdownSearchDecoration: const InputDecoration(
-              labelText: "Select Resident", hintText: "select resident"),
+             hintText: "select resident"),
           showSearchBox: true,
           onChanged: widget.onChange,
           searchFieldProps: const TextFieldProps(

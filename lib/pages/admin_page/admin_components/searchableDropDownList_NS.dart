@@ -6,7 +6,7 @@ import 'package:magodo/api/api.dart';
 import 'package:magodo/models/fetch_member_model/fetch_MemberMainData.dart';
 import 'package:magodo/models/fetch_staff_model/fetch_staff_model.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
-
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import '../../../components/components_for_class_of_varable/userGroup.dart';
 
 class SearchableDropDownListForMemberStaff extends StatefulWidget {
@@ -27,7 +27,7 @@ class _SearchableDropDownListForMemberStaffState extends State<SearchableDropDow
   initState() {
     getData();
   }
-
+  var sessionManager = SessionManager();
   void getData() async {
      var userGroup = widget.data?.usr_group;
     var zone = widget.data?.zone;
@@ -40,26 +40,40 @@ class _SearchableDropDownListForMemberStaffState extends State<SearchableDropDow
 
       var res = await CallApi().getData(url);
       var r = jsonDecode(res.body);
-      print("this ${r}");
+
     setState(() {
       fetchStaffs = FetchStaffs.fromJson(r);
+
     });
+     await sessionManager.set('data', fetchStaffs?.data);
   }
 
+  onChange(String? s) async {
+    var residentCode = s?.split("- ");
+    String? name = residentCode?[1];
+
+    for (FetchStaff item in fetchStaffs?.data ?? []) {
+      if (item.dependantName == name?.trim()) {
+        await sessionManager.set('Guid', item.guid);
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: [
         DropdownSearch<String>(
+
           mode: Mode.MENU,
           showSelectedItems: true,
           items: fetchStaffs?.data
-              ?.map((e) => "${e?.residentCode} - ${e?.dependantName}")
+              ?.map((e) => "${e.residentCode} - ${e.dependantName} - ${e.guid}")
               .toList(),
           dropdownSearchDecoration: const InputDecoration(
-              labelText: "Select Staff", hintText: "select staff"),
+               hintText: "select staff"),
           showSearchBox: true,
-          onChanged: widget.onChange,
+          onChanged:  widget.onChange,
           searchFieldProps: const TextFieldProps(
             cursorColor: Colors.blue,
           ),
@@ -68,6 +82,7 @@ class _SearchableDropDownListForMemberStaffState extends State<SearchableDropDow
           height: 20,
         )
       ],
+
     );
   }
 }
