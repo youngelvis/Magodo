@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/text_button_nav_page.dart';
 import 'package:magodo/models/event_requestModel/event_requestModel.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
@@ -51,8 +52,8 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(
-                          height: 50,
+                         SizedBox(
+                          height: 50.h,
                         ),
                         IconButton(
                             icon: Icon(
@@ -63,9 +64,19 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                             onPressed: () {
                               Navigator.of(context).pop();
                             }),
-                        const SizedBox(
-                          height: 50,
+                        SizedBox(
+                          height: 50.h,
                         ),
+                        NavTextButton(
+                            icon: Icons.speed,
+                            text: 'Dashboard',
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ResidentPageLandingPage(data: widget.data)));
+                            }),
                         ExpansionTile(
                           title: Row(
                             children: [
@@ -79,7 +90,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                               ),
                               Text('Profile',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2)),
                             ],
                           ),
@@ -88,7 +99,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 title: Text(
                                   'Edit Profile',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -100,7 +111,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 title: Text(
                                   'Change Password',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -112,7 +123,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 title: Text(
                                   'Add Family',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -124,7 +135,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 title: Text(
                                   'Add Staff',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -136,7 +147,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 title: Text(
                                   'Register Vehicle',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -148,7 +159,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 title: Text(
                                   'Event Passcode',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -158,17 +169,6 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 }),
                           ],
                         ),
-                        NavTextButton(
-                            icon: Icons.speed,
-                            text: 'Dashboard',
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ResidentPageLandingPage(data: widget.data)));
-                            }),
-
                         NavTextButton(
                             icon: Icons.shopping_bag,
                             text: 'Get Passcode',
@@ -206,16 +206,16 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                           title: Row(
                             children: [
                               Icon(
-                                Icons.person,
+                                Icons.filter_frames_sharp,
                                 color: color.AppColor.landingPage2,
                                 size: 50,
                               ),
-                              const SizedBox(
-                                width: 10,
+                               SizedBox(
+                                width: 10.h,
                               ),
                               Text('Reports',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2)),
                             ],
                           ),
@@ -224,7 +224,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 title: Text(
                                   'View Family Report',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -236,7 +236,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 title: Text(
                                   'View Staff Report',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -248,7 +248,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 title: Text(
                                   'view Vehicle Report',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -260,7 +260,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 title: Text(
                                   'Event Report',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
 
@@ -269,7 +269,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 title: Text(
                                   'View Passcode Report',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -280,7 +280,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                           ],
                         ),
                         NavTextButton(
-                            icon: Icons.shopping_bag,
+                            icon: Icons.exit_to_app,
                             text: 'Logout',
                             onPressed: () {
                               Navigator.push(
