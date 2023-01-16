@@ -1,82 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
-import 'package:magodo/services/services.dart';
-import '/../../components/components_for_class_of_varable/colors.dart' as color;
+
 import '../../../components/app_page_theme_action_button.dart';
+import '../../../components/date_text_field.dart';
+import '../../../components/roundedDropDownTextfield.dart';
+import '../../../components/text_for_form.dart';
 import '../../../components/textfields_types/mobile_num_textfield.dart';
 import '../../../components/textfields_types/name_textfield.dart';
 import '../../../components/title.dart';
 
-class RegisterParent extends StatefulWidget {
+class ExtendParentValidity extends StatefulWidget {
   ResidentModel? data;
 
-  RegisterParent({Key? key, this.data}) : super(key: key);
+  ExtendParentValidity({Key? key, this.data}) : super(key: key);
 
   @override
-  State<RegisterParent> createState() => _RegisterParentState();
+  State<ExtendParentValidity> createState() => _ExtendParentValidityState();
 }
 
-TextEditingController _parentFullName = TextEditingController();
 TextEditingController _parentMobile = TextEditingController();
-TextEditingController _parentEmail = TextEditingController();
+TextEditingController _parentFullName = TextEditingController();
+TextEditingController _validityStarts = TextEditingController();
+TextEditingController _validityEnds = TextEditingController();
 TextEditingController _parentAddress = TextEditingController();
 
-class _RegisterParentState extends State<RegisterParent> {
-  callMessage(message) {
-    return showDialog(
-      context: context,
-      builder: (_) =>
-          AlertDialog(
-            title: Text(message),
-            actions: [
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: color.AppColor.homePageTheme,
-                      onPrimary: color.AppColor.landingPage2,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0))),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text("ok"))
-            ],
-          ),
+class _ExtendParentValidityState extends State<ExtendParentValidity> {
+  String? status;
+  final statusOptions = [
+    '-- Select Status ',
+    'Unverified',
+    'Declined',
+    'Verified',
+  ];
+
+  Widget _buildStatus() {
+    return RoundedDropDownTextField(
+      hint: const Text(
+       'status',
+        style:  TextStyle(fontSize: 15),
+      ),
+      value: status,
+      onChanged: (value) => setState(() {
+        status = value as String;
+      }),
+      items: statusOptions.map(buildStatusItem).toList(),
     );
   }
 
-  _registerParent() async {
-    if (_parentAddress.text.isEmpty || _parentMobile.text.isEmpty ||
-        _parentAddress.text.isEmpty) {
-      var data = await Services().addParent(
-          widget.data?.resident_code,
-          widget.data?.zone,
-          _parentEmail.text,
-          widget.data?.usr_full_name,
-          widget.data?.msisdn,
-          _parentFullName.text,
-          widget.data?.Business_name,
-          _parentAddress.text,
-          _parentMobile.text);
-      callMessage(data['error']['message']);
-    }
-    var data = await Services().addParent(
-        widget.data?.resident_code,
-        widget.data?.zone,
-        _parentEmail.text,
-        widget.data?.usr_full_name,
-        widget.data?.msisdn,
-        _parentFullName.text,
-        widget.data?.Business_name,
-        _parentAddress.text,
-        _parentMobile.text);
-
-    _parentEmail.clear();
-    _parentFullName.clear();
-    _parentAddress.clear();
-    _parentMobile.clear();
-    callMessage(data['message']);
-  }
+  DropdownMenuItem<String> buildStatusItem(String statusOptions) =>
+      DropdownMenuItem(
+        value: statusOptions,
+        child: Text(
+          statusOptions,
+          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -97,8 +76,8 @@ class _RegisterParentState extends State<RegisterParent> {
               Row(
                 children: [
                   Text(
-                    'Register Parent',
-                    style: TextStyle(fontSize: 30.sp),
+                    'Extend Parent Validity',
+                    style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                   ),
                   const Icon(
                     Icons.keyboard_arrow_down_outlined,
@@ -116,18 +95,23 @@ class _RegisterParentState extends State<RegisterParent> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          NameTextField(
-                              controller: _parentFullName,
-                              hint: "Enter Parent Full name",
-                              nameType: "Full Name"),
                           MobileNumberTextField(
                               controller: _parentMobile,
                               fieldName: ' Parent Mobile Number',
                               hintText: 'parent mobile number'),
                           NameTextField(
-                              controller: _parentEmail,
-                              hint: "Enter Parent Email",
-                              nameType: "Email"),
+                              controller: _parentFullName,
+                              hint: "Enter Parent Full name",
+                              nameType: "Full Name"),
+                          const TextForForm(text: "Validity Starts"),
+                          CustomDatePicker(
+                            date: _validityStarts,
+                          ),
+                          const TextForForm(text: "Validity Starts"),
+                          CustomDatePicker(
+                            date: _validityEnds,
+                          ),
+                          _buildStatus(),
                           NameTextField(
                               controller: _parentAddress,
                               hint: "Enter Parent Address",
@@ -137,9 +121,9 @@ class _RegisterParentState extends State<RegisterParent> {
                           ),
                           ActionPageButton(
                               onPressed: () async {
-                                _registerParent();
+
                               },
-                              text: 'Register Parent'),
+                              text: 'Validate Parent'),
                           SizedBox(
                             height: 30.h,
                           ),
