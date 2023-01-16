@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/services/services.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
-import '../../../components/app_page_theme_action_button.dart';
-import '../../../components/textfields_types/mobile_num_textfield.dart';
-import '../../../components/textfields_types/name_textfield.dart';
-import '../../../components/title.dart';
+import '/../../../components/app_page_theme_action_button.dart';
+import '/../../../components/textfields_types/mobile_num_textfield.dart';
+import '/../../../components/textfields_types/name_textfield.dart';
+import '/../../../components/title.dart';
 
 class RegisterParent extends StatefulWidget {
   ResidentModel? data;

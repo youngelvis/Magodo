@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 
-import '../../../components/app_page_theme_action_button.dart';
-import '../../../components/date_text_field.dart';
-import '../../../components/roundedDropDownTextfield.dart';
-import '../../../components/text_for_form.dart';
-import '../../../components/textfields_types/mobile_num_textfield.dart';
-import '../../../components/textfields_types/name_textfield.dart';
-import '../../../components/title.dart';
-import '../../../services/services.dart';
+import '/../../../components/app_page_theme_action_button.dart';
+import '/../../../components/date_text_field.dart';
+import '/../../../components/roundedDropDownTextfield.dart';
+import '/../../../components/text_for_form.dart';
+import '/../../../components/textfields_types/mobile_num_textfield.dart';
+import '/../../../components/textfields_types/name_textfield.dart';
+import '/../../../components/title.dart';
+import '/../../../services/services.dart';
 
 class ExtendParentValidity extends StatefulWidget {
   ResidentModel? data;
