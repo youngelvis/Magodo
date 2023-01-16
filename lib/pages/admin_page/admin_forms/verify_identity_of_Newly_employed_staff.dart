@@ -32,7 +32,6 @@ class VerifyNewStaff extends StatefulWidget {
 }
 
 TextEditingController _residentCode = TextEditingController();
-TextEditingController _residentMobile = TextEditingController();
 TextEditingController _staffName = TextEditingController();
 TextEditingController _employmentDate = TextEditingController();
 TextEditingController _staffPhone = TextEditingController();
@@ -47,74 +46,72 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
 
   @override
   // ignore: must_call_super
-    initState() {
-      getData();
-    }
-    var sessionManager = SessionManager();
-    void getData() async {
-      var userGroup = widget.data?.usr_group;
-      var zone = widget.data?.zone;
-      String url = '';
+  initState() {
+    getData();
+  }
 
-      if(userGroup == UserGroup.SUPER_ADMIN){
-        url = 'fetchEmployedStaffs';
+  var sessionManager = SessionManager();
+
+  void getData() async {
+    var userGroup = widget.data?.usr_group;
+    var zone = widget.data?.zone;
+    String url = '';
+
+    if (userGroup == UserGroup.SUPER_ADMIN) {
+      url = 'fetchEmployedStaffs';
+    }
+    url = 'fetchEmployedStaffs/$zone';
+
+    var res = await CallApi().getData(url);
+    var r = jsonDecode(res.body);
+
+    setState(() {
+      fetchStaffs = FetchStaffs.fromJson(r);
+    });
+  }
+
+  onChange(String? s) async {
+    var residentCode = s?.split("- ");
+    String? name = residentCode?[1];
+
+    for (FetchStaff item in fetchStaffs?.data ?? []) {
+      if (item.dependantName == name?.trim()) {
+        setState(() {
+          staffGUID = item.guid;
+        });
       }
-      url = 'fetchEmployedStaffs/$zone';
-
-      var res = await CallApi().getData(url);
-      var r = jsonDecode(res.body);
-
-      setState(() {
-        fetchStaffs = FetchStaffs.fromJson(r);
-
-      });
-
     }
+    final data = await Services().changeStaff(staffGUID);
 
-    onChange(String? s) async {
-      var residentCode = s?.split("- ");
-      String? name = residentCode?[1];
+    setState(() {
+      response = data['data'];
+    });
+    print(response);
+  }
 
-      for (FetchStaff item in fetchStaffs?.data ?? []) {
-        if (item.dependantName == name?.trim()) {
-          setState(() {
-            staffGUID = item.guid;
-          });
-        }
-      }
-      final data = await Services().changeStaff(staffGUID);
-
-      setState(() {
-        response = data['data'];
-      });
-      print(response);
-    }
-
-    _buildSearchableDropDownList() {
-      return Column(
-        children: [
-          DropdownSearch<String>(
-
-            mode: Mode.MENU,
-            showSelectedItems: true,
-            items: fetchStaffs?.data
-                ?.map((e) => "${e.residentCode} - ${e.dependantName}")
-                .toList(),
-            dropdownSearchDecoration: const InputDecoration(
-                hintText: "select staff"),
-            showSearchBox: true,
-            onChanged:  onChange,
-            searchFieldProps: const TextFieldProps(
-              cursorColor: Colors.blue,
-            ),
+  _buildSearchableDropDownList() {
+    return Column(
+      children: [
+        DropdownSearch<String>(
+          mode: Mode.MENU,
+          showSelectedItems: true,
+          items: fetchStaffs?.data
+              ?.map((e) => "${e.residentCode} - ${e.dependantName}")
+              .toList(),
+          dropdownSearchDecoration:
+              const InputDecoration(hintText: "select staff"),
+          showSearchBox: true,
+          onChanged: onChange,
+          searchFieldProps: const TextFieldProps(
+            cursorColor: Colors.blue,
           ),
-          const SizedBox(
-            height: 20,
-          )
-        ],
-
-      );
-    }
+        ),
+        const SizedBox(
+          height: 20,
+        )
+      ],
+    );
+  }
 
   String? status;
   final statusOptions = [
@@ -126,8 +123,8 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
 
   Widget _buildStatus() {
     return RoundedDropDownTextField(
-      hint:Text(
-        response==null ? 'Staff Name': response['status'],
+      hint: Text(
+        response == null ? 'Staff Name' : response['status'],
         style: const TextStyle(fontSize: 15),
       ),
       value: status,
@@ -147,6 +144,48 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
         ),
       );
 
+  callMessage(message) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
+
+  verifyNewStaff() async {
+    var data =
+        await Services().verifyStaff(staffGUID, status, widget.data?.usr_group);
+    _residentCode.clear();
+    _staffName.clear();
+    _employmentDate.clear();
+    _staffAddress.clear();
+    _staffPhone.clear();
+    callMessage(data['message']);
+  }
+
+  declineNewStaff() async {
+    var data = await Services().declineUser(staffGUID, widget.data?.usr_group);
+    _residentCode.clear();
+    _staffName.clear();
+    _employmentDate.clear();
+    _staffAddress.clear();
+    _staffPhone.clear();
+    callMessage(data['message']);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -164,10 +203,11 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
                   height: 50,
                 ),
                 Row(
-                  children:  [
+                  children: [
                     Text(
                       'Identify Newly Employed Staff',
-                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -191,32 +231,49 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
                               _buildSearchableDropDownList(),
                               NameTextField(
                                   controller: _residentCode,
-                                  hint: response==null ? 'Staff Name': response['resident_code'],
+                                  hint: response == null
+                                      ? 'Staff Name'
+                                      : response['resident_code'],
                                   nameType: "Resident Code"),
                               MobileNumberTextField(
-                                  controller: _staffPhone,
-                                  fieldName: "Staff Phone Number",
-                                  hintText: response==null ? 'Staff Name': response['staff_msisdn'],),
+                                controller: _staffPhone,
+                                fieldName: "Staff Phone Number",
+                                hintText: response == null
+                                    ? 'Staff Name'
+                                    : response['staff_msisdn'],
+                              ),
                               NameTextField(
                                   controller: _staffName,
-                                  hint: response==null ? 'Staff Name': response['staff_name'],
+                                  hint: response == null
+                                      ? 'Staff Name'
+                                      : response['staff_name'],
                                   nameType: "Staff Name"),
-                              const TextForForm(text: "Employment Date",),
-                              CustomDatePicker(date: _employmentDate, hint: response==null ? 'Employment date': response['employment_date'], ),
-
+                              const TextForForm(
+                                text: "Employment Date",
+                              ),
+                              CustomDatePicker(
+                                date: _employmentDate,
+                                hint: response == null
+                                    ? 'Employment date'
+                                    : response['employment_date'],
+                              ),
                               BuildEmploymentDropDownList(
                                 onChanged: (value) => setState(() {
                                   employmentStatus = value as String;
                                 }),
                                 employment: employmentStatus,
-                                hints: response==null ? 'Employment Status': response['employment_status'],
+                                hints: response == null
+                                    ? 'Employment Status'
+                                    : response['employment_status'],
                               ),
                               BuildRelationshipDropDownList(
                                 onChanged: (value) => setState(() {
                                   relationship = value as String;
                                 }),
                                 relationship: relationship,
-                                hints: response==null ? 'Relationship': response['relationship'],
+                                hints: response == null
+                                    ? 'Relationship'
+                                    : response['relationship'],
                               ),
                               const TextForForm(text: "Identity Status"),
                               _buildStatus(),
@@ -225,14 +282,18 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
                               ),
                               NameTextField(
                                   controller: _staffAddress,
-                                  hint: response==null ? 'Staff Address': response['staff_contact'],
+                                  hint: response == null
+                                      ? 'Staff Address'
+                                      : response['staff_contact'],
                                   nameType: "Staff Contact Details"),
                               const SizedBox(
                                 height: 30,
                               ),
                               Row(
                                 children: [
-                                  const SizedBox(width: 50,),
+                                  const SizedBox(
+                                    width: 50,
+                                  ),
                                   ActionPageButton2(
                                     onPressed: () {},
                                     primaryColor: color.AppColor.homePageTheme,

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/pages/login_page/login_page.dart';
 
 import '../../components/components_for_class_of_varable/colors.dart' as color;
-import '../login_page2/login_page2.dart';
+
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);

@@ -733,7 +733,7 @@ class Services {
 //52
   authorizeUser(residentCode, residentPhone, fullName, validityStart,
       validityEnds, actionAdmin, status) async {
-    var data= {
+    var data = {
       "resident_reg_code": residentCode,
       "resident_phone": residentPhone,
       "full_name": fullName,
@@ -745,10 +745,11 @@ class Services {
     var res = await CallApi().putData(data, 'authorizeUser');
     return res.body;
   }
+
   //53
 
-  declineUser(residentCode, actionAdmin)async{
-    var data= {
+  declineUser(residentCode, actionAdmin) async {
+    var data = {
       "resident_reg_code": residentCode,
       "action_admin": actionAdmin,
     };
@@ -757,14 +758,16 @@ class Services {
   }
 
   //54
-  changeStaff(guid) async{
-    var data= {
+  changeStaff(guid) async {
+    var data = {
       "guid_id": guid,
-  };
-  var res = await CallApi().postData(data, 'changeStaff');
-  var body = jsonDecode(res.body);
-  return body;
+    };
+    var res = await CallApi().postData(data, 'changeStaff');
+    var body = jsonDecode(res.body);
+    return body;
   }
+
+  //55
   adminActivityLogReport(page, search, zone) async {
     var data = {
       "page": page,
@@ -775,6 +778,8 @@ class Services {
     var res = await CallApi().postData(data, 'adminActivityLogReport');
     return res.body;
   }
+
+  //56
   adminMovementRegisterReport(page, search, zone) async {
     var data = {
       "page": page,
@@ -785,4 +790,72 @@ class Services {
     var res = await CallApi().postData(data, 'adminMovementRegisterReport');
     return res.body;
   }
+
+  //57
+  addParent(residentCode, zone, email, residentName, residentPhone,
+      parentFullName, businessName, parentAddress, parentMobileNumber) async {
+    var data= {
+      "resident_reg_code":residentCode,
+      "zone":zone,
+      "email": email,
+      "resident_name":residentName,
+      "resident_phone":residentPhone,
+      "parent_full_name": parentFullName,
+      "business_name":businessName,
+      "parent_address":parentAddress,
+      "parent_mobile_number":parentMobileNumber
+    };
+    var res = await CallApi().postData(data, 'addParent');
+    var body = jsonDecode(res.body);
+    return body;
+  }
+  //58
+
+parentReport(page, search, residentCode) async {
+  var data = {
+    "page": page,
+    "limit": "10",
+    "search": search.toString(),
+    "resident_code": residentCode
+  };
+  var res = await CallApi().postData(data, 'adminActivityLogReport');
+  return res.body;
+}
+
+
+//60
+getParentDetail(page, search, residentCode) async {
+  var data = {
+    "page": page,
+    "limit": "10",
+    "search": search.toString(),
+    "resident_code": residentCode
+  };
+  var res = await CallApi().postData(data, 'adminActivityLogReport');
+  return res.body;
+}
+//61
+
+verifyStaff( guid, status, actionUser) async{
+    var data= {
+      "guid_id": guid,
+      "status":status,
+      "action_user_resident_code":actionUser
+    };
+    var res = await CallApi().postData(data, 'verifyStaff');
+    var body = jsonDecode(res.body);
+    return body;
+}
+
+//62
+declineStaff(guid, actionUser)async{
+    var data = {
+      "guid_staff":guid,
+      "action_user_resident_code": actionUser
+    };
+    var res = await CallApi().putData(data, 'declineStaff');
+    var body = jsonDecode(res.body);
+    return body;
+}
+
 }
