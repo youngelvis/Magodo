@@ -794,68 +794,83 @@ class Services {
   //57
   addParent(residentCode, zone, email, residentName, residentPhone,
       parentFullName, businessName, parentAddress, parentMobileNumber) async {
-    var data= {
-      "resident_reg_code":residentCode,
-      "zone":zone,
+    var data = {
+      "resident_reg_code": residentCode,
+      "zone": zone,
       "email": email,
-      "resident_name":residentName,
-      "resident_phone":residentPhone,
+      "resident_name": residentName,
+      "resident_phone": residentPhone,
       "parent_full_name": parentFullName,
-      "business_name":businessName,
-      "parent_address":parentAddress,
-      "parent_mobile_number":parentMobileNumber
+      "business_name": businessName,
+      "parent_address": parentAddress,
+      "parent_mobile_number": parentMobileNumber
     };
     var res = await CallApi().postData(data, 'addParent');
     var body = jsonDecode(res.body);
     return body;
   }
+
   //58
 
-parentReport(page, search, residentCode) async {
-  var data = {
-    "page": page,
-    "limit": "10",
-    "search": search.toString(),
-    "resident_code": residentCode
-  };
-  var res = await CallApi().postData(data, 'adminActivityLogReport');
-  return res.body;
-}
-
+  parentReport(page, search, residentCode) async {
+    var data = {
+      "page": page,
+      "limit": "10",
+      "search": search.toString(),
+      "resident_code": residentCode
+    };
+    var res = await CallApi().postData(data, 'adminActivityLogReport');
+    return res.body;
+  }
 
 //60
-getParentDetail(page, search, residentCode) async {
-  var data = {
-    "page": page,
-    "limit": "10",
-    "search": search.toString(),
-    "resident_code": residentCode
-  };
-  var res = await CallApi().postData(data, 'adminActivityLogReport');
-  return res.body;
-}
+  getParentDetail(page, search, residentCode) async {
+    var data = {
+      "page": page,
+      "limit": "10",
+      "search": search.toString(),
+      "resident_code": residentCode
+    };
+    var res = await CallApi().postData(data, 'adminActivityLogReport');
+    return res.body;
+  }
+
 //61
 
-verifyStaff( guid, status, actionUser) async{
-    var data= {
+  verifyStaff(guid, status, actionUser) async {
+    var data = {
       "guid_id": guid,
-      "status":status,
-      "action_user_resident_code":actionUser
+      "status": status,
+      "action_user_resident_code": actionUser
     };
     var res = await CallApi().postData(data, 'verifyStaff');
     var body = jsonDecode(res.body);
     return body;
-}
+  }
 
 //62
-declineStaff(guid, actionUser)async{
-    var data = {
-      "guid_staff":guid,
-      "action_user_resident_code": actionUser
-    };
+  declineStaff(guid, actionUser) async {
+    var data = {"guid_staff": guid, "action_user_resident_code": actionUser};
     var res = await CallApi().putData(data, 'declineStaff');
     var body = jsonDecode(res.body);
     return body;
-}
+  }
 
+//63
+  extendParentValidity(residentCode, parentPasscode, parentPhone, parentName,
+      validityStarts, validityEnds, address, status) async {
+    var data = {
+      "resident_code": residentCode,
+      "parent_passcode": parentPasscode,
+      "parent_phone": parentPhone,
+      "parent_name ": parentName,
+      "validity_ends": validityEnds,
+      "validity_starts": validityStarts,
+      "address": address,
+      "status": status
+    };
+    var res = await CallApi().postData(data, 'extendParentValidity');
+    var body = jsonDecode(res.body);
+    return body;
+  }
 }

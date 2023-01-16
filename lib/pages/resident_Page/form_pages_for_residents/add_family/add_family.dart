@@ -14,7 +14,7 @@ import '/../../components/components_for_class_of_varable/colors.dart' as color;
 class AddFamily extends StatefulWidget {
   ResidentModel? data;
 
-   AddFamily({Key? key, required this.data}) : super(key: key);
+  AddFamily({Key? key, required this.data}) : super(key: key);
 
   @override
   State<AddFamily> createState() => _AddFamilyState();
@@ -27,42 +27,33 @@ TextEditingController _password = TextEditingController();
 TextEditingController _confirmPassword = TextEditingController();
 
 class _AddFamilyState extends State<AddFamily> {
-  @override
-  Widget build(BuildContext context) {
-    _addFamily() async {
-      if (_mobileNumber.text.isEmpty ||
-          _fullName.text.isEmpty ||
-          _email.text.isEmpty ||
-          _password.text.isEmpty ||
-          _confirmPassword.text.isEmpty) {
-        var data = await Services().addFamilyMember(
-            widget.data?.resident_code,
-            _mobileNumber.text,
-            _fullName.text,
-            _email.text,
-            _password.text,
-            _confirmPassword.text);
-        var message = data['error']['message'];
+  callMessage(message) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
 
-        return showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: Text(message),
-            actions: [
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: color.AppColor.homePageTheme,
-                      onPrimary: color.AppColor.landingPage2,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0))),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text("ok"))
-            ],
-          ),
-        );
-      }
+  _addFamily() async {
+    if (_mobileNumber.text.isEmpty ||
+        _fullName.text.isEmpty ||
+        _email.text.isEmpty ||
+        _password.text.isEmpty ||
+        _confirmPassword.text.isEmpty) {
       var data = await Services().addFamilyMember(
           widget.data?.resident_code,
           _mobileNumber.text,
@@ -70,45 +61,46 @@ class _AddFamilyState extends State<AddFamily> {
           _email.text,
           _password.text,
           _confirmPassword.text);
+      var message = data['error']['message'];
 
-      var message = data['message'];
-
-      return showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text(message),
-          actions: [
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: color.AppColor.homePageTheme,
-                    onPrimary: color.AppColor.landingPage2,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0))),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("ok"))
-          ],
-        ),
-      );
+      callMessage(message);
     }
+    var data = await Services().addFamilyMember(
+        widget.data?.resident_code,
+        _mobileNumber.text,
+        _fullName.text,
+        _email.text,
+        _password.text,
+        _confirmPassword.text);
 
+    var message = data['message'];
+    _mobileNumber.clear();
+    _fullName.clear();
+    _email.clear();
+    _password.clear();
+    _confirmPassword.clear();
+
+    callMessage(message);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding:  EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
+            padding: EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
             child: Column(
               children: [
                 TitleContainer(
                   title: 'Dashboard',
                   data: widget.data,
                 ),
-                 SizedBox(
+                SizedBox(
                   height: 50.h,
                 ),
                 Row(
-                  children:  [
+                  children: [
                     Text(
                       'Add Family',
                       style: TextStyle(fontSize: 30.sp),
@@ -142,10 +134,11 @@ class _AddFamilyState extends State<AddFamily> {
                                   hint: "Enter email",
                                   nameType: "Enter email address"),
                               BuildPasswordTextField(
-                                  fieldName: 'Password', passwordController: _password),
+                                  fieldName: 'Password',
+                                  passwordController: _password),
                               BuildPasswordTextField(
-                                  fieldName: 'Confirm Password', passwordController: _confirmPassword),
-
+                                  fieldName: 'Confirm Password',
+                                  passwordController: _confirmPassword),
                               const SizedBox(
                                 height: 40,
                               ),
