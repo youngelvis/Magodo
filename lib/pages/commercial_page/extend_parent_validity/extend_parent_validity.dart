@@ -9,6 +9,7 @@ import '../../../components/text_for_form.dart';
 import '../../../components/textfields_types/mobile_num_textfield.dart';
 import '../../../components/textfields_types/name_textfield.dart';
 import '../../../components/title.dart';
+import '../../../services/services.dart';
 
 class ExtendParentValidity extends StatefulWidget {
   ResidentModel? data;
@@ -56,6 +57,18 @@ class _ExtendParentValidityState extends State<ExtendParentValidity> {
           style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
         ),
       );
+
+  extendParentValidity() async {
+  //   final data = await Services().extendParentValidity(
+  //     widget.data.resident_code
+  //     _parentMobile.text,
+  //     _parentFullName.text,
+  //     _validityStarts.text,
+  //     _validityEnds.text,
+  //     _parentAddress.text,
+  //   );
+  //   print(data);
+   }
 
   @override
   Widget build(BuildContext context) {
