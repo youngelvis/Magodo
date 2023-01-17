@@ -4,11 +4,9 @@
 
 import 'dart:convert';
 
-CommercialEventRequests commercialEventRequestsFromJson(String str) =>
-    CommercialEventRequests.fromJson(json.decode(str));
+CommercialEventRequests commercialEventRequestsFromJson(String str) => CommercialEventRequests.fromJson(json.decode(str));
 
-String commercialEventRequestsToJson(CommercialEventRequests data) =>
-    json.encode(data.toJson());
+String commercialEventRequestsToJson(CommercialEventRequests data) => json.encode(data.toJson());
 
 class CommercialEventRequests {
   CommercialEventRequests({
@@ -21,70 +19,71 @@ class CommercialEventRequests {
   int recordsFiltered;
   List<CommercialEventRequest> data;
 
-  factory CommercialEventRequests.fromJson(Map<String, dynamic> json) =>
-      CommercialEventRequests(
-        recordsTotal: json["recordsTotal"],
-        recordsFiltered: json["recordsFiltered"],
-        data: List<CommercialEventRequest>.from(
-            json["data"].map((x) => CommercialEventRequest.fromJson(x))),
-      );
+  factory CommercialEventRequests.fromJson(Map<String, dynamic> json) => CommercialEventRequests(
+    recordsTotal: json["recordsTotal"],
+    recordsFiltered: json["recordsFiltered"],
+    data: List<CommercialEventRequest>.from(json["data"].map((x) => CommercialEventRequest.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "recordsTotal": recordsTotal,
-        "recordsFiltered": recordsFiltered,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-      };
+    "recordsTotal": recordsTotal,
+    "recordsFiltered": recordsFiltered,
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+  };
 }
 
 class CommercialEventRequest {
   CommercialEventRequest({
-    required this.residentMsisdn,
-    required this.residentCode,
-    required this.residentName,
-    required this.residentAddress,
-    required this.visitorMsisdn,
-    required this.visitorName,
+    required this.id,
+    required this.email,
     required this.passcode,
-    required this.createdDate,
-    required this.eventScheduledDate,
+    required  this.msisdn,
+    required this.population,
+    required this.eventType,
+    required this.fullname,
+    required  this.eventScheduledDate,
+    required  this.createdDate,
+    required  this.status,
     required this.rowNumber,
   });
 
-  String? residentMsisdn;
-  String? residentCode;
-  String? residentName;
-  String? residentAddress;
-  String? visitorMsisdn;
-  String? visitorName;
+  String? id;
+  String? email;
   String? passcode;
-  String? createdDate;
+  String? msisdn;
+  String? population;
+  String? eventType;
+  String? fullname;
   String? eventScheduledDate;
+  String? createdDate;
+  String? status;
   String? rowNumber;
 
-  factory CommercialEventRequest.fromJson(Map<String, dynamic> json) =>
-      CommercialEventRequest(
-        residentMsisdn: json["RESIDENT_MSISDN"],
-        residentCode: json["RESIDENT_CODE"],
-        residentName: json["RESIDENT_NAME"],
-        residentAddress: json["RESIDENT_ADDRESS"],
-        visitorMsisdn: json["VISITOR_MSISDN"],
-        visitorName: json["VISITOR_NAME"],
-        passcode: json["PASSCODE"],
-        createdDate: json["CREATED_DATE"],
-        eventScheduledDate: json["EVENT_SCHEDULED_DATE"],
-        rowNumber: json["ROW_NUMBER"],
-      );
+  factory CommercialEventRequest.fromJson(Map<String, dynamic> json) => CommercialEventRequest(
+    id: json["ID"],
+    email: json["EMAIL"],
+    passcode: json["PASSCODE"],
+    msisdn: json["MSISDN"],
+    population: json["POPULATION"],
+    eventType: json["EVENT_TYPE"],
+    fullname: json["FULLNAME"],
+    eventScheduledDate: json["EVENT_SCHEDULED_DATE"],
+    createdDate: json["CREATED_DATE"],
+    status: json["STATUS"],
+    rowNumber: json["ROW_NUMBER"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "RESIDENT_MSISDN": residentMsisdn,
-        "RESIDENT_CODE": residentCode,
-        "RESIDENT_NAME": residentName,
-        "RESIDENT_ADDRESS": residentAddress,
-        "VISITOR_MSISDN": visitorMsisdn,
-        "VISITOR_NAME": visitorName,
-        "PASSCODE": passcode,
-        "CREATED_DATE": createdDate,
-        "EVENT_SCHEDULED_DATE": eventScheduledDate,
-        "ROW_NUMBER": rowNumber,
-      };
+    "ID": id,
+    "EMAIL": email,
+    "PASSCODE": passcode,
+    "MSISDN": msisdn,
+    "POPULATION": population,
+    "EVENT_TYPE": eventType,
+    "FULLNAME": fullname,
+    "EVENT_SCHEDULED_DATE": eventScheduledDate,
+    "CREATED_DATE": createdDate,
+    "STATUS": status,
+    "ROW_NUMBER": rowNumber,
+  };
 }

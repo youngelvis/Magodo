@@ -824,15 +824,14 @@ class Services {
   }
 
 //60
-  getParentDetail(page, search, residentCode) async {
-    var data = {
-      "page": page,
-      "limit": "10",
-      "search": search.toString(),
-      "resident_code": residentCode
+  getParentDetail( passcode) async {
+    var data =
+    {
+      "parent_passcode": passcode,
     };
     var res = await CallApi().postData(data, 'adminActivityLogReport');
-    return res.body;
+    var body = jsonDecode(res.body);
+    return body;
   }
 
 //61
@@ -872,5 +871,17 @@ class Services {
     var res = await CallApi().postData(data, 'extendParentValidity');
     var body = jsonDecode(res.body);
     return body;
+  }
+
+  //64
+  commercialEventReport(page, residentCode, search) async {
+    var data = {
+      "page": page,
+      "limit": "10",
+      "search": search.toString(),
+      "resident_code": residentCode
+    };
+    var res = await CallApi().postData(data, 'commercialEventReport');
+    return res.body;
   }
 }

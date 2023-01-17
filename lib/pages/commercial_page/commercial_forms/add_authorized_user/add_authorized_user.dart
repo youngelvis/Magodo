@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
+import 'package:magodo/services/services.dart';
 
 import '/../../../components/app_page_theme_action_button.dart';
 import '/../../../components/textfields_types/mobile_num_textfield.dart';
@@ -24,6 +25,9 @@ TextEditingController _password = TextEditingController();
 TextEditingController _confirmPassword = TextEditingController();
 
 class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
+  addAuthorizedUser() async{
+
+  }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

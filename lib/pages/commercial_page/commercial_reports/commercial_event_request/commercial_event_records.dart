@@ -2,27 +2,27 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:magodo/models/fetch_parents_models/fetch_parents_model.dart';
+import 'package:magodo/models/commercial_event_request/commercial_event_requests.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
-import 'package:magodo/pages/commercial_page/commercial_reports/parent_report/parent_report_card.dart';
-import 'package:magodo/services/services.dart';
+import 'package:magodo/pages/commercial_page/commercial_reports/commercial_event_request/commercial_event_request_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../../../services/services.dart';
 import '/../components/components_for_class_of_varable/colors.dart' as color;
 import '../../../../components/roundedTextSearchField.dart';
 import '../../../../components/title.dart';
 
-class ParentRecords extends StatefulWidget {
+class CommercialEventReport extends StatefulWidget {
   ResidentModel? data;
 
-  ParentRecords({Key? key, this.data}) : super(key: key);
+  CommercialEventReport({Key? key, this.data}) : super(key: key);
 
   @override
-  State<ParentRecords> createState() => _ParentRecordsState();
+  State<CommercialEventReport> createState() => _CommercialEventReportState();
 }
 
 TextEditingController _searchWords = TextEditingController();
 
-class _ParentRecordsState extends State<ParentRecords> {
+class _CommercialEventReportState extends State<CommercialEventReport> {
   Timer? debouncer;
 
   @override
@@ -36,7 +36,8 @@ class _ParentRecordsState extends State<ParentRecords> {
     super.dispose();
   }
 
-  void debounce(VoidCallback callback, {
+  void debounce(
+    VoidCallback callback, {
     Duration duration = const Duration(milliseconds: 2000),
   }) {
     if (debouncer != null) {
@@ -47,12 +48,12 @@ class _ParentRecordsState extends State<ParentRecords> {
 
   int currentPage = 0;
   late int totalPages = 0;
-  List<FetchParent> viewMembers = [];
+  List<CommercialEventRequest> viewMembers = [];
 
   final RefreshController refreshController =
-  RefreshController(initialRefresh: true);
+      RefreshController(initialRefresh: true);
 
-  Future<bool> getParentReport({bool isRefresh = false}) async {
+  Future<bool> viewCommercialEventReport({bool isRefresh = false}) async {
     if (isRefresh) {
       currentPage = 0;
     } else {
@@ -61,11 +62,10 @@ class _ParentRecordsState extends State<ParentRecords> {
         return false;
       }
     }
-    var data = await Services().parentReport(
+    var data = await Services().commercialEventReport(
         currentPage, _searchWords.text, widget.data?.resident_code);
 
-
-    final result = fetchParentsFromJson(data);
+    final result = commercialEventRequestsFromJson(data);
 
     if (isRefresh) {
       viewMembers = result.data;
@@ -78,13 +78,12 @@ class _ParentRecordsState extends State<ParentRecords> {
     return true;
   }
 
-  Future _searchFunction() async =>
-      debounce(() async {
+  Future _searchFunction() async => debounce(() async {
         int currentPage = 0;
         var data = await Services().parentReport(
             currentPage, _searchWords.text, widget.data?.resident_code);
 
-        final result = fetchParentsFromJson(data);
+        final result = commercialEventRequestsFromJson(data);
         if (result.data.isEmpty) {
           print('empty');
         }
@@ -136,9 +135,9 @@ class _ParentRecordsState extends State<ParentRecords> {
                 Row(
                   children: [
                     Text(
-                      "View Parent Records",
-                      style:
-                      TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      "Commercial Event Report",
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -173,7 +172,8 @@ class _ParentRecordsState extends State<ParentRecords> {
                 controller: refreshController,
                 enablePullUp: true,
                 onRefresh: () async {
-                  final result = await getParentReport(isRefresh: true);
+                  final result =
+                      await viewCommercialEventReport(isRefresh: true);
                   if (result) {
                     refreshController.refreshCompleted();
                   } else {
@@ -181,7 +181,7 @@ class _ParentRecordsState extends State<ParentRecords> {
                   }
                 },
                 onLoading: () async {
-                  final result = await getParentReport();
+                  final result = await viewCommercialEventReport();
                   if (result) {
                     refreshController.loadComplete();
                   } else {
@@ -191,17 +191,17 @@ class _ParentRecordsState extends State<ParentRecords> {
                 child: viewMembers.isEmpty
                     ? const Text('nothing yet')
                     : ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, index) {
-                    final member = viewMembers[index];
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, index) {
+                          final member = viewMembers[index];
 
-                    return SingleChildScrollView(
-                        child: ParentReportCard(
-                          data: member,
-                        ));
-                  },
-                  itemCount: viewMembers.length,
-                ),
+                          return SingleChildScrollView(
+                              child: CommercialEventRequestCard(
+                            data: member,
+                          ));
+                        },
+                        itemCount: viewMembers.length,
+                      ),
               ),
             )
           ]),
