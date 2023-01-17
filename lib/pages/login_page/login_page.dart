@@ -80,7 +80,7 @@ class _SignINState extends State<SignIN> {
 
       if (resident?.usr_group == UserGroup.MEMBER) {
         _navigation(
-          ResidentPageLandingPage(
+          ViewPasscodeReport(
             data: resident,
           ),
         );

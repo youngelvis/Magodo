@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/text_button_nav_page.dart';
-import 'package:magodo/models/event_requestModel/event_requestModel.dart';
+
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/login_page/login_page.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/add_family/add_family.dart';
@@ -75,7 +75,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          ResidentPageLandingPage(data: widget.data)));
+                                          ViewPasscodeReport(data: widget.data)));
                             }),
                         ExpansionTile(
                           title: Row(
@@ -273,7 +273,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
-                                  navigateToPage(ResidentPageLandingPage(
+                                  navigateToPage(ViewPasscodeReport(
                                     data: widget.data,
                                   ));
                                 }),

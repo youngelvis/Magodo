@@ -10,20 +10,20 @@ import '../../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:magodo/components/roundedTextSearchField.dart';
 import 'package:magodo/components/title.dart';
 
-class ResidentPageLandingPage extends StatefulWidget {
+class ViewPasscodeReport extends StatefulWidget {
   ResidentModel? data;
 
-   ResidentPageLandingPage({Key? key, this.data})
+   ViewPasscodeReport({Key? key, this.data})
       : super(key: key);
 
   @override
-  State<ResidentPageLandingPage> createState() =>
-      _ResidentPageLandingPageState();
+  State<ViewPasscodeReport> createState() =>
+      _ViewPasscodeReportState();
 }
 
 TextEditingController _searchWords = TextEditingController();
 
-class _ResidentPageLandingPageState extends State<ResidentPageLandingPage> {
+class _ViewPasscodeReportState extends State<ViewPasscodeReport> {
   Timer? debouncer;
 
   @override
