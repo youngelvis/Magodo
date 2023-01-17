@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
+import 'package:magodo/pages/commercial_page/commercial_forms/extend_parent_validity/selectParentDropdown.dart';
 
 import '/../../../components/app_page_theme_action_button.dart';
 import '/../../../components/date_text_field.dart';
@@ -57,7 +58,19 @@ class _ExtendParentValidityState extends State<ExtendParentValidity> {
           style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
         ),
       );
+  var response;
+  String? residentcode;
 
+  onChange(String? s) async {
+    var residentCode = s?.split("- ");
+    residentcode = residentCode?[0];
+    final data = await Services().getParentDetail(residentcode);
+
+    setState(() {
+      response = data['data'];
+    });
+    print(response);
+  }
   extendParentValidity() async {
   //   final data = await Services().extendParentValidity(
   //     widget.data.resident_code
@@ -108,6 +121,12 @@ class _ExtendParentValidityState extends State<ExtendParentValidity> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          const TextForForm(
+                            text: 'Select Parent',
+                          ),
+                          SelectParentDropdown(
+                            data: widget.data,
+                          ),
                           MobileNumberTextField(
                               controller: _parentMobile,
                               fieldName: ' Parent Mobile Number',

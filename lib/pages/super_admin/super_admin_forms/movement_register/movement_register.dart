@@ -63,7 +63,7 @@ class _MovementRegisterState extends State<MovementRegister> {
       }
     }
     var data;
-   if(widget.data?.usr_group== UserGroup.SUPER_ADMIN) {
+   if(widget.data?.usr_group== UserGroup.SUPER_ADMIN||widget.data?.usr_group== UserGroup.ADMIN) {
       data = await Services().viewMovementRegister(
         currentPage,
         _searchWords.text,
@@ -92,7 +92,7 @@ class _MovementRegisterState extends State<MovementRegister> {
   Future _searchFunction() async => debounce(() async {
         int currentPage = 0;
         var data;
-        if(widget.data?.usr_group== UserGroup.SUPER_ADMIN) {
+        if(widget.data?.usr_group== UserGroup.SUPER_ADMIN||widget.data?.usr_group== UserGroup.ADMIN) {
           data = await Services().viewMovementRegister(
             currentPage,
             _searchWords.text,

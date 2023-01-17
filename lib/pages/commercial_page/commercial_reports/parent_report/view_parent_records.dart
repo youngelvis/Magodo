@@ -47,7 +47,7 @@ class _ParentRecordsState extends State<ParentRecords> {
 
   int currentPage = 0;
   late int totalPages = 0;
-  List<FetchParent> viewMembers = [];
+  List<GetParent> viewMembers = [];
 
   final RefreshController refreshController =
   RefreshController(initialRefresh: true);

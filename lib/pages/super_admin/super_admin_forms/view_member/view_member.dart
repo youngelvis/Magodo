@@ -64,7 +64,7 @@ class _ViewMemberState extends State<ViewMember> {
     }
     String zone = widget.data?.zone  ?? '';
     if(
-    widget.data?.usr_group == UserGroup.SUPER_ADMIN){
+    widget.data?.usr_group == UserGroup.SUPER_ADMIN|| widget.data?.usr_group == UserGroup.ADMIN){
       zone = '';
     }
 
@@ -87,7 +87,7 @@ class _ViewMemberState extends State<ViewMember> {
         int currentPage = 0;
         String zone = widget.data?.zone  ?? '';
         if(
-        widget.data?.usr_group == UserGroup.SUPER_ADMIN){
+        widget.data?.usr_group == UserGroup.SUPER_ADMIN|| widget.data?.usr_group == UserGroup.ADMIN){
           zone = '';
         }
         var data = await Services().viewMembersReportForSAdmin(currentPage, widget.data?.usr_group ?? '', zone);

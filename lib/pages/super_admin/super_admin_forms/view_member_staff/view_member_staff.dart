@@ -65,13 +65,13 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
     String zone = widget.data?.zone ?? '';
     var data;
     if(
-    widget.data?.usr_group == UserGroup.SUPER_ADMIN){
+    widget.data?.usr_group == UserGroup.SUPER_ADMIN||widget.data?.usr_group == UserGroup.ADMIN){
       zone = '';
     }
     data = await Services().dependantsReport(
       currentPage,
       _searchWords.text,
-      widget.data?.zone,
+      zone,
     );
 
     final result = memberStaffsFromJson(data);
@@ -92,13 +92,13 @@ class _ViewMemberStaffState extends State<ViewMemberStaff> {
         String zone = widget.data?.zone ?? '';
         var data;
         if(
-        widget.data?.usr_group == UserGroup.SUPER_ADMIN){
+        widget.data?.usr_group == UserGroup.SUPER_ADMIN||widget.data?.usr_group == UserGroup.ADMIN){
           zone = '';
         }
         data = await Services().dependantsReport(
           currentPage,
           _searchWords.text,
-          widget.data?.zone,
+          zone,
         );
         final result = memberStaffsFromJson(data);
         if (result.data.isEmpty) {

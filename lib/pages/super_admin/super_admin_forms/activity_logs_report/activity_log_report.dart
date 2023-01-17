@@ -65,7 +65,7 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
       }
     }
     var data;
-   if(widget.data?.usr_group == UserGroup.SUPER_ADMIN){
+   if(widget.data?.usr_group == UserGroup.SUPER_ADMIN||widget.data?.usr_group == UserGroup.ADMIN) {
        data = await Services().viewActivityLogReport(
         currentPage,
         _searchWords.text,

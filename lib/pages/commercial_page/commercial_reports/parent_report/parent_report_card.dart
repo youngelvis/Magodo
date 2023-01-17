@@ -4,7 +4,7 @@ import '/../components/components_for_class_of_varable/colors.dart' as color;
 import '../../../../models/fetch_parents_models/fetch_parents_model.dart';
 
 class ParentReportCard extends StatefulWidget {
-  FetchParent? data;
+  GetParent? data;
 
   ParentReportCard({Key? key, this.data}) : super(key: key);
 

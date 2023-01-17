@@ -4,13 +4,13 @@
 
 import 'dart:convert';
 
-FetchParents fetchParentsFromJson(String str) =>
-    FetchParents.fromJson(json.decode(str));
+GetParents fetchParentsFromJson(String str) =>
+    GetParents.fromJson(json.decode(str));
 
-String fetchParentsToJson(FetchParents data) => json.encode(data.toJson());
+String fetchParentsToJson(GetParents data) => json.encode(data.toJson());
 
-class FetchParents {
-  FetchParents({
+class GetParents {
+  GetParents({
     required this.recordsTotal,
     required this.recordsFiltered,
     required this.data,
@@ -18,13 +18,13 @@ class FetchParents {
 
   int recordsTotal;
   int recordsFiltered;
-  List<FetchParent> data;
+  List<GetParent> data;
 
-  factory FetchParents.fromJson(Map<String, dynamic> json) => FetchParents(
+  factory GetParents.fromJson(Map<String, dynamic> json) => GetParents(
         recordsTotal: json["recordsTotal"],
         recordsFiltered: json["recordsFiltered"],
-        data: List<FetchParent>.from(
-            json["data"].map((x) => FetchParent.fromJson(x))),
+        data: List<GetParent>.from(
+            json["data"].map((x) => GetParent.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,8 +34,8 @@ class FetchParents {
       };
 }
 
-class FetchParent {
-  FetchParent({
+class GetParent {
+  GetParent({
     required this.guid,
     required this.residentCode,
     required this.residentName,
@@ -71,7 +71,7 @@ class FetchParent {
   String? dateCreated;
   String? rowNumber;
 
-  factory FetchParent.fromJson(Map<String, dynamic> json) => FetchParent(
+  factory GetParent.fromJson(Map<String, dynamic> json) => GetParent(
         guid: json["GUID"],
         residentCode: json["RESIDENT_CODE"],
         residentName: json["RESIDENT_NAME"],
