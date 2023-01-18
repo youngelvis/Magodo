@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/commercial_page/commercial_forms/extend_parent_validity/selectParentDropdown.dart';
-
+import 'package:magodo/pages/commercial_page/commercial_reports/parent_report/view_parent_records.dart';
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import '/../../../components/app_page_theme_action_button.dart';
 import '/../../../components/date_text_field.dart';
 import '/../../../components/roundedDropDownTextfield.dart';
@@ -71,7 +72,28 @@ class _ExtendParentValidityState extends State<ExtendParentValidity> {
     });
     print(response);
   }
+  callMessage(message){
 
+
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
   extendParentValidity() async {
     final data = await Services().extendParentValidity(
       widget.data?.resident_code,
@@ -93,7 +115,13 @@ class _ExtendParentValidityState extends State<ExtendParentValidity> {
           : _parentAddress.text,
       status ?? response['STATUS'],
     );
-    print(data);
+_parentAddress.clear();
+    _parentFullName.clear();
+    _parentMobile.clear();
+    _validityEnds.clear();
+    _validityStarts.clear();
+    status = null;
+    callMessage(data['message']);
   }
 
   @override
@@ -179,7 +207,11 @@ class _ExtendParentValidityState extends State<ExtendParentValidity> {
                             height: 30.h,
                           ),
                           ActionPageButton(
-                              onPressed: () async {}, text: 'Validate Parent'),
+                              onPressed: () async {
+                                await extendParentValidity();
+
+
+                              }, text: 'Extend Validity'),
                           SizedBox(
                             height: 30.h,
                           ),
