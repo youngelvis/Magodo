@@ -237,7 +237,9 @@ class _IdentifyNewlyRegisteredMembersState
                                     width: 50,
                                   ),
                                   ActionPageButton2(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      verifyNewUser();
+                                    },
                                     primaryColor: color.AppColor.verifiedColor,
                                     text: 'Authorize',
                                   ),
@@ -245,7 +247,9 @@ class _IdentifyNewlyRegisteredMembersState
                                     width: 50,
                                   ),
                                   ActionPageButton2(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      declineNewUser();
+                                    },
                                     primaryColor: color.AppColor.decline,
                                     text: 'Decline',
                                   ),

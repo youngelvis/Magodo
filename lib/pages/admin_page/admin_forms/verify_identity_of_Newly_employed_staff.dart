@@ -57,7 +57,7 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
     var zone = widget.data?.zone;
     String url = '';
 
-    if (userGroup == UserGroup.SUPER_ADMIN) {
+    if (userGroup == UserGroup.SUPER_ADMIN || userGroup == UserGroup.ADMIN) {
       url = 'fetchEmployedStaffs';
     }
     url = 'fetchEmployedStaffs/$zone';
