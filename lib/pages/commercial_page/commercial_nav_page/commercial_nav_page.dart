@@ -8,7 +8,6 @@ import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
 import '../../../components/text_button_nav_page.dart';
 import '../../change_password/change_password.dart';
 import '../../profile_page/edit_profile/edit_profile.dart';
-import '../../resident_Page/form_pages_for_residents/add_staff/add_staff.dart';
 import '../../resident_Page/form_pages_for_residents/get_bulk_passcode/get_bulk_passcode.dart';
 import '../../resident_Page/form_pages_for_residents/get_future_passcode/get_future_passcode.dart';
 import '../../resident_Page/form_pages_for_residents/get_passcode/get_passcode.dart';

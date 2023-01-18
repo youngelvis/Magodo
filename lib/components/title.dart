@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:magodo/components/components_for_class_of_varable/category.dart';
 import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/admin_page/admin_navigation_page/admin_navigation_page.dart';
@@ -11,6 +12,8 @@ import 'package:magodo/pages/profile_page/profile_page.dart';
 import 'package:magodo/pages/security_page/security_navigation_page/security_navigation_page.dart';
 import 'package:magodo/pages/super_admin/super_admin_navigation_page/superAdminNavigation.dart';
 
+import '../pages/commercial_page/commercial_nav_page/commercial_nav_page.dart';
+import '../pages/commercial_page/commercial_nav_page/commercial_nav_page_for_school.dart';
 import '../pages/security_page/security_form/validate_passcode.dart';
 
 class TitleContainer extends StatefulWidget {
@@ -35,12 +38,25 @@ class _TitleContainerState extends State<TitleContainer> {
   navbarController() {
     if (widget.data?.usr_group == UserGroup.MEMBER) {
       navigateToProfilePage(ResidentNavigationPage(data: widget.data));
-    } else if (widget.data?.usr_group == UserGroup.SUPER_ADMIN|| widget.data?.usr_group == UserGroup.ZONAL_SUPER_ADMIN) {
+    } else if (widget.data?.usr_group == UserGroup.SUPER_ADMIN ||
+        widget.data?.usr_group == UserGroup.ZONAL_SUPER_ADMIN) {
       navigateToProfilePage(SuperAdminNavigation(data: widget.data));
-    }else if(widget.data?.usr_group == UserGroup.SECURITY){
+    } else if (widget.data?.usr_group == UserGroup.SECURITY) {
       navigateToProfilePage(SecurityNavigationPage(data: widget.data));
-    }else if(widget.data?.usr_group == UserGroup.ZONAL_ADMIN|| widget.data?.usr_group == UserGroup.ADMIN){
-      navigateToProfilePage(AdminNavPage(residentModel: widget.data,));
+    } else if (widget.data?.usr_group == UserGroup.ZONAL_ADMIN ||
+        widget.data?.usr_group == UserGroup.ADMIN) {
+      navigateToProfilePage(AdminNavPage(
+        residentModel: widget.data,
+      ));
+    } else if (widget.data?.usr_group == UserGroup.MEMBER) {
+      if (widget.data?.category == Category.SCHOOL) {
+        navigateToProfilePage(CommercialNavPageForSchool(
+          data: widget.data,
+        ));
+      }
+      navigateToProfilePage(CommercialNavPage(
+        data: widget.data,
+      ));
     }
   }
 
@@ -48,7 +64,7 @@ class _TitleContainerState extends State<TitleContainer> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-         SizedBox(
+        SizedBox(
           height: 20.h,
         ),
         Row(
@@ -61,7 +77,7 @@ class _TitleContainerState extends State<TitleContainer> {
                 onPressed: () {
                   navbarController();
                 }),
-             SizedBox(
+            SizedBox(
               width: 80.w,
             ),
             Container(
@@ -72,10 +88,10 @@ class _TitleContainerState extends State<TitleContainer> {
                 children: [
                   Text(
                     widget.title,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 25.sp),
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 25.sp),
                   ),
-                   SizedBox(width: 85.w),
+                  SizedBox(width: 85.w),
                   Stack(
                     children: [
                       Positioned(
