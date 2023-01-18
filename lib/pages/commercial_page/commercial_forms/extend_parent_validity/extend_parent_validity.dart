@@ -39,8 +39,8 @@ class _ExtendParentValidityState extends State<ExtendParentValidity> {
   Widget _buildStatus() {
     return RoundedDropDownTextField(
       hint: const Text(
-       'status',
-        style:  TextStyle(fontSize: 15),
+        'status',
+        style: TextStyle(fontSize: 15),
       ),
       value: status,
       onChanged: (value) => setState(() {
@@ -71,17 +71,30 @@ class _ExtendParentValidityState extends State<ExtendParentValidity> {
     });
     print(response);
   }
+
   extendParentValidity() async {
-  //   final data = await Services().extendParentValidity(
-  //     widget.data.resident_code
-  //     _parentMobile.text,
-  //     _parentFullName.text,
-  //     _validityStarts.text,
-  //     _validityEnds.text,
-  //     _parentAddress.text,
-  //   );
-  //   print(data);
-   }
+    final data = await Services().extendParentValidity(
+      widget.data?.resident_code,
+      response['PARENT_PASSCODE'] ?? '',
+      _parentMobile.text.isEmpty
+          ? response['PARENT_MOBILE']
+          : _parentMobile.text,
+      _parentFullName.text.isEmpty
+          ? response['PARENT_FULLNAME']
+          : _parentFullName.text,
+      _validityStarts.text.isEmpty
+          ? response['VALIDITY_STARTS']
+          : _validityStarts.text,
+      _validityEnds.text.isEmpty
+          ? response['VALIDITY_ENDS']
+          : _validityEnds.text,
+      _parentAddress.text.isEmpty
+          ? response['PARENT_ADDRESS']
+          : _parentAddress.text,
+      status ?? response['STATUS'],
+    );
+    print(data);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +116,8 @@ class _ExtendParentValidityState extends State<ExtendParentValidity> {
                 children: [
                   Text(
                     'Extend Parent Validity',
-                    style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                    style:
+                        TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                   ),
                   const Icon(
                     Icons.keyboard_arrow_down_outlined,
@@ -128,34 +142,44 @@ class _ExtendParentValidityState extends State<ExtendParentValidity> {
                             data: widget.data,
                           ),
                           MobileNumberTextField(
-                              controller: _parentMobile,
-                              fieldName: ' Parent Mobile Number',
-                              hintText: 'parent mobile number'),
+                            controller: _parentMobile,
+                            fieldName: ' Parent Mobile Number',
+                            hintText: response == null
+                                ? 'Parent Mobile Number'
+                                : response['PARENT_MOBILE'],
+                          ),
                           NameTextField(
                               controller: _parentFullName,
-                              hint: "Enter Parent Full name",
-                              nameType: "Full Name"),
+                              hint: response == null
+                                  ? 'Parent full name'
+                                  : response['PARENT_NAME'],
+                              nameType: "Parent Name"),
                           const TextForForm(text: "Validity Starts"),
                           CustomDatePicker(
                             date: _validityStarts,
+                            hint: response == null
+                                ? 'Validity Starts'
+                                : response['VALIDITY_STARTS'],
                           ),
-                          const TextForForm(text: "Validity Starts"),
+                          const TextForForm(text: "Validity Ends"),
                           CustomDatePicker(
                             date: _validityEnds,
+                            hint: response == null
+                                ? 'Validity Ends'
+                                : response['VALIDITY_ENDS'],
                           ),
                           _buildStatus(),
                           NameTextField(
                               controller: _parentAddress,
-                              hint: "Enter Parent Address",
+                              hint: response == null
+                                  ? 'Parent Address'
+                                  : response['PARENT_ADDRESS'],
                               nameType: "Parent Address"),
                           SizedBox(
                             height: 30.h,
                           ),
                           ActionPageButton(
-                              onPressed: () async {
-
-                              },
-                              text: 'Validate Parent'),
+                              onPressed: () async {}, text: 'Validate Parent'),
                           SizedBox(
                             height: 30.h,
                           ),

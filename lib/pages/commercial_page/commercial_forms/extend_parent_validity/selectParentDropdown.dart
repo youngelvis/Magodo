@@ -2,9 +2,7 @@ import 'dart:convert';
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:magodo/models/fetch_parent_model/get_parent_model.dart';
-import 'package:magodo/models/fetch_parents_models/fetch_parents_model.dart';
-
+import 'package:magodo/models/get_parent_model/get_parent_model.dart';
 import '../../../../api/api.dart';
 import '../../../../models/resident_data_model/residentdata.dart';
 
