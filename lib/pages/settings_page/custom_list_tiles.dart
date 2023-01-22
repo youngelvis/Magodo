@@ -18,21 +18,19 @@ class CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      InkWell(
-        onTap: navigate(data),
-        child: ListTile(
-          leading: Icon(
-            prefixIcon,
-            size: 50,
-            color: color.AppColor.landingPageTitle,
-          ),
-          title: Text(text, style: const TextStyle(fontSize: 40)),
-          trailing: Icon(
-            Icons.keyboard_arrow_right,
-            size: 50,
-            color: color.AppColor.landingPageTitle,
-          ),
+      ListTile(
+        leading: Icon(
+          prefixIcon,
+          size: 50,
+          color: color.AppColor.landingPageTitle,
         ),
+        title: Text(text, style: const TextStyle(fontSize: 40)),
+        trailing: Icon(
+          Icons.keyboard_arrow_right,
+          size: 50,
+          color: color.AppColor.landingPageTitle,
+        ),
+        onTap: navigate(data),
       ),
       const SizedBox(height: 20,),
     ]);

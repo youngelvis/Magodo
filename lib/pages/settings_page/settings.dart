@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+  import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:magodo/pages/settings_page/custom_list_tiles.dart';
 import '../../../components/components_for_class_of_varable/colors.dart' as color;

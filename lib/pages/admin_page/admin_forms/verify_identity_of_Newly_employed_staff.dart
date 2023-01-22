@@ -18,9 +18,7 @@ import '../../../components/date_text_field.dart';
 import '../../../components/text_for_form.dart';
 import '../../../components/textfields_types/mobile_num_textfield.dart';
 import '../../../components/textfields_types/name_textfield.dart';
-import '../../../components/textfields_types/zones.dart';
 import '../../../components/title.dart';
-import '../admin_components/searchableDropDownList_NS.dart';
 
 class VerifyNewStaff extends StatefulWidget {
   ResidentModel? data;
