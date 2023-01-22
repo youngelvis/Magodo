@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/profile_page/edit_profile/edit_profile.dart';
+import 'package:magodo/pages/settings_page/settings.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 
 class ProfilePage extends StatefulWidget {
@@ -61,7 +62,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               color: color.AppColor.landingPageTitle,
                             ),
                             onPressed: () {
-                              Navigator.of(context).pop();
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => Settings(
+                                data: widget.data,
+                              )));
                             }),
                       ],
                     ),

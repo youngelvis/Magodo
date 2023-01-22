@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../components/components_for_class_of_varable/colors.dart' as color;
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomListTile extends StatelessWidget {
   final prefixIcon;
@@ -8,12 +9,18 @@ class CustomListTile extends StatelessWidget {
 
   const CustomListTile(
       {Key? key,
-      required this.prefixIcon,
+      this.prefixIcon,
       required this.text,
-      required this.data})
+       this.data})
       : super(key: key);
 
-  navigate(data) {}
+  navigate(data) async{
+    if(await canLaunchUrl(data)){
+      await launchUrl(data);
+    } else{
+      throw 'could not lunch url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
