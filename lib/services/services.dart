@@ -142,62 +142,42 @@ class Services {
     return body;
   }
 
-  //8
-  updateResidentProfile(
-      residentCode,
-      fullName,
-      residentPhone,
-      email,
-      userGroup,
-      status,
-      address,
-      residentType,
-      validityStartsDate,
-      validityEndsDate) async {
-    var data = {
-      "resident_code": residentCode,
-      "full_name": fullName,
-      "resident_phone": residentPhone,
-      "email": email,
-      "user_group": userGroup,
-      "status": status,
-      "address": address,
-      "resident_type": residentType,
-      "validity_starts_date": validityStartsDate,
-      "Validity_ends_date": validityEndsDate
-    };
-
-    var res = await CallApi().postData(data, 'updateResidentProfile');
-    var body = jsonDecode(res.body);
-    return body;
-  }
-
   //9
   updateCommercialProfile(
+      firstName,
+      surname,
       residentPhone,
-      fullName,
-      residentCode,
       email,
-      userGroup,
-      status,
       residentType,
       address,
-      validityStartsDate,
-      validityEndsDate) async {
+      residentData,
+      businessAddress,
+      businessName,
+      staffNumber,
+      businessMobileNumber,
+      businessEmail) async {
+    ResidentModel? residentModel = residentData;
     var data = {
-      "resident_code": residentCode,
+      "resident_code": residentModel!.resident_code,
+      "firstname": firstName,
+      "surname": surname,
       "resident_phone": residentPhone,
-      "full_name": fullName,
       "email": email,
-      "user_group": userGroup,
-      "status": status,
+      "user_group": residentModel.usr_group,
+      "status": residentModel.user_status,
+      "mra_zone": residentModel.zone,
       "resident_type": residentType,
       "address": address,
-      "validity_starts_date": validityStartsDate,
-      "Validity_ends_date": validityEndsDate
+      "validity_starts_date": residentModel.validity_starts,
+      "validity_ends_date": residentModel.validity_ends,
+      "street_address": businessAddress,
+      "business_name": businessName,
+      "staff_number": staffNumber,
+      "mobile_number": businessMobileNumber,
+      "business_email": businessEmail,
     };
 
-    var res = await CallApi().postData(data, 'updateCommercialProfile');
+    var res = await CallApi().putData(data, 'updateCommercialProfile');
     var body = jsonDecode(res.body);
     return body;
   }
@@ -444,7 +424,7 @@ class Services {
       "validity_end_date": validityEnd,
       "password": password,
       "confirm_password": confirmPassword,
-      "action_user": "sadmin"
+      "action_user": userGroup
     };
     var res = await CallApi().postData(data, 'createAdmin');
     var body = jsonDecode(res.body);
@@ -453,8 +433,8 @@ class Services {
 
   //29
 
-  updateProfile(firstName, surname, residentPhone, email, residentType, address,
-      residentData) async {
+  updateResidentProfile(firstName, surname, residentPhone, email, residentType,
+      address, residentData) async {
     ResidentModel? residentModel = residentData;
     var data = {
       "resident_code": residentModel!.resident_code,
@@ -521,7 +501,7 @@ class Services {
 
   //35
 
-  updateMember(residentCode, residentPhone, firstname, surname, email,
+  updateResidentMember(residentCode, residentPhone, firstname, surname, email,
       userGroup, status, address, zone, validityStart, validityEnd) async {
     final data = {
       "resident_reg_code": residentCode,
@@ -535,7 +515,7 @@ class Services {
       "zone": zone,
       "validity_start_date": validityStart,
       "validity_end_date": validityEnd,
-      "action_user": "Sadmin"
+      "action_user": userGroup
     };
 
     var res = await CallApi().putData(data, 'updateMember');
@@ -824,9 +804,8 @@ class Services {
   }
 
 //60
-  getParentDetail( passcode) async {
-    var data =
-    {
+  getParentDetail(passcode) async {
+    var data = {
       "parent_passcode": passcode,
     };
     var res = await CallApi().postData(data, 'adminActivityLogReport');

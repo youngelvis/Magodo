@@ -12,6 +12,7 @@ import '../../../components/textfields_types/name_textfield.dart';
 import '../../../components/title.dart';
 import '../../../models/resident_data_model/residentdata.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
+
 class UpdateMember extends StatefulWidget {
   ResidentModel? data;
 
@@ -65,7 +66,7 @@ class _UpdateMemberState extends State<UpdateMember> {
   Widget _buildClassification() {
     return RoundedDropDownTextField(
       hint: Text(
-        response==null? classificationOptions[0]:response['user_group'],
+        response == null ? classificationOptions[0] : response['user_group'],
         style: TextStyle(fontSize: 15.sp),
       ),
       value: classification,
@@ -82,14 +83,14 @@ class _UpdateMemberState extends State<UpdateMember> {
         value: classificationOptions,
         child: Text(
           classificationOptions,
-          style:  TextStyle(fontWeight: FontWeight.normal, fontSize: 17.sp),
+          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17.sp),
         ),
       );
 
   Widget _buildStatus() {
     return RoundedDropDownTextField(
       hint: Text(
-        response==null?statusOptions[0]:response['status'],
+        response == null ? statusOptions[0] : response['status'],
         style: TextStyle(fontSize: 15.sp),
       ),
       value: status,
@@ -105,7 +106,7 @@ class _UpdateMemberState extends State<UpdateMember> {
         value: statusOptions,
         child: Text(
           statusOptions,
-          style:  TextStyle(fontWeight: FontWeight.normal, fontSize: 17.sp),
+          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17.sp),
         ),
       );
   var response;
@@ -119,32 +120,31 @@ class _UpdateMemberState extends State<UpdateMember> {
       response = data['data'];
     });
   }
-callMessage(message){
 
+  callMessage(message) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
 
-  return showDialog(
-    context: context,
-    builder: (_) => AlertDialog(
-      title: Text(message),
-      actions: [
-        ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: color.AppColor.homePageTheme,
-                onPrimary: color.AppColor.landingPage2,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0))),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text("ok"))
-      ],
-    ),
-  );
-}
   updateMember() async {
-
-    final data = await Services().updateMember(
-        response['resident_reg_code']?? '',
+    final data = await Services().updateResidentMember(
+        response['resident_reg_code'] ?? '',
         _mobileNumber.text.isEmpty
             ? response['resident_phone']
             : _mobileNumber.text,
@@ -160,7 +160,6 @@ callMessage(message){
             ? response['validity_ends']
             : _finishDate.text);
 
-
     _firstName.clear();
     _surname.clear();
     _email.clear();
@@ -168,7 +167,7 @@ callMessage(message){
     _startDate.clear();
     _finishDate.clear();
     _mobileNumber.clear();
-    zone= null;
+    zone = null;
     status = null;
     classification = null;
     callMessage(data['message']);
@@ -191,7 +190,7 @@ callMessage(message){
                   height: 50.h,
                 ),
                 Row(
-                  children:  [
+                  children: [
                     Text(
                       'Update Member',
                       style: TextStyle(fontSize: 30.sp),
@@ -202,7 +201,7 @@ callMessage(message){
                     ),
                   ],
                 ),
-                 SizedBox(
+                SizedBox(
                   height: 40.h,
                 ),
                 Expanded(
@@ -212,35 +211,50 @@ callMessage(message){
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SearchableDropDownListForFetchMember(onChange: onChange, data: widget.data,),
+                              SearchableDropDownListForFetchMember(
+                                onChange: onChange,
+                                data: widget.data,
+                              ),
                               NameTextField(
                                   controller: _firstName,
-                                  hint: response==null ? 'First Name': response['firstname'],
+                                  hint: response == null
+                                      ? 'First Name'
+                                      : response['firstname'],
                                   nameType: "First Name"),
                               NameTextField(
                                   controller: _surname,
-                                  hint: response==null ? 'Surname': response['surname'],
+                                  hint: response == null
+                                      ? 'Surname'
+                                      : response['surname'],
                                   nameType: "Surname"),
                               MobileNumberTextField(
                                   controller: _mobileNumber,
                                   fieldName: "Mobile Number",
-                                  hintText: response==null ? 'Mobile Number': response['resident_phone']),
+                                  hintText: response == null
+                                      ? 'Mobile Number'
+                                      : response['resident_phone']),
                               NameTextField(
                                   controller: _email,
-                                  hint: response==null ? 'Email': response['email'],
+                                  hint: response == null
+                                      ? 'Email'
+                                      : response['email'],
                                   nameType: " Email"),
                               NameTextField(
                                   controller: _address,
-                                  hint: response==null ? 'Address': response['address'],
+                                  hint: response == null
+                                      ? 'Address'
+                                      : response['address'],
                                   nameType: "Address"),
                               const TextForForm(text: "Status"),
                               _buildStatus(),
-                               SizedBox(
+                              SizedBox(
                                 height: 20.h,
                               ),
                               BuildZoneDropDownList(
                                 zone: zone,
-                                hint: response==null ? 'Zone': response['zone'],
+                                hint: response == null
+                                    ? 'Zone'
+                                    : response['zone'],
                                 onChanged: (value) => setState(() {
                                   zone = value as String;
                                 }),
@@ -253,22 +267,27 @@ callMessage(message){
                               const TextForForm(text: "Validity Starts"),
                               CustomDatePicker(
                                 date: _startDate,
-                                hint: response==null ? 'Validity Starts': response['validity_starts'],
+                                hint: response == null
+                                    ? 'Validity Starts'
+                                    : response['validity_starts'],
                               ),
-                               SizedBox(
+                              SizedBox(
                                 height: 20.h,
                               ),
                               const TextForForm(text: "Validity Ends"),
                               CustomDatePicker(
                                   date: _finishDate,
-                                  hint: response==null ? 'validity end': response['validity_ends']),
+                                  hint: response == null
+                                      ? 'validity end'
+                                      : response['validity_ends']),
                               SizedBox(
                                 height: 20.h,
                               ),
                               ActionPageButton(
                                   onPressed: () async {
                                     updateMember();
-                                  }, text: 'Update'),
+                                  },
+                                  text: 'Update'),
                               const SizedBox(
                                 height: 30,
                               ),

@@ -5,7 +5,8 @@ import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/textfields_types/resident_type_dropdown_list.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
-import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
+import 'package:magodo/pages/profile_page/edit_profile/commercialEditProfile.dart';
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:magodo/services/services.dart';
 
 import '../../../components/title.dart';
@@ -24,35 +25,72 @@ TextEditingController _surname = TextEditingController();
 TextEditingController _email = TextEditingController();
 TextEditingController _address = TextEditingController();
 TextEditingController _mobileNumber = TextEditingController();
+TextEditingController _businessAddress = TextEditingController();
+TextEditingController _businessName = TextEditingController();
+TextEditingController _businessEmail = TextEditingController();
+TextEditingController _staffNumber = TextEditingController();
+TextEditingController _businessMobileNumber = TextEditingController();
 
 class _EditProfileState extends State<EditProfile> {
   String? residentType;
+  String? category;
+
+  callMessage(message) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
 
   editProfile() async {
-    if (_firstName.text.isEmpty ||
-        _surname.text.isEmpty ||
-        _mobileNumber.text.isEmpty ||
-        _email.text.isEmpty ||
-        residentType == null) {
-      final data = await Services().updateProfile(
-          _firstName.text,
-          _surname.text,
-          _mobileNumber.text,
-          _email.text,
-          residentType,
-          _address.text,
+    if (widget.data?.resident_type == "Resident") {
+      final data = await Services().updateResidentProfile(
+          _firstName.text.isEmpty ? widget.data?.firstname : _firstName.text,
+          _surname.text.isEmpty ? widget.data?.surname : _surname.text,
+          _mobileNumber.text.isEmpty ? widget.data?.msisdn : _mobileNumber.text,
+          _email.text.isEmpty ? widget.data?.email : _email.text,
+          residentType ?? widget.data?.resident_type,
+          _address.text.isEmpty ? widget.data?.address : _address.text,
           widget.data);
-      print(data);
+      callMessage(data['message']);
     }
-    final data = await Services().updateProfile(
-        _firstName.text,
-        _surname.text,
-        _mobileNumber.text,
-        _email.text,
-        residentType,
-        _address.text,
-        widget.data);
-    print(data);
+    final data = await Services().updateCommercialProfile(
+      _firstName.text.isEmpty ? widget.data?.firstname : _firstName.text,
+      _surname.text.isEmpty ? widget.data?.surname : _surname.text,
+      _mobileNumber.text.isEmpty ? widget.data?.msisdn : _mobileNumber.text,
+      _email.text.isEmpty ? widget.data?.email : _email.text,
+      residentType ?? widget.data?.resident_type,
+      _address.text.isEmpty ? widget.data?.address : _address.text,
+      widget.data,
+      _businessAddress.text.isEmpty
+          ? widget.data?.street_address
+          : _businessAddress.text,
+      _businessName.text.isEmpty
+          ? widget.data?.Business_name
+          : _businessName.text,
+      _staffNumber.text,
+      _businessMobileNumber.text.isEmpty
+          ? widget.data?.mobile_number
+          : _businessMobileNumber.text,
+      _businessEmail.text.isEmpty
+          ? widget.data?.business_email
+          : _businessEmail.text,
+    );
+    callMessage(data['message']);
   }
 
   @override
@@ -93,25 +131,26 @@ class _EditProfileState extends State<EditProfile> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Center(child: Text(widget.data?.usr_full_name??'', style: TextStyle(fontSize: 20.sp),)),
                               const SizedBox(
                                 height: 20,
                               ),
                               MobileNumberTextField(
                                   controller: _mobileNumber,
                                   fieldName: 'Mobile Number',
-                                  hintText: widget.data?.mobile_number??'Enter your mobile number'),
+                                  hintText: widget.data?.msisdn ??
+                                      'Enter your mobile number'),
                               NameTextField(
                                   controller: _firstName,
-                                  hint: widget.data?.firstname??"Enter First Name",
+                                  hint: widget.data?.firstname ??
+                                      "Enter First Name",
                                   nameType: "First Name"),
                               NameTextField(
                                   controller: _surname,
-                                  hint: widget.data?.surname??"Enter Surname",
+                                  hint: widget.data?.surname ?? "Enter Surname",
                                   nameType: "Surname"),
                               NameTextField(
                                   controller: _email,
-                                  hint: widget.data?.email ??"Enter email",
+                                  hint: widget.data?.email ?? "Enter email",
                                   nameType: "Email"),
                               NameTextField(
                                   controller: _address,
@@ -122,7 +161,23 @@ class _EditProfileState extends State<EditProfile> {
                                   onChanged: (value) => setState(() {
                                         residentType = value as String;
                                       }),
-                              hintText: widget.data?.resident_type??'Select Resident Type'),
+                                  hintText: widget.data?.resident_type ??
+                                      'Select Resident Type'),
+                              widget.data?.resident_type == 'Commercial'
+                                  ? CommercialEditProfile(
+                                      businessName: _businessName,
+                                      businessAddress: _businessAddress,
+                                      businessEmail: _businessEmail,
+                                      businessMobileNumber:
+                                          _businessMobileNumber,
+                                      staffNumber: _staffNumber,
+                                      data: widget.data,
+                                      category: category,
+                                      onChange: (value) => setState(() {
+                                        category = value as String;
+                                      }),
+                                    )
+                                  : const Text(''),
                               SizedBox(
                                 height: 40.h,
                               ),
