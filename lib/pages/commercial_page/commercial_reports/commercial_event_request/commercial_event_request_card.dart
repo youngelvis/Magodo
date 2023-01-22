@@ -19,17 +19,17 @@ class _CommercialEventRequestCardState
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
+        padding: EdgeInsets.only(top: 10.h),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           ListTile(
             title: Text(
               widget.data?.createdDate ?? '',
-              style: TextStyle(fontSize: 20.sp),
+              style: TextStyle(fontSize: 12.sp),
             ),
             trailing: Text(
               widget.data?.eventType ?? '',
               style: TextStyle(
-                  fontSize: 15.sp, color: color.AppColor.homePageTheme),
+                  fontSize: 12.sp, color: color.AppColor.homePageTheme),
             ),
           ),
           const Divider(
@@ -38,19 +38,21 @@ class _CommercialEventRequestCardState
           ListTile(
             title: Text(
               widget.data?.passcode ?? '',
-              style: TextStyle(fontSize: 15.sp),
+              style: TextStyle(fontSize: 12.sp),
             ),
           ),
           ListTile(
             title: Text(
               widget.data?.eventScheduledDate ?? '',
-              style: TextStyle(fontSize: 15.sp),
+              style: TextStyle(fontSize: 12.sp),
             ),
             trailing: Container(
               decoration: BoxDecoration(
-                  color: widget.data?.status == 'Verified'
+                  color: widget.data?.status == 'Approved'
                       ? color.AppColor.verifiedColor
-                      : color.AppColor.decline,
+                      : widget.data?.status == 'Unapproved'
+                          ? color.AppColor.homePageTheme
+                          : color.AppColor.decline,
                   border: Border.all(color: Colors.white),
                   borderRadius: BorderRadius.circular(6.0)),
               child: Padding(
@@ -58,7 +60,7 @@ class _CommercialEventRequestCardState
                 child: Text(widget.data?.status ?? '',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 15.sp,
+                      fontSize: 12.sp,
                       color: Colors.white,
                     )),
               ),
@@ -67,41 +69,41 @@ class _CommercialEventRequestCardState
           ListTile(
             title: Text(
               'Name',
-              style: TextStyle(fontSize: 15.sp),
+              style: TextStyle(fontSize: 12.sp),
             ),
             trailing: Text(
               widget.data?.fullname ?? '',
-              style: TextStyle(fontSize: 15.sp),
+              style: TextStyle(fontSize: 12.sp),
             ),
           ),
           ListTile(
             title: Text(
               'Phone',
-              style: TextStyle(fontSize: 15.sp),
+              style: TextStyle(fontSize: 12.sp),
             ),
             trailing: Text(
               widget.data?.msisdn ?? '',
-              style: TextStyle(fontSize: 15.sp),
+              style: TextStyle(fontSize: 12.sp),
             ),
           ),
           ListTile(
             title: Text(
               'Email',
-              style: TextStyle(fontSize: 15.sp),
+              style: TextStyle(fontSize: 12.sp),
             ),
             trailing: Text(
               widget.data?.email ?? '',
-              style: TextStyle(fontSize: 15.sp),
+              style: TextStyle(fontSize: 12.sp),
             ),
           ),
           ListTile(
             title: Text(
               'Population',
-              style: TextStyle(fontSize: 15.sp),
+              style: TextStyle(fontSize: 12.sp),
             ),
             trailing: Text(
               widget.data?.population ?? '',
-              style: TextStyle(fontSize: 15.sp),
+              style: TextStyle(fontSize: 12.sp),
             ),
           ),
         ]),

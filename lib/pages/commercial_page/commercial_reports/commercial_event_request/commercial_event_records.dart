@@ -63,7 +63,7 @@ class _CommercialEventReportState extends State<CommercialEventReport> {
       }
     }
     var data = await Services().commercialEventReport(
-        currentPage, _searchWords.text, widget.data?.resident_code);
+        currentPage,widget.data?.resident_code, _searchWords.text);
 
     final result = commercialEventRequestsFromJson(data);
 

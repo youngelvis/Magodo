@@ -799,7 +799,7 @@ class Services {
       "search": search.toString(),
       "resident_code": residentCode
     };
-    var res = await CallApi().postData(data, 'adminActivityLogReport');
+    var res = await CallApi().postData(data, 'parentReport');
     return res.body;
   }
 
@@ -808,7 +808,7 @@ class Services {
     var data = {
       "parent_passcode": passcode,
     };
-    var res = await CallApi().postData(data, 'adminActivityLogReport');
+    var res = await CallApi().postData(data, 'getParentDetail');
     var body = jsonDecode(res.body);
     return body;
   }
@@ -841,7 +841,7 @@ class Services {
       "resident_code": residentCode,
       "parent_passcode": parentPasscode,
       "parent_phone": parentPhone,
-      "parent_name ": parentName,
+      "parent_name": parentName,
       "validity_ends": validityEnds,
       "validity_starts": validityStarts,
       "address": address,

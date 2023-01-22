@@ -34,7 +34,21 @@ class _TitleContainerState extends State<TitleContainer> {
           builder: (context) => page,
         ));
   }
-
+  List commercial_category = [
+    "Church",
+    "Mosque",
+    "Supermarket",
+    "Gym House",
+    "Pharmacy",
+    "Office",
+    "Hospital",
+    "Restaurant",
+    "Saloon/Spa",
+    "Entertainment",
+    "Hotel",
+    "School",
+    "Others"
+  ];
   navbarController() {
     if (widget.data?.usr_group == UserGroup.MEMBER) {
       navigateToProfilePage(ResidentNavigationPage(data: widget.data));
@@ -48,15 +62,17 @@ class _TitleContainerState extends State<TitleContainer> {
       navigateToProfilePage(AdminNavPage(
         residentModel: widget.data,
       ));
-    } else if (widget.data?.usr_group == UserGroup.MEMBER) {
-      if (widget.data?.category == Category.SCHOOL) {
+    } else if (commercial_category.contains(widget.data?.usr_group)) {
+      if (widget.data?.usr_group == "School") {
         navigateToProfilePage(CommercialNavPageForSchool(
           data: widget.data,
         ));
+      }else{
+        navigateToProfilePage(CommercialNavPage(
+          data: widget.data,
+        ));
       }
-      navigateToProfilePage(CommercialNavPage(
-        data: widget.data,
-      ));
+
     }
   }
 

@@ -45,7 +45,7 @@ class _SelectParentDropdownState extends State<SelectParentDropdown> {
           mode: Mode.MENU,
           showSelectedItems: true,
           items: fetchParent?.data
-              ?.map((e) => "${e?.parentPasscode} - ${e?.parentName}")
+              ?.map((e) => "${e.parentPasscode} - ${e.parentName}")
               .toList(),
           dropdownSearchDecoration: const InputDecoration(
               hintText: "select staff"),

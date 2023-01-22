@@ -22,7 +22,7 @@ ResidentModel _$ResidentModelFromJson(Map<String, dynamic> json) =>
       last_login_date: json['last_login_date'] as String?,
       resident_type: json['resident_type'] as String?,
       street_address: json['street_address'] as String?,
-      Business_name: json['Business_name'] as String?,
+      business_name: json['business_name'] as String?,
       mobile_number: json['mobile_number'] as String?,
       business_email: json['business_email'] as String?,
       category: json['category'] as String?,
@@ -30,6 +30,7 @@ ResidentModel _$ResidentModelFromJson(Map<String, dynamic> json) =>
       authorized_date: json['authorized_date'] as String?,
       firstname: json['firstname'] as String?,
       surname: json['surname'] as String?,
+      staff_number: json['staff_number'] as String?,
     );
 
 Map<String, dynamic> _$ResidentModelToJson(ResidentModel instance) =>
@@ -50,10 +51,11 @@ Map<String, dynamic> _$ResidentModelToJson(ResidentModel instance) =>
       'last_login_date': instance.last_login_date,
       'resident_type': instance.resident_type,
       'street_address': instance.street_address,
-      'Business_name': instance.Business_name,
+      'business_name': instance.business_name,
       'mobile_number': instance.mobile_number,
       'business_email': instance.business_email,
       'category': instance.category,
       'authorized_by': instance.authorized_by,
       'authorized_date': instance.authorized_date,
+      'staff_number': instance.staff_number,
     };

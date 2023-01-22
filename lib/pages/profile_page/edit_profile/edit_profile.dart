@@ -80,7 +80,7 @@ class _EditProfileState extends State<EditProfile> {
           ? widget.data?.street_address
           : _businessAddress.text,
       _businessName.text.isEmpty
-          ? widget.data?.Business_name
+          ? widget.data?.business_name
           : _businessName.text,
       _staffNumber.text,
       _businessMobileNumber.text.isEmpty
@@ -154,7 +154,7 @@ class _EditProfileState extends State<EditProfile> {
                                   nameType: "Email"),
                               NameTextField(
                                   controller: _address,
-                                  hint: "Enter email",
+                                  hint: widget.data?.address?? "Enter email",
                                   nameType: "Address"),
                               BuildResidentTypeDropDownList(
                                   residentType: residentType,

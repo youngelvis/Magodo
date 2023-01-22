@@ -8,9 +8,10 @@ import 'package:magodo/components/components_for_class_of_varable/category.dart'
 class BuildCategoryDropDownList extends StatefulWidget {
   final category;
   final onChanged;
+  final hint;
 
   const BuildCategoryDropDownList(
-      {Key? key, required this.category, required this.onChanged})
+      {Key? key, required this.category, required this.onChanged, this.hint})
       : super(key: key);
 
   @override
@@ -37,9 +38,9 @@ class _BuildCategoryDropDownListState
 
   Widget _buildCategory() {
     return RoundedDropDownTextField(
-      hint: const Text(
-        'Select category',
-        style: TextStyle(fontSize: 15),
+      hint:  Text(
+        widget.hint,
+        style: const TextStyle(fontSize: 15),
       ),
       value: widget.category,
       onChanged: widget.onChanged,

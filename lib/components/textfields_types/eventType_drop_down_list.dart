@@ -55,7 +55,7 @@ class _BuildEventTypeDropDownListState
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const TextForForm(text: "event Type"),
+          const TextForForm(text: "Event Type"),
           _buildEventType(),
           const SizedBox(
             height: 20,

@@ -65,8 +65,9 @@ class _ExtendParentValidityState extends State<ExtendParentValidity> {
   onChange(String? s) async {
     var residentCode = s?.split("- ");
     residentcode = residentCode?[0];
+    print(residentcode);
     final data = await Services().getParentDetail(residentcode);
-
+      print(data);
     setState(() {
       response = data['data'];
     });
@@ -102,7 +103,7 @@ class _ExtendParentValidityState extends State<ExtendParentValidity> {
           ? response['PARENT_MOBILE']
           : _parentMobile.text,
       _parentFullName.text.isEmpty
-          ? response['PARENT_FULLNAME']
+          ? response['PARENT_NAME']
           : _parentFullName.text,
       _validityStarts.text.isEmpty
           ? response['VALIDITY_STARTS']
@@ -115,6 +116,7 @@ class _ExtendParentValidityState extends State<ExtendParentValidity> {
           : _parentAddress.text,
       status ?? response['STATUS'],
     );
+    print(data);
 _parentAddress.clear();
     _parentFullName.clear();
     _parentMobile.clear();
@@ -161,6 +163,7 @@ _parentAddress.clear();
                   child: SingleChildScrollView(
                     child: Form(
                       child: Column(
+
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const TextForForm(
@@ -168,6 +171,7 @@ _parentAddress.clear();
                           ),
                           SelectParentDropdown(
                             data: widget.data,
+                            onChange: onChange,
                           ),
                           MobileNumberTextField(
                             controller: _parentMobile,
@@ -196,6 +200,8 @@ _parentAddress.clear();
                                 ? 'Validity Ends'
                                 : response['VALIDITY_ENDS'],
                           ),
+                          const SizedBox(height: 20,),
+                          const TextForForm(text: "Status"),
                           _buildStatus(),
                           NameTextField(
                               controller: _parentAddress,

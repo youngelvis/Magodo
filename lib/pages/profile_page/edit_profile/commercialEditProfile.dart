@@ -42,7 +42,7 @@ class _CommercialEditProfileState extends State<CommercialEditProfile> {
             nameType: "Business Address"),
         NameTextField(
             controller: widget.businessName,
-            hint: widget.data?.Business_name ?? "Enter Business Name",
+            hint: widget.data?.business_name ?? "Enter Business Name",
             nameType: "Business Name"),
         MobileNumberTextField(
             controller: widget.businessMobileNumber,
@@ -52,7 +52,8 @@ class _CommercialEditProfileState extends State<CommercialEditProfile> {
         MobileNumberTextField(
             controller: widget.staffNumber,
             fieldName: 'Staff Number',
-            hintText: 'Enter your staff number'),
+            hintText: widget.data?.staff_number ??
+                'Enter your staff number'),
         NameTextField(
             controller: widget.businessEmail,
             hint: widget.data?.business_email ?? "Enter Business Email",
@@ -60,6 +61,7 @@ class _CommercialEditProfileState extends State<CommercialEditProfile> {
         BuildCategoryDropDownList(
           category: widget.category,
           onChanged: widget.onChange,
+          hint: widget.data?.category ?? "category",
         )
       ],
     );

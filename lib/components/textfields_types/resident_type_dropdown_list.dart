@@ -30,7 +30,7 @@ class _BuildResidentTypeDropDownListState
   Widget _buildResidentType() {
     return RoundedDropDownTextField(
       hint:  Text(
-        'Select resident type',
+         widget.hintText,
         style: TextStyle(fontSize: 15),
       ),
       value: widget.residentType,

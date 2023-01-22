@@ -20,12 +20,13 @@ class ResidentModel {
   String? last_login_date;
   String? resident_type;
   String? street_address;
-  String? Business_name;
+  String? business_name;
   String? mobile_number;
   String? business_email;
   String? category;
   String? authorized_by;
   String? authorized_date;
+  String? staff_number;
 
   ResidentModel(
       {this.resident_code,
@@ -42,14 +43,15 @@ class ResidentModel {
       this.last_login_date,
       this.resident_type,
       this.street_address,
-      this.Business_name,
+      this.business_name,
       this.mobile_number,
       this.business_email,
       this.category,
       this.authorized_by,
       this.authorized_date,
       this.firstname,
-      this.surname});
+      this.surname,
+      this.staff_number});
 
   factory ResidentModel.fromJson(Map<String, dynamic> json) =>
       _$ResidentModelFromJson(json);

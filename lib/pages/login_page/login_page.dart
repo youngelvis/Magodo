@@ -11,6 +11,7 @@ import 'package:magodo/models/resident_data_model/mainErrorHandler.dart';
 import 'package:magodo/models/resident_data_model/mainResidentModel.dart';
 import 'package:magodo/models/resident_data_model/wrongDetailsResident.dart';
 import 'package:magodo/pages/register_page/register_page.dart';
+import 'package:magodo/pages/resident_Page/form_pages_for_residents/event_request/event_request.dart';
 import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
 
 import 'package:magodo/pages/super_admin/super_admin_forms/add_new_administrative_user.dart';
@@ -18,6 +19,7 @@ import 'package:magodo/pages/super_admin/super_admin_forms/add_new_administrativ
 import 'package:magodo/services/services.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 import '../admin_page/admin_forms/identify_newly_registered_members.dart';
+import '../commercial_page/commercial_reports/commercial_event_request/commercial_event_records.dart';
 import '../security_page/security_form/validate_passcode.dart';
 
 class SignIN extends StatefulWidget {
@@ -32,6 +34,21 @@ TextEditingController _residentCode = TextEditingController();
 TextEditingController _password = TextEditingController();
 
 class _SignINState extends State<SignIN> {
+  List commercial_category = [
+    "Church",
+    "Mosque",
+    "Supermarket",
+    "Gym House",
+    "Pharmacy",
+    "Office",
+    "Hospital",
+    "Restaurant",
+    "Saloon/Spa",
+    "Entertainment",
+    "Hotel",
+    "School",
+    "Others"
+  ];
   MainResidentModel mainResidentModel = MainResidentModel();
   MainErrorHandler mainErrorHandler = MainErrorHandler();
   WrongDetailsResident wrongDetailsResident = WrongDetailsResident();
@@ -42,7 +59,9 @@ class _SignINState extends State<SignIN> {
     _residentCode.clear();
     _password.clear();
   }
+callMessage(){
 
+}
   _login() async {
     if (_residentCode.text.isEmpty || _password.text.isEmpty) {
       var data = await Services().login(_residentCode.text, _password.text);
@@ -92,11 +111,10 @@ class _SignINState extends State<SignIN> {
       } else if (data['data']['usr_group'] == UserGroup.ADMIN ||
           data['data']['usr_group'] == UserGroup.ZONAL_ADMIN) {
         _navigation(IdentifyNewlyRegisteredMembers(data: resident));
+      } else if (commercial_category.contains(data['data']['usr_group']) ) {
+        _navigation(EventRequest(data: resident));
       } else {
-        setState(() {
-          wrongDetailsResident = WrongDetailsResident.fromJson(data);
-        });
-        var message = wrongDetailsResident.message;
+        var message = data['error'];
 
         return showDialog(
           context: context,
@@ -143,7 +161,7 @@ class _SignINState extends State<SignIN> {
                           fontWeight: FontWeight.w900),
                     ),
                   ),
-                   SizedBox(
+                  SizedBox(
                     height: 45.h,
                   ),
                   Center(
@@ -155,7 +173,7 @@ class _SignINState extends State<SignIN> {
                           fontWeight: FontWeight.w900),
                     ),
                   ),
-                   SizedBox(
+                  SizedBox(
                     height: 30.h,
                   ),
                   Center(child: DontAlreadyHaveAnAccount(
@@ -175,11 +193,11 @@ class _SignINState extends State<SignIN> {
                       nameType: 'Resident Code'),
                   BuildPasswordTextField(
                       fieldName: 'Password', passwordController: _password),
-                   SizedBox(
+                  SizedBox(
                     height: 20.h,
                   ),
                   const RememberMe(),
-                   SizedBox(
+                  SizedBox(
                     height: 120.h,
                   ),
                   ActionPageButton(

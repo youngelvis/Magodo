@@ -24,7 +24,7 @@ class _ParentReportCardState extends State<ParentReportCard> {
             ListTile(
               title: Text(
                 widget.data?.dateCreated ?? '',
-                style: TextStyle(fontSize: 20.sp),
+                style: TextStyle(fontSize: 12.sp),
               ),
             ),
             const Divider(
@@ -34,30 +34,23 @@ class _ParentReportCardState extends State<ParentReportCard> {
               title: Text(
                 widget.data?.residentCode ?? '',
                 style: TextStyle(fontSize: 15.sp),
+
               ),
+
             ),
             ListTile(
               title: Text(
-                '${widget.data?.validityStarts ?? ''} - ${widget.data?.validityEnds ?? ''}',
+                'Validity start',
                 style: TextStyle(fontSize: 15.sp),
               ),
-              trailing: Container(
-                decoration: BoxDecoration(
-                    color: widget.data?.status == 'Verified'
-                        ? color.AppColor.verifiedColor
-                        : color.AppColor.decline,
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(6.0)),
-                child: Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: Text(widget.data?.status ?? '',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 15.sp,
-                        color: Colors.white,
-                      )),
-                ),
+              trailing: Text(widget.data?.validityStarts ?? ''),
               ),
+            ListTile(
+              title: Text(
+                'Validity Ends',
+                style: TextStyle(fontSize: 15.sp),
+              ),
+              trailing: Text(widget.data?.validityEnds ?? ''),
             ),
             ListTile(
               title: Text(

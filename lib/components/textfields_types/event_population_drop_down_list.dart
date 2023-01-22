@@ -46,7 +46,7 @@ class _BuildEventPopulationDropDownListState
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const TextForForm(text: "event Population"),
+          const TextForForm(text: "Event Population"),
           _buildEventPopulation(),
           const SizedBox(
             height: 20,

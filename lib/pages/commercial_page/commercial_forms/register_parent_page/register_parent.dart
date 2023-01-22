@@ -55,7 +55,7 @@ class _RegisterParentState extends State<RegisterParent> {
           widget.data?.usr_full_name,
           widget.data?.msisdn,
           _parentFullName.text,
-          widget.data?.Business_name,
+          widget.data?.business_name,
           _parentAddress.text,
           _parentMobile.text);
       callMessage(data['error']['message']);
@@ -67,7 +67,7 @@ class _RegisterParentState extends State<RegisterParent> {
         widget.data?.usr_full_name,
         widget.data?.msisdn,
         _parentFullName.text,
-        widget.data?.Business_name,
+        widget.data?.business_name,
         _parentAddress.text,
         _parentMobile.text);
 
@@ -127,7 +127,7 @@ class _RegisterParentState extends State<RegisterParent> {
                           NameTextField(
                               controller: _parentEmail,
                               hint: "Enter Parent Email",
-                              nameType: "Email"),
+                              nameType: "Email (optional)"),
                           NameTextField(
                               controller: _parentAddress,
                               hint: "Enter Parent Address",

@@ -14,6 +14,7 @@ import '../../resident_Page/form_pages_for_residents/add_staff/add_staff.dart';
 import '../../resident_Page/form_pages_for_residents/get_bulk_passcode/get_bulk_passcode.dart';
 import '../../resident_Page/form_pages_for_residents/get_future_passcode/get_future_passcode.dart';
 import '../../resident_Page/form_pages_for_residents/get_passcode/get_passcode.dart';
+import '../commercial_reports/parent_report/view_parent_records.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 
 class CommercialNavPageForSchool extends StatefulWidget {
@@ -210,7 +211,7 @@ class _CommercialNavPageForSchoolState extends State<CommercialNavPageForSchool>
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
-                                navigateToPage(CommercialEventReport(
+                                navigateToPage(ParentRecords(
                                   data: widget.data,
                                 ));
                               }),

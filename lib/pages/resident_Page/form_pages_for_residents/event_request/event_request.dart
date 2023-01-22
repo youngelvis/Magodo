@@ -56,11 +56,17 @@ class _EventRequestState extends State<EventRequest> {
     if (_scheduleDate.text.isEmpty || _scheduleTime.text.isEmpty) {
       final data = await Services().requestEvent(widget.data?.resident_code,
           population, _scheduleDate.text, _scheduleTime.text, eventType);
+      print(data);
       callMessage(data["error"]["message"]);
 
     }
     final data = await Services().requestEvent(widget.data?.resident_code,
         population, _scheduleDate.text, _scheduleTime.text, eventType);
+    print(data);
+    _scheduleTime.clear();
+    _scheduleDate.clear();
+    population = null;
+    eventType=null;
     callMessage(data["message"]);
   }
 
@@ -70,7 +76,7 @@ class _EventRequestState extends State<EventRequest> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding:  EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
+            padding:  EdgeInsets.only(top: 20.h, left: 15.w, right: 15.w),
             child: Column(
               children: [
                 TitleContainer(
@@ -83,7 +89,7 @@ class _EventRequestState extends State<EventRequest> {
                 Row(
                   children:  [
                     Text(
-                      'Event request form',
+                      'Event Request Form',
                       style: TextStyle(fontSize: 30.sp),
                     ),
                     const Icon(
