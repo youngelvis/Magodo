@@ -50,7 +50,7 @@ class VehicleReportCard extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Gov agency'),
-            subtitle: Text(govAgency),
+            trailing: Text(govAgency),
           ),
           ListTile(
             title: const Text('Make'),

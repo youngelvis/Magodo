@@ -12,47 +12,50 @@ bool isChecked = false;
 class _RememberMeState extends State<RememberMe> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Theme(
-          data: Theme.of(context).copyWith(
-              unselectedWidgetColor:
-              color.AppColor.homePageTheme),
-          child: Checkbox(
-            value: isChecked,
-            onChanged: (value) {
-              setState(() {
-                isChecked = value!;
-              });
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          Theme(
+            data: Theme.of(context).copyWith(
+                unselectedWidgetColor:
+                color.AppColor.homePageTheme),
+            child: Checkbox(
+              value: isChecked,
+              onChanged: (value) {
+                setState(() {
+                  isChecked = value!;
+                });
+              },
+              activeColor: color.AppColor.homePageTheme,
+              checkColor: Colors.white,
+            ),
+          ),
+           Text(
+            'Remember me',
+            style: TextStyle(fontSize: 15.sp, color: Colors.black26),
+          ),
+           SizedBox(
+            width: 50.w,
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ForgetPassword(),
+                ),
+              );
             },
-            activeColor: color.AppColor.homePageTheme,
-            checkColor: Colors.white,
-          ),
-        ),
-         Text(
-          'Remember me',
-          style: TextStyle(fontSize: 15.sp, color: Colors.black26),
-        ),
-         SizedBox(
-          width: 55.w,
-        ),
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ForgetPassword(),
-              ),
-            );
-          },
-          child: Text(
-            'Forgot Password',
-            style: TextStyle(
-                fontSize: 20.sp,
-                color: color.AppColor.homeSecondaryTheme),
-          ),
-        )
-      ],
+            child: Text(
+              'Forgot Password',
+              style: TextStyle(
+                  fontSize: 20.sp,
+                  color: color.AppColor.homeSecondaryTheme),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

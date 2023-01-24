@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 import 'components_for_class_of_varable/colors.dart' as color;
 
 class NavTextButton extends StatelessWidget {
+  final space;
+  final size;
   final icon;
   final text;
   final onPressed;
+  final colored;
 
   const NavTextButton(
       {Key? key,
        this.icon,
       required this.text,
-      required this.onPressed})
+      required this.onPressed, this.size, this.colored, this.space})
       : super(key: key);
 
   @override
@@ -23,17 +26,17 @@ class NavTextButton extends StatelessWidget {
           children: [
             Icon(
               icon,
-              size: 50,
-              color: color.AppColor.landingPage2,
+              size: size??50,
+              color: colored?? color.AppColor.landingPage2,
             ),
-            const SizedBox(
-              width: 10,
+             SizedBox(
+              width: space??10,
             ),
             Text(
               text,
               style: TextStyle(
-                fontSize: 20,
-                color: color.AppColor.landingPage2,
+                fontSize:size?? 20,
+                color: colored?? color.AppColor.landingPage2,
               ),
             ),
             const SizedBox(height: 70)

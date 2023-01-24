@@ -30,44 +30,42 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Column(
               children: [
                 Center(
-                  child: Container(
-                    child: Row(
-                      children: [
-                        IconButton(
-                            icon: Icon(
-                              Icons.keyboard_arrow_left,
-                              size: 50,
-                              color: color.AppColor.landingPageTitle,
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            }),
-                        const SizedBox(
-                          width: 105,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: const Text(
-                            'Profile',
-                            style: TextStyle(fontSize: 40),
+                  child: Row(
+                    children: [
+                      IconButton(
+                          icon: Icon(
+                            Icons.keyboard_arrow_left,
+                            size: 50,
+                            color: color.AppColor.landingPageTitle,
                           ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          }),
+                       SizedBox(
+                        width: 80.w,
+                      ),
+                      Container(
+                        padding:  EdgeInsets.only(top: 10.h),
+                        child:  Text(
+                          'Profile',
+                          style: TextStyle(fontSize: 40.sp),
                         ),
-                        const SizedBox(
-                          width: 120,
-                        ),
-                        IconButton(
-                            icon: Icon(
-                              Icons.menu,
-                              size: 50,
-                              color: color.AppColor.landingPageTitle,
-                            ),
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => Settings(
-                                data: widget.data,
-                              )));
-                            }),
-                      ],
-                    ),
+                      ),
+                       SizedBox(
+                        width: 70.w,
+                      ),
+                      IconButton(
+                          icon: Icon(
+                            Icons.menu,
+                            size: 50,
+                            color: color.AppColor.landingPageTitle,
+                          ),
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Settings(
+                              data: widget.data,
+                            )));
+                          }),
+                    ],
                   ),
                 ),
                 const SizedBox(

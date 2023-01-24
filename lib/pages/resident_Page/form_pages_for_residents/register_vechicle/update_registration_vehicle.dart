@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import '/../../components/components_for_class_of_varable/colors.dart' as color;
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,25 +14,21 @@ import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_p
 import 'package:magodo/services/services.dart';
 
 import '../../../../components/title.dart';
-
-class RegisterVehicle extends StatefulWidget {
+class UpdateVehicleRegistration extends StatefulWidget {
   ResidentModel? data;
-
-   RegisterVehicle({Key? key, required this.data}) : super(key: key);
+   UpdateVehicleRegistration({Key? key, this.data}) : super(key: key);
 
   @override
-  State<RegisterVehicle> createState() => _RegisterVehicleState();
+  State<UpdateVehicleRegistration> createState() => _UpdateVehicleRegistrationState();
 }
-
 TextEditingController _vehicleCode = TextEditingController();
 TextEditingController _vehicleMake = TextEditingController();
 TextEditingController _vehicleModel = TextEditingController();
 TextEditingController _govtAgency = TextEditingController();
 TextEditingController _registrationNumber = TextEditingController();
-TextEditingController _duesReceiptNo = TextEditingController();
+TextEditingController _mraDuesReceiptNo = TextEditingController();
 TextEditingController _amountPaid = TextEditingController();
-
-class _RegisterVehicleState extends State<RegisterVehicle> {
+class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
   String? colour;
 
   late File file;
@@ -43,19 +39,19 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
   }
   registerVehicle(filepath, fileName) async {
     const String _url = "http://132.145.231.191/portal/mraLagosApp/api/";
-    const String _apiUrl = 'vehicleRegistration';
+    const String _apiUrl = 'getBulkPasscodes';
     FormData formData = FormData.fromMap({
       'resident_code': widget.data?.resident_code,
-      'make': _vehicleMake.text,
-      'model': _vehicleModel.text,
-      'color': colour,
-      "gov_agency":_govtAgency.text,
+      'make[]': _vehicleMake.text,
+      'model[]': _vehicleModel.text,
+      'color[]': colour,
+      "gov_agency[]":_govtAgency.text,
       "reg_no":_registrationNumber.text,
-      "vehicle_no": _registrationNumber.text,
-      "receipt_no": _duesReceiptNo.text,
-      "amount":_amountPaid.text,
+      "vehicle_no[]": _registrationNumber.text,
+      "receipt_no[]": _mraDuesReceiptNo.text,
+      "amount[]":_amountPaid.text,
       "action_user": widget.data?.usr_group,
-      "file": await MultipartFile.fromFile(filepath, filename: fileName)
+      "file[]": await MultipartFile.fromFile(filepath, filename: fileName)
     });
 
     var dio = Dio();
@@ -73,62 +69,7 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
     );
 
     final responseBody = response.data;
-
     return responseBody;
-  }
-  _registerNewVehicle() async {
-    var filename = await Services().baseName(file.path);
-    if (_vehicleMake.text.isEmpty ||
-        _vehicleModel.text.isEmpty ||
-        _govtAgency.text.isEmpty||_registrationNumber.text.isEmpty) {
-      var data = await registerVehicle(file.path, filename);
-      var message = data['error']['message'];
-
-      return showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text(message),
-          actions: [
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: color.AppColor.homePageTheme,
-                    onPrimary: color.AppColor.landingPage2,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0))),
-                onPressed: () {
-
-                  file.delete();
-
-                  Navigator.of(context).pop();
-                },
-                child: const Text("ok"))
-          ],
-        ),
-      );
-    }
-    var data = await registerVehicle(file.path, filename);
-    var message = data['message'];
-
-    return showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(message),
-        actions: [
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: color.AppColor.homePageTheme,
-                  onPrimary: color.AppColor.landingPage2,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0))),
-              onPressed: () {
-
-                file.delete();
-                Navigator.of(context).pop();
-              },
-              child: const Text("ok"))
-        ],
-      ),
-    );
   }
   @override
   Widget build(BuildContext context) {
@@ -158,11 +99,11 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                     ),
                   ],
                 ),
-                 Text(
+                Text(
                   'upload vehicle licence and supporting document',
                   style: TextStyle(fontSize: 15.sp),
                 ),
-               SizedBox(
+                SizedBox(
                   height: 40.h,
                 ),
                 Expanded(
@@ -187,8 +128,8 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                               BuildVehicleColorDropDownList(
                                   vehicleColor: colour,
                                   onChanged: (value) => setState(() {
-                                        colour = value as String;
-                                      })),
+                                    colour = value as String;
+                                  })),
                               NameTextField(
                                   controller: _govtAgency,
                                   hint: "gov agency",
@@ -198,7 +139,7 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                                   hint: "Registration number",
                                   nameType: "Registration No"),
                               NameTextField(
-                                  controller: _duesReceiptNo,
+                                  controller: _mraDuesReceiptNo,
                                   hint: "mra receipt number",
                                   nameType: "Mra Dues Receipt No"),
                               MobileNumberTextField(
@@ -215,7 +156,7 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                                           onPrimary: Colors.black,
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(12.0))),
+                                              BorderRadius.circular(12.0))),
                                       onPressed: () async{
                                         await selectFile();
                                       },
@@ -224,9 +165,7 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                                 height: 20,
                               ),
                               ActionPageButton(
-                                  onPressed: () async {
-                                    await _registerNewVehicle();
-                                  }, text: 'Submit'),
+                                  onPressed: () async {}, text: 'Submit'),
                               const SizedBox(
                                 height: 30,
                               ),
