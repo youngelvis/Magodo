@@ -102,7 +102,7 @@ class _UpdateMemberState extends State<UpdateMember> {
   }
 
   DropdownMenuItem<String> buildStatusItem(String statusOptions) =>
-      DropdownMenuItem(
+       DropdownMenuItem(
         value: statusOptions,
         child: Text(
           statusOptions,

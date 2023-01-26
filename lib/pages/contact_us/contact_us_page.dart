@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/action_page_button2.dart';
 import 'package:magodo/components/title.dart';
+import '../../components/app_page_theme_action_button.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import '../../components/text_for_form.dart';
 import '../../components/textfieldcontainer.dart';
@@ -22,21 +23,26 @@ TextEditingController _message = TextEditingController();
 class _ContactUsPageState extends State<ContactUsPage> {
   _buildMessageBox() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const TextForForm(
           text: 'Message',
         ),
-        TextFieldContainer(
-            child: TextFormField(
-          minLines: 2,
-          maxLength: 5,
-          controller: _message,
-          keyboardType: TextInputType.multiline,
-          decoration: const InputDecoration(
-            hintText: 'message',
-            border: InputBorder.none,
+        Container(
+          decoration: BoxDecoration(
+            color: color.AppColor.landingPage2,
           ),
-        )),
+          child: TextFormField(
+            minLines: 2,
+            maxLines: 5,
+            controller: _message,
+            keyboardType: TextInputType.multiline,
+            decoration: const InputDecoration(
+          hintText: 'message',
+          border: InputBorder.none
+            ),
+          ),),
+
       ],
     );
   }
@@ -56,37 +62,39 @@ class _ContactUsPageState extends State<ContactUsPage> {
               const SizedBox(
                 height: 50,
               ),
-              const Card(
-                child: ListTile(
-                  leading: Icon(Icons.location_on_rounded),
-                  title: Text('Location'),
-                  subtitle: Text('Magodo GRA, Lagos'),
-                ),
-              ),
-              const Card(
-                child: ListTile(
-                  leading: Icon(Icons.quick_contacts_dialer_rounded),
-                  title: Text('Phone'),
-                  subtitle: Text('+234 803 7750941'),
-                ),
-              ),
-              const Card(
-                child: ListTile(
-                  leading: Icon(Icons.email),
-                  title: Text('Email'),
-                  subtitle: Text('magodoresidentsasso@gmail.com'),
-                ),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
+
               Expanded(
                 child: OverflowBox(
                   child: SingleChildScrollView(
                     child: Form(
+
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          const Card(
+                            child: ListTile(
+                              leading: Icon(Icons.location_on_rounded),
+                              title: Text('Location'),
+                              subtitle: Text('Magodo GRA, Lagos'),
+                            ),
+                          ),
+                          const Card(
+                            child: ListTile(
+                              leading: Icon(Icons.quick_contacts_dialer_rounded),
+                              title: Text('Phone'),
+                              subtitle: Text('+234 803 7750941'),
+                            ),
+                          ),
+                          const Card(
+                            child: ListTile(
+                              leading: Icon(Icons.email),
+                              title: Text('Email'),
+                              subtitle: Text('magodoresidentsasso@gmail.com'),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
                           NameTextField(
                               controller: _fullName,
                               hint: 'Full Name',
@@ -103,10 +111,12 @@ class _ContactUsPageState extends State<ContactUsPage> {
                           SizedBox(
                             height: 20.h,
                           ),
-                          ActionPageButton2(
+                          ActionPageButton(
                               onPressed: () {},
-                              text: 'Send Message',
-                              primaryColor: color.AppColor.homePageTheme)
+                              text: 'Send Message'),
+                          SizedBox(
+                            height: 20.h,
+                          ),
                         ],
                       ),
                     ),

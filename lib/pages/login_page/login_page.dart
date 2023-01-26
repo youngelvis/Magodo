@@ -59,8 +59,27 @@ class _SignINState extends State<SignIN> {
     _residentCode.clear();
     _password.clear();
   }
-callMessage(){
-
+callMessage(message){
+  return showDialog(
+    context: context,
+    builder: (_) => AlertDialog(
+      title: Text(message),
+      actions: [
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: color.AppColor.homePageTheme,
+                onPrimary: color.AppColor.landingPage2,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0))),
+            onPressed: () {
+              _residentCode.clear();
+              _password.clear();
+              Navigator.of(context).pop();
+            },
+            child: const Text("ok"))
+      ],
+    ),
+  );
 }
   _login() async {
     if (_residentCode.text.isEmpty || _password.text.isEmpty) {
@@ -68,26 +87,7 @@ callMessage(){
       print(data['error']['message']);
       var message = data['error']['message'];
 
-      return showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text(message),
-          actions: [
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: color.AppColor.homePageTheme,
-                    onPrimary: color.AppColor.landingPage2,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0))),
-                onPressed: () {
-                  _residentCode.clear();
-                  _password.clear();
-                  Navigator.of(context).pop();
-                },
-                child: const Text("ok"))
-          ],
-        ),
-      );
+      callMessage(message);
     }
     var data = await Services().login(_residentCode.text, _password.text);
 
@@ -116,26 +116,7 @@ callMessage(){
       } else {
         var message = data['error'];
 
-        return showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: Text(message!),
-            actions: [
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: color.AppColor.homePageTheme,
-                      onPrimary: color.AppColor.landingPage2,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0))),
-                  onPressed: () {
-                    _residentCode.clear();
-                    _password.clear();
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text("ok"))
-            ],
-          ),
-        );
+        callMessage(message);
       }
     }
   }

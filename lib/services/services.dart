@@ -324,9 +324,15 @@ class Services {
   //22
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+
     if (result == null) return;
-    final path = result.files.first.path;
-    return path as String;
+    final path = result.files.first;
+    var data= {
+      "fileName": path.name.toString(),
+      "path": path.path.toString()
+
+    };
+    return data;
   }
 
   //23

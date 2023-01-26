@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
+
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
@@ -26,32 +27,33 @@ TextEditingController _vehicleMake = TextEditingController();
 TextEditingController _vehicleModel = TextEditingController();
 TextEditingController _govtAgency = TextEditingController();
 TextEditingController _registrationNumber = TextEditingController();
-TextEditingController _mraDuesReceiptNo = TextEditingController();
+TextEditingController _duesReceiptNo = TextEditingController();
 TextEditingController _amountPaid = TextEditingController();
 class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
   String? colour;
-
+  var filename;
   late File file;
 
   Future selectFile() async {
+
     file = File(await Services().selectFile());
     print('this is a ${file}');
   }
-  registerVehicle(filepath, fileName) async {
+  updateRegisterVehicle() async {
     const String _url = "http://132.145.231.191/portal/mraLagosApp/api/";
     const String _apiUrl = 'getBulkPasscodes';
     FormData formData = FormData.fromMap({
       'resident_code': widget.data?.resident_code,
-      'make[]': _vehicleMake.text,
-      'model[]': _vehicleModel.text,
-      'color[]': colour,
-      "gov_agency[]":_govtAgency.text,
+      'make': _vehicleMake.text,
+      'model': _vehicleModel.text,
+      'color': colour,
+      "gov_agency":_govtAgency.text,
       "reg_no":_registrationNumber.text,
-      "vehicle_no[]": _registrationNumber.text,
-      "receipt_no[]": _mraDuesReceiptNo.text,
-      "amount[]":_amountPaid.text,
+      "vehicle_no": _registrationNumber.text,
+      "receipt_no": _duesReceiptNo.text,
+      "amount":_amountPaid.text,
       "action_user": widget.data?.usr_group,
-      "file[]": await MultipartFile.fromFile(filepath, filename: fileName)
+      "file": await MultipartFile.fromFile(file.path, filename: filename)
     });
 
     var dio = Dio();
@@ -70,6 +72,46 @@ class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
 
     final responseBody = response.data;
     return responseBody;
+  }
+  callMessage(message) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
+
+  _updateRegisteredVehicle() async {
+    filename = await Services().baseName(file.path);
+    if (_vehicleMake.text.isEmpty ||
+        _vehicleModel.text.isEmpty ||
+        _govtAgency.text.isEmpty ||
+        _registrationNumber.text.isEmpty ||
+        _amountPaid.text.isEmpty ||
+        _duesReceiptNo.text.isEmpty ||
+        _vehicleCode.text.isEmpty) {
+      var data = await updateRegisterVehicle();
+      var message = data['error']['message'];
+
+      callMessage(message);
+    }
+    var data = await updateRegisterVehicle();
+    var message = data['message'];
+
+    callMessage(message);
   }
   @override
   Widget build(BuildContext context) {
@@ -139,7 +181,7 @@ class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
                                   hint: "Registration number",
                                   nameType: "Registration No"),
                               NameTextField(
-                                  controller: _mraDuesReceiptNo,
+                                  controller: _duesReceiptNo,
                                   hint: "mra receipt number",
                                   nameType: "Mra Dues Receipt No"),
                               MobileNumberTextField(
@@ -162,7 +204,7 @@ class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
                                       },
                                       child: const Icon(Icons.add))),
                               const SizedBox(
-                                height: 20,
+                                height: 40,
                               ),
                               ActionPageButton(
                                   onPressed: () async {}, text: 'Submit'),

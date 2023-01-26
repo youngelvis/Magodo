@@ -30,14 +30,17 @@ TextEditingController _arrivalTime = TextEditingController();
 TextEditingController _departureTime = TextEditingController();
 
 class _GetBulkPasscodeState extends State<GetBulkPasscode> {
-  late File file;
+  var filename;
+  var file;
+  var filePath;
 
   Future selectFile() async {
-    file = File(await Services().selectFile());
-    print('this is a ${file}');
+    file = await Services().selectFile();
+    filename = file['fileName'];
+    filePath = file['path'];
   }
 
-  getBulkPasscode_api(filepath, fileName) async {
+  getBulkPasscode_api() async {
     const String _url = "http://132.145.231.191/portal/mraLagosApp/api/";
     const String _apiUrl = 'getBulkPasscodes';
     FormData formData = FormData.fromMap({
@@ -45,7 +48,7 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
       'arival_date': _date.text,
       'time_from': _arrivalTime.text,
       'time_to': _departureTime.text,
-      "file": await MultipartFile.fromFile(filepath, filename: fileName)
+      "file": await MultipartFile.fromFile(filePath, filename: filename)
     });
 
     var dio = Dio();
@@ -66,41 +69,7 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
     return responseBody;
   }
 
-  _getBulkPasscode() async {
-    var filename = await Services().baseName(file.path);
-    if (_date.text.isEmpty ||
-        _arrivalTime.text.isEmpty ||
-        _departureTime.text.isEmpty) {
-      var data = await getBulkPasscode_api(file.path, filename);
-      var message = data['error']['message'];
-
-      return showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text(message),
-          actions: [
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: color.AppColor.homePageTheme,
-                    onPrimary: color.AppColor.landingPage2,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0))),
-                onPressed: () {
-                  _date.clear();
-                  _departureTime.clear();
-                  _arrivalTime.clear();
-                  file.delete();
-
-                  Navigator.of(context).pop();
-                },
-                child: const Text("ok"))
-          ],
-        ),
-      );
-    }
-    var data = await getBulkPasscode_api(file.path, filename);
-    var message = data['message'];
-
+  callMessage(message) {
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -113,16 +82,31 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0))),
               onPressed: () {
-                _date.clear();
-                _departureTime.clear();
-                _arrivalTime.clear();
-                file.delete();
                 Navigator.of(context).pop();
               },
               child: const Text("ok"))
         ],
       ),
     );
+  }
+
+  _getBulkPasscode() async {
+    if (_date.text.isEmpty ||
+        _arrivalTime.text.isEmpty ||
+        _departureTime.text.isEmpty) {
+      var data = await getBulkPasscode_api();
+      var message = data['error']['message'];
+      callMessage(message);
+      return;
+    }
+    var data = await getBulkPasscode_api();
+    var message = data['message'];
+    callMessage(message);
+    _date.clear();
+    _departureTime.clear();
+    _arrivalTime.clear();
+    filename = null;
+    filePath = null;
   }
 
   @override
@@ -138,11 +122,11 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
                   title: 'Dashboard',
                   data: widget.data,
                 ),
-                 SizedBox(
+                SizedBox(
                   height: 50.h,
                 ),
                 Row(
-                  children:  [
+                  children: [
                     Text(
                       'Get Bulk Passcode',
                       style: TextStyle(fontSize: 30.sp),
@@ -166,18 +150,18 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
                               UploadFile(onPressed: () async {
                                 await selectFile();
                               }),
-                               SizedBox(
+                              SizedBox(
                                 height: 10.h,
                               ),
                               Row(
-                                children:  [
-                                 const Text('Supported file types: csv'),
+                                children: [
+                                  const Text('Supported file types: csv'),
                                   SizedBox(
                                     width: 20.w,
                                   ),
                                 ],
                               ),
-                               SizedBox(
+                              SizedBox(
                                 height: 30.h,
                               ),
                               const TextForForm(text: "Arrival Date"),
