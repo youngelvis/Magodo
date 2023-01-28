@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:dio/dio.dart';
 
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
@@ -11,7 +10,6 @@ import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/textfields_types/vehicle_color_dropdown_list.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
-import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 import 'package:magodo/services/services.dart';
 
 import '../../../../components/title.dart';
@@ -32,30 +30,47 @@ TextEditingController _amountPaid = TextEditingController();
 class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
   String? colour;
   var filename;
-  late File file;
+  var file;
+  var filePath;
 
   Future selectFile() async {
-
-    file = File(await Services().selectFile());
-    print('this is a ${file}');
+    file = await Services().selectFile();
+    filename = file['fileName'];
+    filePath = file['path'];
   }
-  updateRegisterVehicle() async {
-    const String _url = "http://132.145.231.191/portal/mraLagosApp/api/";
-    const String _apiUrl = 'getBulkPasscodes';
-    FormData formData = FormData.fromMap({
-      'resident_code': widget.data?.resident_code,
-      'make': _vehicleMake.text,
-      'model': _vehicleModel.text,
-      'color': colour,
-      "gov_agency":_govtAgency.text,
-      "reg_no":_registrationNumber.text,
-      "vehicle_no": _registrationNumber.text,
-      "receipt_no": _duesReceiptNo.text,
-      "amount":_amountPaid.text,
-      "action_user": widget.data?.usr_group,
-      "file": await MultipartFile.fromFile(file.path, filename: filename)
-    });
 
+  registerVehicle() async {
+    const String _url = "http://132.145.231.191/portal/mraLagosApp/api/";
+    const String _apiUrl = 'vehicleRegistration';
+    FormData formData;
+    if (filename == null && filePath == null) {
+      formData = FormData.fromMap({
+        'resident_code': widget.data?.resident_code,
+        'make': _vehicleMake.text,
+        'model': _vehicleModel.text,
+        'color': colour,
+        "gov_agency": _govtAgency.text,
+        "reg_no": _registrationNumber.text,
+        "vehicle_no": _vehicleCode.text.isEmpty ? '' : _vehicleCode.text,
+        "receipt_no": _duesReceiptNo.text,
+        "amount": _amountPaid.text,
+        "action_user": widget.data?.resident_code,
+      });
+    } else {
+      formData = FormData.fromMap({
+        'resident_code': widget.data?.resident_code,
+        'make': _vehicleMake.text,
+        'model': _vehicleModel.text,
+        'color': colour,
+        "gov_agency": _govtAgency.text,
+        "reg_no": _registrationNumber.text,
+        "vehicle_no": _vehicleCode.text.isEmpty ? '' : _vehicleCode.text,
+        "receipt_no": _duesReceiptNo.text,
+        "amount": _amountPaid.text,
+        "action_user": widget.data?.resident_code,
+        "file": await MultipartFile.fromFile(filePath, filename: filename)
+      });
+    }
     var dio = Dio();
     var username = 'test';
     var password = 'benard@1991';
@@ -71,8 +86,10 @@ class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
     );
 
     final responseBody = response.data;
+
     return responseBody;
   }
+
   callMessage(message) {
     return showDialog(
       context: context,
@@ -94,24 +111,33 @@ class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
     );
   }
 
-  _updateRegisteredVehicle() async {
-    filename = await Services().baseName(file.path);
+  _registerNewVehicle() async {
     if (_vehicleMake.text.isEmpty ||
         _vehicleModel.text.isEmpty ||
         _govtAgency.text.isEmpty ||
         _registrationNumber.text.isEmpty ||
         _amountPaid.text.isEmpty ||
-        _duesReceiptNo.text.isEmpty ||
-        _vehicleCode.text.isEmpty) {
-      var data = await updateRegisterVehicle();
+        _duesReceiptNo.text.isEmpty) {
+      var data = await registerVehicle();
       var message = data['error']['message'];
 
       callMessage(message);
+      return;
     }
-    var data = await updateRegisterVehicle();
+    var data = await registerVehicle();
     var message = data['message'];
 
     callMessage(message);
+    _vehicleMake.clear();
+    _vehicleModel.clear();
+    _govtAgency.clear();
+    _registrationNumber.clear();
+    _amountPaid.clear();
+    _duesReceiptNo.clear();
+    _vehicleCode.clear();
+    colour = null;
+    filename = null;
+    filePath = null;
   }
   @override
   Widget build(BuildContext context) {
@@ -132,8 +158,8 @@ class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
                 Row(
                   children: [
                     Text(
-                      'Resident Vehicle',
-                      style: TextStyle(fontSize: 30.sp),
+                      'Update Resident Vehicle details',
+                      style: TextStyle(fontSize: 20.sp),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,

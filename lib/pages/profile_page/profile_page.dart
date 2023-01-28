@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:magodo/api/api.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/profile_page/edit_profile/edit_profile.dart';
@@ -19,6 +22,25 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String? image;
+  initState() {
+    getProfile();
+  }
+
+
+  void getProfile() async {
+    var residentCode = widget.data?.resident_code;
+    var url = 'fetchUserPhoto/$residentCode';
+
+    var res = await CallApi().getData(url);
+    var r = jsonDecode(res.body);
+    setState((){
+    image = r['data']['file_path'];
+    });
+
+    print(image);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -41,17 +63,17 @@ class _ProfilePageState extends State<ProfilePage> {
                           onPressed: () {
                             Navigator.of(context).pop();
                           }),
-                       SizedBox(
+                      SizedBox(
                         width: 80.w,
                       ),
                       Container(
-                        padding:  EdgeInsets.only(top: 10.h),
-                        child:  Text(
+                        padding: EdgeInsets.only(top: 10.h),
+                        child: Text(
                           'Profile',
                           style: TextStyle(fontSize: 40.sp),
                         ),
                       ),
-                       SizedBox(
+                      SizedBox(
                         width: 70.w,
                       ),
                       IconButton(
@@ -61,9 +83,12 @@ class _ProfilePageState extends State<ProfilePage> {
                             color: color.AppColor.landingPageTitle,
                           ),
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => Settings(
-                              data: widget.data,
-                            )));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Settings(
+                                          data: widget.data,
+                                        )));
                           }),
                     ],
                   ),
@@ -74,8 +99,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(
                   width: 90.w,
                   height: 90.h,
-                  child: const CircleAvatar(
-                    backgroundImage: AssetImage('assets/profilePicture.jpeg'),
+                  child:  image == null ?  const CircleAvatar(
+                      backgroundImage: AssetImage('assets/profileImage.jpg')): CircleAvatar(
+                    backgroundImage:  NetworkImage(image ??'' ),
                   ),
                 ),
                 const SizedBox(
@@ -163,8 +189,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => EditProfile(data: widget.data,)));
-                        }, text: "Update Profile"))
+                                  builder: (context) => EditProfile(
+                                        data: widget.data,
+                                      )));
+                        },
+                        text: "Update Profile"))
               ],
             ),
           ),

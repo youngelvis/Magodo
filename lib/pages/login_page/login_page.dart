@@ -88,6 +88,7 @@ callMessage(message){
       var message = data['error']['message'];
 
       callMessage(message);
+      return;
     }
     var data = await Services().login(_residentCode.text, _password.text);
 

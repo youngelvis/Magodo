@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:magodo/api/api.dart';
 import 'package:magodo/components/components_for_class_of_varable/category.dart';
 import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
@@ -27,6 +30,25 @@ class TitleContainer extends StatefulWidget {
 }
 
 class _TitleContainerState extends State<TitleContainer> {
+  String? image;
+
+  initState() {
+    getProfile();
+  }
+
+  void getProfile() async {
+    var residentCode = widget.data?.resident_code;
+    var url = 'fetchUserPhoto/$residentCode';
+
+    var res = await CallApi().getData(url);
+    var r = jsonDecode(res.body);
+    setState(() {
+      image = r['data']['file_path'];
+    });
+
+    print(image);
+  }
+
   navigateToProfilePage(Widget page) {
     Navigator.push(
         context,
@@ -34,6 +56,7 @@ class _TitleContainerState extends State<TitleContainer> {
           builder: (context) => page,
         ));
   }
+
   List commercial_category = [
     "Church",
     "Mosque",
@@ -49,6 +72,7 @@ class _TitleContainerState extends State<TitleContainer> {
     "School",
     "Others"
   ];
+
   navbarController() {
     if (widget.data?.usr_group == UserGroup.MEMBER) {
       navigateToProfilePage(ResidentNavigationPage(data: widget.data));
@@ -67,12 +91,11 @@ class _TitleContainerState extends State<TitleContainer> {
         navigateToProfilePage(CommercialNavPageForSchool(
           data: widget.data,
         ));
-      }else{
+      } else {
         navigateToProfilePage(CommercialNavPage(
           data: widget.data,
         ));
       }
-
     }
   }
 
@@ -112,24 +135,28 @@ class _TitleContainerState extends State<TitleContainer> {
                     children: [
                       Positioned(
                         child: SizedBox(
-                            width: 30.w,
-                            height: 30.h,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProfilePage(
-                                      data: widget.data,
-                                    ),
+                          width: 30.w,
+                          height: 30.h,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProfilePage(
+                                    data: widget.data,
                                   ),
-                                );
-                              },
-                              child: const CircleAvatar(
-                                backgroundImage:
-                                    AssetImage('assets/profilePicture.jpeg'),
-                              ),
-                            )),
+                                ),
+                              );
+                            },
+                            child: image == null
+                                ? const CircleAvatar(
+                                    backgroundImage:
+                                        AssetImage('assets/profileImage.jpg'))
+                                : CircleAvatar(
+                                    backgroundImage: NetworkImage(image ?? ''),
+                                  ),
+                          ),
+                        ),
                       ),
                     ],
                   ),

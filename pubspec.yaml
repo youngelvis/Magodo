@@ -80,6 +80,7 @@ flutter:
   assets:
     - assets/house_PNG7.png
     - assets/profilePicture.jpeg
+    - assets/profileImage.jpg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
