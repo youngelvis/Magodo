@@ -27,11 +27,11 @@ class ViewFamilyCard extends StatelessWidget {
           ListTile(
             title: Text(
               date,
-              style:  TextStyle(fontSize: 20.sp),
+              style:  TextStyle(fontSize: 15.sp),
             ),
             trailing: Text(
               status,
-              style:  TextStyle(fontSize: 20.sp),
+              style:  TextStyle(fontSize: 15.sp),
             ),
           ),
           const Divider(
@@ -40,37 +40,37 @@ class ViewFamilyCard extends StatelessWidget {
           ListTile(
             title: Text(
               dependentCode,
-              style:  TextStyle(fontSize: 20.sp),
+              style:  TextStyle(fontSize: 15.sp),
             ),
           ),
           ListTile(
             title: Text(
               'Full Name',
-              style: TextStyle(fontSize: 25.sp),
+              style: TextStyle(fontSize: 15.sp),
             ),
             trailing: Text(
               fullName,
-              style: TextStyle(fontSize: 25.sp),
+              style: TextStyle(fontSize: 15.sp),
             ),
           ),
           ListTile(
             title:  Text(
               'Phone Number',
-              style: TextStyle(fontSize: 25.sp),
+              style: TextStyle(fontSize: 15.sp),
             ),
             trailing: Text(
               dependantPhone,
-              style: TextStyle(fontSize: 25.sp),
+              style: TextStyle(fontSize: 15.sp),
             ),
           ),
           ListTile(
             title: Text(
               'Email',
-              style: TextStyle(fontSize: 25.sp),
+              style: TextStyle(fontSize: 15.sp),
             ),
             trailing: Text(
               email,
-              style:  TextStyle(fontSize: 25.sp),
+              style:  TextStyle(fontSize: 15.sp),
             ),
           ),
           const SizedBox(

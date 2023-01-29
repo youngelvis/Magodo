@@ -89,7 +89,7 @@ class _AddFamilyState extends State<AddFamily> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h, left: 10.w,),
+            padding: EdgeInsets.only(top: 20.h, left: 10.w,right: 10.w),
             child: Column(
               children: [
                 TitleContainer(
@@ -103,7 +103,7 @@ class _AddFamilyState extends State<AddFamily> {
                   children: [
                     Text(
                       'Add Family',
-                      style: TextStyle(fontSize: 30.sp),
+                      style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,

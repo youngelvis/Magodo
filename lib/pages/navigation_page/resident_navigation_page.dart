@@ -21,13 +21,13 @@ import 'package:magodo/pages/resident_Page/view_staff/view_staff_report.dart';
 
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 import '../change_password/change_password.dart';
+import '../commercial_page/commercial_reports/commercial_event_request/commercial_event_records.dart';
 import '../profile_page/edit_profile/edit_profile.dart';
 
 class ResidentNavigationPage extends StatefulWidget {
   ResidentModel? data;
 
- ResidentNavigationPage({Key? key, required this.data})
-      : super(key: key);
+  ResidentNavigationPage({Key? key, required this.data}) : super(key: key);
 
   @override
   State<ResidentNavigationPage> createState() => _ResidentNavigationPageState();
@@ -37,6 +37,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
   navigateToPage(page) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => page));
   }
+
   @override
   Widget build(BuildContext context) {
     return OverflowBox(
@@ -47,13 +48,12 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
               Container(
                   color: color.AppColor.homePageTheme,
                   height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width / 1.5.w,
-                  
+                  width: MediaQuery.of(context).size.width / 1.3.w,
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                         SizedBox(
+                        SizedBox(
                           height: 50.h,
                         ),
                         IconButton(
@@ -75,8 +75,8 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          ViewPasscodeReport(data: widget.data)));
+                                      builder: (context) => ViewPasscodeReport(
+                                          data: widget.data)));
                             }),
                         ExpansionTile(
                           trailing: const Icon(
@@ -90,7 +90,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 color: color.AppColor.landingPage2,
                                 size: 30.sp,
                               ),
-                               SizedBox(
+                              SizedBox(
                                 width: 10.w,
                               ),
                               Text('Profile',
@@ -107,7 +107,6 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                       fontSize: 20.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
-
                                 onTap: () {
                                   navigateToPage(EditProfile(
                                     data: widget.data,
@@ -220,7 +219,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 color: color.AppColor.landingPage2,
                                 size: 30.sp,
                               ),
-                               SizedBox(
+                              SizedBox(
                                 width: 10.w,
                               ),
                               Text('Reports',
@@ -267,14 +266,18 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                   ));
                                 }),
                             ListTile(
-                                title: Text(
-                                  'Event Report',
-                                  style: TextStyle(
-                                      fontSize: 20.sp,
-                                      color: color.AppColor.landingPage2),
-                                ),
-
-                                ),
+                              title: Text(
+                                'Event Report',
+                                style: TextStyle(
+                                    fontSize: 20.sp,
+                                    color: color.AppColor.landingPage2),
+                              ),
+                              onTap: () {
+                                navigateToPage(CommercialEventReport(
+                                  data: widget.data,
+                                ));
+                              },
+                            ),
                             ListTile(
                                 title: Text(
                                   'View Passcode Report',

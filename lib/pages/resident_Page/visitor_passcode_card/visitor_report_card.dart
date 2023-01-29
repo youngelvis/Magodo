@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/pages/resident_Page/resident_components/do_not_honour.dart';
 
 class VisitorPasscodeReport extends StatelessWidget {
@@ -29,9 +30,17 @@ class VisitorPasscodeReport extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            date,
-            style: const TextStyle(fontSize: 13),
+
+          Row(
+            children: [
+              SizedBox(
+                width: 15.sp,
+              ),
+              Text(
+                date,
+                style: const TextStyle(fontSize: 13),
+              ),
+            ],
           ),
           const Divider(
             thickness: 2,

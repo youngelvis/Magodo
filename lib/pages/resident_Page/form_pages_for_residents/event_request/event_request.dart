@@ -90,7 +90,7 @@ class _EventRequestState extends State<EventRequest> {
                   children:  [
                     Text(
                       'Event Request Form',
-                      style: TextStyle(fontSize: 30.sp),
+                      style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -113,7 +113,7 @@ class _EventRequestState extends State<EventRequest> {
                               const TextForForm(text: "Schedule Time"),
                               CustomTimePicker(
                                 departureTime: _scheduleTime,
-                                hint: 'select Schedule time',
+                                hint: 'Select schedule time',
                               ),
                               BuildEventTypeDropDownList(
                                 eventType: eventType,

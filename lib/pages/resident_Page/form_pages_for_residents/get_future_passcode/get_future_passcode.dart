@@ -123,7 +123,7 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
                   children:  [
                     Text(
                       'Get Future Passcode',
-                      style: TextStyle(fontSize: 30.sp),
+                      style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -138,7 +138,7 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Container(
-                        padding:  EdgeInsets.only(right: 20.w, ),
+                        padding:  EdgeInsets.only(right: 10.w, ),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

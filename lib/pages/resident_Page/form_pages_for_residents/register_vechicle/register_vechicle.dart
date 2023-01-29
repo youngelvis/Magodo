@@ -153,7 +153,7 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h, left: 10.w,),
+            padding: EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
             child: Column(
               children: [
                 TitleContainer(
@@ -167,7 +167,7 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                   children: [
                     Text(
                       'Resident Vehicle',
-                      style: TextStyle(fontSize: 30.sp),
+                      style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -225,7 +225,7 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                                   nameType: "Mra Dues Receipt No"),
                               MobileNumberTextField(
                                   controller: _amountPaid,
-                                  fieldName: '(₦)Amount Paid',
+                                  fieldName: 'Amount Paid (₦)',
                                   hintText: 'Enter amount paid'),
                               const TextForForm(text: 'Upload'),
                               SizedBox(
@@ -249,7 +249,7 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                                   onPressed: () async {
                                     await _registerNewVehicle();
                                   },
-                                  text: 'Submit'),
+                                  text: 'Register'),
                               const SizedBox(
                                 height: 30,
                               ),

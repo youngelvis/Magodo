@@ -39,7 +39,7 @@ class DeleteUpdateButton extends StatelessWidget {
             ActionPageButton2(
               onPressed: onPressedUpdateButton,
               primaryColor: color.AppColor.verifiedColor,
-              text: 'Update',
+              text: 'Update button',
             ),
           ],
         ),
