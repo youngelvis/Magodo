@@ -76,7 +76,7 @@ class _EventRequestState extends State<EventRequest> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding:  EdgeInsets.only(top: 20.h, left: 15.w, right: 15.w),
+            padding: EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
             child: Column(
               children: [
                 TitleContainer(

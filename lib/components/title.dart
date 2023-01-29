@@ -101,71 +101,74 @@ class _TitleContainerState extends State<TitleContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 20.h,
-        ),
-        Row(
-          children: [
-            IconButton(
-                icon: const Icon(
-                  Icons.menu,
-                  size: 50,
-                ),
-                onPressed: () {
-                  navbarController();
-                }),
-            SizedBox(
-              width: 80.w,
-            ),
-            Container(
-              padding: EdgeInsets.only(
-                top: 20.h,
-              ),
-              child: Row(
-                children: [
-                  Text(
-                    widget.title,
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 25.sp),
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 20.h,
+          ),
+          Row(
+            children: [
+              IconButton(
+                  icon: const Icon(
+                    Icons.menu,
+                    size: 50,
                   ),
-                  SizedBox(width: 85.w),
-                  Stack(
-                    children: [
-                      Positioned(
-                        child: SizedBox(
-                          width: 30.w,
-                          height: 30.h,
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ProfilePage(
-                                    data: widget.data,
+                  onPressed: () {
+                    navbarController();
+                  }),
+              SizedBox(
+                width: 80.w,
+              ),
+              Container(
+                padding: EdgeInsets.only(
+                  top: 20.h,
+                ),
+                child: Row(
+                  children: [
+                    Text(
+                      widget.title,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25.sp),
+                    ),
+                    SizedBox(width: 95.w),
+                    Stack(
+                      children: [
+                        Positioned(
+                          child: SizedBox(
+                            width: 30.w,
+                            height: 30.h,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProfilePage(
+                                      data: widget.data,
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                            child: image == null
-                                ? const CircleAvatar(
-                                    backgroundImage:
-                                        AssetImage('assets/profileImage.jpg'))
-                                : CircleAvatar(
-                                    backgroundImage: NetworkImage(image ?? ''),
-                                  ),
+                                );
+                              },
+                              child: image == null
+                                  ? const CircleAvatar(
+                                      backgroundImage:
+                                          AssetImage('assets/profileImage.jpg'))
+                                  : CircleAvatar(
+                                      backgroundImage: NetworkImage(image ?? ''),
+                                    ),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ],
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

@@ -63,23 +63,13 @@ class _ViewStaffRecordState extends State<ViewStaffRecord> {
       }
     }
     String zone= widget.data?.zone ??'';
-    var data;
-    if (widget.data?.usr_group == UserGroup.SECURITY ) {
-      data = await Services().validateStaffReport(
+    var data = await Services().validateStaffReport(
         currentPage,
         _searchWords.text,
       );
-    }
-    if(
-    widget.data?.usr_group == UserGroup.SUPER_ADMIN ||
-        widget.data?.usr_group == UserGroup.ADMIN){
-      zone = '';
-    }
-    data = await Services().dependantsReport(
-      currentPage,
-      _searchWords.text,
-      widget.data?.zone,
-    );
+
+
+
     final result = staffReportsFromJson(data);
 
     if (isRefresh) {

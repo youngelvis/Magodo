@@ -94,7 +94,7 @@ class _ViewMemberCardState extends State<ViewMemberCard> {
               ),
               trailing: Container(
                 alignment: Alignment.centerRight,
-                width: 190,
+                width: 180.w,
                 child: Text(
                   widget.data.address ?? '',
                   style:  TextStyle(fontSize: 15.sp),

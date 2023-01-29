@@ -22,7 +22,7 @@ class WelcomeScreen extends StatelessWidget {
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        height: 410.h,
+                        height: MediaQuery.of(context).size.height/ 1/2.h,
                         decoration: BoxDecoration(
                           color: color.AppColor.landingPage,
                         ),
@@ -38,7 +38,7 @@ class WelcomeScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               SizedBox(
-                                height: 227.h,
+                                height: 100.h,
                               ),
                               Text(
                                 'Welcome To Magodo',
@@ -50,7 +50,7 @@ class WelcomeScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                height: 100.h
+                                height: 70.h
                               ),
                               Container(
                                 width: 350.w,

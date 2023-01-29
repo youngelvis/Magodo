@@ -127,7 +127,7 @@ class _SettingsState extends State<Settings> {
                       NavTextButton(
                           space: 30.w,
                           colored: color.AppColor.landingPageTitle,
-                          icon: Icons.support_agent_outlined,
+                          icon: CupertinoIcons.power,
                           size:  30.sp,
                           text: 'Log out',
                           onPressed: () {

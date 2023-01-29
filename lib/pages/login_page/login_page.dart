@@ -130,7 +130,7 @@ callMessage(message){
           body: SingleChildScrollView(
             child: Container(
               color: color.AppColor.homePageBackground,
-              padding: EdgeInsets.only(top: 60.h, left: 30.w, right: 30.w),
+              padding: EdgeInsets.only(top: 60.h, left: 20.w, right: 20.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

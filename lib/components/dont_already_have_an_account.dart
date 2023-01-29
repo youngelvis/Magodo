@@ -22,8 +22,8 @@ class DontAlreadyHaveAnAccount extends StatelessWidget {
               color: color.AppColor.landingPageTitle,
               fontWeight: FontWeight.w400),
         ),
-        const SizedBox(
-          width: 10,
+         SizedBox(
+          width: 20.w,
         ),
         TextButton(
           onPressed: onPressed,

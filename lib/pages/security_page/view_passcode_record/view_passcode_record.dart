@@ -156,7 +156,7 @@ class _ViewPasscodeRecordState extends State<ViewPasscodeRecord> {
               ),
               Container(
                 color: color.AppColor.residentBody,
-                padding:  EdgeInsets.only(right: 20.w, left: 2.w, top: 40.h),
+                padding:  EdgeInsets.only(right: 10.w, left: 10.w, top: 40.h),
                 child: Column(children: [
                   _buildSearchBar(),
                   const SizedBox(

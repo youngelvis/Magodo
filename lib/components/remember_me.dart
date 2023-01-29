@@ -36,7 +36,7 @@ class _RememberMeState extends State<RememberMe> {
             style: TextStyle(fontSize: 15.sp, color: Colors.black26),
           ),
            SizedBox(
-            width: 50.w,
+            width: 30.w,
           ),
           GestureDetector(
             onTap: () {

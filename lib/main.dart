@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(),
         home:  WelcomeScreen(),
       ),
-      designSize: const Size(411,896),
+      designSize: const Size(412,896),
     );
 
   }

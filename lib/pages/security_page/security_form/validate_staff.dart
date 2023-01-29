@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
+import 'package:magodo/components/title.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 import 'package:magodo/services/services.dart';
@@ -55,10 +56,10 @@ class _ValidateStaffState extends State<ValidateStaff> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
+            padding: EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
             child: Column(
               children: [
-                GetPasscodeTitleContainer(
+                TitleContainer(
                   title: 'Validate',
                   data: widget.data,
                 ),

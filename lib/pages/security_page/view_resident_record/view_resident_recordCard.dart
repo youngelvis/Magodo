@@ -34,12 +34,22 @@ class ViewResidentRecordCard extends StatelessWidget {
               title: Text(data.residentCode ?? ''),
             ),
             ListTile(
-              trailing: Text(data.status ?? '',
-                  style: TextStyle(
-                      fontSize: 15.sp,
-                      backgroundColor: data.status == 'Verified'
-                          ? Colors.green
-                          : Colors.red)),
+              trailing: Container(
+                decoration: BoxDecoration(
+                    color: data.status == 'Verified'
+                        ? Colors.green
+                        : Colors.red,
+                    border: Border.all(color: Colors.white),
+                    borderRadius: BorderRadius.circular(6.0)),
+                child: Padding(
+
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(data.status ?? '',
+                      style: TextStyle(
+                          fontSize: 15.sp,
+                          )),
+                ),
+              ),
             ),
             ListTile(
               title:  Text("Resident Name",

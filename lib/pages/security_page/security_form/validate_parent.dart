@@ -5,6 +5,7 @@ import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 
+import '../../../components/title.dart';
 import '../../../services/services.dart';
 import '/../components/components_for_class_of_varable/colors.dart' as color;
 
@@ -56,10 +57,10 @@ class _ValidateParentState extends State<ValidateParent> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
+            padding: EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
             child: Column(
               children: [
-                GetPasscodeTitleContainer(
+                TitleContainer(
                   title: 'Validate',
                   data: widget.data,
                 ),
