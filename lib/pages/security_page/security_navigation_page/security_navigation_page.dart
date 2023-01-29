@@ -42,7 +42,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
             Container(
               color: color.AppColor.homePageTheme,
               height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width / 1.5,
+              width: MediaQuery.of(context).size.width / 1.5.w,
               child: SingleChildScrollView(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   SizedBox(
@@ -61,6 +61,10 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                     height: 50.h,
                   ),
                   ExpansionTile(
+                    trailing: const Icon(
+                      Icons.keyboard_arrow_down,
+                      color: Colors.white,
+                    ),
                     title: Row(
                       children: [
                         Icon(
@@ -143,6 +147,10 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                       }),
 
                   ExpansionTile(
+                      trailing: const Icon(
+                        Icons.keyboard_arrow_down,
+                        color: Colors.white,
+                      ),
                       title: Row(
                         children: [
                           Icon(

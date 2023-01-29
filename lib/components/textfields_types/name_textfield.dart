@@ -17,10 +17,9 @@ class NameTextField extends StatelessWidget {
       children: [
         Text(
           nameType,
-          style: TextStyle(
-              fontSize: 15.sp,
-              fontWeight: FontWeight.bold,
-
+          style:  TextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w400,
               color: color.AppColor.homePageTitle),
         ),
          SizedBox(

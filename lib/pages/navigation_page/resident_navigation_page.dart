@@ -79,6 +79,10 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                           ViewPasscodeReport(data: widget.data)));
                             }),
                         ExpansionTile(
+                          trailing: const Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Colors.white,
+                          ),
                           title: Row(
                             children: [
                               Icon(
@@ -103,6 +107,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                       fontSize: 20.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
+
                                 onTap: () {
                                   navigateToPage(EditProfile(
                                     data: widget.data,
@@ -204,6 +209,10 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                           )));
                             }),
                         ExpansionTile(
+                          trailing: const Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Colors.white,
+                          ),
                           title: Row(
                             children: [
                               Icon(
@@ -247,7 +256,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 }),
                             ListTile(
                                 title: Text(
-                                  'view Vehicle Report',
+                                  'View Vehicle Report',
                                   style: TextStyle(
                                       fontSize: 20.sp,
                                       color: color.AppColor.landingPage2),

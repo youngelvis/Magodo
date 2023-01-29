@@ -138,7 +138,7 @@ class _IdentifyNewlyRegisteredMembersState
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            padding:  EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
             child: Column(
               children: [
                 TitleContainer(
@@ -151,18 +151,18 @@ class _IdentifyNewlyRegisteredMembersState
                 Row(
                   children: [
                     Text(
-                      'Identify Newly Registered Members',
+                      'Newly Registered Members',
                       style: TextStyle(
                           fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
-                    const Icon(
+                    Icon(
                       Icons.keyboard_arrow_down_outlined,
-                      size: 15,
+                      size: 15.sp,
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 40,
+                 SizedBox(
+                  height: 40.h,
                 ),
                 Expanded(
                   child: OverflowBox(

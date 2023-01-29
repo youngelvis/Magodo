@@ -46,7 +46,6 @@ class _TitleContainerState extends State<TitleContainer> {
       image = r['data']['file_path'];
     });
 
-    print(image);
   }
 
   navigateToProfilePage(Widget page) {

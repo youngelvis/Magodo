@@ -73,7 +73,7 @@ class _UpdateStaffState extends State<UpdateStaff> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
+            padding: EdgeInsets.only(top: 20.h, left: 10.w),
             child: Column(
               children: [
                 TitleContainer(
@@ -101,54 +101,52 @@ class _UpdateStaffState extends State<UpdateStaff> {
                 Expanded(
                   child: OverflowBox(
                     child: SingleChildScrollView(
-                      child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              NameTextField(
-                                  controller: _staffFullName,
-                                  hint: "${widget.staff?.dependantName}",
-                                  nameType: "Staff Full Name"),
-                              NameTextField(
-                                  controller: _staffAddress,
-                                  hint: "${widget.staff?.dependantContacts}",
-                                  nameType: "Staff Address"),
-                              MobileNumberTextField(
-                                  controller: _staffMobileNumber,
-                                  fieldName: 'Staff Mobile Number',
-                                  hintText: '${widget.staff?.dependantPhone}'),
-                              BuildRelationshipDropDownList(
-                                hints: widget.staff?.relationship,
-                                relationship: relationship,
-                                onChanged: (value) => setState(() {
-                                  relationship = value as String;
-                                }),
-                              ),
-                              BuildEmploymentDropDownList(
-                                hints: widget.staff?.employmentStatus,
-                                employment: employment,
-                                onChanged: (value) => setState(() {
-                                  employment = value as String;
-                                }),
-                              ),
-                              const TextForForm(text: "Employment Date"),
-                              CustomDatePicker(
-                                date: _employmentDate,
-                                hint: widget.staff?.empdateOrDob,
-                              ),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              ActionPageButton(
-                                  onPressed: () async {
-                                    await _updateStaff();
-                                  },
-                                  text: 'Update Staff'),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                            ]),
-                      ),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            NameTextField(
+                                controller: _staffFullName,
+                                hint: "${widget.staff?.dependantName}",
+                                nameType: "Staff Full Name"),
+                            NameTextField(
+                                controller: _staffAddress,
+                                hint: "${widget.staff?.dependantContacts}",
+                                nameType: "Staff Address"),
+                            MobileNumberTextField(
+                                controller: _staffMobileNumber,
+                                fieldName: 'Staff Mobile Number',
+                                hintText: '${widget.staff?.dependantPhone}'),
+                            BuildRelationshipDropDownList(
+                              hints: widget.staff?.relationship,
+                              relationship: relationship,
+                              onChanged: (value) => setState(() {
+                                relationship = value as String;
+                              }),
+                            ),
+                            BuildEmploymentDropDownList(
+                              hints: widget.staff?.employmentStatus,
+                              employment: employment,
+                              onChanged: (value) => setState(() {
+                                employment = value as String;
+                              }),
+                            ),
+                            const TextForForm(text: "Employment Date"),
+                            CustomDatePicker(
+                              date: _employmentDate,
+                              hint: widget.staff?.empdateOrDob,
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            ActionPageButton(
+                                onPressed: () async {
+                                  await _updateStaff();
+                                },
+                                text: 'Update Staff'),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                          ]),
                     ),
                   ),
                 ),

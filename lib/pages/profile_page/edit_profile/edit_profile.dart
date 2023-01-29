@@ -99,7 +99,7 @@ class _EditProfileState extends State<EditProfile> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            padding:  EdgeInsets.only(top: 20.h, left: 10.w, ),
             child: Column(
               children: [
                 TitleContainer(

@@ -44,7 +44,7 @@ class WelcomeScreen extends StatelessWidget {
                                 'Welcome To Magodo',
                                 style: TextStyle(
                                   fontFamily: 'Poppins',
-                                  fontSize: 33.0.sp,
+                                  fontSize: 25.0.sp,
                                   letterSpacing: 1.5.sp,
                                   color: color.AppColor.landingPageTitle,
                                 ),

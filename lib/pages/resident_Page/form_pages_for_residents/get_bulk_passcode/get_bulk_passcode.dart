@@ -115,7 +115,7 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
+            padding: EdgeInsets.only(top: 20.h, left: 10.w, ),
             child: Column(
               children: [
                 TitleContainer(
@@ -143,7 +143,8 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
                 Expanded(
                   child: OverflowBox(
                     child: SingleChildScrollView(
-                      child: Form(
+                      child: Container(
+                        padding:  EdgeInsets.only(right: 20.w, ),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

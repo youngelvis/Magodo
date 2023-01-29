@@ -284,21 +284,21 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
                                       ? 'Staff Address'
                                       : response['staff_contact'],
                                   nameType: "Staff Contact Details"),
-                              const SizedBox(
-                                height: 30,
+                              SizedBox(
+                                height: 30.h,
                               ),
                               Row(
                                 children: [
-                                  const SizedBox(
-                                    width: 50,
+                                  SizedBox(
+                                    width: 30.w,
                                   ),
                                   ActionPageButton2(
                                     onPressed: () {},
                                     primaryColor: color.AppColor.homePageTheme,
                                     text: 'Verify Staff',
                                   ),
-                                  const SizedBox(
-                                    width: 50,
+                                   SizedBox(
+                                    width: 30.h,
                                   ),
                                   ActionPageButton2(
                                     onPressed: () {},

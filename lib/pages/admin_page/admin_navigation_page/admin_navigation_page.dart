@@ -5,7 +5,6 @@ import '../../../components/text_button_nav_page.dart';
 import '../../../models/resident_data_model/residentdata.dart';
 import '../../change_password/change_password.dart';
 import '../../profile_page/edit_profile/edit_profile.dart';
-import '../../resident_Page/form_pages_for_residents/get_passcode/get_passcode.dart';
 import '../../security_page/view_passcode_record/view_passcode_record.dart';
 import '../../super_admin/super_admin_forms/activity_logs_report/activity_log_report.dart';
 import '../../super_admin/super_admin_forms/breakdown_summary/breakdown_summary.dart';
@@ -76,6 +75,10 @@ class _AdminNavPageState extends State<AdminNavPage> {
                               builder: (context) => VerifyNewStaff(data: widget.residentModel,)));
                     }),
                 ExpansionTile(
+                  trailing: const Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Colors.white,
+                  ),
                   title: Row(
                     children: [
                       Icon(
@@ -120,6 +123,10 @@ class _AdminNavPageState extends State<AdminNavPage> {
                   ],
                 ),
                 ExpansionTile(
+                  trailing: const Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Colors.white,
+                  ),
                   title: Row(
                     children: [
                       Icon(

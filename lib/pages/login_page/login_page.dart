@@ -82,11 +82,16 @@ callMessage(message){
   );
 }
   _login() async {
-    if (_residentCode.text.isEmpty || _password.text.isEmpty) {
+    if (_residentCode.text.isEmpty && _password.text.isEmpty) {
       var data = await Services().login(_residentCode.text, _password.text);
-      print(data['error']['message']);
       var message = data['error']['message'];
 
+      callMessage(message);
+      return;
+    }
+    if (_residentCode.text.isEmpty || _password.text.isEmpty) {
+      var data = await Services().login(_residentCode.text, _password.text);
+      var message = data['message'];
       callMessage(message);
       return;
     }
@@ -171,7 +176,7 @@ callMessage(message){
                   ),
                   NameTextField(
                       controller: _residentCode,
-                      hint: 'resident code',
+                      hint: 'Resident code',
                       nameType: 'Resident Code'),
                   BuildPasswordTextField(
                       fieldName: 'Password', passwordController: _password),
