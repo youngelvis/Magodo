@@ -33,34 +33,120 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: OverflowBox(
-        child: SingleChildScrollView(
-            child: Material(
-                child: Row(
-          children: [
-            Container(
-              color: color.AppColor.homePageTheme,
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width / 1.5.w,
-              child: SingleChildScrollView(
-                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  SizedBox(
-                    height: 50.h,
+    return OverflowBox(
+      child: SingleChildScrollView(
+          child: Material(
+              child: Row(
+        children: [
+          Container(
+            color: color.AppColor.homePageTheme,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width / 1.5.w,
+            child: SingleChildScrollView(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                SizedBox(
+                  height: 50.h,
+                ),
+                IconButton(
+                    icon: Icon(
+                      Icons.close,
+                      size: 50,
+                      color: color.AppColor.landingPage2,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }),
+                SizedBox(
+                  height: 50.h,
+                ),
+                NavTextButton(
+                    icon: Icons.speed,
+                    text: 'Dashboard',
+                    onPressed: () {
+                      navigateToPage(ValidatePasscode(
+                        data: widget.data,
+                      ));
+                    }),
+                ExpansionTile(
+                  trailing: const Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Colors.white,
                   ),
-                  IconButton(
-                      icon: Icon(
-                        Icons.close,
-                        size: 50,
+                  title: Row(
+                    children: [
+                      Icon(
+                        Icons.person,
                         color: color.AppColor.landingPage2,
+                        size: 30.sp,
                       ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      }),
-                  SizedBox(
-                    height: 50.h,
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Text('Profile',
+                          style: TextStyle(
+                              fontSize: 20.sp, color: color.AppColor.landingPage2)),
+                    ],
                   ),
-                  ExpansionTile(
+                  children: [
+                    ListTile(
+                        title: Text(
+                          'Edit Profile',
+                          style: TextStyle(
+                              fontSize: 20.sp, color: color.AppColor.landingPage2),
+                        ),
+                        onTap: () {
+                          navigateToPage(EditProfile(
+                            data: widget.data,
+                          ));
+                        }),
+                    ListTile(
+                        title: Text(
+                          'Change Password',
+                          style: TextStyle(
+                              fontSize: 20.sp, color: color.AppColor.landingPage2),
+                        ),
+                        onTap: () {
+                          navigateToPage(ChangePassword(
+                            data: widget.data,
+                          ));
+                        }),
+                  ],
+                ),
+
+                NavTextButton(
+                    icon: CupertinoIcons.house,
+                    text: 'Validate Resident',
+                    onPressed: () {
+                      navigateToPage(ValidateResident(
+                        data: widget.data,
+                      ));
+                    }),
+                NavTextButton(
+                    icon: CupertinoIcons.person_3_fill,
+                    text: 'Validate Staff',
+                    onPressed: () {
+                      navigateToPage(ValidateStaff(
+                        data: widget.data,
+                      ));
+                    }),
+                NavTextButton(
+                    icon: Icons.wc_rounded,
+                    text: 'Validate Parent',
+                    onPressed: () {
+                      navigateToPage(ValidateParent(
+                        data: widget.data,
+                      ));
+                    }),
+                NavTextButton(
+                    icon: Icons.exit_to_app,
+                    text: 'Guest Sign-Out',
+                    onPressed: () {
+                      navigateToPage(GuestSignOut(
+                        data: widget.data,
+                      ));
+                    }),
+
+                ExpansionTile(
                     trailing: const Icon(
                       Icons.keyboard_arrow_down,
                       color: Colors.white,
@@ -68,167 +154,80 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                     title: Row(
                       children: [
                         Icon(
-                          Icons.person,
+                          Icons.filter_frames_sharp,
                           color: color.AppColor.landingPage2,
                           size: 30.sp,
                         ),
-                        SizedBox(
+                         SizedBox(
                           width: 10.w,
                         ),
-                        Text('Profile',
+                        Text('Reports',
                             style: TextStyle(
-                                fontSize: 20.sp, color: color.AppColor.landingPage2)),
+                                fontSize: 20.sp,
+                                color: color.AppColor.landingPage2)),
                       ],
                     ),
                     children: [
                       ListTile(
                           title: Text(
-                            'Edit Profile',
+                            'View Passcode',
                             style: TextStyle(
-                                fontSize: 20.sp, color: color.AppColor.landingPage2),
+                                fontSize: 20.sp,
+                                color: color.AppColor.landingPage2),
                           ),
                           onTap: () {
-                            navigateToPage(EditProfile(
+                            navigateToPage(ViewPasscodeRecord(
                               data: widget.data,
                             ));
                           }),
                       ListTile(
                           title: Text(
-                            'Change Password',
+                            'View parent Records',
                             style: TextStyle(
-                                fontSize: 20.sp, color: color.AppColor.landingPage2),
+                                fontSize: 20.sp,
+                                color: color.AppColor.landingPage2),
                           ),
                           onTap: () {
-                            navigateToPage(ChangePassword(
+                            navigateToPage(ViewParentRecord(
                               data: widget.data,
                             ));
                           }),
-                    ],
-                  ),
-                  NavTextButton(
-                      icon: Icons.speed,
-                      text: 'Dashboard',
-                      onPressed: () {
-                        navigateToPage(ValidatePasscode(
-                          data: widget.data,
-                        ));
-                      }),
-                  NavTextButton(
-                      icon: CupertinoIcons.house,
-                      text: 'Validate Resident',
-                      onPressed: () {
-                        navigateToPage(ValidateResident(
-                          data: widget.data,
-                        ));
-                      }),
-                  NavTextButton(
-                      icon: CupertinoIcons.person_3_fill,
-                      text: 'Validate Staff',
-                      onPressed: () {
-                        navigateToPage(ValidateStaff(
-                          data: widget.data,
-                        ));
-                      }),
-                  NavTextButton(
-                      icon: Icons.wc_rounded,
-                      text: 'Validate Parent',
-                      onPressed: () {
-                        navigateToPage(ValidateParent(
-                          data: widget.data,
-                        ));
-                      }),
-                  NavTextButton(
-                      icon: Icons.exit_to_app,
-                      text: 'Guest Sign-Out',
-                      onPressed: () {
-                        navigateToPage(GuestSignOut(
-                          data: widget.data,
-                        ));
-                      }),
-
-                  ExpansionTile(
-                      trailing: const Icon(
-                        Icons.keyboard_arrow_down,
-                        color: Colors.white,
-                      ),
-                      title: Row(
-                        children: [
-                          Icon(
-                            Icons.filter_frames_sharp,
-                            color: color.AppColor.landingPage2,
-                            size: 30.sp,
+                      ListTile(
+                          title: Text(
+                            'View Staff Records',
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                color: color.AppColor.landingPage2),
                           ),
-                           SizedBox(
-                            width: 10.w,
+                          onTap: () {
+                            navigateToPage(ViewStaffRecord(
+                              data: widget.data,
+                            ));
+                          }),
+                      ListTile(
+                          title: Text(
+                            'View Resident Records',
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                color: color.AppColor.landingPage2),
                           ),
-                          Text('Reports',
-                              style: TextStyle(
-                                  fontSize: 20.sp,
-                                  color: color.AppColor.landingPage2)),
-                        ],
-                      ),
-                      children: [
-                        ListTile(
-                            title: Text(
-                              'View Passcode',
-                              style: TextStyle(
-                                  fontSize: 20.sp,
-                                  color: color.AppColor.landingPage2),
-                            ),
-                            onTap: () {
-                              navigateToPage(ViewPasscodeRecord(
-                                data: widget.data,
-                              ));
-                            }),
-                        ListTile(
-                            title: Text(
-                              'View parent Records',
-                              style: TextStyle(
-                                  fontSize: 20.sp,
-                                  color: color.AppColor.landingPage2),
-                            ),
-                            onTap: () {
-                              navigateToPage(ViewParentRecord(
-                                data: widget.data,
-                              ));
-                            }),
-                        ListTile(
-                            title: Text(
-                              'View Staff Records',
-                              style: TextStyle(
-                                  fontSize: 20.sp,
-                                  color: color.AppColor.landingPage2),
-                            ),
-                            onTap: () {
-                              navigateToPage(ViewStaffRecord(
-                                data: widget.data,
-                              ));
-                            }),
-                        ListTile(
-                            title: Text(
-                              'View Resident Records',
-                              style: TextStyle(
-                                  fontSize: 20.sp,
-                                  color: color.AppColor.landingPage2),
-                            ),
-                            onTap: () {
-                              navigateToPage(ViewResidentRecords(
-                                data: widget.data,
-                              ));
-                            }),
-                      ]),
-                  NavTextButton(
-                      icon: Icons.logout,
-                      text: 'Logout',
-                      onPressed: () {
-                        navigateToPage(const SignIN());
-                      }),
-                ]),
-              ),
-            )
-          ],
-        ))),
-      ),
+                          onTap: () {
+                            navigateToPage(ViewResidentRecords(
+                              data: widget.data,
+                            ));
+                          }),
+                    ]),
+                NavTextButton(
+                    icon: Icons.logout,
+                    text: 'Logout',
+                    onPressed: () {
+                      navigateToPage(const SignIN());
+                    }),
+              ]),
+            ),
+          )
+        ],
+      ))),
     );
   }
 }

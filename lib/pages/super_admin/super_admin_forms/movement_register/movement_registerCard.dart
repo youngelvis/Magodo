@@ -17,16 +17,18 @@ class MovementRegisterCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
-              title: Text(
+              title:Text('Date',style: TextStyle(fontSize: 15.sp),) ,
+              trailing: Text(
                 data.createdDate ?? '',
-                style:  TextStyle(fontSize: 20.sp),
+                style:  TextStyle(fontSize: 15.sp),
               ),
             ),
             const Divider(
               thickness: 2,
             ),
             ListTile(
-              title: Text(
+              title: Text('Passcode',style: TextStyle(fontSize: 15.sp),) ,
+              trailing: Text(
                 data.passcode ?? '',
                 style: TextStyle(fontSize: 15.sp),
               ),

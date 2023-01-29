@@ -31,13 +31,14 @@ class ViewResidentRecordCard extends StatelessWidget {
               thickness: 2,
             ),
             ListTile(
-              title: Text(data.residentCode ?? ''),
+              title:Text('Passcode', style: TextStyle(fontSize: 15.sp, color: Colors.black)),
+              trailing: Text(data.residentCode ?? '', style: TextStyle(fontSize: 15.sp, color: Colors.black)),
             ),
             ListTile(
               trailing: Container(
                 decoration: BoxDecoration(
                     color: data.status == 'Verified'
-                        ? Colors.green
+                        ? Colors.green: data.status =='Unverified'? color.AppColor.homePageTheme
                         : Colors.red,
                     border: Border.all(color: Colors.white),
                     borderRadius: BorderRadius.circular(6.0)),
@@ -47,6 +48,7 @@ class ViewResidentRecordCard extends StatelessWidget {
                   child: Text(data.status ?? '',
                       style: TextStyle(
                           fontSize: 15.sp,
+                          color: Colors.white
                           )),
                 ),
               ),

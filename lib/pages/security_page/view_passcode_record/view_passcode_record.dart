@@ -228,6 +228,7 @@ class _ViewPasscodeRecordState extends State<ViewPasscodeRecord> {
 
                             return SingleChildScrollView(
                               child: ViewPasscodeRecordCard(
+                                residentData: widget.data,
                                 data: member,
                               ),
                             );

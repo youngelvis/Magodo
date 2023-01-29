@@ -193,7 +193,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                   children: [
                     Text(
                       'Update Member',
-                      style: TextStyle(fontSize: 30.sp),
+                      style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,

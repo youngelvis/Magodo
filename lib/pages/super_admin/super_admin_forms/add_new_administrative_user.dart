@@ -185,7 +185,7 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
+            padding: EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
             child: Column(
               children: [
                 TitleContainer(
@@ -199,7 +199,7 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
                   children:  [
                     Text(
                       'Add New Administrative User',
-                      style: TextStyle(fontSize: 25.sp),
+                      style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -275,6 +275,9 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
                               ),
                               const TextForForm(text: "Validity Starts"),
                               CustomDatePicker(date: _startDate),
+                              const SizedBox(
+                                height: 20,
+                              ),
                               const TextForForm(text: "Validity Ends"),
                               CustomDatePicker(date: _finishDate),
                               ActionPageButton(

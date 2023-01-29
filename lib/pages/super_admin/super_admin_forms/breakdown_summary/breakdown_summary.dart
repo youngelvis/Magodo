@@ -34,8 +34,10 @@ class _BreakdownSummaryState extends State<BreakdownSummary> {
 
     if (userGroup == UserGroup.SUPER_ADMIN) {
       url = 'summaryBreakdown';
+    }else
+    {
+      url = 'summaryBreakdown?zone=$zone';
     }
-    url = 'summaryBreakdown?zone=$zone';
 
     var res = await CallApi().getData(url);
     var r = jsonDecode(res.body);
@@ -91,42 +93,43 @@ class _BreakdownSummaryState extends State<BreakdownSummary> {
               Card(
                 child: ListTile(
 
-                  leading: const Icon(Icons.person),
+                  leading:  Icon(Icons.person, color: color.AppColor.homePageTheme,),
                   title: const Text('Total  Members'),
                   trailing: Text('${breakDownSummaries.data?.totalMembers}'),
                 ),
               ),
               Card(
                 child: ListTile(
-                  leading: const Icon(Icons.person),
+                  leading: Icon(Icons.person, color: color.AppColor.homePageTheme,),
                   title: const Text('Total Family Members'),
                   trailing: Text('${breakDownSummaries.data?.totalFamilyMembers}'),
                 ),
               ),
               Card(
                 child: ListTile(
-                  leading: const Icon(Icons.person),
+                  leading: Icon(Icons.person, color: color.AppColor.homePageTheme,),
                   title: const Text('Total Staffs'),
                   trailing: Text('${breakDownSummaries.data?.totalStaffs}'),
                 ),
               ),
               Card(
+
                 child: ListTile(
-                  leading: const Icon(Icons.person),
+                  leading: Icon(Icons.person, color: color.AppColor.homePageTheme,),
                   title: const Text('Total Zonal Coordinators'),
                   trailing: Text('${breakDownSummaries.data?.totalCoordinators}'),
                 ),
               ),
               Card(
                 child: ListTile(
-                  leading: const Icon(Icons.person),
+                  leading: Icon(Icons.person, color: color.AppColor.homePageTheme,),
                   title: const Text('Total Property Owners'),
                   trailing: Text('${breakDownSummaries.data?.totalPropertyOwners}'),
                 ),
               ),
               Card(
                 child: ListTile(
-                  leading: const Icon(Icons.person),
+                  leading: Icon(Icons.person, color: color.AppColor.homePageTheme,),
                   title: const Text('Total Commercial Residents'),
                   trailing: Text('${breakDownSummaries.data?.totalCommercialResident}'),
                 ),

@@ -135,7 +135,7 @@ class _CommercialEventReportState extends State<CommercialEventReport> {
                 Row(
                   children: [
                     Text(
-                      "Commercial Event Report",
+                      "Event Report",
                       style: TextStyle(
                           fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),

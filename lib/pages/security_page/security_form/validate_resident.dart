@@ -45,6 +45,7 @@ class _ValidateResidentState extends State<ValidateResident> {
     if (_residentCode.text.isEmpty) {
       var result = await Services().validateResident(_residentCode.text);
       callMessage(result['error']["message"]);
+      return;
     }
     final data = await Services().validateResident(_residentCode.text);
     callMessage(data["message"]);
@@ -70,7 +71,8 @@ class _ValidateResidentState extends State<ValidateResident> {
                   children: [
                     Text(
                       'Validate Resident',
-                      style: TextStyle(fontSize: 30.sp),
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -90,7 +92,7 @@ class _ValidateResidentState extends State<ValidateResident> {
                             children: [
                               NameTextField(
                                   controller: _residentCode,
-                                  hint: "resident code",
+                                  hint: "Resident code",
                                   nameType: "Enter Resident code"),
                               const SizedBox(
                                 height: 100,

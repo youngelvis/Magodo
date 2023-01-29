@@ -75,7 +75,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ViewPasscodeReport(
+                                      builder: (context) => GetPasscode(
                                           data: widget.data)));
                             }),
                         ExpansionTile(
@@ -174,17 +174,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 }),
                           ],
                         ),
-                        NavTextButton(
-                            icon: Icons.shopping_bag,
-                            text: 'Get Passcode',
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => GetPasscode(
-                                            data: widget.data,
-                                          )));
-                            }),
+
                         NavTextButton(
                             icon: CupertinoIcons.chat_bubble_2_fill,
                             text: 'Get Bulk Passcode',

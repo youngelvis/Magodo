@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'components_for_class_of_varable/colors.dart' as color;
 class ActionPageButton2 extends StatelessWidget {
   final text;
@@ -15,7 +16,7 @@ final width;
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width ?? 150,
+      width: width ?? 120,
       height:height?? 55,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20)),
@@ -31,7 +32,7 @@ final width;
           text,
           style: TextStyle(
               color: color.AppColor.landingPage2,
-              fontSize: 20),
+              fontSize: 20.sp),
         ),
       ),
     );

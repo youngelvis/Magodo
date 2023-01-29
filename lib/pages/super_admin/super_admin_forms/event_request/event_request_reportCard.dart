@@ -15,15 +15,16 @@ class EventRequestReportCard extends StatefulWidget {
 class _EventRequestReportCardState extends State<EventRequestReportCard> {
   String? eventDecision;
   final eventDecisionOptions = [
+   'Actions',
     'Approve',
     'Decline',
   ];
   String? selectedValue;
 
   selectedDecision() async {
-    final data = await Services().approveEventRequest(
+    await Services().approveEventRequest(
         widget.data.passcode, selectedValue, widget.data.id);
-    print(data);
+
   }
 
   _buildEventDecision() {
@@ -47,9 +48,11 @@ class _EventRequestReportCardState extends State<EventRequestReportCard> {
             eventDecisionOptions.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
               value: value,
-              child: Container(
+              child:value== 'Actions' ? Text(
+                value, style: TextStyle(color: color.AppColor.homePageTitle),
+              ): Container(
                   decoration: BoxDecoration(
-                      color: value == 'Approve' ? Colors.green : Colors.red,
+                      color: value == 'Approve' ? Colors.green :Colors.red,
                       border: Border.all(color: Colors.white),
                       borderRadius: BorderRadius.circular(6.0)),
                   child: Padding(
@@ -90,7 +93,7 @@ class _EventRequestReportCardState extends State<EventRequestReportCard> {
                 decoration: BoxDecoration(
                     color: widget.data.status == 'Approved'
                         ? color.AppColor.verifiedColor
-                        : color.AppColor.decline,
+                        : widget.data.status == 'Unapproved' ? color.AppColor.homePageTheme: color.AppColor.decline,
                     border: Border.all(color: Colors.white),
                     borderRadius: BorderRadius.circular(6.0)),
                 child: Padding(

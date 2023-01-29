@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import '../../../components/action_page_button2.dart';
 
@@ -29,17 +30,18 @@ class DeleteUpdateButton extends StatelessWidget {
               width: 45,
             ),
             ActionPageButton2(
+
               onPressed: onPressedDeleteButton,
               primaryColor: color.AppColor.decline,
               text: 'Delete',
             ),
-            const SizedBox(
-              width: 50,
+            SizedBox(
+              width: 60.w,
             ),
             ActionPageButton2(
               onPressed: onPressedUpdateButton,
               primaryColor: color.AppColor.verifiedColor,
-              text: 'Update button',
+              text: 'Edit',
             ),
           ],
         ),

@@ -219,7 +219,7 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
                   }
                 },
                 child: vehicles.isEmpty
-                    ? const Text('nothing yet')
+                    ? const Center(child: Text('No Record Yet'))
                     : ListView.builder(
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, index) {

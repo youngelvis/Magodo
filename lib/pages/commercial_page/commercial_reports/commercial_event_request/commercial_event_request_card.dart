@@ -24,12 +24,12 @@ class _CommercialEventRequestCardState
           ListTile(
             title: Text(
               widget.data?.createdDate ?? '',
-              style: TextStyle(fontSize: 12.sp),
+              style: TextStyle(fontSize: 15.sp),
             ),
             trailing: Text(
               widget.data?.eventType ?? '',
               style: TextStyle(
-                  fontSize: 12.sp, color: color.AppColor.homePageTheme),
+                  fontSize: 15.sp, color: color.AppColor.homePageTheme),
             ),
           ),
           const Divider(
@@ -38,13 +38,13 @@ class _CommercialEventRequestCardState
           ListTile(
             title: Text(
               widget.data?.passcode ?? '',
-              style: TextStyle(fontSize: 12.sp),
+              style: TextStyle(fontSize: 15.sp),
             ),
           ),
           ListTile(
             title: Text(
               widget.data?.eventScheduledDate ?? '',
-              style: TextStyle(fontSize: 12.sp),
+              style: TextStyle(fontSize: 15.sp),
             ),
             trailing: Container(
               decoration: BoxDecoration(
@@ -60,7 +60,7 @@ class _CommercialEventRequestCardState
                 child: Text(widget.data?.status ?? '',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 12.sp,
+                      fontSize: 15.sp,
                       color: Colors.white,
                     )),
               ),
@@ -69,41 +69,41 @@ class _CommercialEventRequestCardState
           ListTile(
             title: Text(
               'Name',
-              style: TextStyle(fontSize: 12.sp),
+              style: TextStyle(fontSize: 15.sp),
             ),
             trailing: Text(
               widget.data?.fullname ?? '',
-              style: TextStyle(fontSize: 12.sp),
+              style: TextStyle(fontSize: 15.sp),
             ),
           ),
           ListTile(
             title: Text(
               'Phone',
-              style: TextStyle(fontSize: 12.sp),
+              style: TextStyle(fontSize: 15.sp),
             ),
             trailing: Text(
               widget.data?.msisdn ?? '',
-              style: TextStyle(fontSize: 12.sp),
+              style: TextStyle(fontSize: 15.sp),
             ),
           ),
           ListTile(
             title: Text(
               'Email',
-              style: TextStyle(fontSize: 12.sp),
+              style: TextStyle(fontSize: 15.sp),
             ),
             trailing: Text(
               widget.data?.email ?? '',
-              style: TextStyle(fontSize: 12.sp),
+              style: TextStyle(fontSize: 15.sp),
             ),
           ),
           ListTile(
             title: Text(
               'Population',
-              style: TextStyle(fontSize: 12.sp),
+              style: TextStyle(fontSize: 15.sp),
             ),
             trailing: Text(
               widget.data?.population ?? '',
-              style: TextStyle(fontSize: 12.sp),
+              style: TextStyle(fontSize: 15.sp),
             ),
           ),
         ]),

@@ -87,7 +87,7 @@ class _UpdateStaffState extends State<UpdateStaff> {
                   children: [
                     Text(
                       'Update Staff',
-                      style: TextStyle(fontSize: 30.sp),
+                      style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,

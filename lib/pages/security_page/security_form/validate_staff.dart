@@ -45,6 +45,7 @@ class _ValidateStaffState extends State<ValidateStaff> {
     if (_passcode.text.isEmpty) {
       var result = await Services().validateStaff(_passcode.text);
       callMessage(result['error']["message"]);
+      return;
     }
     final data = await Services().validateStaff(_passcode.text);
     callMessage(data["message"]);
@@ -70,7 +71,8 @@ class _ValidateStaffState extends State<ValidateStaff> {
                   children:  [
                     Text(
                       'Validate Staff',
-                      style: TextStyle(fontSize: 30.sp),
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -90,7 +92,7 @@ class _ValidateStaffState extends State<ValidateStaff> {
                             children: [
                               NameTextField(
                                   controller: _passcode,
-                                  hint: "staff code",
+                                  hint: "Staff code",
                                   nameType: "Enter Staff code"),
                               const SizedBox(
                                 height: 100,

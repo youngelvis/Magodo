@@ -33,7 +33,8 @@ class ActivityLogReportCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
-              title: Text(
+              title:Text('Date',  style:  TextStyle(fontSize: 15.sp),) ,
+              trailing:Text(
                 createdDate,
                 style:  TextStyle(fontSize: 15.sp),
               ),
@@ -42,7 +43,8 @@ class ActivityLogReportCard extends StatelessWidget {
               thickness: 2,
             ),
             ListTile(
-              title: Text(
+              title:Text('Passcode',  style:  TextStyle(fontSize: 15.sp),) ,
+              trailing: Text(
                 otherDetails,
                 style:  TextStyle(fontSize: 15.sp),
               ),

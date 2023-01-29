@@ -135,7 +135,7 @@ class _GetPasscodeState extends State<GetPasscode> {
                                   onPressed: () async {
                                     await _getPasscode();
                                   },
-                                  text: 'Submit Request'),
+                                  text: 'Get Passcode'),
                               const SizedBox(
                                 height: 30,
                               ),

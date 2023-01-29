@@ -43,7 +43,7 @@ class _ValidatePasscodeState extends State<ValidatePasscode> {
     if(_passcode.text.isEmpty){
       var result = await Services().validatePasscode(_passcode.text, widget.data?.usr_group);
       callMessage(result['error']["message"]);
-
+      return;
     }
     final data = await Services().validatePasscode(_passcode.text, widget.data?.usr_group);
     callMessage(data["message"]);
@@ -68,7 +68,8 @@ class _ValidatePasscodeState extends State<ValidatePasscode> {
                   children:  [
                     Text(
                       'Validate Passcode',
-                      style: TextStyle(fontSize: 30.sp),
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,

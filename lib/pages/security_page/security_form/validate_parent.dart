@@ -46,6 +46,7 @@ class _ValidateParentState extends State<ValidateParent> {
     if (_passcode.text.isEmpty) {
       var result = await Services().validateParent(_passcode.text);
       callMessage(result['error']["message"]);
+      return;
     }
     final data = await Services().validateParent(_passcode.text);
     callMessage(data["message"]);
@@ -71,7 +72,8 @@ class _ValidateParentState extends State<ValidateParent> {
                   children:  [
                     Text(
                       'Validate Parent',
-                      style: TextStyle(fontSize: 30.sp),
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -91,7 +93,7 @@ class _ValidateParentState extends State<ValidateParent> {
                             children: [
                               NameTextField(
                                   controller: _passcode,
-                                  hint: "parent code",
+                                  hint: "Parent code",
                                   nameType: "Enter Parent code"),
                               const SizedBox(
                                 height: 100,

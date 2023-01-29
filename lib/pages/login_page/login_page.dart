@@ -12,6 +12,7 @@ import 'package:magodo/models/resident_data_model/mainResidentModel.dart';
 import 'package:magodo/models/resident_data_model/wrongDetailsResident.dart';
 import 'package:magodo/pages/register_page/register_page.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/event_request/event_request.dart';
+import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_passcode/get_passcode.dart';
 import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
 
 import 'package:magodo/pages/super_admin/super_admin_forms/add_new_administrative_user.dart';
@@ -20,6 +21,7 @@ import 'package:magodo/services/services.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 import '../admin_page/admin_forms/identify_newly_registered_members.dart';
 import '../commercial_page/commercial_reports/commercial_event_request/commercial_event_records.dart';
+import '../landing_page/welcome_screen.dart';
 import '../security_page/security_form/validate_passcode.dart';
 
 class SignIN extends StatefulWidget {
@@ -105,7 +107,7 @@ callMessage(message){
 
       if (resident?.usr_group == UserGroup.MEMBER) {
         _navigation(
-          ViewPasscodeReport(
+          GetPasscode(
             data: resident,
           ),
         );
@@ -185,7 +187,7 @@ callMessage(message){
                   ),
                   const RememberMe(),
                   SizedBox(
-                    height: 120.h,
+                    height: 100.h,
                   ),
                   ActionPageButton(
                     text: 'Log in',
@@ -195,6 +197,23 @@ callMessage(message){
                   ),
                   SizedBox(
                     height: 30.h,
+                  ),
+
+                  InkWell(
+                    onTap:() { Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                        builder: (context) => const WelcomeScreen()));},
+                    child: Row(
+                      children: [
+                        const Icon(Icons.arrow_left , size: 30,),
+                        Text('Home', style: TextStyle( fontWeight: FontWeight.bold,
+                        color: color.AppColor.homeSecondaryTheme ),)
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.h,
                   ),
                 ],
               ),

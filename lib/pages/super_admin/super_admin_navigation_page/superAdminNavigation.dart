@@ -42,7 +42,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
               Container(
                 color: color.AppColor.homePageTheme,
                 height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width / 1.5.w,
+                width: MediaQuery.of(context).size.width / 1.3.w,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,6 +71,10 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                             ));
                           }),
                       ExpansionTile(
+                        trailing: const Icon(
+                          Icons.keyboard_arrow_down,
+                          color: Colors.white,
+                        ),
                         title: Row(
                           children: [
                             Icon(
@@ -127,6 +131,10 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                             navigateToPage(RegisterVehicle(data: widget.data));
                           }),
                       ExpansionTile(
+                        trailing: const Icon(
+                          Icons.keyboard_arrow_down,
+                          color: Colors.white,
+                        ),
                         title: Row(
                           children: [
                             Icon(
@@ -180,7 +188,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               }),
                           ListTile(
                               title: Text(
-                                ' Member Staff',
+                                'Member Staff',
                                 style: TextStyle(
                                     fontSize: 20.sp,
                                     color: color.AppColor.landingPage2),

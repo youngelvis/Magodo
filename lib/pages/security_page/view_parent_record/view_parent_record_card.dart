@@ -25,15 +25,27 @@ class ViewParentRecordCard extends StatelessWidget {
               thickness: 2,
             ),
             ListTile(
-              title: Text(data.parentPasscode ?? ''),
+              title: Text(data.parentPasscode ?? '',
+                  style:  TextStyle(fontSize: 15.sp)),
             ),
             ListTile(
-              trailing: Text(data.status ?? '',
-                  style: TextStyle(
-                      fontSize: 15.sp,
-                      backgroundColor: data.status == 'verified'
-                          ? color.AppColor.verifiedColor
-                          : color.AppColor.decline)),
+              trailing: Container(
+                decoration: BoxDecoration(
+                    color: data.status == 'Verified'
+                        ? color.AppColor.verifiedColor
+                        : color.AppColor.decline,
+                    border: Border.all(color: Colors.white),
+                    borderRadius: BorderRadius.circular(6.0)),
+
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(data.status ?? '',
+                      style: TextStyle(
+                          fontSize: 15.sp,
+                        color: Colors.white
+                          ),),
+              ),
+              )
             ),
             ListTile(
               title:  Text("Resident Name",

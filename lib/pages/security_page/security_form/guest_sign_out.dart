@@ -43,12 +43,12 @@ class _GuestSignOutState extends State<GuestSignOut> {
     if(_passcode.text.isEmpty){
       var result = await Services().signOutVisitor(_passcode.text, widget.data?.usr_group, );
       callMessage(result['error']["message"]);
-      print(result['error']["message"]);
+      return;
 
     }
     final data = await Services().signOutVisitor(_passcode.text, widget.data?.usr_group);
     callMessage(data["message"]);
-    print(data["message"]);
+
   }
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class _GuestSignOutState extends State<GuestSignOut> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding:  EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
+            padding:  EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
             child: Column(
               children: [
                 TitleContainer(
@@ -70,7 +70,8 @@ class _GuestSignOutState extends State<GuestSignOut> {
                   children:  [
                     Text(
                       'Visitor Sign Out',
-                      style: TextStyle(fontSize: 30.sp),
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -90,7 +91,7 @@ class _GuestSignOutState extends State<GuestSignOut> {
                             children: [
                               NameTextField(
                                   controller: _passcode,
-                                  hint: "passcode",
+                                  hint: "Passcode",
                                   nameType: "Sign Out Passcode"),
                               const SizedBox(
                                 height: 100,

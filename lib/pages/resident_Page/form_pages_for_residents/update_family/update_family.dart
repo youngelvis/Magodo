@@ -77,7 +77,7 @@ class _UpdateFamilyState extends State<UpdateFamily> {
                   children:  [
                     Text(
                       'Update Family',
-                      style: TextStyle(fontSize: 30.sp),
+                      style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -116,7 +116,7 @@ class _UpdateFamilyState extends State<UpdateFamily> {
                                   onPressed: () async {
                                     await _updateFamily();
                                   },
-                                  text: 'update Family'),
+                                  text: 'Update Family'),
                               const SizedBox(
                                 height: 30,
                               ),

@@ -99,42 +99,56 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            padding:  EdgeInsets.only(top: 60.h, left: 30.w, right: 30.w),
-            color: color.AppColor.homePageBackground,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const ForgetPasswordHeading(),
-                const SizedBox(
-                  height: 20,
-                ),
-                ForgetPasswordForm1(
-                    residentCode: NameTextField(
-                      controller: _residentCode,
-                      hint: 'enter resident code',
-                      nameType: 'Resident Code',
+        body: Container(
+          padding:  EdgeInsets.only(top: 60.h, left: 30.w, right: 30.w),
+          color: color.AppColor.homePageBackground,
+          child: OverflowBox(
+            
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const ForgetPasswordHeading(), 
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ForgetPasswordForm1(
+                            residentCode: NameTextField(
+                              controller: _residentCode,
+                              hint: 'Enter resident code',
+                              nameType: 'Resident Code',
+                            ),
+                            mobileNumber: MobileNumberTextField(
+                              controller: _mobileNumber,
+                              fieldName: 'Mobile Number',
+                              hintText: 'Enter your mobile number',
+                            ),
+                            email: NameTextField(
+                              controller: _email,
+                              hint: 'Enter your email',
+                              nameType: ' E-mail',
+                            )),
+
+                    const SizedBox(
+                      height: 15,
                     ),
-                    mobileNumber: MobileNumberTextField(
-                      controller: _mobileNumber,
-                      fieldName: 'Mobile Number',
-                      hintText: 'enter your mobile number',
+                    ActionPageButton(
+                        onPressed: () async {
+                          await _getPassCode();
+                        },
+                        text: 'Continue'),
+                    const SizedBox(
+                      height: 20,
                     ),
-                    email: NameTextField(
-                      controller: _email,
-                      hint: 'enter your email',
-                      nameType: ' E-mail',
-                    )),
-                const SizedBox(
-                  height: 50,
-                ),
-                ActionPageButton(
-                    onPressed: () async {
-                      await _getPassCode();
-                    },
-                    text: 'Continue')
-              ],
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
