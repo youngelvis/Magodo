@@ -79,7 +79,12 @@ class _AddStaffState extends State<AddStaff> {
         _employmentDate.text);
 
     var message = data['message'];
-
+    _staffAddress.clear();
+    _employmentDate.clear();
+    _staffMobileNumber.clear();
+    _staffFullName.clear();
+    relationship =null;
+    employment = null;
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -98,6 +103,7 @@ class _AddStaffState extends State<AddStaff> {
         ],
       ),
     );
+
   }
 
   @override
@@ -106,7 +112,7 @@ class _AddStaffState extends State<AddStaff> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding:  EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
+            padding:  EdgeInsets.only(top: 20.h),
             child: Column(
               children: [
                 TitleContainer(
@@ -118,6 +124,9 @@ class _AddStaffState extends State<AddStaff> {
                 ),
                 Row(
                   children:  [
+                    SizedBox(
+                      width: 25.w,
+                    ),
                     Text(
                       'Add Staff',
                       style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
@@ -135,47 +144,50 @@ class _AddStaffState extends State<AddStaff> {
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              NameTextField(
-                                  controller: _staffFullName,
-                                  hint: "Enter full name",
-                                  nameType: "Staff Full Name"),
-                              NameTextField(
-                                  controller: _staffAddress,
-                                  hint: "Enter staff address",
-                                  nameType: "Staff Address"),
-                              MobileNumberTextField(
-                                  controller: _staffMobileNumber,
-                                  fieldName: 'Staff Mobile Number',
-                                  hintText: 'Enter staff mobile number'),
-                              BuildRelationshipDropDownList(
-                                relationship: relationship,
-                                onChanged: (value) => setState(() {
-                                  relationship = value as String;
-                                }),
-                              ),
-                              BuildEmploymentDropDownList(
-                                employment: employment,
-                                onChanged: (value) => setState(() {
-                                  employment = value as String;
-                                }),
-                              ),
-                              const TextForForm(text: "Employment Date"),
-                              CustomDatePicker(date: _employmentDate),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              ActionPageButton(
-                                  onPressed: () async {
-                                    await _addStaff();
-                                  },
-                                  text: 'Add Staff'),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                            ]),
+                        child: Container(
+                          padding:  EdgeInsets.only( left: 25.w, right: 25.w),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                NameTextField(
+                                    controller: _staffFullName,
+                                    hint: "Enter full name",
+                                    nameType: "Staff Full Name"),
+                                NameTextField(
+                                    controller: _staffAddress,
+                                    hint: "Enter staff address",
+                                    nameType: "Staff Address"),
+                                MobileNumberTextField(
+                                    controller: _staffMobileNumber,
+                                    fieldName: 'Staff Mobile Number',
+                                    hintText: 'Enter staff mobile number'),
+                                BuildRelationshipDropDownList(
+                                  relationship: relationship,
+                                  onChanged: (value) => setState(() {
+                                    relationship = value as String;
+                                  }),
+                                ),
+                                BuildEmploymentDropDownList(
+                                  employment: employment,
+                                  onChanged: (value) => setState(() {
+                                    employment = value as String;
+                                  }),
+                                ),
+                                const TextForForm(text: "Employment Date"),
+                                CustomDatePicker(date: _employmentDate),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                ActionPageButton(
+                                    onPressed: () async {
+                                      await _addStaff();
+                                    },
+                                    text: 'Add Staff'),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                              ]),
+                        ),
                       ),
                     ),
                   ),

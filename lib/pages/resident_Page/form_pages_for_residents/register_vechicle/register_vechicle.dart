@@ -153,8 +153,9 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
+            padding: EdgeInsets.only(top: 20.h),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TitleContainer(
                   title: 'Dashboard',
@@ -165,9 +166,13 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                 ),
                 Row(
                   children: [
+                    SizedBox(
+                      width: 25.w,
+                    ),
                     Text(
                       'Resident Vehicle',
-                      style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -175,9 +180,19 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                     ),
                   ],
                 ),
-                Text(
-                  'upload vehicle licence and supporting document',
-                  style: TextStyle(fontSize: 15.sp),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 25.w,
+                    ),
+                    Text(
+                      'Upload vehicle licence',
+                      style: TextStyle(fontSize: 15.sp),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 40.h,
@@ -186,74 +201,78 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              widget.data?.usr_group == UserGroup.SUPER_ADMIN
-                                  ? SearchableDropDownListForFetchMember(
-                                      data: widget.data,
-                                    )
-                                  : const Text(''),
-                              NameTextField(
-                                  controller: _vehicleCode,
-                                  hint: "Enter vehicle code",
-                                  nameType: "Vehicle Code(optional)"),
-                              NameTextField(
-                                  controller: _vehicleMake,
-                                  hint: "Enter make of vehicle",
-                                  nameType: "Vehicle Make"),
-                              NameTextField(
-                                  controller: _vehicleModel,
-                                  hint: "Enter model of vehicle",
-                                  nameType: "Vehicle Model"),
-                              BuildVehicleColorDropDownList(
-                                  vehicleColor: colour,
-                                  onChanged: (value) => setState(() {
-                                        colour = value as String;
-                                      })),
-                              NameTextField(
-                                  controller: _govtAgency,
-                                  hint: "gov agency",
-                                  nameType: "Gov Agency"),
-                              NameTextField(
-                                  controller: _registrationNumber,
-                                  hint: "Registration number",
-                                  nameType: "Registration No"),
-                              NameTextField(
-                                  controller: _duesReceiptNo,
-                                  hint: "mra receipt number",
-                                  nameType: "Mra Dues Receipt No"),
-                              MobileNumberTextField(
-                                  controller: _amountPaid,
-                                  fieldName: 'Amount Paid (₦)',
-                                  hintText: 'Enter amount paid'),
-                              const TextForForm(text: 'Upload'),
-                              SizedBox(
-                                  height: 140,
-                                  width: MediaQuery.of(context).size.width,
-                                  child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          primary: Colors.white,
-                                          onPrimary: Colors.black,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0))),
-                                      onPressed: () async {
-                                        await selectFile();
-                                      },
-                                      child: const Icon(Icons.add))),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              ActionPageButton(
-                                  onPressed: () async {
-                                    await _registerNewVehicle();
-                                  },
-                                  text: 'Register'),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                            ]),
+                        child: Container(
+                          padding: EdgeInsets.only(left: 25.w, right: 25.w),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                widget.data?.usr_group == UserGroup.SUPER_ADMIN
+                                    ? SearchableDropDownListForFetchMember(
+                                        data: widget.data,
+                                      )
+                                    : const Text(''),
+                                NameTextField(
+                                    controller: _vehicleCode,
+                                    hint: "Enter vehicle code",
+                                    nameType: "Vehicle Code(optional)"),
+                                NameTextField(
+                                    controller: _vehicleMake,
+                                    hint: "Enter make of vehicle",
+                                    nameType: "Vehicle Make"),
+                                NameTextField(
+                                    controller: _vehicleModel,
+                                    hint: "Enter model of vehicle",
+                                    nameType: "Vehicle Model"),
+                                BuildVehicleColorDropDownList(
+                                    vehicleColor: colour,
+                                    onChanged: (value) => setState(() {
+                                          colour = value as String;
+                                        })),
+                                NameTextField(
+                                    controller: _govtAgency,
+                                    hint: "gov agency",
+                                    nameType: "Gov Agency"),
+                                NameTextField(
+                                    controller: _registrationNumber,
+                                    hint: "Registration number",
+                                    nameType: "Registration No"),
+                                NameTextField(
+                                    controller: _duesReceiptNo,
+                                    hint: "mra receipt number",
+                                    nameType: "Mra Dues Receipt No"),
+                                MobileNumberTextField(
+                                    controller: _amountPaid,
+                                    fieldName: 'Amount Paid (₦)',
+                                    hintText: 'Enter amount paid'),
+                                const TextForForm(text: 'Upload'),
+                                SizedBox(
+                                    height: 140,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            primary: Colors.white,
+                                            onPrimary: Colors.black,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        12.0))),
+                                        onPressed: () async {
+                                          await selectFile();
+                                        },
+                                        child: const Icon(Icons.add))),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                ActionPageButton(
+                                    onPressed: () async {
+                                      await _registerNewVehicle();
+                                    },
+                                    text: 'Register'),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                              ]),
+                        ),
                       ),
                     ),
                   ),

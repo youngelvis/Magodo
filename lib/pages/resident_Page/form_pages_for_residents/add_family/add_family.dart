@@ -89,7 +89,7 @@ class _AddFamilyState extends State<AddFamily> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h, left: 10.w,right: 10.w),
+            padding: EdgeInsets.only(top: 20.h, ),
             child: Column(
               children: [
                 TitleContainer(
@@ -101,6 +101,9 @@ class _AddFamilyState extends State<AddFamily> {
                 ),
                 Row(
                   children: [
+                    SizedBox(
+                      width: 25.w,
+                    ),
                     Text(
                       'Add Family',
                       style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
@@ -118,39 +121,42 @@ class _AddFamilyState extends State<AddFamily> {
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              NameTextField(
-                                  controller: _fullName,
-                                  hint: "Enter full name",
-                                  nameType: "Full Name"),
-                              MobileNumberTextField(
-                                  controller: _mobileNumber,
-                                  fieldName: ' Mobile Number',
-                                  hintText: 'Enter mobile number'),
-                              NameTextField(
-                                  controller: _email,
-                                  hint: "Enter email",
-                                  nameType: "Enter email address"),
-                              BuildPasswordTextField(
-                                  fieldName: 'Password',
-                                  passwordController: _password),
-                              BuildPasswordTextField(
-                                  fieldName: 'Confirm Password',
-                                  passwordController: _confirmPassword),
-                              const SizedBox(
-                                height: 40,
-                              ),
-                              ActionPageButton(
-                                  onPressed: () async {
-                                    await _addFamily();
-                                  },
-                                  text: 'Add Family'),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                            ]),
+                        child: Container(
+                          padding:  EdgeInsets.only( left: 25.w, right: 25.w),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                NameTextField(
+                                    controller: _fullName,
+                                    hint: "Enter full name",
+                                    nameType: "Full Name"),
+                                MobileNumberTextField(
+                                    controller: _mobileNumber,
+                                    fieldName: ' Mobile Number',
+                                    hintText: 'Enter mobile number'),
+                                NameTextField(
+                                    controller: _email,
+                                    hint: "Enter email",
+                                    nameType: "Enter email address"),
+                                BuildPasswordTextField(
+                                    fieldName: 'Password',
+                                    passwordController: _password),
+                                BuildPasswordTextField(
+                                    fieldName: 'Confirm Password',
+                                    passwordController: _confirmPassword),
+                                const SizedBox(
+                                  height: 40,
+                                ),
+                                ActionPageButton(
+                                    onPressed: () async {
+                                      await _addFamily();
+                                    },
+                                    text: 'Add Family'),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                              ]),
+                        ),
                       ),
                     ),
                   ),

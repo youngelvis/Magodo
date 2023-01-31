@@ -109,7 +109,7 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding:  EdgeInsets.only(top: 20.h, left: 10.w, ),
+            padding:  EdgeInsets.only(top: 20.h, ),
             child: Column(
               children: [
                 TitleContainer(
@@ -121,6 +121,9 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
                 ),
                 Row(
                   children:  [
+                    SizedBox(
+                      width: 25.w,
+                    ),
                     Text(
                       'Get Future Passcode',
                       style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
@@ -138,7 +141,7 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Container(
-                        padding:  EdgeInsets.only(right: 10.w, ),
+                        padding:  EdgeInsets.only(right: 25.w, left: 25.w),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -168,7 +171,7 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
                               const TextForForm(text: "Arrival Time"),
                               CustomTimePicker(
                                 departureTime: _arrivalTime,
-                                hint: 'select arrival time',
+                                hint: 'Select arrival time',
                               ),
                               const SizedBox(
                                 height: 20,
@@ -176,7 +179,7 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
                               const TextForForm(text: "DepartureTime"),
                               CustomTimePicker(
                                 departureTime: _departureTime,
-                                hint: 'select departure time',
+                                hint: 'Select departure time',
                               ),
                               const SizedBox(
                                 height: 50,

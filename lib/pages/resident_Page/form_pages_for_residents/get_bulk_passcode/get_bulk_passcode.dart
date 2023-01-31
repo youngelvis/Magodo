@@ -115,7 +115,7 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h, left: 10.w, ),
+            padding: EdgeInsets.only(top: 20.h,  ),
             child: Column(
               children: [
                 TitleContainer(
@@ -127,9 +127,12 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
                 ),
                 Row(
                   children: [
+                    SizedBox(
+                      width: 25.w,
+                    ),
                     Text(
                       'Get Bulk Passcode',
-                      style: TextStyle(fontSize: 30.sp),
+                      style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -144,7 +147,7 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Container(
-                        padding:  EdgeInsets.only(right: 20.w, ),
+                        padding:  EdgeInsets.only(right: 25.w, left: 25.w),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -167,15 +170,17 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
                               ),
                               const TextForForm(text: "Arrival Date"),
                               CustomDatePicker(date: _date),
+                              SizedBox(height: 20,),
                               const TextForForm(text: "Arrival Time"),
                               CustomTimePicker(
                                 departureTime: _arrivalTime,
-                                hint: 'select arrival time',
+                                hint: 'Select arrival time',
                               ),
+
                               const TextForForm(text: "Departure Time"),
                               CustomTimePicker(
                                 departureTime: _departureTime,
-                                hint: 'select departure time',
+                                hint: 'Select departure time',
                               ),
                               SizedBox(
                                 height: 50.h,

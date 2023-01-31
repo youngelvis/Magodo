@@ -61,6 +61,10 @@ class _GetPasscodeState extends State<GetPasscode> {
         noOfVisitors,
         _email.text);
     var message = data['message'];
+    _email.clear();
+    _mobileNumber.clear();
+    _visitorName.clear();
+    noOfVisitors = null;
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -78,7 +82,7 @@ class _GetPasscodeState extends State<GetPasscode> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding:   EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
+            padding:   EdgeInsets.only(top: 20.h,),
             child: Column(
               children: [
                 TitleContainer(
@@ -90,6 +94,9 @@ class _GetPasscodeState extends State<GetPasscode> {
                 ),
                 Row(
                   children: [
+                    SizedBox(
+                      width: 25.w,
+                    ),
                     Text(
                       'Generate Passcode(Visitor)',
                       style:TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
@@ -107,39 +114,42 @@ class _GetPasscodeState extends State<GetPasscode> {
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              MobileNumberTextField(
-                                  controller: _mobileNumber,
-                                  fieldName: 'Mobile Number',
-                                  hintText: 'Enter your mobile number'),
-                              NameTextField(
-                                  controller: _visitorName,
-                                  hint: "Enter your visitor's name",
-                                  nameType: "Visitor's name"),
-                              NameTextField(
-                                  controller: _email,
-                                  hint: 'Enter your Email',
-                                  nameType: 'Email (Optional)'),
-                              BuildNumberOfVisitorsDropDownList(
-                                noOfVisitors: noOfVisitors,
-                                onChanged: (value) => setState(() {
-                                  noOfVisitors = value as String;
-                                }),
-                              ),
-                              const SizedBox(
-                                height: 60,
-                              ),
-                              ActionPageButton(
-                                  onPressed: () async {
-                                    await _getPasscode();
-                                  },
-                                  text: 'Get Passcode'),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                            ]),
+                        child: Container(
+                          padding:  EdgeInsets.only( left: 25.w, right: 25.w),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                MobileNumberTextField(
+                                    controller: _mobileNumber,
+                                    fieldName: 'Mobile Number',
+                                    hintText: 'Enter your mobile number'),
+                                NameTextField(
+                                    controller: _visitorName,
+                                    hint: "Enter your visitor's name",
+                                    nameType: "Visitor's name"),
+                                NameTextField(
+                                    controller: _email,
+                                    hint: 'Enter your Email',
+                                    nameType: 'Email (Optional)'),
+                                BuildNumberOfVisitorsDropDownList(
+                                  noOfVisitors: noOfVisitors,
+                                  onChanged: (value) => setState(() {
+                                    noOfVisitors = value as String;
+                                  }),
+                                ),
+                                const SizedBox(
+                                  height: 60,
+                                ),
+                                ActionPageButton(
+                                    onPressed: () async {
+                                      await _getPasscode();
+                                    },
+                                    text: 'Get Passcode'),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                              ]),
+                        ),
                       ),
                     ),
                   ),

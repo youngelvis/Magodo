@@ -145,7 +145,7 @@ class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding:  EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
+            padding:  EdgeInsets.only(top: 20.h,),
             child: Column(
               children: [
                 TitleContainer(
@@ -157,9 +157,12 @@ class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
                 ),
                 Row(
                   children: [
+                    SizedBox(
+                      width: 25.w,
+                    ),
                     Text(
                       'Update Resident Vehicle details',
-                      style: TextStyle(fontSize: 20.sp),
+                      style: TextStyle(fontSize: 25.sp),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -167,9 +170,17 @@ class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
                     ),
                   ],
                 ),
-                Text(
-                  'upload vehicle licence and supporting document',
-                  style: TextStyle(fontSize: 15.sp),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Row(
+                  children: [
+                    SizedBox(width: 25.w,),
+                    Text(
+                      'upload vehicle licence ',
+                      style: TextStyle(fontSize: 15.sp),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 40.h,
@@ -178,66 +189,69 @@ class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              NameTextField(
-                                  controller: _vehicleCode,
-                                  hint: "Enter code",
-                                  nameType: "Vehicle Code"),
-                              NameTextField(
-                                  controller: _vehicleMake,
-                                  hint: "Enter make of vehicle",
-                                  nameType: "Email (Optional)"),
-                              NameTextField(
-                                  controller: _vehicleModel,
-                                  hint: "Enter model of vehicle",
-                                  nameType: "Vehicle Make"),
-                              BuildVehicleColorDropDownList(
-                                  vehicleColor: colour,
-                                  onChanged: (value) => setState(() {
-                                    colour = value as String;
-                                  })),
-                              NameTextField(
-                                  controller: _govtAgency,
-                                  hint: "gov agency",
-                                  nameType: "Gov Agency"),
-                              NameTextField(
-                                  controller: _registrationNumber,
-                                  hint: "Registration number",
-                                  nameType: "Registration No"),
-                              NameTextField(
-                                  controller: _duesReceiptNo,
-                                  hint: "mra receipt number",
-                                  nameType: "Mra Dues Receipt No"),
-                              MobileNumberTextField(
-                                  controller: _amountPaid,
-                                  fieldName: '(₦)Amount Paid',
-                                  hintText: 'Enter amount paid'),
-                              const TextForForm(text: 'Upload'),
-                              SizedBox(
-                                  height: 140,
-                                  width: MediaQuery.of(context).size.width,
-                                  child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          primary: Colors.white,
-                                          onPrimary: Colors.black,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(12.0))),
-                                      onPressed: () async{
-                                        await selectFile();
-                                      },
-                                      child: const Icon(Icons.add))),
-                              const SizedBox(
-                                height: 40,
-                              ),
-                              ActionPageButton(
-                                  onPressed: () async {}, text: 'Submit'),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                            ]),
+                        child: Container(
+                          padding: EdgeInsets.only(left: 25.w, right: 25.w),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                NameTextField(
+                                    controller: _vehicleCode,
+                                    hint: "Enter code",
+                                    nameType: "Vehicle Code"),
+                                NameTextField(
+                                    controller: _vehicleMake,
+                                    hint: "Enter make of vehicle",
+                                    nameType: "Email (Optional)"),
+                                NameTextField(
+                                    controller: _vehicleModel,
+                                    hint: "Enter model of vehicle",
+                                    nameType: "Vehicle Make"),
+                                BuildVehicleColorDropDownList(
+                                    vehicleColor: colour,
+                                    onChanged: (value) => setState(() {
+                                      colour = value as String;
+                                    })),
+                                NameTextField(
+                                    controller: _govtAgency,
+                                    hint: "gov agency",
+                                    nameType: "Gov Agency"),
+                                NameTextField(
+                                    controller: _registrationNumber,
+                                    hint: "Registration number",
+                                    nameType: "Registration No"),
+                                NameTextField(
+                                    controller: _duesReceiptNo,
+                                    hint: "mra receipt number",
+                                    nameType: "Mra Dues Receipt No"),
+                                MobileNumberTextField(
+                                    controller: _amountPaid,
+                                    fieldName: '(₦)Amount Paid',
+                                    hintText: 'Enter amount paid'),
+                                const TextForForm(text: 'Upload'),
+                                SizedBox(
+                                    height: 140,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            primary: Colors.white,
+                                            onPrimary: Colors.black,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(12.0))),
+                                        onPressed: () async{
+                                          await selectFile();
+                                        },
+                                        child: const Icon(Icons.add))),
+                                const SizedBox(
+                                  height: 40,
+                                ),
+                                ActionPageButton(
+                                    onPressed: () async {}, text: 'Submit'),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                              ]),
+                        ),
                       ),
                     ),
                   ),

@@ -22,15 +22,14 @@ class _BuildPasswordTextFieldState extends State<BuildPasswordTextField> {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           widget.fieldName,
           style: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w400,
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w600,
               color: color.AppColor.homePageTitle),
         ),
         const SizedBox(
@@ -49,11 +48,10 @@ class _BuildPasswordTextFieldState extends State<BuildPasswordTextField> {
                   _obscureText ? Icons.visibility : Icons.visibility_off,
                   color: color.AppColor.landingPageTitle)),
         ),
-         SizedBox(
+        SizedBox(
           height: 20.h,
         ),
       ],
     );
-
   }
 }

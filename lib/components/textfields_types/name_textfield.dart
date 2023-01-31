@@ -4,11 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/roundedTextInputField.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
+
 class NameTextField extends StatelessWidget {
   final nameType;
   final hint;
   final controller;
-  const NameTextField({Key? key, required this.controller, required this.hint, required this.nameType}) : super(key: key);
+
+  const NameTextField(
+      {Key? key,
+      required this.controller,
+      required this.hint,
+      required this.nameType})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +24,19 @@ class NameTextField extends StatelessWidget {
       children: [
         Text(
           nameType,
-          style:  TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w400,
+          style: TextStyle(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w600,
               color: color.AppColor.homePageTitle),
         ),
-         SizedBox(
+        SizedBox(
           height: 20.h,
         ),
         RoundedTextInputField(
           hintText: hint,
           controller: controller,
         ),
-         SizedBox(
+        SizedBox(
           height: 20.h,
         ),
       ],

@@ -76,7 +76,7 @@ class _EventRequestState extends State<EventRequest> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
+            padding: EdgeInsets.only(top: 20.h,),
             child: Column(
               children: [
                 TitleContainer(
@@ -88,6 +88,9 @@ class _EventRequestState extends State<EventRequest> {
                 ),
                 Row(
                   children:  [
+                    SizedBox(
+                      width: 25.w,
+                    ),
                     Text(
                       'Event Request Form',
                       style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
@@ -105,40 +108,43 @@ class _EventRequestState extends State<EventRequest> {
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const TextForForm(text: "Schedule Date"),
-                              CustomDatePicker(date: _scheduleDate),
-                              const TextForForm(text: "Schedule Time"),
-                              CustomTimePicker(
-                                departureTime: _scheduleTime,
-                                hint: 'Select schedule time',
-                              ),
-                              BuildEventTypeDropDownList(
-                                eventType: eventType,
-                                onChanged: (value) => setState(() {
-                                  eventType = value as String;
-                                }),
-                              ),
-                              BuildEventPopulationDropDownList(
-                                eventPopulation: population,
-                                onChanged: (value) => setState(() {
-                                  population = value as String;
-                                }),
-                              ),
-                              const SizedBox(
-                                height: 50,
-                              ),
-                              ActionPageButton(
-                                  onPressed: () async {
-                                    requestEvent();
-                                  },
-                                  text: 'Submit Request'),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                            ]),
+                        child: Container(
+                          padding: EdgeInsets.only(left: 25.w, right: 25.w),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const TextForForm(text: "Schedule Date"),
+                                CustomDatePicker(date: _scheduleDate),
+                                const TextForForm(text: "Schedule Time"),
+                                CustomTimePicker(
+                                  departureTime: _scheduleTime,
+                                  hint: 'Select schedule time',
+                                ),
+                                BuildEventTypeDropDownList(
+                                  eventType: eventType,
+                                  onChanged: (value) => setState(() {
+                                    eventType = value as String;
+                                  }),
+                                ),
+                                BuildEventPopulationDropDownList(
+                                  eventPopulation: population,
+                                  onChanged: (value) => setState(() {
+                                    population = value as String;
+                                  }),
+                                ),
+                                const SizedBox(
+                                  height: 50,
+                                ),
+                                ActionPageButton(
+                                    onPressed: () async {
+                                      requestEvent();
+                                    },
+                                    text: 'Submit Request'),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                              ]),
+                        ),
                       ),
                     ),
                   ),
