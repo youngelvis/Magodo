@@ -54,7 +54,7 @@ class _ValidatePasscodeState extends State<ValidatePasscode> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding:  EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
+            padding:  EdgeInsets.only(top: 20.h),
             child: Column(
               children: [
                 TitleContainer(
@@ -66,6 +66,9 @@ class _ValidatePasscodeState extends State<ValidatePasscode> {
                 ),
                 Row(
                   children:  [
+                    SizedBox(
+                      width: 25.w,
+                    ),
                     Text(
                       'Validate Passcode',
                       style: TextStyle(
@@ -84,25 +87,28 @@ class _ValidatePasscodeState extends State<ValidatePasscode> {
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              NameTextField(
-                                  controller: _passcode,
-                                  hint: "passcode",
-                                  nameType: "Enter Passcode"),
-                              const SizedBox(
-                                height: 100,
-                              ),
-                              ActionPageButton(
-                                  onPressed: () {
-                                    validatePasscode();
-                                  },
-                                   text: 'Validate Passcode'),
-                              const SizedBox(
-                                height: 50,
-                              ),
-                            ]),
+                        child: Container(
+                          padding:  EdgeInsets.only( left: 25.w, right: 25.w),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                NameTextField(
+                                    controller: _passcode,
+                                    hint: "Passcode",
+                                    nameType: "Enter Passcode"),
+                                const SizedBox(
+                                  height: 100,
+                                ),
+                                ActionPageButton(
+                                    onPressed: () {
+                                      validatePasscode();
+                                    },
+                                     text: 'Validate Passcode'),
+                                const SizedBox(
+                                  height: 50,
+                                ),
+                              ]),
+                        ),
                       ),
                     ),
                   ),

@@ -99,7 +99,7 @@ class _EditProfileState extends State<EditProfile> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding:  EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
+            padding:  EdgeInsets.only(top: 20.h),
             child: Column(
               children: [
                 TitleContainer(
@@ -111,6 +111,9 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 Row(
                   children: [
+                     SizedBox(
+                      width: 25.w,
+                    ),
                     Text(
                       'Edit Profile',
                       style:
@@ -129,68 +132,71 @@ class _EditProfileState extends State<EditProfile> {
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              MobileNumberTextField(
-                                  controller: _mobileNumber,
-                                  fieldName: 'Mobile Number',
-                                  hintText: widget.data?.msisdn ??
-                                      'Enter your mobile number'),
-                              NameTextField(
-                                  controller: _firstName,
-                                  hint: widget.data?.firstname ??
-                                      "Enter First Name",
-                                  nameType: "First Name"),
-                              NameTextField(
-                                  controller: _surname,
-                                  hint: widget.data?.surname ?? "Enter Surname",
-                                  nameType: "Surname"),
-                              NameTextField(
-                                  controller: _email,
-                                  hint: widget.data?.email ?? "Enter email",
-                                  nameType: "Email"),
-                              NameTextField(
-                                  controller: _address,
-                                  hint: widget.data?.address?? "Enter email",
-                                  nameType: "Address"),
-                              BuildResidentTypeDropDownList(
-                                  residentType: residentType,
-                                  onChanged: (value) => setState(() {
-                                        residentType = value as String;
-                                      }),
-                                  hintText: widget.data?.resident_type ??
-                                      'Select Resident Type'),
-                              widget.data?.resident_type == 'Commercial'
-                                  ? CommercialEditProfile(
-                                      businessName: _businessName,
-                                      businessAddress: _businessAddress,
-                                      businessEmail: _businessEmail,
-                                      businessMobileNumber:
-                                          _businessMobileNumber,
-                                      staffNumber: _staffNumber,
-                                      data: widget.data,
-                                      category: category,
-                                      onChange: (value) => setState(() {
-                                        category = value as String;
-                                      }),
-                                    )
-                                  : const Text(''),
-                              SizedBox(
-                                height: 40.h,
-                              ),
-                              ActionPageButton(
-                                  onPressed: () async {
-                                    editProfile();
-                                  },
-                                  text: 'Update Profile'),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                            ]),
+                        child: Container(
+                          padding:  EdgeInsets.only(left: 25.w, right: 25.w),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                MobileNumberTextField(
+                                    controller: _mobileNumber,
+                                    fieldName: 'Mobile Number',
+                                    hintText: widget.data?.msisdn ??
+                                        'Enter your mobile number'),
+                                NameTextField(
+                                    controller: _firstName,
+                                    hint: widget.data?.firstname ??
+                                        "Enter First Name",
+                                    nameType: "First Name"),
+                                NameTextField(
+                                    controller: _surname,
+                                    hint: widget.data?.surname ?? "Enter Surname",
+                                    nameType: "Surname"),
+                                NameTextField(
+                                    controller: _email,
+                                    hint: widget.data?.email ?? "Enter email",
+                                    nameType: "Email"),
+                                NameTextField(
+                                    controller: _address,
+                                    hint: widget.data?.address?? "Enter email",
+                                    nameType: "Address"),
+                                BuildResidentTypeDropDownList(
+                                    residentType: residentType,
+                                    onChanged: (value) => setState(() {
+                                          residentType = value as String;
+                                        }),
+                                    hintText: widget.data?.resident_type ??
+                                        'Select Resident Type'),
+                                widget.data?.usr_group == 'Commercial'
+                                    ? CommercialEditProfile(
+                                        businessName: _businessName,
+                                        businessAddress: _businessAddress,
+                                        businessEmail: _businessEmail,
+                                        businessMobileNumber:
+                                            _businessMobileNumber,
+                                        staffNumber: _staffNumber,
+                                        data: widget.data,
+                                        category: category,
+                                        onChange: (value) => setState(() {
+                                          category = value as String;
+                                        }),
+                                      )
+                                    : const Text(''),
+                                SizedBox(
+                                  height: 40.h,
+                                ),
+                                ActionPageButton(
+                                    onPressed: () async {
+                                      editProfile();
+                                    },
+                                    text: 'Update Profile'),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                              ]),
+                        ),
                       ),
                     ),
                   ),

@@ -56,7 +56,7 @@ class _GuestSignOutState extends State<GuestSignOut> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding:  EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
+            padding:  EdgeInsets.only(top: 20.h,),
             child: Column(
               children: [
                 TitleContainer(
@@ -68,6 +68,9 @@ class _GuestSignOutState extends State<GuestSignOut> {
                 ),
                 Row(
                   children:  [
+                    SizedBox(
+                      width: 25.w,
+                    ),
                     Text(
                       'Visitor Sign Out',
                       style: TextStyle(
@@ -86,25 +89,28 @@ class _GuestSignOutState extends State<GuestSignOut> {
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              NameTextField(
-                                  controller: _passcode,
-                                  hint: "Passcode",
-                                  nameType: "Sign Out Passcode"),
-                              const SizedBox(
-                                height: 100,
-                              ),
-                              ActionPageButton(
-                                  onPressed: () {
-                                    guestSignOut();
+                        child: Container(
+                          padding:  EdgeInsets.only( left: 25.w, right: 25.w),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                NameTextField(
+                                    controller: _passcode,
+                                    hint: "Passcode",
+                                    nameType: "Sign Out Passcode"),
+                                const SizedBox(
+                                  height: 100,
+                                ),
+                                ActionPageButton(
+                                    onPressed: () {
+                                      guestSignOut();
 
-                                  }, text: 'Sign Out Passcode'),
-                              const SizedBox(
-                                height: 50,
-                              ),
-                            ]),
+                                    }, text: 'Sign Out Passcode'),
+                                const SizedBox(
+                                  height: 50,
+                                ),
+                              ]),
+                        ),
                       ),
                     ),
                   ),

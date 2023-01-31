@@ -63,7 +63,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h, left: 20.w, right: 10.w),
+            padding: EdgeInsets.only(top: 20.h,),
             child: Column(
               children: [
                 TitleContainer(
@@ -75,6 +75,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                 ),
                 Row(
                   children: [
+                    SizedBox(
+                      width: 25.w,
+                    ),
                     Text(
                       'Change Password',
                       style:
@@ -93,31 +96,34 @@ class _ChangePasswordState extends State<ChangePassword> {
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                        child: Container(
+                          padding:  EdgeInsets.only( left: 25.w, right: 25.w),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
 
-                              BuildPasswordTextField(
-                                  fieldName: 'Current Password',
-                                  passwordController: _currentPassword),
-                              BuildPasswordTextField(
-                                  fieldName: 'New Password',
-                                  passwordController: _newPassword),
-                              BuildPasswordTextField(
-                                  fieldName: 'Confirm New Password',
-                                  passwordController: _confirmPassword),
-                              const SizedBox(
-                                height: 50,
-                              ),
-                              ActionPageButton(
-                                  onPressed: () async {
-                                    changePasscode();
-                                  },
-                                  text: 'Change Password'),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                            ]),
+                                BuildPasswordTextField(
+                                    fieldName: 'Current Password',
+                                    passwordController: _currentPassword),
+                                BuildPasswordTextField(
+                                    fieldName: 'New Password',
+                                    passwordController: _newPassword),
+                                BuildPasswordTextField(
+                                    fieldName: 'Confirm New Password',
+                                    passwordController: _confirmPassword),
+                                const SizedBox(
+                                  height: 50,
+                                ),
+                                ActionPageButton(
+                                    onPressed: () async {
+                                      changePasscode();
+                                    },
+                                    text: 'Change Password'),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                              ]),
+                        ),
                       ),
                     ),
                   ),
