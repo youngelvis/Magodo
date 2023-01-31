@@ -24,7 +24,7 @@ class _ParentReportCardState extends State<ParentReportCard> {
             ListTile(
               title: Text(
                 widget.data?.dateCreated ?? '',
-                style: TextStyle(fontSize: 12.sp),
+                style: TextStyle(fontSize: 15.sp),
               ),
             ),
             const Divider(

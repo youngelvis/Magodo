@@ -132,7 +132,7 @@ _parentAddress.clear();
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
         body: Container(
-          padding: EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
+          padding: EdgeInsets.only(top: 20.h, ),
           child: Column(
             children: [
               TitleContainer(
@@ -144,6 +144,9 @@ _parentAddress.clear();
               ),
               Row(
                 children: [
+                  SizedBox(
+                    width: 25.w,
+                  ),
                   Text(
                     'Extend Parent Validity',
                     style:
@@ -162,66 +165,67 @@ _parentAddress.clear();
                 child: OverflowBox(
                   child: SingleChildScrollView(
                     child: Form(
-                      child: Column(
+                      child: Container(
+                        padding:  EdgeInsets.only(left: 25.w, right: 25.w),
+                        child: Column(
 
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const TextForForm(
-                            text: 'Select Parent',
-                          ),
-                          SelectParentDropdown(
-                            data: widget.data,
-                            onChange: onChange,
-                          ),
-                          MobileNumberTextField(
-                            controller: _parentMobile,
-                            fieldName: ' Parent Mobile Number',
-                            hintText: response == null
-                                ? 'Parent Mobile Number'
-                                : response['PARENT_MOBILE'],
-                          ),
-                          NameTextField(
-                              controller: _parentFullName,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SelectParentDropdown(
+                              data: widget.data,
+                              onChange: onChange,
+                            ),
+
+                            MobileNumberTextField(
+                              controller: _parentMobile,
+                              fieldName: ' Parent Mobile Number',
+                              hintText: response == null
+                                  ? 'Parent Mobile Number'
+                                  : response['PARENT_MOBILE'],
+                            ),
+                            NameTextField(
+                                controller: _parentFullName,
+                                hint: response == null
+                                    ? 'Parent full name'
+                                    : response['PARENT_NAME'],
+                                nameType: "Parent Name"),
+                            const TextForForm(text: "Validity Starts"),
+                            CustomDatePicker(
+                              date: _validityStarts,
                               hint: response == null
-                                  ? 'Parent full name'
-                                  : response['PARENT_NAME'],
-                              nameType: "Parent Name"),
-                          const TextForForm(text: "Validity Starts"),
-                          CustomDatePicker(
-                            date: _validityStarts,
-                            hint: response == null
-                                ? 'Validity Starts'
-                                : response['VALIDITY_STARTS'],
-                          ),
-                          const TextForForm(text: "Validity Ends"),
-                          CustomDatePicker(
-                            date: _validityEnds,
-                            hint: response == null
-                                ? 'Validity Ends'
-                                : response['VALIDITY_ENDS'],
-                          ),
-                          const SizedBox(height: 20,),
-                          const TextForForm(text: "Status"),
-                          _buildStatus(),
-                          NameTextField(
-                              controller: _parentAddress,
+                                  ? 'Validity Starts'
+                                  : response['VALIDITY_STARTS'],
+                            ),
+                            const TextForForm(text: "Validity Ends"),
+                            CustomDatePicker(
+                              date: _validityEnds,
                               hint: response == null
-                                  ? 'Parent Address'
-                                  : response['PARENT_ADDRESS'],
-                              nameType: "Parent Address"),
-                          SizedBox(
-                            height: 30.h,
-                          ),
-                          ActionPageButton(
-                              onPressed: () async {
-                                await extendParentValidity();
+                                  ? 'Validity Ends'
+                                  : response['VALIDITY_ENDS'],
+                            ),
+                            const SizedBox(height: 20,),
+                            const TextForForm(text: "Status"),
+                            _buildStatus(),
+                            NameTextField(
+                                controller: _parentAddress,
+                                hint: response == null
+                                    ? 'Parent Address'
+                                    : response['PARENT_ADDRESS'],
+                                nameType: "Parent Address"),
+                            SizedBox(
+                              height: 30.h,
+                            ),
+                            ActionPageButton(
+                                onPressed: () async {
+                                  await extendParentValidity();
 
 
-                              }, text: 'Extend Validity'),
-                          SizedBox(
-                            height: 30.h,
-                          ),
-                        ],
+                                }, text: 'Extend Validity'),
+                            SizedBox(
+                              height: 30.h,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

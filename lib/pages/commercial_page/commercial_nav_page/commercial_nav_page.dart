@@ -74,7 +74,7 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                             Icon(
                               Icons.person,
                               color: color.AppColor.landingPage2,
-                              size: 50,
+                              size: 30,
                             ),
                             const SizedBox(
                               width: 10,
@@ -90,7 +90,7 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                               title: Text(
                                 'Edit Profile',
                                 style: TextStyle(
-                                    fontSize: 15.sp,
+                                    fontSize: 20.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -102,7 +102,7 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                               title: Text(
                                 'Change Password',
                                 style: TextStyle(
-                                    fontSize: 15.sp,
+                                    fontSize: 20.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -114,7 +114,7 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                               title: Text(
                                 'Add Staff',
                                 style: TextStyle(
-                                    fontSize: 15.sp,
+                                    fontSize: 20.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -163,14 +163,14 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                         Icon(
                           Icons.filter_frames_sharp,
                           color: color.AppColor.landingPage2,
-                          size: 50,
+                          size: 30.sp,
                         ),
                         const SizedBox(
                           width: 10,
                         ),
                         Text('Reports',
                             style: TextStyle(
-                                fontSize: 15.sp,
+                                fontSize: 20.sp,
                                 color: color.AppColor.landingPage2)),
                       ],
                     ),
@@ -179,7 +179,7 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                           title: Text(
                             ' View Passcode',
                             style: TextStyle(
-                                fontSize: 15.sp,
+                                fontSize: 20.sp,
                                 color: color.AppColor.landingPage2),
                           ),
                           onTap: () {
@@ -191,7 +191,7 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                           title: Text(
                             'Event Passcode Record',
                             style: TextStyle(
-                                fontSize: 15.sp,
+                                fontSize: 20.sp,
                                 color: color.AppColor.landingPage2),
                           ),
                           onTap: () {

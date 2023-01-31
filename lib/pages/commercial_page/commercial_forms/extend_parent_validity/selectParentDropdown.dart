@@ -4,6 +4,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:magodo/models/get_parent_model/get_parent_model.dart';
 import '../../../../api/api.dart';
+import '../../../../components/text_for_form.dart';
 import '../../../../models/resident_data_model/residentdata.dart';
 
 class SelectParentDropdown extends StatefulWidget {
@@ -41,6 +42,9 @@ class _SelectParentDropdownState extends State<SelectParentDropdown> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const TextForForm(
+          text: 'Select Parent',
+        ),
         DropdownSearch<String>(
           mode: Mode.MENU,
           showSelectedItems: true,

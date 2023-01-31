@@ -84,9 +84,12 @@ class _RegisterParentState extends State<RegisterParent> {
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
         body: Container(
-          padding: EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
+          padding: EdgeInsets.only(top: 20.h, ),
           child: Column(
             children: [
+              SizedBox(
+                width: 25.w,
+              ),
               TitleContainer(
                 title: 'Dashboard',
                 data: widget.data,
@@ -113,37 +116,40 @@ class _RegisterParentState extends State<RegisterParent> {
                 child: OverflowBox(
                   child: SingleChildScrollView(
                     child: Form(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          NameTextField(
-                              controller: _parentFullName,
-                              hint: "Enter Parent Full name",
-                              nameType: "Full Name"),
-                          MobileNumberTextField(
-                              controller: _parentMobile,
-                              fieldName: ' Parent Mobile Number',
-                              hintText: 'parent mobile number'),
-                          NameTextField(
-                              controller: _parentEmail,
-                              hint: "Enter Parent Email",
-                              nameType: "Email (optional)"),
-                          NameTextField(
-                              controller: _parentAddress,
-                              hint: "Enter Parent Address",
-                              nameType: "Parent Address"),
-                          SizedBox(
-                            height: 30.h,
-                          ),
-                          ActionPageButton(
-                              onPressed: () async {
-                                _registerParent();
-                              },
-                              text: 'Register Parent'),
-                          SizedBox(
-                            height: 30.h,
-                          ),
-                        ],
+                      child: Container(
+                        padding:  EdgeInsets.only(left: 25.w, right: 25.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            NameTextField(
+                                controller: _parentFullName,
+                                hint: "Enter Parent Full name",
+                                nameType: "Full Name"),
+                            MobileNumberTextField(
+                                controller: _parentMobile,
+                                fieldName: ' Parent Mobile Number',
+                                hintText: 'parent mobile number'),
+                            NameTextField(
+                                controller: _parentEmail,
+                                hint: "Enter Parent Email",
+                                nameType: "Email (optional)"),
+                            NameTextField(
+                                controller: _parentAddress,
+                                hint: "Enter Parent Address",
+                                nameType: "Parent Address"),
+                            SizedBox(
+                              height: 30.h,
+                            ),
+                            ActionPageButton(
+                                onPressed: () async {
+                                  _registerParent();
+                                },
+                                text: 'Register Parent'),
+                            SizedBox(
+                              height: 30.h,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
