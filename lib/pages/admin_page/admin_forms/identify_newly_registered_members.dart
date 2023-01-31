@@ -122,14 +122,18 @@ class _IdentifyNewlyRegisteredMembersState
     status = null;
     callMessage(data['message']);
   }
+
   declineNewUser ()async {
     var data = await Services().declineUser(response['resident_reg_code'] ?? '',  widget.data?.usr_group);
+
+
+    callMessage(data['message']);
     _fullName.clear();
     _address.clear();
     _finishDate.clear();
     _startDate.clear();
     status = null;
-    callMessage(data['message']);
+    return;
   }
 
   @override
@@ -138,7 +142,7 @@ class _IdentifyNewlyRegisteredMembersState
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding:  EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
+            padding:  EdgeInsets.only(top: 20.h),
             child: Column(
               children: [
                 TitleContainer(
@@ -150,10 +154,13 @@ class _IdentifyNewlyRegisteredMembersState
                 ),
                 Row(
                   children: [
+                    SizedBox(
+                      width: 25.w,
+                    ),
                     Text(
                       'Newly Registered Members',
                       style: TextStyle(
-                          fontSize: 20.sp, fontWeight: FontWeight.bold),
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -168,97 +175,98 @@ class _IdentifyNewlyRegisteredMembersState
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const TextForForm(
-                                text: 'Select Resident',
-                              ),
-                              SearchableDropDownListForFetchMember(
-                                onChange: onChange,
-                                data: widget.data,
-                              ),
-                              MobileNumberTextField(
-                                controller: _mobileNumber,
-                                fieldName: "Mobile Number",
-                                hintText: response == null
-                                    ? 'Mobile Number'
-                                    : response['resident_phone'],
-                              ),
-                              NameTextField(
-                                  controller: _fullName,
+                        child: Container(
+                          padding:  EdgeInsets.only(left: 25.w, right: 25.w),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+
+                                SearchableDropDownListForFetchMember(
+                                  onChange: onChange,
+                                  data: widget.data,
+                                ),
+                                MobileNumberTextField(
+                                  controller: _mobileNumber,
+                                  fieldName: "Mobile Number",
+                                  hintText: response == null
+                                      ? 'Mobile Number'
+                                      : response['resident_phone'],
+                                ),
+                                NameTextField(
+                                    controller: _fullName,
+                                    hint: response == null
+                                        ? 'Full Name'
+                                        : response['full_name'],
+                                    nameType: "Full Name"),
+                                BuildZoneDropDownList(
+                                  zone: zone,
+                                  onChanged: (value) => setState(() {
+                                    zone = value as String;
+                                  }),
                                   hint: response == null
-                                      ? 'Full Name'
-                                      : response['full_name'],
-                                  nameType: "Full Name"),
-                              BuildZoneDropDownList(
-                                zone: zone,
-                                onChanged: (value) => setState(() {
-                                  zone = value as String;
-                                }),
-                                hint: response == null
-                                    ? 'Zone'
-                                    : response['zone'],
-                              ),
-                              const TextForForm(text: "Status"),
-                              _buildStatus(),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              NameTextField(
-                                  controller: _address,
+                                      ? 'Zone'
+                                      : response['zone'],
+                                ),
+                                const TextForForm(text: "Status"),
+                                _buildStatus(),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                NameTextField(
+                                    controller: _address,
+                                    hint: response == null
+                                        ? 'Address'
+                                        : response['address'],
+                                    nameType: "Address"),
+                                const TextForForm(text: "Validity Starts"),
+                                CustomDatePicker(
+                                  date: _startDate,
                                   hint: response == null
-                                      ? 'Address'
-                                      : response['address'],
-                                  nameType: "Address"),
-                              const TextForForm(text: "Validity Starts"),
-                              CustomDatePicker(
-                                date: _startDate,
-                                hint: response == null
-                                    ? 'Validity Start'
-                                    : response['validity_starts'],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              const TextForForm(text: "Validity Ends"),
-                              CustomDatePicker(
-                                date: _finishDate,
-                                hint: response == null
-                                    ? 'Validity End'
-                                    : response['validity_ends'],
-                              ),
-                              const SizedBox(
-                                height: 40,
-                              ),
-                              Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 50,
-                                  ),
-                                  ActionPageButton2(
-                                    onPressed: () {
-                                      verifyNewUser();
-                                    },
-                                    primaryColor: color.AppColor.verifiedColor,
-                                    text: 'Authorize',
-                                  ),
-                                  const SizedBox(
-                                    width: 50,
-                                  ),
-                                  ActionPageButton2(
-                                    onPressed: () {
-                                      declineNewUser();
-                                    },
-                                    primaryColor: color.AppColor.decline,
-                                    text: 'Decline',
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 40,
-                              ),
-                            ]),
+                                      ? 'Validity Start'
+                                      : response['validity_starts'],
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                const TextForForm(text: "Validity Ends"),
+                                CustomDatePicker(
+                                  date: _finishDate,
+                                  hint: response == null
+                                      ? 'Validity End'
+                                      : response['validity_ends'],
+                                ),
+                                const SizedBox(
+                                  height: 40,
+                                ),
+                                Row(
+                                  children: [
+
+                                    ActionPageButton2(
+                                      width: 130.w,
+                                      onPressed: () {
+                                        verifyNewUser();
+                                      },
+                                      primaryColor: color.AppColor.verifiedColor,
+                                      text: 'Authorize',
+                                    ),
+                                     SizedBox(
+                                      width: 100.w,
+                                    ),
+                                    ActionPageButton2(
+                                      width: 130.w,
+                                      onPressed: () {
+                                        declineNewUser();
+                                      },
+                                      primaryColor: color.AppColor.decline,
+                                      text: 'Decline',
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 40,
+                                ),
+                              ]),
+                        ),
                       ),
                     ),
                   ),

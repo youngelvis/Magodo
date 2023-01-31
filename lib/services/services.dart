@@ -729,7 +729,8 @@ class Services {
       "status": status
     };
     var res = await CallApi().putData(data, 'authorizeUser');
-    return res.body;
+    var body = jsonDecode(res.body);
+    return body;
   }
 
   //53
@@ -740,7 +741,9 @@ class Services {
       "action_admin": actionAdmin,
     };
     var res = await CallApi().putData(data, 'declineUser');
-    return res.body;
+
+    var body = jsonDecode(res.body);
+    return body;
   }
 
   //54

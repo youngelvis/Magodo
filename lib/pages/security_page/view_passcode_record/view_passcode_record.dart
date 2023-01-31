@@ -70,7 +70,7 @@ class _ViewPasscodeRecordState extends State<ViewPasscodeRecord> {
         currentPage,
         _searchWords.text,
       );
-    } else if (widget.data?.usr_group == UserGroup.SUPER_ADMIN) {
+    } else if (widget.data?.usr_group == UserGroup.SUPER_ADMIN|| widget.data?.usr_group == UserGroup.ADMIN) {
       data = await Services()
           .superAdminPasscodeHistory(currentPage, _searchWords.text, zone);
     } else {

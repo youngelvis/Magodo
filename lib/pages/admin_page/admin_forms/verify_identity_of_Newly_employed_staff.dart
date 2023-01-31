@@ -58,7 +58,9 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
     if (userGroup == UserGroup.SUPER_ADMIN || userGroup == UserGroup.ADMIN) {
       url = 'fetchEmployedStaffs';
     }
-    url = 'fetchEmployedStaffs/$zone';
+    else {
+      url = 'fetchEmployedStaffs?zone=$zone';
+    }
 
     var res = await CallApi().getData(url);
     var r = jsonDecode(res.body);
@@ -94,7 +96,7 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
           mode: Mode.MENU,
           showSelectedItems: true,
           items: fetchStaffs?.data
-              ?.map((e) => "${e.residentCode} - ${e.dependantName}")
+              ?.map((e) => "${e.staffPasscode} - ${e.dependantName}")
               .toList(),
           dropdownSearchDecoration:
               const InputDecoration(hintText: "select staff"),
@@ -190,7 +192,7 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            padding: const EdgeInsets.only(top: 20,),
             child: Column(
               children: [
                 TitleContainer(
@@ -202,10 +204,13 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
                 ),
                 Row(
                   children: [
+                    SizedBox(
+                      width: 25.w,
+                    ),
                     Text(
-                      'Identify Newly Employed Staff',
+                      'Employed Staff',
                       style: TextStyle(
-                          fontSize: 20.sp, fontWeight: FontWeight.bold),
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -220,94 +225,108 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const TextForForm(
-                                text: 'Select Resident',
-                              ),
-                              _buildSearchableDropDownList(),
-                              NameTextField(
-                                  controller: _residentCode,
-                                  hint: response == null
+                        child: Container(
+                          padding:  EdgeInsets.only(left: 25.w, right: 25.w),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const TextForForm(
+                                  text: 'Select Resident',
+                                ),
+                                _buildSearchableDropDownList(),
+                                NameTextField(
+                                    controller: _residentCode,
+                                    hint: response == null
+                                        ? 'Staff Name'
+                                        : response['resident_code'],
+                                    nameType: "Resident Code"),
+                                MobileNumberTextField(
+                                  controller: _staffPhone,
+                                  fieldName: "Staff Phone Number",
+                                  hintText: response == null
                                       ? 'Staff Name'
-                                      : response['resident_code'],
-                                  nameType: "Resident Code"),
-                              MobileNumberTextField(
-                                controller: _staffPhone,
-                                fieldName: "Staff Phone Number",
-                                hintText: response == null
-                                    ? 'Staff Name'
-                                    : response['staff_msisdn'],
-                              ),
-                              NameTextField(
-                                  controller: _staffName,
+                                      : response['staff_msisdn'],
+                                ),
+                                NameTextField(
+                                    controller: _staffName,
+                                    hint: response == null
+                                        ? 'Staff Name'
+                                        : response['staff_name'],
+                                    nameType: "Staff Name"),
+                                const TextForForm(
+                                  text: "Employment Date",
+                                ),
+                                CustomDatePicker(
+                                  date: _employmentDate,
                                   hint: response == null
-                                      ? 'Staff Name'
-                                      : response['staff_name'],
-                                  nameType: "Staff Name"),
-                              const TextForForm(
-                                text: "Employment Date",
-                              ),
-                              CustomDatePicker(
-                                date: _employmentDate,
-                                hint: response == null
-                                    ? 'Employment date'
-                                    : response['employment_date'],
-                              ),
-                              BuildEmploymentDropDownList(
-                                onChanged: (value) => setState(() {
-                                  employmentStatus = value as String;
-                                }),
-                                employment: employmentStatus,
-                                hints: response == null
-                                    ? 'Employment Status'
-                                    : response['employment_status'],
-                              ),
-                              BuildRelationshipDropDownList(
-                                onChanged: (value) => setState(() {
-                                  relationship = value as String;
-                                }),
-                                relationship: relationship,
-                                hints: response == null
-                                    ? 'Relationship'
-                                    : response['relationship'],
-                              ),
-                              const TextForForm(text: "Identity Status"),
-                              _buildStatus(),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              NameTextField(
-                                  controller: _staffAddress,
-                                  hint: response == null
-                                      ? 'Staff Address'
-                                      : response['staff_contact'],
-                                  nameType: "Staff Contact Details"),
-                              SizedBox(
-                                height: 30.h,
-                              ),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 30.w,
-                                  ),
-                                  ActionPageButton2(
-                                    onPressed: () {},
-                                    primaryColor: color.AppColor.homePageTheme,
-                                    text: 'Verify Staff',
-                                  ),
-                                   SizedBox(
-                                    width: 30.h,
-                                  ),
-                                  ActionPageButton2(
-                                    onPressed: () {},
-                                    primaryColor: color.AppColor.decline,
-                                    text: 'Decline staff',
-                                  ),
-                                ],
-                              )
-                            ]),
+                                      ? 'Employment date'
+                                      : response['employment_date'],
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                BuildEmploymentDropDownList(
+                                  onChanged: (value) => setState(() {
+                                    employmentStatus = value as String;
+                                  }),
+                                  employment: employmentStatus,
+                                  hints: response == null
+                                      ? 'Employment Status'
+                                      : response['employment_status'],
+                                ),
+                                BuildRelationshipDropDownList(
+                                  onChanged: (value) => setState(() {
+                                    relationship = value as String;
+                                  }),
+                                  relationship: relationship,
+                                  hints: response == null
+                                      ? 'Relationship'
+                                      : response['relationship'],
+                                ),
+                                const TextForForm(text: "Identity Status"),
+                                _buildStatus(),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                NameTextField(
+                                    controller: _staffAddress,
+                                    hint: response == null
+                                        ? 'Staff Address'
+                                        : response['staff_contact'],
+                                    nameType: "Staff Contact Details"),
+                                SizedBox(
+                                  height: 30.h,
+                                ),
+                                Row(
+                                  children: [
+
+                                    ActionPageButton2(
+                                      width: 130.w,
+                                      onPressed: () {
+                                        verifyNewStaff();
+                                      },
+                                      primaryColor: color.AppColor.verifiedColor,
+                                      text: 'Verify',
+                                    ),
+                                    SizedBox(
+                                      width: 100.w,
+                                    ),
+                                    ActionPageButton2(
+                                      width: 130.w,
+                                      onPressed: () {
+                                        declineNewStaff();
+                                      },
+                                      primaryColor: color.AppColor.decline,
+                                      text: 'Decline',
+                                    ),
+
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 30.h,
+                                ),
+                              ]),
+                        ),
                       ),
                     ),
                   ),

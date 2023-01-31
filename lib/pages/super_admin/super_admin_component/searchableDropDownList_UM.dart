@@ -7,6 +7,7 @@ import 'package:magodo/models/fetch_member_model/fetch_MemberMainData.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 
 import '../../../components/components_for_class_of_varable/userGroup.dart';
+import '../../../components/text_for_form.dart';
 
 class SearchableDropDownListForFetchMember extends StatefulWidget {
   ResidentModel? data;
@@ -35,9 +36,11 @@ class _SearchableDropDownListForFetchMemberState extends State<SearchableDropDow
     if(userGroup == UserGroup.SUPER_ADMIN||userGroup == UserGroup.ADMIN){
       url = 'fetchMember';
     }
-    url = 'fetchMember?mra_zone=$zone';
+    else {
+      url = 'fetchMember?mra_zone=$zone';
+    }
 
-      var res = await CallApi().getData(url);
+    var res = await CallApi().getData(url);
       var r = jsonDecode(res.body);
     setState(() {
       fetchMemberMainData = FetchMemberMainData.fromJson(r);
@@ -47,7 +50,9 @@ class _SearchableDropDownListForFetchMemberState extends State<SearchableDropDow
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const TextForForm(text: "Resident"),
         DropdownSearch<String>(
           mode: Mode.MENU,
           showSelectedItems: true,
@@ -55,7 +60,7 @@ class _SearchableDropDownListForFetchMemberState extends State<SearchableDropDow
               ?.map((e) => "${e?.RESIDENT_CODE} - ${e?.FULL_NAME}")
               .toList(),
           dropdownSearchDecoration: const InputDecoration(
-             hintText: "select resident"),
+             hintText: "Select resident"),
           showSearchBox: true,
           onChanged: widget.onChange,
           searchFieldProps: const TextFieldProps(

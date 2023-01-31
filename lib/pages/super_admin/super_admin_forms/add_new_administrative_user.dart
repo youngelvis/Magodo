@@ -67,7 +67,7 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
 
   Widget _buildClassification() {
     return RoundedDropDownTextField(
-      hint:  Text(
+      hint: Text(
         '-- Select Class --',
         style: TextStyle(fontSize: 15.sp),
       ),
@@ -85,13 +85,13 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
         value: classificationOptions,
         child: Text(
           classificationOptions,
-          style:  TextStyle(fontWeight: FontWeight.normal, fontSize: 17.sp),
+          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17.sp),
         ),
       );
 
   Widget _buildStatus() {
     return RoundedDropDownTextField(
-      hint:  Text(
+      hint: Text(
         '-- Select Status --',
         style: TextStyle(fontSize: 15.sp),
       ),
@@ -111,9 +111,8 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
           style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17.sp),
         ),
       );
-  callMessage(message){
 
-
+  callMessage(message) {
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -133,7 +132,8 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
       ),
     );
   }
-  addNewUser() async{
+
+  addNewUser() async {
     if (_residentCode.text.isEmpty ||
         _mobileNumber.text.isEmpty ||
         _surname.text.isEmpty ||
@@ -185,21 +185,27 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h, left: 10.w, right: 10.w),
+            padding: EdgeInsets.only(
+              top: 20.h,
+            ),
             child: Column(
               children: [
                 TitleContainer(
                   title: 'Dashboard',
                   data: widget.data,
                 ),
-                 SizedBox(
+                SizedBox(
                   height: 50.h,
                 ),
                 Row(
-                  children:  [
+                  children: [
+                    SizedBox(
+                      width: 25.w,
+                    ),
                     Text(
                       'Add New Administrative User',
-                      style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -214,80 +220,79 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              NameTextField(
-                                  controller: _residentCode,
-                                  hint: "Enter resident code",
-                                  nameType: "Staff Resident Code"),
-
-                              MobileNumberTextField(
-                                  controller: _mobileNumber,
-                                  fieldName: ' Mobile Number',
-                                  hintText: 'Enter mobile number'),
-
-                              NameTextField(
-                                  controller: _surname,
-                                  hint: "Enter Surname",
-                                  nameType: "Surname"),
-                              NameTextField(
-                                  controller: _firstName,
-                                  hint: "Enter First Name",
-                                  nameType: " First Name"),
-                              NameTextField(
-                                  controller: _address,
-                                  hint: "Enter address",
-                                  nameType: " Address"),
-                              NameTextField(
-                                  controller: _email,
-                                  hint: "Enter email",
-                                  nameType: "Email"),
-
-                              NameTextField(
-                                  controller: _password,
-                                  hint: "Enter a password",
-                                  nameType: "Password"),
-
-                              NameTextField(
-                                  controller: _confirmPassword,
-                                  hint: "Confirm password",
-                                  nameType: "Confirm Password"),
-
-                              const TextForForm(text: "Zone"),
-                              _buildClassification(),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              BuildZoneDropDownList(
-                                zone: zone,
-                                onChanged: (value) => setState(() {
-                                  zone = value as String;
-                                }),
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              const TextForForm(text: "Zone"),
-                              _buildStatus(),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              const TextForForm(text: "Validity Starts"),
-                              CustomDatePicker(date: _startDate),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              const TextForForm(text: "Validity Ends"),
-                              CustomDatePicker(date: _finishDate),
-                              ActionPageButton(
-                                  onPressed: () async {
-                                    addNewUser();
-                                  }, text: 'Create Admin'),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                            ]),
+                        child: Container(
+                          padding: EdgeInsets.only(left: 25.w, right: 25.w),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                NameTextField(
+                                    controller: _residentCode,
+                                    hint: "Enter resident code",
+                                    nameType: "Staff Resident Code"),
+                                MobileNumberTextField(
+                                    controller: _mobileNumber,
+                                    fieldName: ' Mobile Number',
+                                    hintText: 'Enter mobile number'),
+                                NameTextField(
+                                    controller: _surname,
+                                    hint: "Enter Surname",
+                                    nameType: "Surname"),
+                                NameTextField(
+                                    controller: _firstName,
+                                    hint: "Enter First Name",
+                                    nameType: " First Name"),
+                                NameTextField(
+                                    controller: _address,
+                                    hint: "Enter address",
+                                    nameType: " Address"),
+                                NameTextField(
+                                    controller: _email,
+                                    hint: "Enter email",
+                                    nameType: "Email"),
+                                NameTextField(
+                                    controller: _password,
+                                    hint: "Enter a password",
+                                    nameType: "Password"),
+                                NameTextField(
+                                    controller: _confirmPassword,
+                                    hint: "Confirm password",
+                                    nameType: "Confirm Password"),
+                                const TextForForm(text: "Category"),
+                                _buildClassification(),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                BuildZoneDropDownList(
+                                  zone: zone,
+                                  onChanged: (value) => setState(() {
+                                    zone = value as String;
+                                  }),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                const TextForForm(text: "Status"),
+                                _buildStatus(),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                const TextForForm(text: "Validity Starts"),
+                                CustomDatePicker(date: _startDate),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                const TextForForm(text: "Validity Ends"),
+                                CustomDatePicker(date: _finishDate),
+                                ActionPageButton(
+                                    onPressed: () async {
+                                      addNewUser();
+                                    },
+                                    text: 'Create Admin'),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                              ]),
+                        ),
                       ),
                     ),
                   ),

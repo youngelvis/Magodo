@@ -32,7 +32,7 @@ class _BreakdownSummaryState extends State<BreakdownSummary> {
     var zone = widget.data?.zone;
     String url = '';
 
-    if (userGroup == UserGroup.SUPER_ADMIN) {
+    if (userGroup == UserGroup.SUPER_ADMIN || userGroup == UserGroup.ADMIN) {
       url = 'summaryBreakdown';
     }else
     {

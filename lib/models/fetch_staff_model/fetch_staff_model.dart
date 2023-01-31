@@ -14,7 +14,7 @@ class FetchStaffs {
     required this.data,
     required this.error,
     required this.message,
-    required  this.code,
+    required this.code,
   });
 
   List<FetchStaff> data;
@@ -47,6 +47,7 @@ class FetchStaff {
     required this.empdateOrDob,
     required this.dependantPhone,
     required this.zone,
+    required this.staffPasscode,
     required this.relationship,
     required this.employmentStatus,
     required this.dependantContacts,
@@ -62,6 +63,7 @@ class FetchStaff {
   String? empdateOrDob;
   String? dependantPhone;
   String? zone;
+  String? staffPasscode;
   String? relationship;
   String? employmentStatus;
   String? dependantContacts;
@@ -77,6 +79,7 @@ class FetchStaff {
         empdateOrDob: json["EMPDATE_OR_DOB"],
         dependantPhone: json["DEPENDANT_PHONE"],
         zone: json["ZONE"],
+        staffPasscode: json["STAFF_PASSCODE"],
         relationship: json["RELATIONSHIP"],
         employmentStatus: json["EMPLOYMENT_STATUS"],
         dependantContacts: json["DEPENDANT_CONTACTS"],
@@ -93,6 +96,7 @@ class FetchStaff {
         "EMPDATE_OR_DOB": empdateOrDob,
         "DEPENDANT_PHONE": dependantPhone,
         "ZONE": zone,
+        "STAFF_PASSCODE": staffPasscode,
         "RELATIONSHIP": relationship,
         "EMPLOYMENT_STATUS": employmentStatus,
         "DEPENDANT_CONTACTS": dependantContacts,

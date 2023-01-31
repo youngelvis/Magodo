@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/pages/login_page/login_page.dart';
 
 import '../../../components/text_button_nav_page.dart';
@@ -38,205 +39,197 @@ class _AdminNavPageState extends State<AdminNavPage> {
             color: color.AppColor.homePageTheme,
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width / 1.5,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                IconButton(
-                    icon: Icon(
-                      Icons.close,
-                      size: 50,
-                      color: color.AppColor.landingPage2,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  IconButton(
+                      icon: Icon(
+                        Icons.close,
+                        size: 50,
+                        color: color.AppColor.landingPage2,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      }),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  NavTextButton(
+                      icon: Icons.speed,
+                      text: 'Dashboard',
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => IdentifyNewlyRegisteredMembers(data: widget.residentModel,)));
+                      }),
+
+                  ExpansionTile(
+                    trailing: const Icon(
+                      Icons.keyboard_arrow_down,
+                      color: Colors.white,
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    }),
-                const SizedBox(
-                  height: 50,
-                ),
-                NavTextButton(
-                    icon: Icons.speed,
-                    text: 'Dashboard',
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => IdentifyNewlyRegisteredMembers(data: widget.residentModel,)));
-                    }),
-                NavTextButton(
-                    icon: Icons.people_alt_sharp,
-                    text: 'verify New Staff',
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => VerifyNewStaff(data: widget.residentModel,)));
-                    }),
-                ExpansionTile(
-                  trailing: const Icon(
-                    Icons.keyboard_arrow_down,
-                    color: Colors.white,
-                  ),
-                  title: Row(
+                    title: Row(
+                      children: [
+                        Icon(
+                          Icons.person,
+                          color: color.AppColor.landingPage2,
+                          size: 30.sp,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text('Profile',
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                color: color.AppColor.landingPage2)),
+                      ],
+                    ),
                     children: [
-                      Icon(
-                        Icons.person,
-                        color: color.AppColor.landingPage2,
-                        size: 50,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text('Profile',
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: color.AppColor.landingPage2)),
-                    ],
-                  ),
-                  children: [
-                    ListTile(
-                        title: Text(
-                          'Edit Profile',
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: color.AppColor.landingPage2),
-                        ),
-                        onTap: () {
-                          navigateToPage(EditProfile(
-                            data: widget.residentModel,
-                          ));
-                        }),
-                    ListTile(
-                        title: Text(
-                          'Change Password',
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: color.AppColor.landingPage2),
-                        ),
-                        onTap: () {
-                          navigateToPage(ChangePassword(
-                            data: widget.residentModel,
-                          ));
-                        }),
-                  ],
-                ),
-                ExpansionTile(
-                  trailing: const Icon(
-                    Icons.keyboard_arrow_down,
-                    color: Colors.white,
-                  ),
-                  title: Row(
-                    children: [
-                      Icon(
-                        Icons.filter_frames_sharp,
-                        color: color.AppColor.landingPage2,
-                        size: 50,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text('Reports',
-                          style: TextStyle(fontSize: 20, color: color.AppColor.landingPage2)),
-                    ],
-                  ),
-                  children: [
-                    ListTile(
-                        title: Text(
-                          'Event Request Report',
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: color.AppColor.landingPage2),
-                        ),
-                        onTap: () {
-                          navigateToPage(EventRequestReport(
-                            data: widget.residentModel,
-                          ));
-                        }),
-                    ListTile(
-                        title: Text(
-                          'View Member',
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: color.AppColor.landingPage2),
-                        ),
-                        onTap: () {
-                          navigateToPage(ViewMember(
-                            data: widget.residentModel,
-                          ));
-                        }),
-                    ListTile(
-                        title: Text(
-                          'View Passcode Record',
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: color.AppColor.landingPage2),
-                        ),
-                        onTap: () {
-                          navigateToPage(ViewPasscodeRecord(
-                            data: widget.residentModel,
-                          ));
-                        }),
-                    ListTile(
-                        title: Text(
-                          ' Member Staff',
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: color.AppColor.landingPage2),
-                        ),
-                        onTap: () {
-                          navigateToPage(ViewMemberStaff(
-                            data: widget.residentModel,
-                          ));
-                        }),
-                    ListTile(
-                        title: Text(
-                          'Movement Register',
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: color.AppColor.landingPage2),
-                        ),
-                        onTap: () {
-                          navigateToPage(MovementRegister(
-                            data: widget.residentModel,
-                          ));
-                        }),
-                    ListTile(
-                        title: Text(
-                          'Activity Log',
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: color.AppColor.landingPage2),
-                        ),
-                        onTap: () {
-                          navigateToPage(
-                            ViewActivityReport(
+                      ListTile(
+                          title: Text(
+                            'Edit Profile',
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                color: color.AppColor.landingPage2),
+                          ),
+                          onTap: () {
+                            navigateToPage(EditProfile(
                               data: widget.residentModel,
-                            ),
-                          );
-                        }),
-                    ListTile(
-                        title: Text(
-                          'Break Down Report',
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: color.AppColor.landingPage2),
+                            ));
+                          }),
+                      ListTile(
+                          title: Text(
+                            'Change Password',
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                color: color.AppColor.landingPage2),
+                          ),
+                          onTap: () {
+                            navigateToPage(ChangePassword(
+                              data: widget.residentModel,
+                            ));
+                          }),
+                    ],
+                  ),
+                  NavTextButton(
+                      icon: Icons.people_alt_sharp,
+                      text: 'verify New Staff',
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => VerifyNewStaff(data: widget.residentModel,)));
+                      }),
+                  ExpansionTile(
+                    trailing: const Icon(
+                      Icons.keyboard_arrow_down,
+                      color: Colors.white,
+                    ),
+                    title: Row(
+                      children: [
+                        Icon(
+                          Icons.filter_frames_sharp,
+                          color: color.AppColor.landingPage2,
+                          size: 30.sp,
                         ),
-                        onTap: () {
-                          navigateToPage(BreakdownSummary(
-                            data: widget.residentModel,
-                          ));
-                        }),
-                  ],
-                ),
-                NavTextButton(
-                    icon: Icons.logout,
-                    text: 'Logout',
-                    onPressed: () {
-                      navigateToPage(const SignIN());
-                    }),
-              ],
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text('Reports',
+                            style: TextStyle(fontSize: 20, color: color.AppColor.landingPage2)),
+                      ],
+                    ),
+                    children: [
+
+                      ListTile(
+                          title: Text(
+                            'View Member',
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                color: color.AppColor.landingPage2),
+                          ),
+                          onTap: () {
+                            navigateToPage(ViewMember(
+                              data: widget.residentModel,
+                            ));
+                          }),
+                      ListTile(
+                          title: Text(
+                            'View Passcode Record',
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                color: color.AppColor.landingPage2),
+                          ),
+                          onTap: () {
+                            navigateToPage(ViewPasscodeRecord(
+                              data: widget.residentModel,
+                            ));
+                          }),
+                      ListTile(
+                          title: Text(
+                            ' Member Staff',
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                color: color.AppColor.landingPage2),
+                          ),
+                          onTap: () {
+                            navigateToPage(ViewMemberStaff(
+                              data: widget.residentModel,
+                            ));
+                          }),
+                      ListTile(
+                          title: Text(
+                            'Movement Register',
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                color: color.AppColor.landingPage2),
+                          ),
+                          onTap: () {
+                            navigateToPage(MovementRegister(
+                              data: widget.residentModel,
+                            ));
+                          }),
+                      ListTile(
+                          title: Text(
+                            'Activity Log',
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                color: color.AppColor.landingPage2),
+                          ),
+                          onTap: () {
+                            navigateToPage(
+                              ViewActivityReport(
+                                data: widget.residentModel,
+                              ),
+                            );
+                          }),
+                      ListTile(
+                          title: Text(
+                            'Break Down Report',
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                color: color.AppColor.landingPage2),
+                          ),
+                          onTap: () {
+                            navigateToPage(BreakdownSummary(
+                              data: widget.residentModel,
+                            ));
+                          }),
+                    ],
+                  ),
+                  NavTextButton(
+                      icon: Icons.logout,
+                      text: 'Logout',
+                      onPressed: () {
+                        navigateToPage(const SignIN());
+                      }),
+                ],
+              ),
             ),
           ),
         ],

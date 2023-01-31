@@ -179,9 +179,12 @@ class _UpdateMemberState extends State<UpdateMember> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.sp, left: 10.sp, right: 10.sp),
+            padding: EdgeInsets.only(top: 20.sp,),
             child: Column(
               children: [
+                SizedBox(
+                  width: 25,
+                ),
                 TitleContainer(
                   title: 'Dashboard',
                   data: widget.data,
@@ -191,6 +194,9 @@ class _UpdateMemberState extends State<UpdateMember> {
                 ),
                 Row(
                   children: [
+                    SizedBox(
+                      width: 25.w,
+                    ),
                     Text(
                       'Update Member',
                       style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
@@ -208,90 +214,94 @@ class _UpdateMemberState extends State<UpdateMember> {
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SearchableDropDownListForFetchMember(
-                                onChange: onChange,
-                                data: widget.data,
-                              ),
-                              NameTextField(
-                                  controller: _firstName,
+                        child: Container(
+                          padding: EdgeInsets.only(left: 25.w, right: 25.w),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+
+                                SearchableDropDownListForFetchMember(
+                                  onChange: onChange,
+                                  data: widget.data,
+                                ),
+                                NameTextField(
+                                    controller: _firstName,
+                                    hint: response == null
+                                        ? 'First Name'
+                                        : response['firstname'],
+                                    nameType: "First Name"),
+                                NameTextField(
+                                    controller: _surname,
+                                    hint: response == null
+                                        ? 'Surname'
+                                        : response['surname'],
+                                    nameType: "Surname"),
+                                MobileNumberTextField(
+                                    controller: _mobileNumber,
+                                    fieldName: "Mobile Number",
+                                    hintText: response == null
+                                        ? 'Mobile Number'
+                                        : response['resident_phone']),
+                                NameTextField(
+                                    controller: _email,
+                                    hint: response == null
+                                        ? 'Email'
+                                        : response['email'],
+                                    nameType: " Email"),
+                                NameTextField(
+                                    controller: _address,
+                                    hint: response == null
+                                        ? 'Address'
+                                        : response['address'],
+                                    nameType: "Address"),
+                                const TextForForm(text: "Status"),
+                                _buildStatus(),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                BuildZoneDropDownList(
+                                  zone: zone,
                                   hint: response == null
-                                      ? 'First Name'
-                                      : response['firstname'],
-                                  nameType: "First Name"),
-                              NameTextField(
-                                  controller: _surname,
+                                      ? 'Zone'
+                                      : response['zone'],
+                                  onChanged: (value) => setState(() {
+                                    zone = value as String;
+                                  }),
+                                ),
+                                const TextForForm(text: "Classification"),
+                                _buildClassification(),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                const TextForForm(text: "Validity Starts"),
+                                CustomDatePicker(
+                                  date: _startDate,
                                   hint: response == null
-                                      ? 'Surname'
-                                      : response['surname'],
-                                  nameType: "Surname"),
-                              MobileNumberTextField(
-                                  controller: _mobileNumber,
-                                  fieldName: "Mobile Number",
-                                  hintText: response == null
-                                      ? 'Mobile Number'
-                                      : response['resident_phone']),
-                              NameTextField(
-                                  controller: _email,
-                                  hint: response == null
-                                      ? 'Email'
-                                      : response['email'],
-                                  nameType: " Email"),
-                              NameTextField(
-                                  controller: _address,
-                                  hint: response == null
-                                      ? 'Address'
-                                      : response['address'],
-                                  nameType: "Address"),
-                              const TextForForm(text: "Status"),
-                              _buildStatus(),
-                              SizedBox(
-                                height: 20.h,
-                              ),
-                              BuildZoneDropDownList(
-                                zone: zone,
-                                hint: response == null
-                                    ? 'Zone'
-                                    : response['zone'],
-                                onChanged: (value) => setState(() {
-                                  zone = value as String;
-                                }),
-                              ),
-                              const TextForForm(text: "Classification"),
-                              _buildClassification(),
-                              SizedBox(
-                                height: 20.h,
-                              ),
-                              const TextForForm(text: "Validity Starts"),
-                              CustomDatePicker(
-                                date: _startDate,
-                                hint: response == null
-                                    ? 'Validity Starts'
-                                    : response['validity_starts'],
-                              ),
-                              SizedBox(
-                                height: 20.h,
-                              ),
-                              const TextForForm(text: "Validity Ends"),
-                              CustomDatePicker(
-                                  date: _finishDate,
-                                  hint: response == null
-                                      ? 'validity end'
-                                      : response['validity_ends']),
-                              SizedBox(
-                                height: 20.h,
-                              ),
-                              ActionPageButton(
-                                  onPressed: () async {
-                                    updateMember();
-                                  },
-                                  text: 'Update'),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                            ]),
+                                      ? 'Validity Starts'
+                                      : response['validity_starts'],
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                const TextForForm(text: "Validity Ends"),
+                                CustomDatePicker(
+                                    date: _finishDate,
+                                    hint: response == null
+                                        ? 'validity end'
+                                        : response['validity_ends']),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                ActionPageButton(
+                                    onPressed: () async {
+                                      updateMember();
+                                    },
+                                    text: 'Update'),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                              ]),
+                        ),
                       ),
                     ),
                   ),
