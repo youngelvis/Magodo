@@ -41,6 +41,7 @@ class _SelectParentDropdownState extends State<SelectParentDropdown> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const TextForForm(
           text: 'Select Parent',
@@ -52,7 +53,7 @@ class _SelectParentDropdownState extends State<SelectParentDropdown> {
               ?.map((e) => "${e.parentPasscode} - ${e.parentName}")
               .toList(),
           dropdownSearchDecoration: const InputDecoration(
-              hintText: "select staff"),
+              hintText: "Select Parent"),
           showSearchBox: true,
           onChanged: widget.onChange,
           searchFieldProps: const TextFieldProps(

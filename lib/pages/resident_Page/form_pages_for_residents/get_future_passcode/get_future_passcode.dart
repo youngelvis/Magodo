@@ -11,6 +11,7 @@ import 'package:magodo/components/title.dart';
 import 'package:magodo/models/passcode_data_model/mainPasscodeData.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/services/services.dart';
+import '../sendMessagesButtons/sendMessagesButtons.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 class GetFuturePasscode extends StatefulWidget {
   ResidentModel? data;
@@ -82,22 +83,33 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
     });
 
     var message = response?.message;
-
+_mobileNumber.clear();
+_visitorName.clear();
+_email.clear();
+_visitorName.clear();
+_arrivalTime.clear();
+_departureTime.clear();
+_date.clear();
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
         title: Text(message!),
         actions: [
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: color.AppColor.homePageTheme,
-                  onPrimary: color.AppColor.landingPage2,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0))),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text("ok"))
+          Center(
+            child: SizedBox(
+              width: 200.w,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: color.AppColor.homePageTheme,
+                      onPrimary: color.AppColor.landingPage2,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0))),
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder:(context)=>  SendMessagesButtons(response: widget.data,data: data)));
+                  },
+                  child: const Text("Share")),
+            ),
+          )
         ],
       ),
     );

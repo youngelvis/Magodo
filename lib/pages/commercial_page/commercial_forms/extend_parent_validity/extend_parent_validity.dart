@@ -132,6 +132,7 @@ _parentAddress.clear();
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
         body: Container(
+          color: color.AppColor.homePageBackground,
           padding: EdgeInsets.only(top: 20.h, ),
           child: Column(
             children: [

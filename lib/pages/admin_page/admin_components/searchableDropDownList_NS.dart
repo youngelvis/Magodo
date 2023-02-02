@@ -68,7 +68,7 @@ class _SearchableDropDownListForMemberStaffState extends State<SearchableDropDow
           mode: Mode.MENU,
           showSelectedItems: true,
           items: fetchStaffs?.data
-              ?.map((e) => "${e.residentCode} - ${e.dependantName} - ${e.guid}")
+              ?.map((e) => "${e.staffPasscode} - ${e.dependantName} - ${e.guid}")
               .toList(),
           dropdownSearchDecoration: const InputDecoration(
                hintText: "select staff"),

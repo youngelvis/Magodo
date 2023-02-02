@@ -39,7 +39,7 @@ class _BuildCategoryDropDownListState
   Widget _buildCategory() {
     return RoundedDropDownTextField(
       hint:  Text(
-        widget.hint,
+        widget.hint?? 'Select Category',
         style: const TextStyle(fontSize: 15),
       ),
       value: widget.category,

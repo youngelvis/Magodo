@@ -327,11 +327,7 @@ class Services {
 
     if (result == null) return;
     final path = result.files.first;
-    var data= {
-      "fileName": path.name.toString(),
-      "path": path.path.toString()
-
-    };
+    var data = {"fileName": path.name.toString(), "path": path.path.toString()};
     return data;
   }
 
@@ -507,8 +503,19 @@ class Services {
 
   //35
 
-  updateResidentMember(residentCode, residentPhone, firstname, surname, email,
-      userGroup, status, address, zone, validityStart, validityEnd) async {
+  updateResidentMember(
+      residentCode,
+      residentPhone,
+      firstname,
+      surname,
+      email,
+      userGroup,
+      status,
+      address,
+      zone,
+      validityStart,
+      validityEnd,
+      actionUser) async {
     final data = {
       "resident_reg_code": residentCode,
       "resident_phone": residentPhone,
@@ -521,9 +528,9 @@ class Services {
       "zone": zone,
       "validity_start_date": validityStart,
       "validity_end_date": validityEnd,
-      "action_user": userGroup
+      "action_user": actionUser
     };
-
+    print(data);
     var res = await CallApi().putData(data, 'updateMember');
     var body = jsonDecode(res.body);
     return body;

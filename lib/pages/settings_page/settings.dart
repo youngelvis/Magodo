@@ -94,7 +94,7 @@ class _SettingsState extends State<Settings> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const ContactUsPage()));
+                                    builder: (context) =>  ContactUsPage(data: widget.data,)));
                           }),
 
                       const SizedBox(height: 20,),

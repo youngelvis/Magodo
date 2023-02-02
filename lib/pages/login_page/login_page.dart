@@ -91,14 +91,20 @@ callMessage(message){
       callMessage(message);
       return;
     }
-    if (_residentCode.text.isEmpty || _password.text.isEmpty) {
+    if (_residentCode.text.isEmpty ) {
+      var data = await Services().login(_residentCode.text, _password.text);
+      var message = data['error']['message'];
+      callMessage(message);
+      return;
+    }
+    if(_password.text.isEmpty){
       var data = await Services().login(_residentCode.text, _password.text);
       var message = data['message'];
       callMessage(message);
       return;
     }
     var data = await Services().login(_residentCode.text, _password.text);
-
+    print(data);
     if (data['code'] == 200) {
       setState(() {
         mainResidentModel = MainResidentModel.fromJson(data);
@@ -121,12 +127,13 @@ callMessage(message){
         _navigation(IdentifyNewlyRegisteredMembers(data: resident));
       } else if (commercial_category.contains(data['data']['usr_group']) ) {
         _navigation(EventRequest(data: resident));
-      } else {
-        var message = data['error'];
-
-        callMessage(message);
       }
+    }else {
+      var message = data['message'];
+
+     callMessage(message);
     }
+
   }
 
   @override

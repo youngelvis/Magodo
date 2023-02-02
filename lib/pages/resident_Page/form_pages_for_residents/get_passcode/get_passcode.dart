@@ -6,7 +6,6 @@ import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/title.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
-import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/sendMessagesButtons/sendMessagesButtons.dart';
 import 'package:magodo/services/services.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
@@ -70,8 +69,23 @@ class _GetPasscodeState extends State<GetPasscode> {
       builder: (_) => AlertDialog(
         title: Text(message),
         actions: [
-          SendMessagesButtons(data: data, residentCode: widget.data?.resident_code,)
+          Center(
+            child: SizedBox(
+              width: 200.w,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: color.AppColor.homePageTheme,
+                      onPrimary: color.AppColor.landingPage2,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0))),
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder:(context)=>  SendMessagesButtons(response: widget.data,data: data)));
+                  },
+                  child: const Text("Share")),
+            ),
+          )
         ],
+
       ),
     );
   }

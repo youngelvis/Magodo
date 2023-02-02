@@ -5,6 +5,7 @@ import 'package:magodo/components/textfields_types/zones.dart';
 import 'package:magodo/pages/super_admin/super_admin_component/searchableDropDownList_UM.dart';
 import 'package:magodo/services/services.dart';
 import '../../../components/app_page_theme_action_button.dart';
+import '../../../components/components_for_class_of_varable/userGroup.dart';
 import '../../../components/date_text_field.dart';
 import '../../../components/roundedDropDownTextfield.dart';
 import '../../../components/text_for_form.dart';
@@ -71,7 +72,7 @@ class _UpdateMemberState extends State<UpdateMember> {
       ),
       value: classification,
       onChanged: (value) => setState(() {
-        classification = value as String;
+         classification = value as String;
       }),
       items: classificationOptions.map(buildClassificationItem).toList(),
     );
@@ -102,7 +103,7 @@ class _UpdateMemberState extends State<UpdateMember> {
   }
 
   DropdownMenuItem<String> buildStatusItem(String statusOptions) =>
-       DropdownMenuItem(
+      DropdownMenuItem(
         value: statusOptions,
         child: Text(
           statusOptions,
@@ -143,6 +144,13 @@ class _UpdateMemberState extends State<UpdateMember> {
   }
 
   updateMember() async {
+    classification == 'Super Admin'
+        ? classification = UserGroup.SUPER_ADMIN
+        : classification == 'Zonal Admin'
+        ? classification = UserGroup.ZONAL_ADMIN
+        : classification == 'Zonal Super Admin'
+        ? classification = UserGroup.ZONAL_SUPER_ADMIN
+        :classification;
     final data = await Services().updateResidentMember(
         response['resident_reg_code'] ?? '',
         _mobileNumber.text.isEmpty
@@ -151,14 +159,13 @@ class _UpdateMemberState extends State<UpdateMember> {
         _firstName.text.isEmpty ? response['firstname'] : _firstName.text,
         _surname.text.isEmpty ? response['surname'] : _surname.text,
         _email.text.isEmpty ? response['email'] : _email.text,
-        response['user_group'],
+        classification ?? response['classification'],
         status ?? response['status'],
         _address.text.isEmpty ? response['address'] : _address.text,
         zone ?? response['zone'],
         _startDate.text.isEmpty ? response['validity_starts'] : _startDate.text,
-        _finishDate.text.isEmpty
-            ? response['validity_ends']
-            : _finishDate.text);
+        _finishDate.text.isEmpty ? response['validity_ends'] : _finishDate.text,
+        widget.data?.resident_code);
 
     _firstName.clear();
     _surname.clear();
@@ -179,10 +186,12 @@ class _UpdateMemberState extends State<UpdateMember> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.sp,),
+            padding: EdgeInsets.only(
+              top: 20.sp,
+            ),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 25,
                 ),
                 TitleContainer(
@@ -199,7 +208,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                     ),
                     Text(
                       'Update Member',
-                      style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -219,7 +229,6 @@ class _UpdateMemberState extends State<UpdateMember> {
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-
                                 SearchableDropDownListForFetchMember(
                                   onChange: onChange,
                                   data: widget.data,

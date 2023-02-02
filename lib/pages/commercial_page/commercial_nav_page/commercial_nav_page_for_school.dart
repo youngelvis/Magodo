@@ -41,7 +41,7 @@ class _CommercialNavPageForSchoolState extends State<CommercialNavPageForSchool>
               Container(
                 color: color.AppColor.homePageTheme,
                 height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width / 1.5,
+                width: MediaQuery.of(context).size.width / 1.3.w,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

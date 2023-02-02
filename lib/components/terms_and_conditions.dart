@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'components_for_class_of_varable/colors.dart' as color;
 
 class TermsAndConditions extends StatefulWidget {
@@ -31,11 +32,11 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
         ),
         TextButton(
           onPressed: () {},
-          child: const Text(
+          child:  Text(
             'I agree to the terms and conditions',
             style: TextStyle(
               color: Colors.black,
-              fontSize: 20,
+              fontSize: 15.sp,
             ),
           ),
         )

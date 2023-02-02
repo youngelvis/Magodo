@@ -59,6 +59,7 @@ class _RegisterParentState extends State<RegisterParent> {
           _parentAddress.text,
           _parentMobile.text);
       callMessage(data['error']['message']);
+      return;
     }
     var data = await Services().addParent(
         widget.data?.resident_code,
@@ -99,9 +100,12 @@ class _RegisterParentState extends State<RegisterParent> {
               ),
               Row(
                 children: [
+                  SizedBox(
+                    width: 25.w,
+                  ),
                   Text(
                     'Register Parent',
-                    style: TextStyle(fontSize: 30.sp),
+                    style: TextStyle(fontSize: 25.sp,fontWeight: FontWeight.bold),
                   ),
                   const Icon(
                     Icons.keyboard_arrow_down_outlined,
