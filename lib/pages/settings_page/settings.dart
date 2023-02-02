@@ -47,9 +47,9 @@ class _SettingsState extends State<Settings> {
                     ),
                     Container(
                       padding:  EdgeInsets.only(top: 10.h),
-                      child: const Text(
+                      child:  Text(
                         'Settings',
-                        style: TextStyle(fontSize: 40),
+                        style: TextStyle(fontSize: 35.sp, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],
@@ -65,30 +65,21 @@ class _SettingsState extends State<Settings> {
                       SizedBox(
                         height: 40.h,
                       ),
-                      const CustomListTile(prefixIcon: CupertinoIcons.creditcard_fill, text: 'Cards', data: 'data'),
+                      CustomListTile(prefixIcon: CupertinoIcons.creditcard_fill, text: 'Cards', data: 'data', colour: color.AppColor.card),
+                     SizedBox(
+                       height: 20.h,
+                     ),
+                     CustomListTile(prefixIcon: CupertinoIcons.question_circle, text: 'Help', data: 'data',colour: color.AppColor.help,),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      CustomListTile(prefixIcon: CupertinoIcons.exclamationmark_circle_fill, text: 'About us', data: 'https://magodoresidents.org/public/about.php',colour: color.AppColor.xtraCleanBackground,),
                       NavTextButton(
+                          iconColored: color.AppColor.contactUs,
                           space: 30.w,
-                        colored: color.AppColor.landingPageTitle,
-                          icon: CupertinoIcons.lock_fill,
-                          text: 'Change Password',
-                          size:  30.sp,
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ChangePassword(
-                                      data: widget.data,
-                                    )));
-                          }),
-
-                      const SizedBox(height: 20,),
-                      const CustomListTile(prefixIcon: CupertinoIcons.question_circle, text: 'Help', data: 'data'),
-                      const CustomListTile(prefixIcon: CupertinoIcons.exclamationmark_circle_fill, text: 'About us', data: 'https://magodoresidents.org/public/about.php'),
-                      NavTextButton(
-                        space: 30.w,
                           colored: color.AppColor.landingPageTitle,
                           icon: Icons.support_agent_outlined,
-                          size:  30.sp,
+                          size:  25.sp,
                           text: 'Contact us',
                           onPressed: () {
                             Navigator.push(
@@ -96,15 +87,13 @@ class _SettingsState extends State<Settings> {
                                 MaterialPageRoute(
                                     builder: (context) =>  ContactUsPage(data: widget.data,)));
                           }),
-
-                      const SizedBox(height: 20,),
-                  ExpansionTile(
+                      ExpansionTile(
                     iconColor: color.AppColor.landingPageTitle,
                     title: Row(
                       children: [
                         Icon(
                           Icons.business_center,
-                          color: color.AppColor.landingPageTitle,
+                          color: color.AppColor.ourServices,
                           size: 30.sp,
                         ),
                         SizedBox(
@@ -112,7 +101,8 @@ class _SettingsState extends State<Settings> {
                         ),
                         Text('Our services',
                             style: TextStyle(
-                                fontSize: 30.sp,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 25.sp,
                                 color: color.AppColor.landingPageTitle)),
                       ],
                     ),
@@ -123,12 +113,13 @@ class _SettingsState extends State<Settings> {
                       CustomListTile( text: 'Vehicle License validity Verification ', data: 'https://magodoresidents.org/public/vehicle_license.php'),
                    ]),
                       const SizedBox(height: 20,),
-                      const CustomListTile(prefixIcon: Icons.feedback_sharp, text: 'FAQ', data: 'https://magodoresidents.org/public/faqs.php'),
+                       CustomListTile(prefixIcon: Icons.feedback_sharp, text: 'FAQ', data: 'https://magodoresidents.org/public/faqs.php', colour: color.AppColor.faq,),
                       NavTextButton(
+                        iconColored: color.AppColor.aboutUs,
                           space: 30.w,
                           colored: color.AppColor.landingPageTitle,
                           icon: CupertinoIcons.power,
-                          size:  30.sp,
+                          size:  25.sp,
                           text: 'Log out',
                           onPressed: () {
                             Navigator.push(
@@ -136,6 +127,7 @@ class _SettingsState extends State<Settings> {
                                 MaterialPageRoute(
                                     builder: (context) => const WelcomeScreen()));
                           }),
+
                     ],
                   ),
                 ),

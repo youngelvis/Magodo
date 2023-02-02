@@ -11,12 +11,14 @@ class NavTextButton extends StatelessWidget {
   final text;
   final onPressed;
   final colored;
+  final iconSize;
+  final iconColored;
 
   const NavTextButton(
       {Key? key,
        this.icon,
       required this.text,
-      required this.onPressed, this.size, this.colored, this.space})
+      required this.onPressed, this.size, this.colored, this.space, this.iconSize, this.iconColored})
       : super(key: key);
 
   @override
@@ -28,8 +30,8 @@ class NavTextButton extends StatelessWidget {
             SizedBox(width: 10.w,),
             Icon(
               icon,
-              size: size??30.sp,
-              color: colored?? color.AppColor.landingPage2,
+              size: iconSize??30.sp,
+              color: iconColored?? color.AppColor.landingPage2,
             ),
              SizedBox(
               width: space??10.w,

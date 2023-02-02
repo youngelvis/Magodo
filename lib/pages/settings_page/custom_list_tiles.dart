@@ -7,11 +7,13 @@ class CustomListTile extends StatelessWidget {
   final prefixIcon;
   final text;
   final data;
+  final colour;
 
   const CustomListTile(
       {Key? key,
       this.prefixIcon,
       required this.text,
+        this.colour,
        this.data})
       : super(key: key);
   Future<void> navigate(data) async{
@@ -34,17 +36,18 @@ class CustomListTile extends StatelessWidget {
         leading: Icon(
           prefixIcon,
           size: 30.sp,
-          color: color.AppColor.landingPageTitle,
+          color: colour?? color.AppColor.landingPageTitle,
         ),
         title: Text(text, style:  TextStyle(
-            color: color.AppColor.landingPageTitle ,
-            fontSize: 30.sp)),
+          fontWeight: FontWeight.w500,
+            color: color.AppColor.landingPageTitle,
+            fontSize: 25.sp)),
 
         onTap:  ()async{
           await navigate(data);
         },
       ),
-      const SizedBox(height: 20,),
+
     ]);
   }
 }
