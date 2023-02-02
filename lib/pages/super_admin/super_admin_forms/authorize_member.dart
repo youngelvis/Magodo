@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/date_text_field.dart';
 import 'package:magodo/services/services.dart';
-
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import '../../../components/app_page_theme_action_button.dart';
 import '../../../components/roundedDropDownTextfield.dart';
+import '../../../components/text_for_form.dart';
 import '../../../models/view_memberModel/view_memberModel.dart';
 
 class AuthorizeMember extends StatefulWidget {
@@ -60,7 +61,25 @@ class _AuthorizeMemberState extends State<AuthorizeMember> {
         widget.response.validityEndsDate,
         widget.response.status,
         widget.userGroup);
-    print(data);
+    var message = data['message'];
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
   }
 
   @override
@@ -69,7 +88,7 @@ class _AuthorizeMemberState extends State<AuthorizeMember> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding:  EdgeInsets.only(top: 20.sp, left: 10.sp, right: 10.sp),
+            padding:  EdgeInsets.only(top: 50.h, ),
             child: Column(
               children: [
                 Row(children: [
@@ -85,7 +104,7 @@ class _AuthorizeMemberState extends State<AuthorizeMember> {
                    Center(
                     child: Text(
                       'Authorize Member',
-                      style: TextStyle(fontSize: 30.sp),
+                      style: TextStyle(fontSize: 30.sp,fontWeight: FontWeight.bold),
                     ),
                   ),
                 ]),
@@ -96,28 +115,36 @@ class _AuthorizeMemberState extends State<AuthorizeMember> {
                 Expanded(
                   child: OverflowBox(
                     child: SingleChildScrollView(
-                      child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Full Name : ${widget.response.fullName} '),
-                              _buildStatus(),
-                              CustomDatePicker(
-                                  date: _startDate,
-                                  hint:
-                                      '${widget.response.validityStartsDate}'),
-                              CustomDatePicker(
-                                  date: _finishDate,
-                                  hint: '${widget.response.validityEndsDate}'),
-                              ActionPageButton(
-                                  onPressed: () {
-                                    authoriseMember();
-                                  },
-                                  text: 'Authorize Member'),
-                              const SizedBox(
-                                height: 50,
-                              ),
-                            ]),
+                      child: Container(
+                        padding:  EdgeInsets.only(left: 25.w, right: 25.w ),
+                        child: Form(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Full Name : ${widget.response.fullName} ',
+                                  style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),),
+                                SizedBox(height: 40.h,),
+                                const TextForForm(text: "Status"),
+                                _buildStatus(),
+                                const TextForForm(text: "Validity Start"),
+                                CustomDatePicker(
+                                    date: _startDate,
+                                    hint:
+                                        '${widget.response.validityStartsDate}'),
+                                const TextForForm(text: "Validity Ends"),
+                                CustomDatePicker(
+                                    date: _finishDate,
+                                    hint: '${widget.response.validityEndsDate}'),
+                                ActionPageButton(
+                                    onPressed: () {
+                                      authoriseMember();
+                                    },
+                                    text: 'Authorize Member'),
+                                const SizedBox(
+                                  height: 50,
+                                ),
+                              ]),
+                        ),
                       ),
                     ),
                   ),

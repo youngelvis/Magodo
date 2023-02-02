@@ -99,6 +99,45 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
         });
       });
 
+  popMessage(info) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Are you sure you want to delete this dependant?'),
+        actions: [
+          Row(children: [
+            SizedBox(
+              width: 50.w,
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  deleteFamilyMember(info);
+                },
+                child: const Text("Yes")),
+            SizedBox(
+              width: 30.w,
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("No"))
+          ])
+        ],
+      ),
+    );
+  }
   deleteFamilyMember(info) async {
     var data = await Services().getDeleteFamilyMember(info);
 
@@ -222,7 +261,7 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
                     }
                   },
                   child: families.isEmpty
-                      ? const Text('nothing yet')
+                      ? const Center(child: Text('nothing yet'))
                       : ListView.builder(
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, index) {
@@ -243,7 +282,7 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
                                   ),
                                   DeleteUpdateButton(
                                     onPressedDeleteButton: () async {
-                                      await deleteFamilyMember(
+                                      await popMessage(
                                           family.residentCode);
                                     },
                                     onPressedUpdateButton: () async {

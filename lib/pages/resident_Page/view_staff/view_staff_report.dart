@@ -15,7 +15,7 @@ import 'package:magodo/components/title.dart';
 class ViewStaffMembers extends StatefulWidget {
   ResidentModel? data;
 
-   ViewStaffMembers({Key? key, required this.data}) : super(key: key);
+  ViewStaffMembers({Key? key, required this.data}) : super(key: key);
 
   @override
   State<ViewStaffMembers> createState() => _ViewStaffMembersState();
@@ -98,6 +98,46 @@ class _ViewStaffMembersState extends State<ViewStaffMembers> {
         });
       });
 
+  popMessage(info) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Are you sure you want to delete this staff?'),
+        actions: [
+          Row(children: [
+            SizedBox(
+              width: 50.w,
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  deleteStaff(info);
+                },
+                child: const Text("Yes")),
+            SizedBox(
+              width: 30.w,
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("No"))
+          ])
+        ],
+      ),
+    );
+  }
+
   deleteStaff(info) async {
     var data = await Services().getDeleteStaff(info);
 
@@ -158,18 +198,18 @@ class _ViewStaffMembersState extends State<ViewStaffMembers> {
             ),
             Container(
               color: color.AppColor.residentBody,
-              padding:  EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
+              padding: EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
               child: Column(children: [
                 _buildSearchBar(),
-                 SizedBox(
+                SizedBox(
                   height: 20.h,
                 ),
                 Row(
-                  children:  [
+                  children: [
                     Text(
                       'View Staff Report',
-                      style:
-                          TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -177,7 +217,7 @@ class _ViewStaffMembersState extends State<ViewStaffMembers> {
                     ),
                   ],
                 ),
-                 SizedBox(
+                SizedBox(
                   height: 20.h,
                 ),
               ]),
@@ -191,11 +231,11 @@ class _ViewStaffMembersState extends State<ViewStaffMembers> {
               child: ListTile(
                 leading: Text(
                   "${staffs.length} of $totalPages results",
-                  style:  TextStyle(fontSize: 16.sp),
+                  style: TextStyle(fontSize: 16.sp),
                 ),
                 trailing: Text(
                   "Results per page ${staffs.length}",
-                  style:  TextStyle(fontSize: 16.sp),
+                  style: TextStyle(fontSize: 16.sp),
                 ),
               ),
             ),
@@ -220,7 +260,7 @@ class _ViewStaffMembersState extends State<ViewStaffMembers> {
                   }
                 },
                 child: staffs.isEmpty
-                    ? const Text('nothing yet')
+                    ? Center(child: const Text('nothing yet'))
                     : ListView.builder(
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, index) {
@@ -241,17 +281,16 @@ class _ViewStaffMembersState extends State<ViewStaffMembers> {
                                 ),
                                 DeleteUpdateButton(
                                   onPressedDeleteButton: () async {
-                                    await deleteStaff(staff.guid);
+                                    await popMessage(staff.guid);
                                   },
                                   onPressedUpdateButton: () async {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                UpdateStaff(
+                                            builder: (context) => UpdateStaff(
                                                   data: widget.data,
                                                   staff: staff,
-                                                  )));
+                                                )));
                                   },
                                 ),
                               ],

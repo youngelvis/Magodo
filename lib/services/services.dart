@@ -458,8 +458,9 @@ class Services {
   }
 
   // 30
-  viewMembersReportForSAdmin(page, userGroup, zone) async {
+  viewMembersReportForSAdmin(page, userGroup, zone, search) async {
     var data = {
+      "search": search.toString(),
       "page": page,
       "limit": "10",
       "user_group": userGroup,

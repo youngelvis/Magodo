@@ -68,7 +68,7 @@ class _ViewMemberState extends State<ViewMember> {
       zone = '';
     }
 
-    var data = await Services().viewMembersReportForSAdmin(currentPage, widget.data?.usr_group ?? '', zone);
+    var data = await Services().viewMembersReportForSAdmin(currentPage, widget.data?.usr_group ?? '', zone, _searchWords.text);
 
     final result = viewMembersFromJson(data);
 
@@ -90,7 +90,7 @@ class _ViewMemberState extends State<ViewMember> {
         widget.data?.usr_group == UserGroup.SUPER_ADMIN|| widget.data?.usr_group == UserGroup.ADMIN){
           zone = '';
         }
-        var data = await Services().viewMembersReportForSAdmin(currentPage, widget.data?.usr_group ?? '', zone);
+        var data = await Services().viewMembersReportForSAdmin(currentPage, widget.data?.usr_group ?? '', zone, _searchWords.text.toString(),);
 
         final result = viewMembersFromJson(data);
         if (result.data.isEmpty) {

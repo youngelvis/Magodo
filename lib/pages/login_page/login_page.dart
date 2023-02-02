@@ -138,94 +138,97 @@ callMessage(message){
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          body: SingleChildScrollView(
-            child: Container(
-              color: color.AppColor.homePageBackground,
-              padding: EdgeInsets.only(top: 60.h, left: 20.w, right: 20.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Text(
-                      'Sign In',
-                      style: TextStyle(
-                          color: color.AppColor.landingPageTitle,
-                          fontSize: 30.sp,
-                          fontWeight: FontWeight.w900),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            body: SingleChildScrollView(
+              child: Container(
+                color: color.AppColor.homePageBackground,
+                padding: EdgeInsets.only(top: 60.h, left: 20.w, right: 20.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Text(
+                        'Sign In',
+                        style: TextStyle(
+                            color: color.AppColor.landingPageTitle,
+                            fontSize: 30.sp,
+                            fontWeight: FontWeight.w900),
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 45.h,
-                  ),
-                  Center(
-                    child: Text(
-                      'Welcome Back',
-                      style: TextStyle(
-                          color: color.AppColor.homeSecondaryTheme,
-                          fontSize: 30.sp,
-                          fontWeight: FontWeight.w900),
+                    SizedBox(
+                      height: 45.h,
                     ),
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  Center(child: DontAlreadyHaveAnAccount(
-                    onPressed: () {
-                      Navigator.push(
+                    Center(
+                      child: Text(
+                        'Welcome Back',
+                        style: TextStyle(
+                            color: color.AppColor.homeSecondaryTheme,
+                            fontSize: 30.sp,
+                            fontWeight: FontWeight.w900),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    Center(child: DontAlreadyHaveAnAccount(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SignUp()));
+                      },
+                    )),
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    NameTextField(
+                        controller: _residentCode,
+                        hint: 'Resident code',
+                        nameType: 'Resident Code'),
+                    BuildPasswordTextField(
+                        fieldName: 'Password', passwordController: _password),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    const RememberMe(),
+                    SizedBox(
+                      height: 100.h,
+                    ),
+                    ActionPageButton(
+                      text: 'Log in',
+                      onPressed: () async {
+                        await _login();
+                      },
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+
+                    InkWell(
+                      onTap:() { Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SignUp()));
-                    },
-                  )),
-                  SizedBox(
-                    height: 40.h,
-                  ),
-                  NameTextField(
-                      controller: _residentCode,
-                      hint: 'Resident code',
-                      nameType: 'Resident Code'),
-                  BuildPasswordTextField(
-                      fieldName: 'Password', passwordController: _password),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  const RememberMe(),
-                  SizedBox(
-                    height: 100.h,
-                  ),
-                  ActionPageButton(
-                    text: 'Log in',
-                    onPressed: () async {
-                      await _login();
-                    },
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-
-                  InkWell(
-                    onTap:() { Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                        builder: (context) => const WelcomeScreen()));},
-                    child: Row(
-                      children: [
-                        const Icon(Icons.arrow_left , size: 30,),
-                        Text('Home', style: TextStyle( fontWeight: FontWeight.bold,
-                        color: color.AppColor.homeSecondaryTheme ),)
-                      ],
+                          builder: (context) => const WelcomeScreen()));},
+                      child: Row(
+                        children: [
+                          const Icon(Icons.arrow_left , size: 30,),
+                          Text('Home', style: TextStyle( fontWeight: FontWeight.bold,
+                          color: color.AppColor.homeSecondaryTheme ),)
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                ],
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 }

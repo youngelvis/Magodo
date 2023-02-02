@@ -65,6 +65,12 @@ class _ViewMemberCardState extends State<ViewMemberCard> {
               height: 10,
             ),
             ListTile(
+              title: Text('Resident Code',
+                style: TextStyle(fontSize: 15.sp),),
+              trailing: Text(widget.data.residentCode?? '',
+                style: TextStyle(fontSize: 15.sp)),
+            ),
+            ListTile(
               title: Text(
                 "${widget.data.validityStartsDate ?? ''} - ${widget.data
                     .validityEndsDate ?? ''}",

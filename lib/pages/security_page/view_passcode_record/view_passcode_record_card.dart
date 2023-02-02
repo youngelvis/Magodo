@@ -109,6 +109,19 @@ class ViewPasscodeRecordCard extends StatelessWidget {
                   style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Text(data.residentMsisdn ?? '',
                   style: TextStyle(fontSize: 15.sp, color: Colors.black)),
+
+            ),
+            ListTile(
+              title: Text("Arrival Date",style: TextStyle(fontSize: 15.sp, color: Colors.black)),
+              trailing: Text(data.arivalDate ?? '', style: TextStyle(fontSize: 15.sp, color: Colors.black)),
+            ),
+            ListTile(
+              title: Text("Time From",style: TextStyle(fontSize: 15.sp, color: Colors.black)),
+              trailing: Text(data.timeFrom ?? '', style: TextStyle(fontSize: 15.sp, color: Colors.black)),
+            ),
+            ListTile(
+              title: Text("Time To",style: TextStyle(fontSize: 15.sp, color: Colors.black)),
+              trailing: Text(data.timeTo ?? '', style: TextStyle(fontSize: 15.sp, color: Colors.black)),
             ),
             const SizedBox(
               height: 25,
