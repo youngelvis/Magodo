@@ -40,15 +40,7 @@ class WelcomeScreen extends StatelessWidget {
                               SizedBox(
                                 height: 100.h,
                               ),
-                              Text(
-                                'Welcome To Magodo',
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontSize: 25.0.sp,
-                                  letterSpacing: 1.5.sp,
-                                  color: color.AppColor.landingPageTitle,
-                                ),
-                              ),
+
                               SizedBox(
                                 height: 70.h
                               ),
@@ -99,6 +91,21 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
+
+              Positioned(
+                left: 50.w,
+                top:620.h,
+                child: Text(
+                  'Welcome To Magodo',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 25.0.sp,
+                    letterSpacing: 1.5.sp,
+                    color: color.AppColor.landingPageTitle,
+                  ),
+                ),
+              ),
+
             ],
           ),
         ),

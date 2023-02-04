@@ -38,7 +38,7 @@ class _AdminNavPageState extends State<AdminNavPage> {
           Container(
             color: color.AppColor.homePageTheme,
             height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width / 1.5,
+            width: 300.w,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,7 +85,7 @@ class _AdminNavPageState extends State<AdminNavPage> {
                         ),
                         Text('Profile',
                             style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 color: color.AppColor.landingPage2)),
                       ],
                     ),
@@ -94,7 +94,7 @@ class _AdminNavPageState extends State<AdminNavPage> {
                           title: Text(
                             'Edit Profile',
                             style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),
                           ),
                           onTap: () {
@@ -106,7 +106,7 @@ class _AdminNavPageState extends State<AdminNavPage> {
                           title: Text(
                             'Change Password',
                             style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),
                           ),
                           onTap: () {
@@ -141,7 +141,7 @@ class _AdminNavPageState extends State<AdminNavPage> {
                           width: 10,
                         ),
                         Text('Reports',
-                            style: TextStyle(fontSize: 20, color: color.AppColor.landingPage2)),
+                            style: TextStyle(fontSize: 15, color: color.AppColor.landingPage2)),
                       ],
                     ),
                     children: [
@@ -150,7 +150,7 @@ class _AdminNavPageState extends State<AdminNavPage> {
                           title: Text(
                             'View Member',
                             style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),
                           ),
                           onTap: () {
@@ -162,7 +162,7 @@ class _AdminNavPageState extends State<AdminNavPage> {
                           title: Text(
                             'View Passcode Record',
                             style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),
                           ),
                           onTap: () {
@@ -174,7 +174,7 @@ class _AdminNavPageState extends State<AdminNavPage> {
                           title: Text(
                             ' Member Staff',
                             style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),
                           ),
                           onTap: () {
@@ -186,7 +186,7 @@ class _AdminNavPageState extends State<AdminNavPage> {
                           title: Text(
                             'Movement Register',
                             style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),
                           ),
                           onTap: () {
@@ -198,7 +198,7 @@ class _AdminNavPageState extends State<AdminNavPage> {
                           title: Text(
                             'Activity Log',
                             style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),
                           ),
                           onTap: () {
@@ -212,7 +212,7 @@ class _AdminNavPageState extends State<AdminNavPage> {
                           title: Text(
                             'Break Down Report',
                             style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),
                           ),
                           onTap: () {

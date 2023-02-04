@@ -42,7 +42,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
               Container(
                 color: color.AppColor.homePageTheme,
                 height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width / 1.3.w,
+                width: 300.w,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +87,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                             ),
                             Text('Profile',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2)),
                           ],
                         ),
@@ -96,7 +96,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               title: Text(
                                 'Edit Profile',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -108,7 +108,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               title: Text(
                                 'Change Password',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -146,7 +146,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               width: 10.w,
                             ),
                              Text('Reports',
-                                style: TextStyle(fontSize: 20.sp, color: color.AppColor.landingPage2)),
+                                style: TextStyle(fontSize: 15.sp, color: color.AppColor.landingPage2)),
                           ],
                         ),
                         children: [
@@ -154,7 +154,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               title: Text(
                                 'Event Request Report',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -164,9 +164,9 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               }),
                           ListTile(
                               title: Text(
-                                'View Member',
+                                'Member Report',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -176,9 +176,9 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               }),
                           ListTile(
                               title: Text(
-                                'View Passcode Record',
+                                'Passcode Record',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -190,7 +190,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               title: Text(
                                 'Member Staff',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -202,7 +202,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               title: Text(
                                 'Movement Register',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -214,7 +214,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               title: Text(
                                 'Activity Log',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -228,7 +228,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               title: Text(
                                 'Break Down Report',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {

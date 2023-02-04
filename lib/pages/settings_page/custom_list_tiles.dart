@@ -1,32 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:magodo/pages/settings_page/web_view.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
 import '../../../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:url_launcher/url_launcher.dart';
 
-class CustomListTile extends StatelessWidget {
+
+class CustomListTile extends StatefulWidget {
   final prefixIcon;
   final text;
   final data;
   final colour;
+  final size;
 
   const CustomListTile(
       {Key? key,
       this.prefixIcon,
       required this.text,
         this.colour,
-       this.data})
+       this.data,this.size})
       : super(key: key);
-  Future<void> navigate(data) async{
-    var url =data;
-    if(await canLaunchUrl(Uri.parse(url))){
-      await launch(url,
-        forceWebView: true,
-        forceSafariVC: true,
-      );
 
-    } else{
-      throw 'could not lunch url';
-    }
+  @override
+  State<CustomListTile> createState() => _CustomListTileState();
+}
+
+class _CustomListTileState extends State<CustomListTile> {
+ navigate(data) async{
+    Navigator.push(context, MaterialPageRoute(builder:(context)=>  MobileWebView(data: data)));
+
   }
 
   @override
@@ -34,20 +37,22 @@ class CustomListTile extends StatelessWidget {
     return Column(children: [
       ListTile(
         leading: Icon(
-          prefixIcon,
+          widget.prefixIcon,
           size: 30.sp,
-          color: colour?? color.AppColor.landingPageTitle,
+          color: widget.colour?? color.AppColor.landingPageTitle,
         ),
-        title: Text(text, style:  TextStyle(
-          fontWeight: FontWeight.w500,
+        title: Text(widget.text, style:  TextStyle(
+
             color: color.AppColor.landingPageTitle,
-            fontSize: 25.sp)),
+            fontSize:widget.size ?? 25.sp)),
 
         onTap:  ()async{
-          await navigate(data);
+          await navigate(widget.data);
         },
       ),
-
+      SizedBox(
+        height: 20.h,
+      ),
     ]);
   }
 }

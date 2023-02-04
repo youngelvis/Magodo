@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/services/services.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import '../../../../components/title.dart';
 import '../../../../models/resident_data_model/residentdata.dart';
+import '../get_passcode/get_passcode.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 
 class SendMessagesButtons extends StatefulWidget {
@@ -43,6 +45,7 @@ class _SendMessagesButtonsState extends State<SendMessagesButtons> {
                       borderRadius: BorderRadius.circular(20.0))),
               onPressed: () {
                 Navigator.of(context).pop();
+                Navigator.push(context, MaterialPageRoute(builder:(context)=>  GetPasscode(data: widget.response,)));
               },
               child: const Text("ok"))
         ],
@@ -181,6 +184,7 @@ class _SendMessagesButtonsState extends State<SendMessagesButtons> {
                             )
 
                               : const Text("empty"),
+
                         ],
                       ),
                     ),

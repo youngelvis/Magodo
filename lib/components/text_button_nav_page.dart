@@ -39,7 +39,7 @@ class NavTextButton extends StatelessWidget {
             Text(
               text,
               style: TextStyle(
-                fontSize:size?? 20.sp,
+                fontSize:size?? 16.sp,
                 color: colored?? color.AppColor.landingPage2,
               ),
             ),

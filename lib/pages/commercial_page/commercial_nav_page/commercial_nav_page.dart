@@ -38,7 +38,7 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
               Container(
                 color: color.AppColor.homePageTheme,
                 height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width / 1.3.w,
+                width: 300.w,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,7 +90,7 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                               title: Text(
                                 'Edit Profile',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -102,7 +102,7 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                               title: Text(
                                 'Change Password',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -114,7 +114,7 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                               title: Text(
                                 'Add Staff',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -170,7 +170,7 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                         ),
                         Text('Reports',
                             style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 color: color.AppColor.landingPage2)),
                       ],
                     ),
@@ -179,7 +179,7 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                           title: Text(
                             ' View Passcode',
                             style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),
                           ),
                           onTap: () {
@@ -191,7 +191,7 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                           title: Text(
                             'Event Passcode Record',
                             style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),
                           ),
                           onTap: () {

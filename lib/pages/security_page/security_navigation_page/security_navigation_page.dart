@@ -41,7 +41,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
           Container(
             color: color.AppColor.homePageTheme,
             height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width / 1.5.w,
+            width: 300.w,
             child: SingleChildScrollView(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 SizedBox(
@@ -84,7 +84,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                       ),
                       Text('Profile',
                           style: TextStyle(
-                              fontSize: 20.sp, color: color.AppColor.landingPage2)),
+                              fontSize: 15.sp, color: color.AppColor.landingPage2)),
                     ],
                   ),
                   children: [
@@ -92,7 +92,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                         title: Text(
                           'Edit Profile',
                           style: TextStyle(
-                              fontSize: 20.sp, color: color.AppColor.landingPage2),
+                              fontSize: 15.sp, color: color.AppColor.landingPage2),
                         ),
                         onTap: () {
                           navigateToPage(EditProfile(
@@ -103,7 +103,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                         title: Text(
                           'Change Password',
                           style: TextStyle(
-                              fontSize: 20.sp, color: color.AppColor.landingPage2),
+                              fontSize: 15.sp, color: color.AppColor.landingPage2),
                         ),
                         onTap: () {
                           navigateToPage(ChangePassword(
@@ -163,7 +163,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                         ),
                         Text('Reports',
                             style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 color: color.AppColor.landingPage2)),
                       ],
                     ),
@@ -172,7 +172,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                           title: Text(
                             'View Passcode',
                             style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),
                           ),
                           onTap: () {
@@ -184,7 +184,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                           title: Text(
                             'View parent Records',
                             style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),
                           ),
                           onTap: () {
@@ -196,7 +196,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                           title: Text(
                             'View Staff Records',
                             style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),
                           ),
                           onTap: () {
@@ -208,7 +208,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                           title: Text(
                             'View Resident Records',
                             style: TextStyle(
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),
                           ),
                           onTap: () {

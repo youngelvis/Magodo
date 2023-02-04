@@ -118,7 +118,7 @@ class _TitleContainerState extends State<TitleContainer> {
                     navbarController();
                   }),
               SizedBox(
-                width: 80.w,
+                width: 90.w,
               ),
               Container(
                 padding: EdgeInsets.only(

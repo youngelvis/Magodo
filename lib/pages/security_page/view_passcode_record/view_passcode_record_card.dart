@@ -100,7 +100,7 @@ class ViewPasscodeRecordCard extends StatelessWidget {
                 width: 180.w,
                 child: Text(
                   data.residentAddress ?? '',
-                  style: const TextStyle(fontSize: 15),
+                  style: TextStyle(fontSize: 15.sp),
                 ),
               ),
             ),

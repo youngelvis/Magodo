@@ -41,7 +41,7 @@ class _CommercialNavPageForSchoolState extends State<CommercialNavPageForSchool>
               Container(
                 color: color.AppColor.homePageTheme,
                 height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width / 1.3.w,
+                width: 300.w,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +84,7 @@ class _CommercialNavPageForSchoolState extends State<CommercialNavPageForSchool>
                             ),
                             Text('Profile',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2)),
                           ],
                         ),
@@ -93,7 +93,7 @@ class _CommercialNavPageForSchoolState extends State<CommercialNavPageForSchool>
                               title: Text(
                                 'Edit Profile',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -105,7 +105,7 @@ class _CommercialNavPageForSchoolState extends State<CommercialNavPageForSchool>
                               title: Text(
                                 'Change Password',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -118,7 +118,7 @@ class _CommercialNavPageForSchoolState extends State<CommercialNavPageForSchool>
                               title: Text(
                                 'Add Staff',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -174,16 +174,16 @@ class _CommercialNavPageForSchoolState extends State<CommercialNavPageForSchool>
                             ),
                             Text('Reports',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2)),
                           ],
                         ),
                         children: [
                           ListTile(
                               title: Text(
-                                ' View Passcode',
+                                'Passcode Report',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -195,7 +195,7 @@ class _CommercialNavPageForSchoolState extends State<CommercialNavPageForSchool>
                               title: Text(
                                 'Event Passcode Record',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -205,9 +205,9 @@ class _CommercialNavPageForSchoolState extends State<CommercialNavPageForSchool>
                               }),
                           ListTile(
                               title: Text(
-                                'View Parent Records',
+                                'Parent Records',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {

@@ -64,7 +64,14 @@ class VisitorPasscodeReport extends StatelessWidget {
           ),
           ListTile(
             title: Text('Address', style: TextStyle(fontSize: 15.sp),),
-            trailing: Text(address, style: TextStyle(fontSize: 15.sp),),
+            trailing: Container(
+              alignment: Alignment.centerRight,
+              width: 180.w,
+              child: Text(
+                address ?? '',
+                style:TextStyle(fontSize: 15.sp),
+              ),
+            ),
           ),
           ListTile(
             title:  Text('Resident Phone', style: TextStyle(fontSize: 15.sp),),

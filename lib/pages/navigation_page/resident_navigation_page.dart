@@ -48,7 +48,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
               Container(
                   color: color.AppColor.homePageTheme,
                   height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width / 1.3.w,
+                  width: 300.w,
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,7 +95,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                               ),
                               Text('Profile',
                                   style: TextStyle(
-                                      fontSize: 20.sp,
+                                      fontSize: 16.sp,
                                       color: color.AppColor.landingPage2)),
                             ],
                           ),
@@ -104,7 +104,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 title: Text(
                                   'Edit Profile',
                                   style: TextStyle(
-                                      fontSize: 20.sp,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -116,7 +116,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 title: Text(
                                   'Change Password',
                                   style: TextStyle(
-                                      fontSize: 20.sp,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -128,7 +128,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 title: Text(
                                   'Add Family',
                                   style: TextStyle(
-                                      fontSize: 20.sp,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -140,7 +140,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 title: Text(
                                   'Add Staff',
                                   style: TextStyle(
-                                      fontSize: 20.sp,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -152,7 +152,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 title: Text(
                                   'Register Vehicle',
                                   style: TextStyle(
-                                      fontSize: 20.sp,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -164,7 +164,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 title: Text(
                                   'Event Passcode',
                                   style: TextStyle(
-                                      fontSize: 20.sp,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -214,16 +214,16 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                               ),
                               Text('Reports',
                                   style: TextStyle(
-                                      fontSize: 20.sp,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2)),
                             ],
                           ),
                           children: [
                             ListTile(
                                 title: Text(
-                                  'View Family Report',
+                                  'Family Report',
                                   style: TextStyle(
-                                      fontSize: 20.sp,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -233,9 +233,9 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 }),
                             ListTile(
                                 title: Text(
-                                  'View Staff Report',
+                                  'Staff Report',
                                   style: TextStyle(
-                                      fontSize: 20.sp,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -245,9 +245,9 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 }),
                             ListTile(
                                 title: Text(
-                                  'View Vehicle Report',
+                                  'Vehicle Report',
                                   style: TextStyle(
-                                      fontSize: 20.sp,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
@@ -259,7 +259,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                               title: Text(
                                 'Event Report',
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
                               ),
                               onTap: () {
@@ -270,9 +270,9 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                             ),
                             ListTile(
                                 title: Text(
-                                  'View Passcode Report',
+                                  'Passcode Report',
                                   style: TextStyle(
-                                      fontSize: 20.sp,
+                                      fontSize: 15.sp,
                                       color: color.AppColor.landingPage2),
                                 ),
                                 onTap: () {
