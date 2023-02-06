@@ -161,6 +161,7 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
           _password.text,
           _confirmPassword.text);
       callMessage(data["error"]['message']);
+      return;
     }
     final data = await Services().addNewAdministrativeUser(
         _residentCode.text,
@@ -177,6 +178,7 @@ class _AddNewAdministrativeUserState extends State<AddNewAdministrativeUser> {
         _password.text,
         _confirmPassword.text);
     callMessage(data['message']);
+    return;
   }
 
   @override

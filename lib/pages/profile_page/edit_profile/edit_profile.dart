@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
+import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
 import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/textfields_types/resident_type_dropdown_list.dart';
@@ -57,7 +58,7 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   editProfile() async {
-    if (widget.data?.resident_type == "Resident") {
+    if (widget.data?.resident_type != 'Commercial') {
       final data = await Services().updateResidentProfile(
           _firstName.text.isEmpty ? widget.data?.firstname : _firstName.text,
           _surname.text.isEmpty ? widget.data?.surname : _surname.text,
@@ -66,7 +67,9 @@ class _EditProfileState extends State<EditProfile> {
           residentType ?? widget.data?.resident_type,
           _address.text.isEmpty ? widget.data?.address : _address.text,
           widget.data);
-      callMessage(data['message']);
+      print("this is:$data");
+      callMessage(data ['message']);
+      return;
     }
     final data = await Services().updateCommercialProfile(
       _firstName.text.isEmpty ? widget.data?.firstname : _firstName.text,
@@ -82,15 +85,18 @@ class _EditProfileState extends State<EditProfile> {
       _businessName.text.isEmpty
           ? widget.data?.business_name
           : _businessName.text,
-      _staffNumber.text,
+      _staffNumber.text.isEmpty ? widget.data?.staff_number : _staffNumber.text,
       _businessMobileNumber.text.isEmpty
           ? widget.data?.mobile_number
           : _businessMobileNumber.text,
       _businessEmail.text.isEmpty
           ? widget.data?.business_email
           : _businessEmail.text,
+      category?? widget.data?.category
     );
+
     callMessage(data['message']);
+    return;
   }
 
   @override
@@ -99,7 +105,7 @@ class _EditProfileState extends State<EditProfile> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding:  EdgeInsets.only(top: 20.h),
+            padding: EdgeInsets.only(top: 20.h),
             child: Column(
               children: [
                 TitleContainer(
@@ -111,13 +117,13 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 Row(
                   children: [
-                     SizedBox(
+                    SizedBox(
                       width: 25.w,
                     ),
                     Text(
                       'Edit Profile',
-                      style:
-                      TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -133,7 +139,7 @@ class _EditProfileState extends State<EditProfile> {
                     child: SingleChildScrollView(
                       child: Form(
                         child: Container(
-                          padding:  EdgeInsets.only(left: 25.w, right: 25.w),
+                          padding: EdgeInsets.only(left: 25.w, right: 25.w),
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -152,7 +158,8 @@ class _EditProfileState extends State<EditProfile> {
                                     nameType: "First Name"),
                                 NameTextField(
                                     controller: _surname,
-                                    hint: widget.data?.surname ?? "Enter Surname",
+                                    hint:
+                                        widget.data?.surname ?? "Enter Surname",
                                     nameType: "Surname"),
                                 NameTextField(
                                     controller: _email,
@@ -160,7 +167,7 @@ class _EditProfileState extends State<EditProfile> {
                                     nameType: "Email"),
                                 NameTextField(
                                     controller: _address,
-                                    hint: widget.data?.address?? "Enter email",
+                                    hint: widget.data?.address ?? "Enter email",
                                     nameType: "Address"),
                                 BuildResidentTypeDropDownList(
                                     residentType: residentType,
@@ -169,7 +176,7 @@ class _EditProfileState extends State<EditProfile> {
                                         }),
                                     hintText: widget.data?.resident_type ??
                                         'Select Resident Type'),
-                                widget.data?.usr_group == 'Commercial'
+                                widget.data?.resident_type == 'Commercial'
                                     ? CommercialEditProfile(
                                         businessName: _businessName,
                                         businessAddress: _businessAddress,

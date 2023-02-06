@@ -174,7 +174,6 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 }),
                           ],
                         ),
-
                         NavTextButton(
                             icon: CupertinoIcons.chat_bubble_2_fill,
                             text: 'Get Bulk Passcode',

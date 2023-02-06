@@ -1,8 +1,12 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-class VehicleReportCard extends StatelessWidget {
+import 'package:magodo/pages/settings_page/web_view.dart';
+import '../../../components/components_for_class_of_varable/colors.dart' as color;
+
+class VehicleReportCard extends StatefulWidget {
   final mraReceiptNo,
       govAgency,
       carMake,
@@ -12,21 +16,34 @@ class VehicleReportCard extends StatelessWidget {
       vehicleModel,
       amountPaid,
       uploadedFile,
-      declineMessage;
+      declineMessage,
+      docName;
 
-  const VehicleReportCard({
-    Key? key,
-    required this.mraReceiptNo,
-    required this.govAgency,
-    required this.carMake,
-    required this.vehicleCode,
-    required this.date,
-    required this.vehicleColour,
-    required this.vehicleModel,
-    required this.amountPaid,
-    required this.uploadedFile,
-    required this.declineMessage,
-  }) : super(key: key);
+  const VehicleReportCard(
+      {Key? key,
+      required this.mraReceiptNo,
+      required this.govAgency,
+      required this.carMake,
+      required this.vehicleCode,
+      required this.date,
+      required this.vehicleColour,
+      required this.vehicleModel,
+      required this.amountPaid,
+      required this.uploadedFile,
+      required this.declineMessage,
+      required this.docName})
+      : super(key: key);
+
+  @override
+  State<VehicleReportCard> createState() => _VehicleReportCardState();
+}
+
+class _VehicleReportCardState extends State<VehicleReportCard> {
+
+  openFile() async{
+    print(widget.uploadedFile);
+    Navigator.push(context, MaterialPageRoute(builder:(context)=>  MobileWebView(data: widget.uploadedFile)));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +54,8 @@ class VehicleReportCard extends StatelessWidget {
         children: [
           ListTile(
             title: Text(
-              date,
-              style:  TextStyle(fontSize: 13.sp),
+              widget.date,
+              style: TextStyle(fontSize: 13.sp),
             ),
           ),
           const Divider(
@@ -46,39 +63,45 @@ class VehicleReportCard extends StatelessWidget {
           ),
           ListTile(
             title: const Text("MRA dues receipt No"),
-            trailing: Text(mraReceiptNo),
+            trailing: Text(widget.mraReceiptNo),
           ),
           ListTile(
             title: const Text('Gov agency'),
-            trailing: Text(govAgency),
+            trailing: Text(widget.govAgency),
           ),
           ListTile(
             title: const Text('Make'),
-            trailing: Text(carMake),
+            trailing: Text(widget.carMake),
           ),
           ListTile(
             title: const Text('Vehicle Code'),
-            trailing: Text(vehicleCode),
+            trailing: Text(widget.vehicleCode),
           ),
           ListTile(
             title: const Text("Colour"),
-            trailing: Text(vehicleColour),
+            trailing: Text(widget.vehicleColour),
           ),
           ListTile(
             title: const Text("Model"),
-            trailing: Text(vehicleModel),
+            trailing: Text(widget.vehicleModel),
           ),
           ListTile(
             title: const Text("Amount Paid"),
-            trailing: Text(amountPaid),
+            trailing: Text(widget.amountPaid),
           ),
           ListTile(
             title: const Text("Uploaded File"),
-            trailing: Text(uploadedFile),
+            trailing: Container(
+                alignment: Alignment.centerRight,
+                width: 180.w,
+                child:
+                    InkWell(onTap: openFile, child: Text(widget.docName, style: TextStyle(
+                      color: color.AppColor.verifiedColor,
+                    ),))),
           ),
           ListTile(
             title: const Text("Decline Message"),
-            subtitle: Text(declineMessage),
+            subtitle: Text(widget.declineMessage),
           ),
         ],
       ),

@@ -56,8 +56,8 @@ class _EventRequestState extends State<EventRequest> {
     if (_scheduleDate.text.isEmpty || _scheduleTime.text.isEmpty) {
       final data = await Services().requestEvent(widget.data?.resident_code,
           population, _scheduleDate.text, _scheduleTime.text, eventType);
-      print(data);
       callMessage(data["error"]["message"]);
+      return;
 
     }
     final data = await Services().requestEvent(widget.data?.resident_code,
@@ -68,6 +68,7 @@ class _EventRequestState extends State<EventRequest> {
     population = null;
     eventType=null;
     callMessage(data["message"]);
+    return;
   }
 
   @override

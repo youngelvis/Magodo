@@ -66,7 +66,7 @@ class _SendMessagesButtonsState extends State<SendMessagesButtons> {
 
   @override
   Widget build(BuildContext context) {
-    var qcode = widget.data['data']['qrcode'];
+  var qCode = widget.data['data']['qrcode'];
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
@@ -164,17 +164,14 @@ class _SendMessagesButtonsState extends State<SendMessagesButtons> {
                               ),
                             ),
                           ),
-
-
-                          qcode != null
+                          qCode != null
                               ?
-
                             Container(
                               width: 300.0,
                               height: 300.0,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: NetworkImage(qcode),
+                                  image: NetworkImage(qCode),
                                   fit: BoxFit.cover,
                                 ),
 
@@ -183,7 +180,7 @@ class _SendMessagesButtonsState extends State<SendMessagesButtons> {
                               ),
                             )
 
-                              : const Text("empty"),
+                              : const Center(child: Text("empty")),
 
                         ],
                       ),

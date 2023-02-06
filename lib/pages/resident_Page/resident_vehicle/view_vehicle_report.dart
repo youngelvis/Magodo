@@ -239,6 +239,7 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
                                   uploadedFile: vehicle.doc ?? '',
                                   govAgency: vehicle.govAgency ?? '',
                                   date: vehicle.tstamp ?? '',
+                                  docName: vehicle.docName,
                                 ),
                                 // DeleteUpdateButton(onPressedDeleteButton:  () async{
                                 //   await deleteStaff(vehicle.guid);

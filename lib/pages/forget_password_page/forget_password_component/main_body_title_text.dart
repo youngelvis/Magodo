@@ -12,7 +12,7 @@ class MainBodyTitleText extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Text(child, style: TextStyle(
         color: color.AppColor.landingPageTitle,
-        fontSize: 35.sp,
+        fontSize: 25.sp,
         fontWeight: FontWeight.w900
     ),);
   }

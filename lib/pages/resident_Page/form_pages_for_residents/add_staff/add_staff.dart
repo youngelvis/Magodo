@@ -11,12 +11,13 @@ import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/title.dart';
 import 'package:magodo/services/services.dart';
+import '../../../../models/resident_data_model/residentdata.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 
 class AddStaff extends StatefulWidget {
-  final data;
+  ResidentModel? data;
 
-  const AddStaff({Key? key, required this.data}) : super(key: key);
+   AddStaff({Key? key, required this.data}) : super(key: key);
 
   @override
   State<AddStaff> createState() => _AddStaffState();
@@ -39,9 +40,9 @@ class _AddStaffState extends State<AddStaff> {
         _staffAddress.text.isEmpty ||
         _employmentDate.text.isEmpty) {
       var data = await Services().addStaff(
-          widget.data['msisdn'],
+          widget.data?.msisdn,
           _staffFullName.text,
-          widget.data['resident_code'],
+          widget.data?.resident_code,
           _staffMobileNumber.text,
           relationship,
           employment,
@@ -69,9 +70,9 @@ class _AddStaffState extends State<AddStaff> {
       );
     }
     var data = await Services().addStaff(
-        widget.data['msisdn'],
+        widget.data?.msisdn,
         _staffFullName.text,
-        widget.data['resident_code'],
+        widget.data?.resident_code,
         _staffMobileNumber.text,
         relationship,
         employment,

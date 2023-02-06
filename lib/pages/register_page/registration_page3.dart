@@ -51,7 +51,62 @@ TextEditingController _businessEmail = TextEditingController();
 class _Registration_page3State extends State<Registration_page3> {
   String? categoryType;
   MainRegistrationDataModel? commercialData;
+
+  callMessage(message) {
+    return showDialog(
+      context: context,
+      builder: (_) =>
+          AlertDialog(
+            title: Text(message),
+            actions: [
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: color.AppColor.homePageTheme,
+                      onPrimary: color.AppColor.landingPage2,
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.circular(20.0))),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignUp()));
+                  },
+                  child: const Text("ok"))
+            ],
+          ),
+    );
+  }
+
   _registerCommercial() async {
+    if (widget.password.isEmpty || widget.mobileNumber.isEmpty ||
+        widget.surname.isEmpty || widget.email.isEmpty ||
+        widget.firstname.isEmpty ||
+        widget.zone.isEmpty || widget.address.isEmpty ||
+        widget.residentialType.isEmpty || widget.confirmPassword.isEmpty ||
+        widget.mobileNumber.isEmpty || _businessName.text.isEmpty ||
+        _businessEmail.text.isEmpty || categoryType == null ||
+        _streetNameOrNumber.text.isEmpty ||
+        _businessMobileNumber.text.isEmpty) {
+      var data = await Services().registerCommercial(
+          widget.password,
+          widget.surname,
+          widget.firstname,
+          widget.email,
+          widget.zone,
+          widget.address,
+          widget.residentialType,
+          widget.confirmPassword,
+          widget.mobileNumber,
+          _businessName.text,
+          _numberOfStaff.text,
+          _businessEmail.text,
+          categoryType,
+          _streetNameOrNumber.text,
+          _businessMobileNumber.text);
+      var message = data['error']['message'];
+      callMessage(message);
+      return;
+    }
     var data = await Services().registerCommercial(
         widget.password,
         widget.surname,
@@ -68,107 +123,99 @@ class _Registration_page3State extends State<Registration_page3> {
         categoryType,
         _streetNameOrNumber.text,
         _businessMobileNumber.text);
+print(data);
+    var message = data['message'];
+    callMessage(message);
+    widget.password ='';
+    widget.zone ='';
+    widget.address ='';
+    widget.residentialType ='';
+    widget.surname =='';
+    widget.firstname =='';
+    widget.email = '';
+    widget.mobileNumber = '';
+    widget.confirmPassword ='';
+    _businessName.clear();
+    _numberOfStaff.clear();
+    _businessEmail.clear();
+    categoryType = null;
+    _streetNameOrNumber.clear();
+    _businessMobileNumber.clear();
 
-    if (commercialData?.code == 400) {
-      var message = data['error']['message'];
+    return;
+  }
 
-      return showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text(message),
-          actions: [
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary:  color.AppColor.homePageTheme,
-                    onPrimary: color.AppColor.landingPage2,
-                    shape: RoundedRectangleBorder(
-                        borderRadius:
-                        BorderRadius.circular(20.0))),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const SignUp()));
-                },
-                child: const Text("ok"))
+
+@override
+Widget build(BuildContext context) {
+  return GestureDetector(
+    onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+    child: Scaffold(
+      body: Container(
+        padding: const EdgeInsets.only(
+          top: 60,
+        ),
+        color: color.AppColor.homePageBackground,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SignUpText(),
+            RegistrationPagesForms(
+              RegistrationPageBody: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 40.h,
+                  ),
+                  BuildCategoryDropDownList(
+                    onChanged: (value) =>
+                        setState(() {
+                          categoryType = value as String;
+                        }),
+                    category: categoryType,
+                  ),
+
+                  NameTextField(
+                      controller: _streetNameOrNumber,
+                      hint: 'Enter your street name',
+                      nameType: "Street Name/Address"),
+
+                  NameTextField(
+                      controller: _businessName,
+                      hint: 'Enter business name',
+                      nameType: "Business Name"),
+
+                  NameTextField(
+                      controller: _numberOfStaff,
+                      hint: 'Enter number of staff',
+                      nameType: "Number of Staffs"),
+
+                  MobileNumberTextField(
+                      controller: _businessMobileNumber,
+                      fieldName: 'Business Mobile Number',
+                      hintText: 'Enter business mobile number'),
+
+                  NameTextField(
+                      controller: _businessEmail,
+                      hint: 'Enter business email',
+                      nameType: "Business Email"),
+                  SizedBox(
+                    height: 30.h,
+                  )
+                ],
+              ),
+              reistrationPageButton: ActionPageButton(
+                  onPressed: () async {
+                    await _registerCommercial();
+                  },
+                  text: 'Register Now'),
+            ),
+            SizedBox(
+              height: 40.h,
+            )
           ],
         ),
-      );
-    }else{
-      setState(() {
-        commercialData = MainRegistrationDataModel.fromJson(data);
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Scaffold(
-        body: Container(
-          padding: const EdgeInsets.only(
-            top: 60,
-          ),
-          color: color.AppColor.homePageBackground,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SignUpText(),
-              RegistrationPagesForms(
-                RegistrationPageBody: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                     SizedBox(
-                      height: 40.h,
-                    ),
-                    BuildCategoryDropDownList(
-                      onChanged: (value) => setState(() {
-                        categoryType = value as String;
-                      }),
-                      category: categoryType,
-                    ),
-
-                    NameTextField(
-                        controller: _streetNameOrNumber,
-                        hint: 'Enter your street name',
-                        nameType: "Street Name/Address"),
-
-                    NameTextField(
-                        controller: _businessName,
-                        hint: 'Enter business name',
-                        nameType: "Business Name"),
-
-                    NameTextField(
-                        controller: _numberOfStaff,
-                        hint: 'Enter number of staff',
-                        nameType: "Number of Staffs"),
-
-                    MobileNumberTextField(
-                        controller: _businessMobileNumber,
-                        fieldName: 'Business Mobile Number',
-                        hintText: 'Enter business mobile number'),
-
-                    NameTextField(
-                        controller: _businessEmail,
-                        hint: 'Enter business email',
-                        nameType: "Business Email"),
-                    SizedBox(
-                      height: 30.h,
-                    )
-                  ],
-                ),
-                reistrationPageButton: ActionPageButton(
-                    onPressed: () async {
-                      await _registerCommercial();
-                    },
-                    text: 'Register Now'),
-              ),
-               SizedBox(
-                height: 40.h,
-              )
-            ],
-          ),
-        ),
       ),
-    );
-  }
-}
+    ),
+  );
+}}

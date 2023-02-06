@@ -144,40 +144,55 @@ class _UpdateMemberState extends State<UpdateMember> {
   }
 
   updateMember() async {
-    classification == 'Super Admin'
-        ? classification = UserGroup.SUPER_ADMIN
-        : classification == 'Zonal Admin'
-        ? classification = UserGroup.ZONAL_ADMIN
-        : classification == 'Zonal Super Admin'
-        ? classification = UserGroup.ZONAL_SUPER_ADMIN
-        :classification;
-    final data = await Services().updateResidentMember(
-        response['resident_reg_code'] ?? '',
-        _mobileNumber.text.isEmpty
-            ? response['resident_phone']
-            : _mobileNumber.text,
-        _firstName.text.isEmpty ? response['firstname'] : _firstName.text,
-        _surname.text.isEmpty ? response['surname'] : _surname.text,
-        _email.text.isEmpty ? response['email'] : _email.text,
-        classification ?? response['classification'],
-        status ?? response['status'],
-        _address.text.isEmpty ? response['address'] : _address.text,
-        zone ?? response['zone'],
-        _startDate.text.isEmpty ? response['validity_starts'] : _startDate.text,
-        _finishDate.text.isEmpty ? response['validity_ends'] : _finishDate.text,
-        widget.data?.resident_code);
+    if(response == null){
+      var message = 'please select resident';
+      callMessage(message);
+      return;
+    }
 
-    _firstName.clear();
-    _surname.clear();
-    _email.clear();
-    _address.clear();
-    _startDate.clear();
-    _finishDate.clear();
-    _mobileNumber.clear();
-    zone = null;
-    status = null;
-    classification = null;
-    callMessage(data['message']);
+      classification == 'Super Admin'
+          ? classification = UserGroup.SUPER_ADMIN
+          : classification == 'Zonal Admin'
+              ? classification = UserGroup.ZONAL_ADMIN
+              : classification == 'Zonal Super Admin'
+                  ? classification = UserGroup.ZONAL_SUPER_ADMIN
+                  : classification;
+      final data = await Services().updateResidentMember(
+          response['resident_reg_code'] ?? '',
+          _mobileNumber.text.isEmpty
+              ? response['resident_phone']
+              : _mobileNumber.text,
+          _firstName.text.isEmpty ? response['firstname'] : _firstName.text,
+          _surname.text.isEmpty ? response['surname'] : _surname.text,
+          _email.text.isEmpty ? response['email'] : _email.text,
+          classification ?? response['user_group'],
+          status ?? response['status'],
+          _address.text.isEmpty ? response['address'] : _address.text,
+          zone ?? response['zone'],
+          _startDate.text.isEmpty
+              ? response['validity_starts']
+              : _startDate.text,
+          _finishDate.text.isEmpty
+              ? response['validity_ends']
+              : _finishDate.text,
+          widget.data?.resident_code);
+
+      _firstName.clear();
+      _surname.clear();
+      _email.clear();
+      _address.clear();
+      _startDate.clear();
+      _finishDate.clear();
+      _mobileNumber.clear();
+      zone = null;
+      status = null;
+      classification = null;
+    if(data['code']==200){
+      callMessage(data['message']);
+    }
+    else{
+      callMessage(data['error']['message']);
+    }
   }
 
   @override

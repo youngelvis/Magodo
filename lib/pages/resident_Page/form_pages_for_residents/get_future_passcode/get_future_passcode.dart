@@ -13,6 +13,7 @@ import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/services/services.dart';
 import '../sendMessagesButtons/sendMessagesButtons.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
+
 class GetFuturePasscode extends StatefulWidget {
   ResidentModel? data;
 
@@ -33,6 +34,27 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
   MainPasscodeDataModel? response;
   String? noOfVisitors;
 
+  callMessage(message) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
+
   _getFuturePasscode() async {
     if (_mobileNumber.text.isEmpty ||
         _arrivalTime.text.isEmpty ||
@@ -44,30 +66,13 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
           _visitorName.text,
           widget.data?.resident_code,
           noOfVisitors,
-          '0',
+          '',
           _date.text,
           _arrivalTime.text,
           _departureTime.text);
       var message = data['error']['message'];
-
-      return showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text(message),
-          actions: [
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: color.AppColor.homePageTheme,
-                    onPrimary: color.AppColor.landingPage2,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0))),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("ok"))
-          ],
-        ),
-      );
+      callMessage(message);
+      return;
     }
     var data = await Services().getFuturePasscode(
         _mobileNumber.text,
@@ -78,41 +83,45 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
         _date.text,
         _arrivalTime.text,
         _departureTime.text);
-    setState(() {
-      response = MainPasscodeDataModel.fromJson(data);
-    });
-
-    var message = response?.message;
-_mobileNumber.clear();
-_visitorName.clear();
-_email.clear();
-_visitorName.clear();
-_arrivalTime.clear();
-_departureTime.clear();
-_date.clear();
-    return showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(message!),
-        actions: [
-          Center(
-            child: SizedBox(
-              width: 200.w,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: color.AppColor.homePageTheme,
-                      onPrimary: color.AppColor.landingPage2,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0))),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder:(context)=>  SendMessagesButtons(response: widget.data,data: data)));
-                  },
-                  child: const Text("Share")),
-            ),
-          )
-        ],
-      ),
-    );
+print(data);
+    var message = data['message'];
+    if (data['code'] == 200) {
+      _mobileNumber.clear();
+      _visitorName.clear();
+      _email.clear();
+      _visitorName.clear();
+      _arrivalTime.clear();
+      _departureTime.clear();
+      _date.clear();
+      return showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(message!),
+          actions: [
+            Center(
+              child: SizedBox(
+                width: 200.w,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: color.AppColor.homePageTheme,
+                        onPrimary: color.AppColor.landingPage2,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0))),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SendMessagesButtons(
+                                  response: widget.data, data: data)));
+                    },
+                    child: const Text("Share")),
+              ),
+            )
+          ],
+        ),
+      );
+    }
+    callMessage(message);
   }
 
   @override
@@ -121,7 +130,9 @@ _date.clear();
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding:  EdgeInsets.only(top: 20.h, ),
+            padding: EdgeInsets.only(
+              top: 20.h,
+            ),
             child: Column(
               children: [
                 TitleContainer(
@@ -132,13 +143,14 @@ _date.clear();
                   height: 40,
                 ),
                 Row(
-                  children:  [
+                  children: [
                     SizedBox(
                       width: 25.w,
                     ),
                     Text(
                       'Get Future Passcode',
-                      style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -153,7 +165,7 @@ _date.clear();
                   child: OverflowBox(
                     child: SingleChildScrollView(
                       child: Container(
-                        padding:  EdgeInsets.only(right: 25.w, left: 25.w),
+                        padding: EdgeInsets.only(right: 25.w, left: 25.w),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -194,7 +206,7 @@ _date.clear();
                                 hint: 'Select departure time',
                               ),
                               const SizedBox(
-                                height: 50,
+                                height: 30,
                               ),
                               ActionPageButton(
                                   onPressed: () async {
@@ -202,7 +214,7 @@ _date.clear();
                                   },
                                   text: 'Get Future Passcode'),
                               const SizedBox(
-                                height: 30,
+                                height: 50,
                               ),
                             ]),
                       ),

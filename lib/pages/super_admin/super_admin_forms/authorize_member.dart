@@ -121,8 +121,10 @@ class _AuthorizeMemberState extends State<AuthorizeMember> {
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Full Name : ${widget.response.fullName} ',
-                                  style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),),
+                                Center(
+                                  child: Text('Full Name : ${widget.response.fullName} ',
+                                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),),
+                                ),
                                 SizedBox(height: 40.h,),
                                 const TextForForm(text: "Status"),
                                 _buildStatus(),

@@ -29,9 +29,10 @@ class Services {
       "address": address,
       "resident_type": residentType
     };
-
+    print(data);
     var res = await CallApi().postData(data, 'createResident');
     var body = jsonDecode(res.body);
+    print(body);
     return body;
   }
 
@@ -155,28 +156,30 @@ class Services {
       businessName,
       staffNumber,
       businessMobileNumber,
-      businessEmail) async {
+      businessEmail, category) async {
     ResidentModel? residentModel = residentData;
     var data = {
-      "resident_code": residentModel!.resident_code,
+      "full_name": residentModel?.usr_full_name,
+      "resident_code": residentModel?.resident_code,
       "firstname": firstName,
       "surname": surname,
       "resident_phone": residentPhone,
       "email": email,
-      "user_group": residentModel.usr_group,
-      "status": residentModel.user_status,
-      "mra_zone": residentModel.zone,
+      "user_group": residentModel?.usr_group,
+      "status": residentModel?.user_status,
+      "mra_zone": residentModel?.zone,
       "resident_type": residentType,
       "address": address,
-      "validity_starts_date": residentModel.validity_starts,
-      "validity_ends_date": residentModel.validity_ends,
-      "street_address": businessAddress,
-      "business_name": businessName,
-      "staff_number": staffNumber,
-      "mobile_number": businessMobileNumber,
-      "business_email": businessEmail,
+      "validity_starts_date": residentModel?.validity_starts,
+      "validity_ends_date": residentModel?.validity_ends,
+      "street_address": businessAddress??'',
+      "business_name": businessName??'',
+      "staff_number": staffNumber??'',
+      "mobile_number": businessMobileNumber??'',
+      "business_email": businessEmail ??'',
+      "category": category
     };
-
+print(data);
     var res = await CallApi().putData(data, 'updateCommercialProfile');
     var body = jsonDecode(res.body);
     return body;
@@ -426,7 +429,7 @@ class Services {
       "validity_end_date": validityEnd,
       "password": password,
       "confirm_password": confirmPassword,
-      "action_user": userGroup
+      "action_user": residentCode
     };
     var res = await CallApi().postData(data, 'createAdmin');
     var body = jsonDecode(res.body);
@@ -439,20 +442,21 @@ class Services {
       address, residentData) async {
     ResidentModel? residentModel = residentData;
     var data = {
-      "resident_code": residentModel!.resident_code,
+      "full_name": residentModel?.usr_full_name,
+      "resident_code": residentModel?.resident_code,
       "firstname": firstName,
       "surname": surname,
       "resident_phone": residentPhone,
       "email": email,
-      "user_group": residentModel.usr_group,
-      "status": residentModel.user_status,
-      "mra_zone": residentModel.zone,
+      "user_group": residentModel?.usr_group,
+      "status": residentModel?.user_status,
+      "mra_zone": residentModel?.zone,
       "resident_type": residentType,
       "address": address,
-      "validity_starts_date": residentModel.validity_starts,
-      "validity_ends_date": residentModel.validity_ends
+      "validity_starts_date": residentModel?.validity_starts,
+      "validity_ends_date": residentModel?.validity_ends
     };
-    var res = await CallApi().postData(data, 'updateResidentProfile');
+    var res = await CallApi().putData(data, 'updateResidentProfile');
     var body = jsonDecode(res.body);
     return body;
   }
@@ -534,6 +538,7 @@ class Services {
     print(data);
     var res = await CallApi().putData(data, 'updateMember');
     var body = jsonDecode(res.body);
+    print(body);
     return body;
   }
 
@@ -598,10 +603,10 @@ class Services {
   }
 
   //42
-  validatePasscode(passcode, userGroup) async {
+  validatePasscode(passcode, userGroup,actionUser) async {
     var data = {
       "passcode": passcode,
-      "action_user": userGroup,
+      "action_user": actionUser,
       "user_group": userGroup
     };
     var res = await CallApi().postData(data, 'validatePasscode');
@@ -642,11 +647,11 @@ class Services {
   //46
   signOutVisitor(
     passcode,
-    userGroup,
+    userGroup,actionUser
   ) async {
     var data = {
       "passcode": passcode,
-      "action_user": userGroup,
+      "action_user": actionUser,
       "user_group": userGroup
     };
     var res = await CallApi().putData(data, 'signOutVisitor');
@@ -669,7 +674,7 @@ class Services {
       "validity_ends": validityEnd,
       "status": status,
       "user_group": userGroup,
-      "action_user": userGroup
+      "action_user": residentCode
     };
     var res = await CallApi().putData(data, 'finalAuthorization');
     var body = jsonDecode(res.body);
@@ -879,5 +884,16 @@ class Services {
     };
     var res = await CallApi().postData(data, 'commercialEventReport');
     return res.body;
+  }
+  contactUs(email,name,subject,message) async {
+    var data = {
+      "email": email,
+      "name": name,
+      "subject": subject,
+      "message": message
+    };
+    var res = await CallApi().postData(data, "contact");
+    var body = jsonDecode(res.body);
+    return body;
   }
 }

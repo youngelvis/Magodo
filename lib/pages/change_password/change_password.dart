@@ -9,6 +9,7 @@ import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_p
 import 'package:magodo/services/services.dart';
 import '../../components/title.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
+
 class ChangePassword extends StatefulWidget {
   ResidentModel? data;
 
@@ -51,10 +52,12 @@ class _ChangePasswordState extends State<ChangePassword> {
       final data = await Services().changePassword(widget.data!.resident_code,
           _currentPassword.text, _newPassword.text, _confirmPassword.text);
       callMessage(data['error']['message']);
+      return;
     }
     final data = await Services().changePassword(widget.data!.resident_code,
         _currentPassword.text, _newPassword.text, _confirmPassword.text);
     callMessage(data['message']);
+    return;
   }
 
   @override
@@ -63,7 +66,9 @@ class _ChangePasswordState extends State<ChangePassword> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h,),
+            padding: EdgeInsets.only(
+              top: 20.h,
+            ),
             child: Column(
               children: [
                 TitleContainer(
@@ -80,8 +85,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                     ),
                     Text(
                       'Change Password',
-                      style:
-                      TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -89,7 +94,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                     ),
                   ],
                 ),
-                 SizedBox(
+                SizedBox(
                   height: 40.h,
                 ),
                 Expanded(
@@ -97,11 +102,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                     child: SingleChildScrollView(
                       child: Form(
                         child: Container(
-                          padding:  EdgeInsets.only( left: 25.w, right: 25.w),
+                          padding: EdgeInsets.only(left: 25.w, right: 25.w),
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-
                                 BuildPasswordTextField(
                                     fieldName: 'Current Password',
                                     passwordController: _currentPassword),

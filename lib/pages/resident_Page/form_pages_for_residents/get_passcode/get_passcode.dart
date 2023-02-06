@@ -25,7 +25,26 @@ TextEditingController _visitorName = TextEditingController();
 
 class _GetPasscodeState extends State<GetPasscode> {
   String? noOfVisitors;
-
+callMessage(message){
+  return showDialog(
+    context: context,
+    builder: (_) => AlertDialog(
+      title: Text(message),
+      actions: [
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: color.AppColor.homePageTheme,
+                onPrimary: color.AppColor.landingPage2,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0))),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text("ok"))
+      ],
+    ),
+  );
+}
   _getPasscode() async {
     if (_visitorName.text.isEmpty ||
         _visitorName.text.isEmpty ||
@@ -34,24 +53,8 @@ class _GetPasscodeState extends State<GetPasscode> {
           _visitorName.text, widget.data?.resident_code, noOfVisitors, '');
       var message = data['error']['message'];
 
-      return showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text(message),
-          actions: [
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: color.AppColor.homePageTheme,
-                    onPrimary: color.AppColor.landingPage2,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0))),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("ok"))
-          ],
-        ),
-      );
+     callMessage(message);
+     return;
     }
     var data = await Services().getPasscode(
         _mobileNumber.text,
@@ -59,35 +62,43 @@ class _GetPasscodeState extends State<GetPasscode> {
         widget.data?.resident_code,
         noOfVisitors,
         _email.text);
+    print(data);
     var message = data['message'];
     _email.clear();
     _mobileNumber.clear();
     _visitorName.clear();
     noOfVisitors = null;
-    return showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(message),
-        actions: [
-          Center(
-            child: SizedBox(
-              width: 200.w,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: color.AppColor.homePageTheme,
-                      onPrimary: color.AppColor.landingPage2,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0))),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder:(context)=>  SendMessagesButtons(response: widget.data,data: data)));
-                  },
-                  child: const Text("Share")),
-            ),
-          )
-        ],
-
-      ),
-    );
+    if(data["code"] == 200) {
+      return showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(message),
+          actions: [
+            Center(
+              child: SizedBox(
+                width: 200.w,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: color.AppColor.homePageTheme,
+                        onPrimary: color.AppColor.landingPage2,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0))),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SendMessagesButtons(
+                                  response: widget.data, data: data)));
+                    },
+                    child: const Text("Share")),
+              ),
+            )
+          ],
+        ),
+      );
+    }
+    callMessage(message);
+    return;
   }
 
   @override

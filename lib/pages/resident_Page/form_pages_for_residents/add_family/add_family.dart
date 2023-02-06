@@ -64,6 +64,7 @@ class _AddFamilyState extends State<AddFamily> {
       var message = data['error']['message'];
 
       callMessage(message);
+      return;
     }
     var data = await Services().addFamilyMember(
         widget.data?.resident_code,

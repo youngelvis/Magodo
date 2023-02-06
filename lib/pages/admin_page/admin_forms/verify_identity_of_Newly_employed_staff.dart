@@ -167,7 +167,7 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
 
   verifyNewStaff() async {
     var data =
-        await Services().verifyStaff(staffGUID, status, widget.data?.usr_group);
+        await Services().verifyStaff(staffGUID, status, widget.data?.resident_code);
     _residentCode.clear();
     _staffName.clear();
     _employmentDate.clear();
@@ -177,7 +177,7 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
   }
 
   declineNewStaff() async {
-    var data = await Services().declineUser(staffGUID, widget.data?.usr_group);
+    var data = await Services().declineUser(staffGUID, widget.data?.resident_code);
     _residentCode.clear();
     _staffName.clear();
     _employmentDate.clear();

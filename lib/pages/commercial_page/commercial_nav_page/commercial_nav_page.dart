@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/commercial_page/commercial_reports/commercial_event_request/commercial_event_records.dart';
 import 'package:magodo/pages/landing_page/welcome_screen.dart';
+import 'package:magodo/pages/login_page/login_page.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/event_request/event_request.dart';
 import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
 import '../../../components/text_button_nav_page.dart';
@@ -69,6 +70,10 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                                         EventRequest(data: widget.data)));
                           }),
                       ExpansionTile(
+                        trailing: const Icon(
+                          Icons.keyboard_arrow_down,
+                          color: Colors.white,
+                        ),
                         title: Row(
                           children: [
                             Icon(
@@ -158,6 +163,10 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                                     )));
                           }),
                   ExpansionTile(
+                    trailing: const Icon(
+                      Icons.keyboard_arrow_down,
+                      color: Colors.white,
+                    ),
                     title: Row(
                       children: [
                         Icon(
@@ -207,7 +216,7 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const WelcomeScreen()));
+                                    builder: (context) => const SignIN()));
                           }),
                     ],
                   ),

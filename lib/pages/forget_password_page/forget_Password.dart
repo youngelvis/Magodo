@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
@@ -33,6 +35,28 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             builder: (context) => const ForgetPasswordFourthPage()));
   }
 
+  callMessage(message) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _navigation();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
+
   _getPassCode() async {
     if (_residentCode.text.isEmpty ||
         _email.text.isEmpty ||
@@ -63,33 +87,16 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     var data = await Services().forgetPasswordGenerateToken(
         _residentCode.text, _email.text, _mobileNumber.text);
 
-    setState(() {
-      response = ForgetPasswordResponse.fromJson(data);
+    var message = data['message'];
+    callMessage(message);
+    Timer(Duration(seconds: 2), () {
+      // <-- Delay here
+      setState(() {
+        _residentCode.clear();
+        _email.clear();
+        _mobileNumber.clear();
+      });
     });
-    if (response?.error == true) {
-      var message = response?.message;
-
-      return showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text(message!),
-          actions: [
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: color.AppColor.homePageTheme,
-                    onPrimary: color.AppColor.landingPage2,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0))),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("ok"))
-          ],
-        ),
-      );
-    } else {
-      _navigation();
-    }
   }
 
   final formKey = GlobalKey<FormState>();
@@ -100,19 +107,17 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
         body: Container(
-          padding:  EdgeInsets.only(top: 60.h, left: 30.w, right: 30.w),
+          padding: EdgeInsets.only(top: 60.h, left: 30.w, right: 30.w),
           color: color.AppColor.homePageBackground,
           child: OverflowBox(
-            
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const ForgetPasswordHeading(), 
+                  const ForgetPasswordHeading(),
                   const SizedBox(
                     height: 20,
                   ),
-                  
                   SingleChildScrollView(
                     child: Column(
                       children: [
@@ -132,18 +137,17 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                               hint: 'Enter your email',
                               nameType: ' E-mail',
                             )),
-
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    ActionPageButton(
-                        onPressed: () async {
-                          await _getPassCode();
-                        },
-                        text: 'Continue'),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        ActionPageButton(
+                            onPressed: () async {
+                              await _getPassCode();
+                            },
+                            text: 'Continue'),
+                        const SizedBox(
+                          height: 20,
+                        ),
                       ],
                     ),
                   ),

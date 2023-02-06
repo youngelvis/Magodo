@@ -5,6 +5,7 @@ import 'package:magodo/pages/commercial_page/commercial_forms/extend_parent_vali
 import 'package:magodo/pages/commercial_page/commercial_forms/register_parent_page/register_parent.dart';
 import 'package:magodo/pages/commercial_page/commercial_reports/commercial_event_request/commercial_event_records.dart';
 import 'package:magodo/pages/landing_page/welcome_screen.dart';
+import 'package:magodo/pages/login_page/login_page.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/event_request/event_request.dart';
 import 'package:magodo/pages/resident_Page/resident_page_landing_page.dart';
 import '../../../components/text_button_nav_page.dart';
@@ -72,6 +73,10 @@ class _CommercialNavPageForSchoolState extends State<CommercialNavPageForSchool>
                                         EventRequest(data: widget.data)));
                           }),
                       ExpansionTile(
+                        trailing: const Icon(
+                          Icons.keyboard_arrow_down,
+                          color: Colors.white,
+                        ),
                         title: Row(
                           children: [
                             Icon(
@@ -162,6 +167,10 @@ class _CommercialNavPageForSchoolState extends State<CommercialNavPageForSchool>
                                     )));
                           }),
                       ExpansionTile(
+                        trailing: const Icon(
+                          Icons.keyboard_arrow_down,
+                          color: Colors.white,
+                        ),
                         title: Row(
                           children: [
                             Icon(
@@ -245,7 +254,7 @@ class _CommercialNavPageForSchoolState extends State<CommercialNavPageForSchool>
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const WelcomeScreen()));
+                                    builder: (context) => const SignIN()));
                           }),
                     ],
                   ),

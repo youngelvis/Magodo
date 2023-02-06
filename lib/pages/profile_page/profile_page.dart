@@ -100,8 +100,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
     final responseBody = response.data;
     print(responseBody);
-    callMessage(responseBody['message']);
-    setState((){});
+    setState(() {
+      getProfile();
+      callMessage(responseBody['message']);
+    });
+
+
     return responseBody;
   }
 
@@ -111,8 +115,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
     var res = await CallApi().getData(url);
     var r = jsonDecode(res.body);
+    imageData = r['data']['file_path'];
     setState(() {
-      imageData = r['data']['file_path'];
+
+
     });
 
     print(r);
@@ -129,6 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
               onTap: () {
                 selectImage();
                 Navigator.of(context).pop();
+
               },
               child: Row(
                 children: [
@@ -244,7 +251,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               left: 52.w,
                               child: RawMaterialButton(
                                 padding: const EdgeInsets.all(5.0),
-                                fillColor: color.AppColor.verifiedColor,
+                                fillColor: color.AppColor.homePageTheme,
                                 shape: const CircleBorder(),
                                 child: const Icon(
                                   Icons.camera_alt_rounded,
