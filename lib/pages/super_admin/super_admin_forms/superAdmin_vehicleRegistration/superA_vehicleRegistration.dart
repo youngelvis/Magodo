@@ -1,28 +1,40 @@
 import 'dart:async';
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:magodo/models/resident_data_model/residentdata.dart';
-import 'package:magodo/models/vehicle_dataModel/vehicledata.dart';
-import 'package:magodo/pages/resident_Page/forms_component/delete_edit_button.dart';
-import 'package:magodo/pages/resident_Page/resident_vehicle/resident_vechicle_card.dart';
+import 'package:magodo/pages/resident_Page/form_pages_for_residents/register_vechicle/update_registration_vehicle.dart';
+import 'package:magodo/pages/super_admin/super_admin_forms/superAdmin_vehicleRegistration/superA_vehicleRegistrationCard.dart';
 import 'package:magodo/services/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '/../../components/components_for_class_of_varable/colors.dart' as color;
-import 'package:magodo/components/roundedTextSearchField.dart';
-import 'package:magodo/components/title.dart';
+import '../../../../components/roundedTextSearchField.dart';
+import '../../../../components/title.dart';
+import '../../../resident_Page/forms_component/delete_edit_button.dart';
+import '/../components/components_for_class_of_varable/colors.dart' as color;
+import '../../../../models/resident_data_model/residentdata.dart';
+import '../../../../models/vehicle_dataModel/superAdminVehicleData.dart';
 
-class ViewVehicleReport extends StatefulWidget {
+class SuperAdminVehicleRegistration extends StatefulWidget {
   ResidentModel? data;
 
-  ViewVehicleReport({Key? key, required this.data}) : super(key: key);
+  SuperAdminVehicleRegistration({Key? key, this.data}) : super(key: key);
 
   @override
-  State<ViewVehicleReport> createState() => _ViewVehicleReportState();
+  State<SuperAdminVehicleRegistration> createState() =>
+      _SuperAdminVehicleRegistrationState();
 }
 
 TextEditingController _searchWords = TextEditingController();
+TextEditingController startDate = TextEditingController();
+TextEditingController startEnd = TextEditingController();
+TextEditingController rfidMin = TextEditingController();
+TextEditingController rfidMax = TextEditingController();
 
-class _ViewVehicleReportState extends State<ViewVehicleReport> {
+class _SuperAdminVehicleRegistrationState
+    extends State<SuperAdminVehicleRegistration> {
+  var zone;
+  var status;
   Timer? debouncer;
 
   @override
@@ -48,7 +60,7 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
 
   int currentPage = 0;
   late int totalPages = 0;
-  List<Vehicle> vehicles = [];
+  List<FetchSuperAdminVehicle> vehicles = [];
   final RefreshController refreshController =
       RefreshController(initialRefresh: true);
 
@@ -62,13 +74,16 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
       }
     }
 
-    var data = await Services().getMemberVehicleReport(
-      widget.data?.resident_code,
-      currentPage,
-      '',
-      _searchWords.text,
-    );
-    final result = vehiclesFromJson(data);
+    var data = await Services().superAdminVehicleReport(
+        startDate: '',
+        startEnd: '',
+        page: currentPage,
+        search: '',
+        status: '',
+        rfidMin: '',
+        rfidMax: "",
+        zone: "");
+    final result = fetchSuperAdminVehiclesFromJson(data);
 
     if (isRefresh) {
       vehicles = result.data;
@@ -81,18 +96,67 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
     return true;
   }
 
+  deleteVehicle({fileName, filePath, residentCode, row_id}) async {
+    const String _url = "http://132.145.231.191/portal/mraLagosApp/api/";
+    const String _apiUrl = 'deleteVehicle';
 
+    FormData formData = FormData.fromMap({
+      'resident_code': residentCode,
+      "row_id": row_id,
+      "file": await MultipartFile.fromFile(filePath, filename: fileName)
+    });
+
+    var dio = Dio();
+    var username = 'test';
+    var password = 'benard@1991';
+    var fullUrl = _url + _apiUrl;
+    String basicAuth =
+        'Basic ${base64.encode(utf8.encode('$username:$password'))}';
+    dio.options.headers["Content-Type"] = 'multipart/form-data';
+    dio.options.headers["authorization"] = basicAuth;
+
+    final response = await dio.post(
+      fullUrl,
+      data: formData,
+    );
+
+    final responseBody = response.data;
+
+    return responseBody;
+  }
+
+  Future _filterFunction() async => debounce(() async {
+        int page = 0;
+        var data = await Services().superAdminVehicleReport(
+            startDate: startDate.text.isEmpty ? '' : startDate.text,
+            startEnd: startEnd.text.isEmpty ? '' : startEnd.text,
+            page: page,
+            search: '',
+            status: status ?? '',
+            rfidMin: rfidMin.text.isEmpty ? '' : rfidMin.text,
+            rfidMax: rfidMax.text.isEmpty ? "" : rfidMax.text,
+            zone: zone ?? "");
+
+        final result = fetchSuperAdminVehiclesFromJson(data);
+        if (result.data.isEmpty) {}
+        setState(() {
+          vehicles = result.data;
+        });
+      });
 
   Future _searchFunction() async => debounce(() async {
         int page = 0;
-        var data = await Services().getMemberVehicleReport(
-          page,
-          widget.data?.resident_code,
-          '',
-          _searchWords.text.toString(),
-        );
+        var data = await Services().superAdminVehicleReport(
+            startDate: '',
+            startEnd: '',
+            page: page,
+            search: _searchWords.text.toString(),
+            status: '',
+            rfidMin: '',
+            rfidMax: "",
+            zone: "");
 
-        final result = vehiclesFromJson(data);
+        final result = fetchSuperAdminVehiclesFromJson(data);
         if (result.data.isEmpty) {}
         setState(() {
           vehicles = result.data;
@@ -133,18 +197,18 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
             ),
             Container(
               color: color.AppColor.residentBody,
-              padding:  EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
+              padding: EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
               child: Column(children: [
                 _buildSearchBar(),
                 const SizedBox(
                   height: 20,
                 ),
                 Row(
-                  children:  [
+                  children: [
                     Text(
                       'View Vehicle Report',
-                      style:
-                          TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -152,7 +216,7 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
                     ),
                   ],
                 ),
-                 SizedBox(
+                SizedBox(
                   height: 20.h,
                 ),
               ]),
@@ -170,7 +234,7 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
                 ),
                 trailing: Text(
                   "Results per page ${vehicles.length}",
-                  style:  TextStyle(fontSize: 16.sp),
+                  style: TextStyle(fontSize: 16.sp),
                 ),
               ),
             ),
@@ -204,23 +268,26 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
                               child: Card(
                             child: Column(
                               children: [
-                                VehicleReportCard(
-                                  mraReceiptNo: vehicle.receiptNo ?? '',
-                                  carMake: vehicle.make ?? '',
-                                  amountPaid: vehicle.amount ?? '',
-                                  vehicleCode: vehicle.vehicleNo ?? '',
-                                  vehicleModel: vehicle.model ?? '',
-                                  vehicleColour: vehicle.color ?? '',
-                                  declineMessage: vehicle.declineMessage ?? '',
-                                  uploadedFile: vehicle.doc ?? '',
-                                  govAgency: vehicle.govAgency ?? '',
-                                  date: vehicle.tstamp ?? '',
-                                  docName: vehicle.docName,
+                                SuperAdminVehicleReportCard(data: vehicle),
+                                DeleteUpdateButton(
+                                  onPressedDeleteButton: () async {
+                                    await deleteVehicle(
+                                        fileName: vehicle.docName,
+                                        filePath: vehicle.doc,
+                                        residentCode: vehicle.residentCode,
+                                        row_id: vehicle.guid);
+                                  },
+                                  onPressedUpdateButton: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                UpdateVehicleRegistration(
+                                                  vehicleData: vehicle,
+                                                  data: widget.data,
+                                                )));
+                                  },
                                 ),
-                                // DeleteUpdateButton(onPressedDeleteButton:  () async{
-                                //   await deleteStaff(vehicle.guid);
-                                // },
-                                // ),
                               ],
                             ),
                           ));

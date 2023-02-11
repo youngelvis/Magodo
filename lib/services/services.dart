@@ -32,7 +32,6 @@ class Services {
     print(data);
     var res = await CallApi().postData(data, 'createResident');
     var body = jsonDecode(res.body);
-    print(body);
     return body;
   }
 
@@ -156,7 +155,8 @@ class Services {
       businessName,
       staffNumber,
       businessMobileNumber,
-      businessEmail, category) async {
+      businessEmail,
+      category) async {
     ResidentModel? residentModel = residentData;
     var data = {
       "full_name": residentModel?.usr_full_name,
@@ -172,14 +172,14 @@ class Services {
       "address": address,
       "validity_starts_date": residentModel?.validity_starts,
       "validity_ends_date": residentModel?.validity_ends,
-      "street_address": businessAddress??'',
-      "business_name": businessName??'',
-      "staff_number": staffNumber??'',
-      "mobile_number": businessMobileNumber??'',
-      "business_email": businessEmail ??'',
+      "street_address": businessAddress ?? '',
+      "business_name": businessName ?? '',
+      "staff_number": staffNumber ?? '',
+      "mobile_number": businessMobileNumber ?? '',
+      "business_email": businessEmail ?? '',
       "category": category
     };
-print(data);
+    print(data);
     var res = await CallApi().putData(data, 'updateCommercialProfile');
     var body = jsonDecode(res.body);
     return body;
@@ -319,7 +319,7 @@ print(data);
       "resident_code": residentCode,
     };
 
-    var res = await CallApi().deleteData(data, 'deleteFamilyMember');
+    var res = await CallApi().deleteData(data, '8FamilyMember');
     var body = jsonDecode(res.body);
     return body;
   }
@@ -603,7 +603,7 @@ print(data);
   }
 
   //42
-  validatePasscode(passcode, userGroup,actionUser) async {
+  validatePasscode(passcode, userGroup, actionUser) async {
     var data = {
       "passcode": passcode,
       "action_user": actionUser,
@@ -645,10 +645,7 @@ print(data);
   }
 
   //46
-  signOutVisitor(
-    passcode,
-    userGroup,actionUser
-  ) async {
+  signOutVisitor(passcode, userGroup, actionUser) async {
     var data = {
       "passcode": passcode,
       "action_user": actionUser,
@@ -885,7 +882,9 @@ print(data);
     var res = await CallApi().postData(data, 'commercialEventReport');
     return res.body;
   }
-  contactUs(email,name,subject,message) async {
+
+  //65
+  contactUs(email, name, subject, message) async {
     var data = {
       "email": email,
       "name": name,
@@ -896,4 +895,167 @@ print(data);
     var body = jsonDecode(res.body);
     return body;
   }
+
+  //66
+  adminVehicleReport(
+      startDate, startEnd, page, search, status, rfidMin, rfidMax, zone) async {
+    var data = {
+      "startDate": startDate,
+      "startEnd": startEnd,
+      "page": page,
+      "limit": "10",
+      "search": search.toString(),
+      "status": status,
+      "rfid_min": rfidMin,
+      "rfid_max": rfidMax,
+      "zone": zone
+    };
+    var res = await CallApi().postData(data, "adminVehicleReport");
+    return res;
+  }
+
+  //67
+  issueRfid(guidId, rfid, userGroup, actionUser) async {
+    var data = {
+      "guid_id": guidId,
+      "rfid": rfid,
+      "user_group": userGroup,
+      "action_user": actionUser
+    };
+    var res = await CallApi().postData(data, "issueRfid");
+    var body = jsonDecode(res.body);
+    return body;
+  }
+
+  //68
+  approveDeclineVehicle(action, actionUser, guidId) async {
+    var data = {"action": action, "action_user": actionUser, "guid_id": guidId};
+    var res = await CallApi().postData(data, "approveDeclineAction");
+    var body = jsonDecode(res.body);
+    return body;
+  }
+
+  //69
+  activateRfid(residentCode, userGroup, actionUser) async {
+    var data = {
+      "resident_code": residentCode,
+      "user_group": userGroup,
+      "action_user": actionUser
+    };
+    var res = await CallApi().postData(data, "activateRfid");
+    var body = jsonDecode(res.body);
+    return body;
+  }
+
+  //70
+  deactivateRfid(residentCode, userGroup, actionUser) async {
+    var data = {
+      "resident_code": residentCode,
+      "user_group": userGroup,
+      "action_user": actionUser
+    };
+    var res = await CallApi().postData(data, "deactivateRfid");
+    var body = jsonDecode(res.body);
+    return body;
+  }
+
+  //71
+  revokeRfid(rfid, userGroup, actionUser) async {
+    var data = {
+      "rfid": rfid,
+      "user_group": userGroup,
+      "action_user": actionUser
+    };
+    var res = await CallApi().postData(data, "revokeRfid");
+    var body = jsonDecode(res.body);
+    return body;
+  }
+
+  //72
+  superAdminVehicleReport(
+      {startDate,
+      startEnd,
+      page,
+      search,
+      status,
+      rfidMin,
+      rfidMax,
+      zone}) async {
+    var data = {
+      "startDate": startDate,
+      "startEnd": startEnd,
+      "page": page,
+      "limit": "10",
+      "search": search.toString(),
+      "status": status,
+      "rfid_min": rfidMin,
+      "rfid_max": rfidMax,
+      "zone": zone
+    };
+    var res = await CallApi().postData(data, "superAdminVehicleReport");
+    return res;
+  }
+
+  //73
+  issueRfidProximityCardNumber(residentCode, cardNumber, actionUser) async {
+    var data = {
+      "resident_code": residentCode,
+      "cardNumber": cardNumber,
+      "actionUser": actionUser
+    };
+    var res = await CallApi().postData(data, "RFIDProximityCard");
+    var body = jsonDecode(res.body);
+    return body;
+  }
+//74
+  activateRfidProximityCardNumber(residentCode, cardNumber, actionUser) async {
+    var data = {
+      "resident_code": residentCode,
+      "cardNumber": cardNumber,
+      "actionUser": actionUser
+    };
+    var res = await CallApi().postData(data, "activateRFIDProximityCard");
+    var body = jsonDecode(res.body);
+    return body;
+  }
+//75
+  deactivateRfidProximityCardNumber(
+      residentCode, cardNumber, actionUser) async {
+    var data = {
+      "resident_code": residentCode,
+      "cardNumber": cardNumber,
+      "actionUser": actionUser
+    };
+    var res = await CallApi().postData(data, "deactivateRFIDProximityCard");
+    var body = jsonDecode(res.body);
+    return body;
+  }
+//76
+  revokeRfidCardNumber(rfid, userGroup, actionUser) async {
+    var data = {
+      "rfid": rfid,
+      "user_group": userGroup,
+      "action_user": actionUser
+    };
+    var res = await CallApi().postData(data, "revokeRFIDCardNumber");
+    var body = jsonDecode(res.body);
+    return body;
+  }
+  //77
+
+rfidProximityCardReport(
+    startDate, startEnd, page, search, ) async {
+  var data = {
+    "startDate": startDate,
+    "endDate": startEnd,
+    "page": page,
+    "limit": "10",
+    "search": search.toString(),
+  };
+  var res = await CallApi().postData(data, "superAdminVehicleReport");
+  return res;
+}
+
+
+
 }

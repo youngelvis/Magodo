@@ -7,9 +7,10 @@ import 'package:magodo/components/text_for_form.dart';
 class BuildVehicleColorDropDownList extends StatefulWidget {
   final vehicleColor;
   final onChanged;
+  final hint;
 
   const BuildVehicleColorDropDownList(
-      {Key? key, required this.vehicleColor, required this.onChanged})
+      {Key? key, required this.vehicleColor, required this.onChanged, this.hint})
       : super(key: key);
 
   @override
@@ -40,8 +41,8 @@ class _BuildVehicleColorDropDownListState
 
   Widget _buildVehicleColor() {
     return RoundedDropDownTextField(
-      hint: const Text(
-        'Select vehicle color',
+      hint:  Text(
+        widget.hint ??'Select vehicle color',
         style: TextStyle(fontSize: 15),
       ),
       value: widget.vehicleColor,
