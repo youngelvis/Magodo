@@ -14,6 +14,7 @@ import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_bulk_passcode/upload_file.dart';
 import 'package:magodo/services/services.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
+import '../../../../components/components_for_class_of_varable/username_password.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 
 class GetBulkPasscode extends StatefulWidget {
@@ -52,8 +53,8 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
     });
 
     var dio = Dio();
-    var username = 'test';
-    var password = 'benard@1991';
+    var username = UsernameAndPassword.API_USERNAME;
+    var password = UsernameAndPassword.API_PASSWORD;
     var fullUrl = _url + _apiUrl;
     String basicAuth =
         'Basic ${base64.encode(utf8.encode('$username:$password'))}';

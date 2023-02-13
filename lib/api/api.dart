@@ -2,13 +2,14 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
+import 'package:magodo/components/components_for_class_of_varable/username_password.dart';
 
 class CallApi {
   final String _url = "http://132.145.231.191/portal/mraLagosApp/api/";
 
   Future<dynamic> postData(data, apiUrl) async {
-    var username = 'test';
-    var password = 'benard@1991';
+    var username = UsernameAndPassword.API_USERNAME;
+    var password = UsernameAndPassword.API_PASSWORD;
     var fullUrl = _url + apiUrl;
     String basicAuth =
         'Basic ${base64.encode(utf8.encode('$username:$password'))}';
@@ -31,8 +32,8 @@ class CallApi {
   }
 
   Future<dynamic> putData(data, apiUrl) async {
-    var username = 'test';
-    var password = 'benard@1991';
+    var username = UsernameAndPassword.API_USERNAME;
+    var password = UsernameAndPassword.API_PASSWORD;
     var fullUrl = _url + apiUrl;
     String basicAuth =
         'Basic ${base64.encode(utf8.encode('$username:$password'))}';
@@ -55,8 +56,8 @@ class CallApi {
   }
 
   Future<dynamic> getData( apiUrl) async {
-    var username = 'test';
-    var password = 'benard@1991';
+    var username = UsernameAndPassword.API_USERNAME;
+    var password = UsernameAndPassword.API_PASSWORD;
     var fullUrl = _url + apiUrl;
     String basicAuth =
         'Basic ${base64.encode(utf8.encode('$username:$password'))}';
@@ -79,8 +80,8 @@ class CallApi {
   }
 
   Future<dynamic> deleteData(data, apiUrl) async {
-    var username = 'test';
-    var password = 'benard@1991';
+    var username = UsernameAndPassword.API_USERNAME;
+    var password = UsernameAndPassword.API_PASSWORD;
     var fullUrl = _url + apiUrl;
     String basicAuth =
         'Basic ${base64.encode(utf8.encode('$username:$password'))}';

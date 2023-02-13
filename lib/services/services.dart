@@ -36,8 +36,7 @@ class Services {
   }
 
 //3
-  registerCommercial(
-      password,
+  registerCommercial(password,
       surname,
       firstname,
       email,
@@ -76,11 +75,9 @@ class Services {
   }
 
 //4
-  Future<dynamic> viewSentPasscodeReport(
-    page,
-    residentCode,
-    search,
-  ) async {
+  Future<dynamic> viewSentPasscodeReport(page,
+      residentCode,
+      search,) async {
     var data = {
       "page": page,
       "limit": "10",
@@ -123,13 +120,11 @@ class Services {
   }
 
   //7
-  getPasscode(
-    sendMsisdn,
-    visitorName,
-    residentCode,
-    numberVisitor,
-    email,
-  ) async {
+  getPasscode(sendMsisdn,
+      visitorName,
+      residentCode,
+      numberVisitor,
+      email,) async {
     var data = {
       "msisdn": sendMsisdn,
       "visitor_name": visitorName,
@@ -143,8 +138,7 @@ class Services {
   }
 
   //9
-  updateCommercialProfile(
-      firstName,
+  updateCommercialProfile(firstName,
       surname,
       residentPhone,
       email,
@@ -222,10 +216,8 @@ class Services {
   }
 
   //11
-  doNotHonor(
-    passcode,
-    isChecked,
-  ) async {
+  doNotHonor(passcode,
+      isChecked,) async {
     var data = {
       "passcode": passcode,
       "isChecked": isChecked,
@@ -386,8 +378,8 @@ class Services {
   }
 
   //27
-  changePassword(
-      residentCode, currentPassword, newPassword, newConfirmPassword) async {
+  changePassword(residentCode, currentPassword, newPassword,
+      newConfirmPassword) async {
     var data = {
       "resident_code": residentCode,
       "current_password": currentPassword,
@@ -401,8 +393,7 @@ class Services {
   }
 
   //28
-  addNewAdministrativeUser(
-      residentCode,
+  addNewAdministrativeUser(residentCode,
       residentPhone,
       surname,
       firstName,
@@ -508,8 +499,7 @@ class Services {
 
   //35
 
-  updateResidentMember(
-      residentCode,
+  updateResidentMember(residentCode,
       residentPhone,
       firstname,
       surname,
@@ -544,8 +534,8 @@ class Services {
 
   //36
 
-  requestEvent(
-      residentCode, population, scheduleDate, scheduleTime, eventType) async {
+  requestEvent(residentCode, population, scheduleDate, scheduleTime,
+      eventType) async {
     final data = {
       "resident_code": residentCode,
       "population": population,
@@ -658,13 +648,11 @@ class Services {
 
   //47
 
-  finalAuthorization(
-    residentCode,
-    validityStart,
-    validityEnd,
-    status,
-    userGroup,
-  ) async {
+  finalAuthorization(residentCode,
+      validityStart,
+      validityEnd,
+      status,
+      userGroup,) async {
     var data = {
       "resident_code": residentCode,
       "validity_starts": validityStart,
@@ -897,8 +885,8 @@ class Services {
   }
 
   //66
-  adminVehicleReport(
-      startDate, startEnd, page, search, status, rfidMin, rfidMax, zone) async {
+  adminVehicleReport(startDate, startEnd, page, search, status, rfidMin,
+      rfidMax, zone) async {
     var data = {
       "startDate": startDate,
       "startEnd": startEnd,
@@ -911,11 +899,11 @@ class Services {
       "zone": zone
     };
     var res = await CallApi().postData(data, "adminVehicleReport");
-    return res;
+    return res.body;
   }
 
   //67
-  issueRfid(guidId, rfid, userGroup, actionUser) async {
+  issueRfid({guidId, rfid, userGroup, actionUser}) async {
     var data = {
       "guid_id": guidId,
       "rfid": rfid,
@@ -930,13 +918,14 @@ class Services {
   //68
   approveDeclineVehicle(action, actionUser, guidId) async {
     var data = {"action": action, "action_user": actionUser, "guid_id": guidId};
+    print(data);
     var res = await CallApi().postData(data, "approveDeclineAction");
     var body = jsonDecode(res.body);
     return body;
   }
 
   //69
-  activateRfid(residentCode, userGroup, actionUser) async {
+  activateRfid({residentCode, userGroup, actionUser}) async {
     var data = {
       "resident_code": residentCode,
       "user_group": userGroup,
@@ -948,7 +937,7 @@ class Services {
   }
 
   //70
-  deactivateRfid(residentCode, userGroup, actionUser) async {
+  deactivateRfid({residentCode, userGroup, actionUser}) async {
     var data = {
       "resident_code": residentCode,
       "user_group": userGroup,
@@ -960,7 +949,7 @@ class Services {
   }
 
   //71
-  revokeRfid(rfid, userGroup, actionUser) async {
+  revokeRfid({rfid, userGroup, actionUser}) async {
     var data = {
       "rfid": rfid,
       "user_group": userGroup,
@@ -972,18 +961,17 @@ class Services {
   }
 
   //72
-  superAdminVehicleReport(
-      {startDate,
-      startEnd,
-      page,
-      search,
-      status,
-      rfidMin,
-      rfidMax,
-      zone}) async {
+  superAdminVehicleReport({startDate,
+    startEnd,
+    page,
+    search,
+    status,
+    rfidMin,
+    rfidMax,
+    zone}) async {
     var data = {
       "startDate": startDate,
-      "startEnd": startEnd,
+      "endDate": startEnd,
       "page": page,
       "limit": "10",
       "search": search.toString(),
@@ -992,8 +980,11 @@ class Services {
       "rfid_max": rfidMax,
       "zone": zone
     };
+    print("this is $data");
     var res = await CallApi().postData(data, "superAdminVehicleReport");
-    return res;
+
+    return res.body;
+
   }
 
   //73
@@ -1007,6 +998,7 @@ class Services {
     var body = jsonDecode(res.body);
     return body;
   }
+
 //74
   activateRfidProximityCardNumber(residentCode, cardNumber, actionUser) async {
     var data = {
@@ -1018,9 +1010,10 @@ class Services {
     var body = jsonDecode(res.body);
     return body;
   }
+
 //75
-  deactivateRfidProximityCardNumber(
-      residentCode, cardNumber, actionUser) async {
+  deactivateRfidProximityCardNumber(residentCode, cardNumber,
+      actionUser) async {
     var data = {
       "resident_code": residentCode,
       "cardNumber": cardNumber,
@@ -1030,6 +1023,7 @@ class Services {
     var body = jsonDecode(res.body);
     return body;
   }
+
 //76
   revokeRfidCardNumber(rfid, userGroup, actionUser) async {
     var data = {
@@ -1041,21 +1035,48 @@ class Services {
     var body = jsonDecode(res.body);
     return body;
   }
+
   //77
 
-rfidProximityCardReport(
-    startDate, startEnd, page, search, ) async {
-  var data = {
-    "startDate": startDate,
-    "endDate": startEnd,
-    "page": page,
-    "limit": "10",
-    "search": search.toString(),
-  };
-  var res = await CallApi().postData(data, "superAdminVehicleReport");
-  return res;
-}
+  rfidProximityCardReport(startDate, startEnd, page, search,) async {
+    var data = {
+      "startDate": startDate,
+      "endDate": startEnd,
+      "page": page,
+      "limit": "10",
+      "search": search.toString(),
+    };
+    var res = await CallApi().postData(data, "superAdminVehicleReport");
+    return res;
+  }
 
+//78
+  deleteVehicle(residentCode, guid) async {
+    var data = {
+      "resident_code": residentCode,
+      "row_id": guid
+    };
+    var res = await CallApi().deleteData(data, "deleteVehicle");
+    var body = jsonDecode(res.body);
+    return body;
+  }
 
+  declineReason(
+      {fullName, msisdn, email, guid, message, userGroup, actionUser}) async {
+    var data = {
+      "full_name": fullName,
+      "msisdn": msisdn,
+      "email": email,
+      "guid_id": guid,
+      "message": message,
+      "user_group": userGroup,
+      "action_user": actionUser
+    };
+    print(data);
+    var res = await CallApi().postData(data, "vechicleDeclineReason");
+    var body = jsonDecode(res.body);
+    return body;
+
+  }
 
 }

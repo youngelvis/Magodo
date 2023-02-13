@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import '../../../../components/components_for_class_of_varable/userGroup.dart';
+import '../../../../components/components_for_class_of_varable/username_password.dart';
 import '../../../super_admin/super_admin_component/searchableDropDownList_UM.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:dio/dio.dart';
@@ -39,48 +40,82 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
   var filename;
   var file;
   var filePath;
+  var residentcode;
 
   Future selectFile() async {
     file = await Services().selectFile();
     filename = file['fileName'];
     filePath = file['path'];
+    setState(() {});
   }
 
   registerVehicle() async {
     const String _url = "http://132.145.231.191/portal/mraLagosApp/api/";
     const String _apiUrl = 'vehicleRegistration';
     FormData formData;
-    if (filename == null && filePath == null) {
-      formData = FormData.fromMap({
-        'resident_code': widget.data?.resident_code,
-        'make': _vehicleMake.text,
-        'model': _vehicleModel.text,
-        'color': colour,
-        "gov_agency": _govtAgency.text,
-        "reg_no": _registrationNumber.text,
-        "vehicle_no": _vehicleCode.text.isEmpty ? '' : _vehicleCode.text,
-        "receipt_no": _duesReceiptNo.text,
-        "amount": _amountPaid.text,
-        "action_user": widget.data?.resident_code,
-      });
+
+    if (widget.data?.usr_group == UserGroup.MEMBER) {
+      if (filename == null && filePath == null) {
+        formData = FormData.fromMap({
+          'resident_code': widget.data?.resident_code,
+          'make': _vehicleMake.text,
+          'model': _vehicleModel.text,
+          'color': colour,
+          "gov_agency": _govtAgency.text,
+          "reg_no": _registrationNumber.text,
+          "vehicle_no": _vehicleCode.text.isEmpty ? '' : _vehicleCode.text,
+          "receipt_no": _duesReceiptNo.text,
+          "amount": _amountPaid.text,
+          "action_user": widget.data?.resident_code,
+        });
+      } else {
+        formData = FormData.fromMap({
+          'resident_code': widget.data?.resident_code,
+          'make': _vehicleMake.text,
+          'model': _vehicleModel.text,
+          'color': colour,
+          "gov_agency": _govtAgency.text,
+          "reg_no": _registrationNumber.text,
+          "vehicle_no": _vehicleCode.text.isEmpty ? '' : _vehicleCode.text,
+          "receipt_no": _duesReceiptNo.text,
+          "amount": _amountPaid.text,
+          "action_user": widget.data?.resident_code,
+          "file": await MultipartFile.fromFile(filePath, filename: filename)
+        });
+      }
     } else {
-      formData = FormData.fromMap({
-        'resident_code': widget.data?.resident_code,
-        'make': _vehicleMake.text,
-        'model': _vehicleModel.text,
-        'color': colour,
-        "gov_agency": _govtAgency.text,
-        "reg_no": _registrationNumber.text,
-        "vehicle_no": _vehicleCode.text.isEmpty ? '' : _vehicleCode.text,
-        "receipt_no": _duesReceiptNo.text,
-        "amount": _amountPaid.text,
-        "action_user": widget.data?.resident_code,
-        "file": await MultipartFile.fromFile(filePath, filename: filename)
-      });
+      if (filename == null && filePath == null) {
+        formData = FormData.fromMap({
+          'resident_code': residentcode,
+          'make': _vehicleMake.text,
+          'model': _vehicleModel.text,
+          'color': colour,
+          "gov_agency": _govtAgency.text,
+          "reg_no": _registrationNumber.text,
+          "vehicle_no": _vehicleCode.text.isEmpty ? '' : _vehicleCode.text,
+          "receipt_no": _duesReceiptNo.text,
+          "amount": _amountPaid.text,
+          "action_user": widget.data?.resident_code,
+        });
+      } else {
+        formData = FormData.fromMap({
+          'resident_code': residentcode,
+          'make': _vehicleMake.text,
+          'model': _vehicleModel.text,
+          'color': colour,
+          "gov_agency": _govtAgency.text,
+          "reg_no": _registrationNumber.text,
+          "vehicle_no": _vehicleCode.text.isEmpty ? '' : _vehicleCode.text,
+          "receipt_no": _duesReceiptNo.text,
+          "amount": _amountPaid.text,
+          "action_user": widget.data?.resident_code,
+          "file": await MultipartFile.fromFile(filePath, filename: filename)
+        });
+      }
     }
     var dio = Dio();
-    var username = 'test';
-    var password = 'benard@1991';
+    var username = UsernameAndPassword.API_USERNAME;
+    var password = UsernameAndPassword.API_PASSWORD;
     var fullUrl = _url + _apiUrl;
     String basicAuth =
         'Basic ${base64.encode(utf8.encode('$username:$password'))}';
@@ -116,6 +151,11 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
         ],
       ),
     );
+  }
+
+  onChange(String? s) async {
+    var residentCode = s?.split("- ");
+    residentcode = residentCode?[0];
   }
 
   _registerNewVehicle() async {
@@ -208,6 +248,7 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                               children: [
                                 widget.data?.usr_group == UserGroup.SUPER_ADMIN
                                     ? SearchableDropDownListForFetchMember(
+                                        onChange: onChange,
                                         data: widget.data,
                                       )
                                     : const Text(''),
@@ -244,7 +285,21 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                                     controller: _amountPaid,
                                     fieldName: 'Amount Paid (₦)',
                                     hintText: 'Enter amount paid'),
-                                const TextForForm(text: 'Upload'),
+                                Row(
+                                  children: [
+                                    const TextForForm(text: 'Upload'),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    Flexible(
+                                      child: Text(
+                                        filename ?? '',
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: true,
+                                      ),
+                                    )
+                                  ],
+                                ),
                                 SizedBox(
                                     height: 140,
                                     width: MediaQuery.of(context).size.width,

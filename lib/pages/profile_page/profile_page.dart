@@ -15,6 +15,7 @@ import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/pages/profile_page/edit_profile/edit_profile.dart';
 import 'package:magodo/pages/settings_page/settings.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
+import '../../components/components_for_class_of_varable/username_password.dart';
 
 class ProfilePage extends StatefulWidget {
   ResidentModel? data;
@@ -85,8 +86,8 @@ class _ProfilePageState extends State<ProfilePage> {
       "resident_code": widget.data?.resident_code
     });
     var dio = Dio();
-    var username = 'test';
-    var password = 'benard@1991';
+    var username = UsernameAndPassword.API_USERNAME;
+    var password = UsernameAndPassword.API_PASSWORD;
     var fullUrl = _url + _apiUrl;
     String basicAuth =
         'Basic ${base64.encode(utf8.encode('$username:$password'))}';

@@ -8,6 +8,8 @@ import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_passcode
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/register_vechicle/register_vechicle.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/breakdown_summary/breakdown_summary.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/movement_register/movement_register.dart';
+import 'package:magodo/pages/super_admin/super_admin_forms/superAdmin_vehicleRegistration/superA_vehicleRegistration.dart';
+import 'package:magodo/pages/super_admin/super_admin_forms/superAdmin_vehicleRegistration/superA_vehicleRegistrationCard.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/view_member/view_member.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/view_member_staff/view_member_staff.dart';
 import '../../profile_page/edit_profile/edit_profile.dart';
@@ -207,6 +209,18 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               ),
                               onTap: () {
                                 navigateToPage(MovementRegister(
+                                  data: widget.data,
+                                ));
+                              }),
+                          ListTile(
+                              title: Text(
+                                'Vehicle Record',
+                                style: TextStyle(
+                                    fontSize: 15.sp,
+                                    color: color.AppColor.landingPage2),
+                              ),
+                              onTap: () {
+                                navigateToPage(SuperAdminVehicleReport(
                                   data: widget.data,
                                 ));
                               }),

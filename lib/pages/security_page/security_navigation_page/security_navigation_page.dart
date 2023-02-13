@@ -170,7 +170,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                     children: [
                       ListTile(
                           title: Text(
-                            'View Passcode',
+                            'Passcode Report',
                             style: TextStyle(
                                 fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),
@@ -182,7 +182,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                           }),
                       ListTile(
                           title: Text(
-                            'View parent Records',
+                            'parent Report',
                             style: TextStyle(
                                 fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),
@@ -194,7 +194,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                           }),
                       ListTile(
                           title: Text(
-                            'View Staff Records',
+                            'Staff Report',
                             style: TextStyle(
                                 fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),
@@ -206,7 +206,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                           }),
                       ListTile(
                           title: Text(
-                            'View Resident Records',
+                            'Resident Report',
                             style: TextStyle(
                                 fontSize: 15.sp,
                                 color: color.AppColor.landingPage2),

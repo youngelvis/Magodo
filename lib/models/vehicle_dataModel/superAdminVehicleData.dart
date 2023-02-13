@@ -38,6 +38,7 @@ class FetchSuperAdminVehicles {
 
 class FetchSuperAdminVehicle {
   FetchSuperAdminVehicle({
+    required this.email,
     required this.residentCode,
     required this.surname,
     required this.firstname,
@@ -65,6 +66,7 @@ class FetchSuperAdminVehicle {
     required this.rowNumber,
   });
 
+  String? email;
   String? residentCode;
   String? surname;
   String? firstname;
@@ -93,6 +95,7 @@ class FetchSuperAdminVehicle {
 
   factory FetchSuperAdminVehicle.fromJson(Map<String, dynamic> json) =>
       FetchSuperAdminVehicle(
+        email: json["EMAIL"],
         residentCode: json["RESIDENT_CODE"],
         surname: json["SURNAME"],
         firstname: json["FIRSTNAME"],
@@ -121,6 +124,7 @@ class FetchSuperAdminVehicle {
       );
 
   Map<String, dynamic> toJson() => {
+        "EMAIL": email,
         "RESIDENT_CODE": residentCode,
         "SURNAME": surname,
         "FIRSTNAME": firstname,

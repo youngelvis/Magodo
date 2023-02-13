@@ -21,4 +21,7 @@ class AppColor {
   static Color contactUs = const Color(0xFFAAE0C1);
   static Color ourServices = const Color(0xFFCA9F00);
   static Color faq = const Color(0xFF83B2F1);
+  static Color revokedAccess = const Color(0xFF2490FF);
+  static Color activate = const Color(0xFF175E91);
+  static Color deactivate = const Color(0xFFF9A501);
 }
