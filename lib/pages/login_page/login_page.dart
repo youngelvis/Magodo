@@ -215,7 +215,7 @@ callMessage(message){
                           builder: (context) => const WelcomeScreen()));},
                       child: Row(
                         children: [
-                          const Icon(Icons.arrow_left , size: 30,),
+                         Icon(Icons.home_outlined , size: 25,color: color.AppColor.homeSecondaryTheme ,),
                           Text('Home', style: TextStyle( fontWeight: FontWeight.bold,
                           color: color.AppColor.homeSecondaryTheme ),)
                         ],

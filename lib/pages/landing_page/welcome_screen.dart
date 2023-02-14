@@ -42,7 +42,7 @@ class WelcomeScreen extends StatelessWidget {
                               ),
 
                               SizedBox(
-                                height: 70.h
+                                height: 120.h
                               ),
                               Container(
                                 width: 350.w,
@@ -82,12 +82,12 @@ class WelcomeScreen extends StatelessWidget {
               ),
                Positioned(
                 top: 140.h,
-                width: 410.w,
+                width: 300.w,
                 height: 600.h,
-                left: 10.w,
+                left: 52.w,
                 child: const Center(
                   child: Image(
-                    image: AssetImage('assets/house_PNG7.png'),
+                    image: AssetImage('assets/logo.png'),
                   ),
                 ),
               ),
@@ -105,7 +105,19 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
+              Positioned(
+                left: 135.w,
+                top:660.h,
+                child: Text(
+                  'Phase II',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 25.0.sp,
+                    letterSpacing: 1.5.sp,
+                    color: color.AppColor.landingPageTitle,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

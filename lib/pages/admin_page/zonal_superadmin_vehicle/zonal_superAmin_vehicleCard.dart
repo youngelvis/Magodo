@@ -1,40 +1,25 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
-
-import 'dart:async';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
+import 'package:magodo/models/vehicle_dataModel/zonalSuperAdminVehicleData.dart';
 import 'package:magodo/pages/settings_page/web_view.dart';
 import 'package:magodo/services/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../components/app_page_theme_action_button.dart';
 import '../../../../components/text_for_form.dart';
-import '../../../../components/textfields_types/name_textfield.dart';
 import '../../../../models/resident_data_model/residentdata.dart';
-import '../../../../models/vehicle_dataModel/superAdminVehicleData.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 
-class SuperAdminVehicleReportCard extends StatefulWidget {
+class ZonalSuperAdminVehicleCard extends StatefulWidget {
   Function function;
   ResidentModel? data;
-  FetchSuperAdminVehicle vehicle;
-
-  SuperAdminVehicleReportCard(
-      {Key? key, required this.vehicle, this.data, required this.function})
-      : super(key: key);
+ FetchZonalSuperAdminVehicle vehicle;
+  ZonalSuperAdminVehicleCard({Key? key, required this.function, required this.vehicle, this.data}) : super(key: key);
 
   @override
-  State<SuperAdminVehicleReportCard> createState() =>
-      _SuperAdminVehicleReportCardState();
+  State<ZonalSuperAdminVehicleCard> createState() => _ZonalSuperAdminVehicleCardState();
 }
-
-TextEditingController rfid = TextEditingController();
 TextEditingController _message = TextEditingController();
-
-class _SuperAdminVehicleReportCardState
-    extends State<SuperAdminVehicleReportCard> {
+class _ZonalSuperAdminVehicleCardState extends State<ZonalSuperAdminVehicleCard> {
   callMessage(message) {
     return showDialog(
       context: context,
@@ -56,6 +41,77 @@ class _SuperAdminVehicleReportCardState
     );
   }
 
+  openFile() async {
+    print(widget.vehicle.doc);
+    var url = widget.vehicle.doc ?? '';
+
+    if (url.contains('.doc') || url.contains('.dox')) {
+      final uri = Uri.parse(url);
+      launchUrl(uri, mode: LaunchMode.externalApplication);
+      return;
+    }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MobileWebView(data: widget.vehicle.doc)));
+  }
+
+  final eventDecisionOptions2 = [
+    'Actions',
+    'Approved',
+    'Declined',
+    'Declined Reason'
+  ];
+var selectedValue;
+  _buildEventDecision2() {
+    selectedValue = eventDecisionOptions2[0];
+    return DropdownButtonHideUnderline(
+      child: DropdownButton<String>(
+        value: selectedValue,
+        icon: const Icon(Icons.arrow_drop_down),
+        iconSize: 24,
+        elevation: 16,
+        style: const TextStyle(
+          color: Colors.white,
+        ),
+        onChanged: (String? newValue) {
+          if (newValue == 'Declined Reason') {
+            declineReasonForm();
+          } else if (newValue == 'Approved') {
+            approveDecline(newValue);
+          } else if (newValue == "Declined") {
+            popMessage(newValue);
+          }
+        },
+        items:
+        eventDecisionOptions2.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+              value: value,
+              child: value == 'Actions'
+                  ? Text(
+                value,
+                style: TextStyle(color: color.AppColor.homePageTitle),
+              )
+                  : Container(
+                  decoration: BoxDecoration(
+                      color: value == 'Approved'
+                          ? color.AppColor.verifiedColor
+                          : value == 'Declined'
+                          ? color.AppColor.decline
+                          : color.AppColor.card,
+
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(6.0)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Text(
+                      value,
+                    ),
+                  )));
+        }).toList(),
+      ),
+    );
+  }
   _buildMessageBox() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,173 +239,6 @@ class _SuperAdminVehicleReportCardState
     );
   }
 
-  issueRfid() async {
-    var data = await Services().issueRfid(
-        guidId: widget.vehicle.guid,
-        rfid: rfid.text,
-        userGroup: widget.data?.usr_group,
-        actionUser: widget.data?.resident_code);
-    if(rfid.text.isEmpty){
-      var message = data['error']['message'];
-      callMessage(message);
-      return;
-    }
-    var message =  data['message'];
-    callMessage(message);
-    widget.function();
-    rfid.clear();
-  }
-
-  revokeRfid() async {
-    var data = await Services().revokeRfid(
-        rfid: widget.vehicle.rfid,
-        userGroup: widget.data?.usr_group,
-        actionUser: widget.data?.resident_code);
-    var message =  data['message'];
-    callMessage(message);
-    widget.function();
-
-  }
-
-  activateRfid() async {
-    var data = await Services().activateRfid(
-        residentCode: widget.vehicle.residentCode,
-        userGroup: widget.data?.usr_group,
-        actionUser: widget.data?.resident_code);
-    callMessage(data['message']);
-    widget.function();
-  }
-
-  deactivateRfid() async {
-    var data = await Services().deactivateRfid(
-        residentCode: widget.vehicle.residentCode,
-        userGroup: widget.data?.usr_group,
-        actionUser: widget.data?.resident_code);
-    callMessage(data['message']);
-    widget.function();
-  }
-
-  issueRfidForm() {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: const Center(child: Text('Issue RFID')),
-        content: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextForForm(text: widget.vehicle.fullName),
-              NameTextField(
-                  controller: rfid, hint: "Enter RFID", nameType: "RFID"),
-              SizedBox(
-                height: 20.h,
-              ),
-              ActionPageButton(
-                  onPressed: () async {
-                    Navigator.of(context).pop();
-                    issueRfid();
-                  },
-                  text: 'Issue Rfid'),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  openFile() async {
-    print(widget.vehicle.doc);
-    var url = widget.vehicle.doc ?? '';
-
-    if (url.contains('.doc') || url.contains('.dox')) {
-      final uri = Uri.parse(url);
-      launchUrl(uri, mode: LaunchMode.externalApplication);
-      return;
-    }
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => MobileWebView(data: widget.vehicle.doc)));
-  }
-
-  String? eventDecision;
-  final eventDecisionOptions = [
-    'Actions',
-    'Approved',
-    'Declined',
-    'Declined Reason',
-    'Issue RFID',
-    'Revoke RFID',
-    'Activate',
-    'Deactivate'
-  ];
-  String? selectedValue;
-
-  _buildEventDecision() {
-    selectedValue = eventDecisionOptions[0];
-    return DropdownButtonHideUnderline(
-      child: DropdownButton<String>(
-        value: selectedValue,
-        icon: const Icon(Icons.arrow_drop_down),
-        iconSize: 24,
-        elevation: 16,
-        style: const TextStyle(
-          color: Colors.white,
-        ),
-        onChanged: (String? newValue) {
-          if (newValue == 'Issue RFID') {
-            issueRfidForm();
-          } else if (newValue == 'Declined Reason') {
-            declineReasonForm();
-          } else if (newValue == 'Approved') {
-            approveDecline(newValue);
-          } else if (newValue == 'Revoke RFID') {
-            revokeRfid();
-          } else if (newValue == 'Activate') {
-            activateRfid();
-          } else if (newValue == 'Deactivate') {
-            deactivateRfid();
-          } else if (newValue == "Declined") {
-            popMessage(newValue);
-          }
-        },
-        items:
-            eventDecisionOptions.map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-              value: value,
-              child: value == 'Actions'
-                  ? Text(
-                      value,
-                      style: TextStyle(color: color.AppColor.homePageTitle),
-                    )
-                  : Container(
-                      decoration: BoxDecoration(
-                          color: value == 'Approved'
-                              ? color.AppColor.verifiedColor
-                              : value == 'Declined'
-                                  ? color.AppColor.decline
-                                  : value == 'Declined Reason'
-                                      ? color.AppColor.card
-                                      : value == 'Issue RFID'
-                                          ? color.AppColor.homePageTheme
-                                          : value == 'Revoke RFID'
-                                              ? color.AppColor.revokedAccess
-                                              : value == 'Activate'
-                                                  ? color.AppColor.activate
-                                                  : color.AppColor.deactivate,
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(6.0)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: Text(
-                          value,
-                        ),
-                      )));
-        }).toList(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -372,8 +261,8 @@ class _SuperAdminVehicleReportCardState
                   color: widget.vehicle.status == 'Approved'
                       ? color.AppColor.verifiedColor
                       : widget.vehicle.status == 'Unapproved'
-                          ? color.AppColor.homePageTheme
-                          : color.AppColor.decline,
+                      ? color.AppColor.homePageTheme
+                      : color.AppColor.decline,
                   border: Border.all(color: Colors.white),
                   borderRadius: BorderRadius.circular(6.0)),
               child: Padding(
@@ -386,7 +275,7 @@ class _SuperAdminVehicleReportCardState
                     )),
               ),
             ),
-            trailing: _buildEventDecision(),
+            trailing: _buildEventDecision2(),
           ),
           ListTile(
             title: const Text("Surname"),
@@ -412,10 +301,10 @@ class _SuperAdminVehicleReportCardState
             title: const Text('Mobile Number'),
             trailing: Text(widget.vehicle.msisdn ?? ''),
           ),
-          ListTile(
-            title: const Text('Email'),
-            trailing: Text(widget.vehicle.email ?? ''),
-          ),
+          // ListTile(
+          //   title: const Text('Email'),
+          //   trailing: Text(widget.vehicle.email ?? ''),
+          // ),
           ListTile(
             title: const Text("MRA dues receipt No"),
             trailing: Text(widget.vehicle.receiptNo ?? ''),

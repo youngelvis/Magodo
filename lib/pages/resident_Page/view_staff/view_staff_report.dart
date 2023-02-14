@@ -200,10 +200,6 @@ class _ViewStaffMembersState extends State<ViewStaffMembers> {
               color: color.AppColor.residentBody,
               padding: EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
               child: Column(children: [
-                _buildSearchBar(),
-                SizedBox(
-                  height: 20.h,
-                ),
                 Row(
                   children: [
                     Text(
@@ -220,6 +216,11 @@ class _ViewStaffMembersState extends State<ViewStaffMembers> {
                 SizedBox(
                   height: 20.h,
                 ),
+                _buildSearchBar(),
+                SizedBox(
+                  height: 20.h,
+                ),
+
               ]),
             ),
             const Divider(

@@ -201,10 +201,6 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
                 color: color.AppColor.residentBody,
                 padding:  EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
                 child: Column(children: [
-                  _buildSearchBar(),
-                   SizedBox(
-                    height: 20.h,
-                  ),
                   Row(
                     children:  [
                       Text(
@@ -212,7 +208,7 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
                         style: TextStyle(
                             fontSize: 25.sp, fontWeight: FontWeight.bold),
                       ),
-                     const Icon(
+                      const Icon(
                         Icons.keyboard_arrow_down_outlined,
                         size: 15,
                       ),
@@ -221,6 +217,11 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
                   SizedBox(
                     height: 20.h,
                   ),
+                  _buildSearchBar(),
+                   SizedBox(
+                    height: 20.h,
+                  ),
+
                 ]),
               ),
               const Divider(

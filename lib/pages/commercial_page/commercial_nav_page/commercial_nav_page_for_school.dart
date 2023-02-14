@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
@@ -145,7 +146,7 @@ class _CommercialNavPageForSchoolState extends State<CommercialNavPageForSchool>
                                     )));
                           }),
                       NavTextButton(
-                          icon: Icons.shopping_bag,
+                          icon: CupertinoIcons.chat_bubble_2_fill,
                           text: 'Get Bulk Passcode',
                           onPressed: () {
                             Navigator.push(
@@ -156,7 +157,7 @@ class _CommercialNavPageForSchoolState extends State<CommercialNavPageForSchool>
                                     )));
                           }),
                       NavTextButton(
-                          icon: Icons.shopping_bag,
+                          icon: CupertinoIcons.clock,
                           text: 'Get Future Passcode',
                           onPressed: () {
                             Navigator.push(
@@ -202,7 +203,7 @@ class _CommercialNavPageForSchoolState extends State<CommercialNavPageForSchool>
                               }),
                           ListTile(
                               title: Text(
-                                'Event Passcode Record',
+                                'Event Report',
                                 style: TextStyle(
                                     fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
@@ -214,7 +215,7 @@ class _CommercialNavPageForSchoolState extends State<CommercialNavPageForSchool>
                               }),
                           ListTile(
                               title: Text(
-                                'Parent Records',
+                                'Parent Report',
                                 style: TextStyle(
                                     fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),

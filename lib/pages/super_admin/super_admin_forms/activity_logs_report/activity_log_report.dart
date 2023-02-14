@@ -153,10 +153,6 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
                 color: color.AppColor.residentBody,
                 padding:  EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
                 child: Column(children: [
-                  _buildSearchBar(),
-                  const SizedBox(
-                    height: 20,
-                  ),
                   Row(
                     children: [
                       Text(
@@ -170,9 +166,14 @@ class _ViewActivityReportState extends State<ViewActivityReport> {
                       ),
                     ],
                   ),
-                   SizedBox(
+                  SizedBox(
                     height: 20.h,
                   ),
+                  _buildSearchBar(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+
                 ]),
               ),
               const Divider(

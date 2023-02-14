@@ -38,6 +38,7 @@ class FetchZonalSuperAdminVehicles {
 
 class FetchZonalSuperAdminVehicle {
   FetchZonalSuperAdminVehicle({
+    required this.email,
     required this.residentCode,
     required this.surname,
     required this.firstname,
@@ -65,6 +66,7 @@ class FetchZonalSuperAdminVehicle {
     required this.rowNumber,
   });
 
+  String? email;
   String? tstamp;
   String? residentCode;
   String? surname;
@@ -93,6 +95,7 @@ class FetchZonalSuperAdminVehicle {
 
   factory FetchZonalSuperAdminVehicle.fromJson(Map<String, dynamic> json) =>
       FetchZonalSuperAdminVehicle(
+        email: json["EMAIL"],
         residentCode: json["RESIDENT_CODE"],
         surname: json["SURNAME"],
         firstname: json["FIRSTNAME"],
@@ -121,6 +124,7 @@ class FetchZonalSuperAdminVehicle {
       );
 
   Map<String, dynamic> toJson() => {
+        "EMAIL": email,
         "RESIDENT_CODE": residentCode,
         "SURNAME": surname,
         "FIRSTNAME": firstname,

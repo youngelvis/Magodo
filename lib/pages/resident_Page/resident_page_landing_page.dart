@@ -135,16 +135,12 @@ class _ViewPasscodeReportState extends State<ViewPasscodeReport> {
               color: color.AppColor.residentBody,
               padding:  EdgeInsets.only(right: 10.w, left: 10.w, top: 40.h),
               child: Column(children: [
-                _buildSearchBar(),
-                const SizedBox(
-                  height: 20,
-                ),
                 Row(
                   children: [
                     Text(
                       'View Visitors Report',
                       style:
-                          TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const  Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -155,6 +151,11 @@ class _ViewPasscodeReportState extends State<ViewPasscodeReport> {
                 SizedBox(
                   height: 20.h,
                 ),
+                _buildSearchBar(),
+                const SizedBox(
+                  height: 20,
+                ),
+
               ]),
             ),
             const Divider(

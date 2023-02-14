@@ -137,10 +137,6 @@ class _ViewResidentRecordsState extends State<ViewResidentRecords> {
                 color: color.AppColor.residentBody,
                 padding:  EdgeInsets.only(right: 20.w, left: 20.w, top: 40.w),
                 child: Column(children: [
-                  _buildSearchBar(),
-                  const SizedBox(
-                    height: 20,
-                  ),
                   Row(
                     children: [
                       Text(
@@ -157,6 +153,11 @@ class _ViewResidentRecordsState extends State<ViewResidentRecords> {
                   const SizedBox(
                     height: 20,
                   ),
+                  _buildSearchBar(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+
                 ]),
               ),
               const Divider(

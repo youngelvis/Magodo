@@ -126,12 +126,8 @@ class _CommercialEventReportState extends State<CommercialEventReport> {
             ),
             Container(
               color: color.AppColor.residentBody,
-              padding: EdgeInsets.only(right: 10.w, left: 10.w, top: 40.h),
+              padding: EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
               child: Column(children: [
-                _buildSearchBar(),
-                const SizedBox(
-                  height: 20,
-                ),
                 Row(
                   children: [
                     Text(
@@ -145,6 +141,11 @@ class _CommercialEventReportState extends State<CommercialEventReport> {
                     ),
                   ],
                 ),
+                _buildSearchBar(),
+                const SizedBox(
+                  height: 20,
+                ),
+
                 const SizedBox(
                   height: 20,
                 ),

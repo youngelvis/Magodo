@@ -3,12 +3,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
+import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/models/view_memberModel/view_memberModel.dart';
 import '../authorize_member.dart';
 import '/../components/components_for_class_of_varable/colors.dart' as color;
 import '../../../../components/action_page_button2.dart';
 
 class ViewMemberCard extends StatefulWidget {
+
   final userGroup;
   ViewMemberModel data;
 
@@ -49,6 +52,7 @@ class _ViewMemberCardState extends State<ViewMemberCard> {
             const SizedBox(
               height: 10,
             ),
+          widget.userGroup == UserGroup.SUPER_ADMIN?
             ListTile(
               title: Text('Final Authorized', style: TextStyle(fontSize: 15.sp),),
               trailing: ActionPageButton2(
@@ -59,7 +63,7 @@ class _ViewMemberCardState extends State<ViewMemberCard> {
                 primaryColor: color.AppColor.verifiedColor,
                 text: 'Authorize',
               ),
-            ),
+            ): Text(''),
 
             const SizedBox(
               height: 10,

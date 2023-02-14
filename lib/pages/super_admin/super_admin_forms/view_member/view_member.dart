@@ -137,16 +137,12 @@ class _ViewMemberState extends State<ViewMember> {
               color: color.AppColor.residentBody,
               padding:  EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
               child: Column(children: [
-                _buildSearchBar(),
-                 SizedBox(
-                  height: 20.h,
-                ),
                 Row(
                   children:[
                     Text(
                       'View Member Report',
                       style:
-                          TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -157,6 +153,12 @@ class _ViewMemberState extends State<ViewMember> {
                 const SizedBox(
                   height: 20,
                 ),
+                _buildSearchBar(),
+                 SizedBox(
+                  height: 20.h,
+                ),
+
+
               ]),
             ),
             const Divider(

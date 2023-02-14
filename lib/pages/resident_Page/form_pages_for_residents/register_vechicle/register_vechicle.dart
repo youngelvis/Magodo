@@ -246,7 +246,7 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                widget.data?.usr_group == UserGroup.SUPER_ADMIN
+                                widget.data?.usr_group == UserGroup.SUPER_ADMIN ||widget.data?.usr_group == UserGroup.ZONAL_SUPER_ADMIN
                                     ? SearchableDropDownListForFetchMember(
                                         onChange: onChange,
                                         data: widget.data,

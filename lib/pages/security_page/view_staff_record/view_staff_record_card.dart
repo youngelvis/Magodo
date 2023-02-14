@@ -62,7 +62,7 @@ class ViewStaffRecordCard extends StatelessWidget {
                   style: TextStyle(fontSize: 15.sp, color: Colors.black)),
               trailing: Container(
                 alignment: Alignment.centerRight,
-                width: 180.w,
+                width: 175.w,
                 child: Text(
                   data.dependantContacts ?? '',
                   style:  TextStyle(fontSize: 15.sp),

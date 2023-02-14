@@ -57,8 +57,7 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
 
     if (userGroup == UserGroup.SUPER_ADMIN || userGroup == UserGroup.ADMIN) {
       url = 'fetchEmployedStaffs';
-    }
-    else {
+    } else {
       url = 'fetchEmployedStaffs?zone=$zone';
     }
 
@@ -124,7 +123,7 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
   Widget _buildStatus() {
     return RoundedDropDownTextField(
       hint: Text(
-        response == null ? 'Staff Name' : response['status'],
+        response == null ? 'Status' : response['status'],
         style: const TextStyle(fontSize: 15),
       ),
       value: status,
@@ -164,10 +163,52 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
       ),
     );
   }
-
+  popMessage() {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Are you sure you want to decline this staff?'),
+        actions: [
+          Row(children: [
+            SizedBox(
+              width: 50.w,
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  declineNewStaff();
+                },
+                child: const Text("Yes")),
+            SizedBox(
+              width: 30.w,
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("No"))
+          ])
+        ],
+      ),
+    );
+  }
   verifyNewStaff() async {
-    var data =
-        await Services().verifyStaff(staffGUID, status, widget.data?.resident_code);
+    var data = await Services()
+        .verifyStaff(staffGUID, status, widget.data?.resident_code);
+    if (data['error']['status'] != 200) {
+      selectMessage();
+      return;
+    }
     _residentCode.clear();
     _staffName.clear();
     _employmentDate.clear();
@@ -176,13 +217,41 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
     callMessage(data['message']);
   }
 
+  selectMessage() {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Please Select Staff'),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
+
   declineNewStaff() async {
-    var data = await Services().declineUser(staffGUID, widget.data?.resident_code);
+    var data =
+        await Services().declineUser(staffGUID, widget.data?.resident_code);
+    if (data['error']['status'] != 200) {
+      selectMessage();
+      return;
+    }
+
     _residentCode.clear();
     _staffName.clear();
     _employmentDate.clear();
     _staffAddress.clear();
     _staffPhone.clear();
+    print(data);
     callMessage(data['message']);
   }
 
@@ -192,7 +261,9 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: const EdgeInsets.only(top: 20,),
+            padding: const EdgeInsets.only(
+              top: 20,
+            ),
             child: Column(
               children: [
                 TitleContainer(
@@ -226,7 +297,7 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
                     child: SingleChildScrollView(
                       child: Form(
                         child: Container(
-                          padding:  EdgeInsets.only(left: 25.w, right: 25.w),
+                          padding: EdgeInsets.only(left: 25.w, right: 25.w),
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -299,13 +370,13 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
                                 ),
                                 Row(
                                   children: [
-
                                     ActionPageButton2(
                                       width: 130.w,
                                       onPressed: () {
                                         verifyNewStaff();
                                       },
-                                      primaryColor: color.AppColor.verifiedColor,
+                                      primaryColor:
+                                          color.AppColor.verifiedColor,
                                       text: 'Verify',
                                     ),
                                     SizedBox(
@@ -314,12 +385,11 @@ class _VerifyNewStaffState extends State<VerifyNewStaff> {
                                     ActionPageButton2(
                                       width: 130.w,
                                       onPressed: () {
-                                        declineNewStaff();
+                                        popMessage();
                                       },
                                       primaryColor: color.AppColor.decline,
                                       text: 'Decline',
                                     ),
-
                                   ],
                                 ),
                                 SizedBox(

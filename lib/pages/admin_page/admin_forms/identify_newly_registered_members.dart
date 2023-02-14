@@ -102,6 +102,10 @@ class _IdentifyNewlyRegisteredMembersState
   }
 
   verifyNewUser() async {
+    if (response == null) {
+      selectMessage();
+      return;
+    }
     var data = await Services().authorizeUser(
       response['resident_reg_code'] ?? '',
       _mobileNumber.text.isEmpty
@@ -122,8 +126,70 @@ class _IdentifyNewlyRegisteredMembersState
     status = null;
     callMessage(data['message']);
   }
-
+  selectMessage() {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Please Select Staff'),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: color.AppColor.homePageTheme,
+                  onPrimary: color.AppColor.landingPage2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
+  popMessage() {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Are you sure you want to decline this staff?'),
+        actions: [
+          Row(children: [
+            SizedBox(
+              width: 50.w,
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  declineNewUser();
+                },
+                child: const Text("Yes")),
+            SizedBox(
+              width: 30.w,
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: color.AppColor.homePageTheme,
+                    onPrimary: color.AppColor.landingPage2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("No"))
+          ])
+        ],
+      ),
+    );
+  }
   declineNewUser ()async {
+    if (response == null) {
+      selectMessage();
+      return;
+    }
     var data = await Services().declineUser(response['resident_reg_code'] ?? '',  widget.data?.usr_group);
 
 
@@ -255,7 +321,7 @@ class _IdentifyNewlyRegisteredMembersState
                                     ActionPageButton2(
                                       width: 130.w,
                                       onPressed: () {
-                                        declineNewUser();
+                                        popMessage();
                                       },
                                       primaryColor: color.AppColor.decline,
                                       text: 'Decline',

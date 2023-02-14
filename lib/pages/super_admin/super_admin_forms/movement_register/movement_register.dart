@@ -151,16 +151,12 @@ class _MovementRegisterState extends State<MovementRegister> {
               color: color.AppColor.residentBody,
               padding:  EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
               child: Column(children: [
-                _buildSearchBar(),
-                const SizedBox(
-                  height: 20,
-                ),
                 Row(
                   children: [
                     Text(
-                      "movement Register",
+                      "Movement Register",
                       style:
-                          TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -171,6 +167,11 @@ class _MovementRegisterState extends State<MovementRegister> {
                 const SizedBox(
                   height: 20,
                 ),
+                _buildSearchBar(),
+                const SizedBox(
+                  height: 20,
+                ),
+
               ]),
             ),
             const Divider(

@@ -135,16 +135,12 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
               color: color.AppColor.residentBody,
               padding:  EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
               child: Column(children: [
-                _buildSearchBar(),
-                const SizedBox(
-                  height: 20,
-                ),
                 Row(
                   children:  [
                     Text(
                       'View Vehicle Report',
                       style:
-                          TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -152,9 +148,11 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
                     ),
                   ],
                 ),
-                 SizedBox(
-                  height: 20.h,
+                _buildSearchBar(),
+                const SizedBox(
+                  height: 20,
                 ),
+
               ]),
             ),
             const Divider(
@@ -215,7 +213,7 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
                                   uploadedFile: vehicle.doc ?? '',
                                   govAgency: vehicle.govAgency ?? '',
                                   date: vehicle.tstamp ?? '',
-                                  docName: vehicle.docName,
+                                  docName: vehicle.docName??'',
                                 ),
                                 // DeleteUpdateButton(onPressedDeleteButton:  () async{
                                 //   await deleteStaff(vehicle.guid);

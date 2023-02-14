@@ -828,7 +828,7 @@ class Services {
       "status": status,
       "action_user_resident_code": actionUser
     };
-    var res = await CallApi().postData(data, 'verifyStaff');
+    var res = await CallApi().putData(data, 'verifyStaff');
     var body = jsonDecode(res.body);
     return body;
   }
@@ -885,19 +885,25 @@ class Services {
   }
 
   //66
-  adminVehicleReport(startDate, startEnd, page, search, status, rfidMin,
-      rfidMax, zone) async {
+  adminVehicleReport(
+      {startDate,
+      startEnd,
+      page,
+      search,
+      status,
+      rfidMin,
+      rfidMax,
+      zone}) async {
     var data = {
       "startDate": startDate,
-      "startEnd": startEnd,
+      "EndDate": startEnd,
       "page": page,
       "limit": "10",
       "search": search.toString(),
       "status": status,
-      "rfid_min": rfidMin,
-      "rfid_max": rfidMax,
       "zone": zone
     };
+    print(data);
     var res = await CallApi().postData(data, "adminVehicleReport");
     return res.body;
   }
@@ -910,6 +916,7 @@ class Services {
       "user_group": userGroup,
       "action_user": actionUser
     };
+    print(data);
     var res = await CallApi().postData(data, "issueRfid");
     var body = jsonDecode(res.body);
     return body;

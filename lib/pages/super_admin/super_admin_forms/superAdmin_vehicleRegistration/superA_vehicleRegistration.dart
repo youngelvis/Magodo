@@ -39,7 +39,7 @@ TextEditingController rfidMin = TextEditingController();
 TextEditingController rfidMax = TextEditingController();
 
 class _SuperAdminVehicleReportState extends State<SuperAdminVehicleReport> {
-  var totalRfid;
+  var totalRfid = 0;
   var zone;
   String? status;
   final statusOptions = [
@@ -55,8 +55,7 @@ class _SuperAdminVehicleReportState extends State<SuperAdminVehicleReport> {
     getTotalRfid();
   }
 
-  void getTotalRfid() async{
-
+  void getTotalRfid() async {
     var url = 'totalIssuedRFID';
 
     var res = await CallApi().getData(url);
@@ -99,7 +98,6 @@ class _SuperAdminVehicleReportState extends State<SuperAdminVehicleReport> {
       }
     }
 
-
     var data = await Services().superAdminVehicleReport(
         startDate: '',
         startEnd: '',
@@ -121,9 +119,11 @@ class _SuperAdminVehicleReportState extends State<SuperAdminVehicleReport> {
     totalPages = result.recordsTotal;
     return true;
   }
-functionRefresh()async{
-  getVehicle(isRefresh: true);
-}
+
+  functionRefresh() async {
+    getVehicle(isRefresh: true);
+  }
+
   popMessage({fileName, filePath, residentCode, row_id}) {
     return showDialog(
       context: context,
@@ -172,7 +172,7 @@ functionRefresh()async{
       ),
       value: status,
       onChanged: (value) => setState(() {
-        if(value =='-- Select Status '){
+        if (value == '-- Select Status ') {
           value = null;
         }
         status = value as String;
@@ -227,7 +227,6 @@ functionRefresh()async{
       ),
     );
   }
-
 
   deleteVehicle(residentCode, row_id) async {
     var data = await Services().deleteVehicle(residentCode, row_id);
@@ -334,38 +333,6 @@ functionRefresh()async{
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildSearchBar(),
-                    ListTile(
-                      leading:  ActionPageButton2(
-                        height: 50.h,
-                        onPressed: () {
-                          createAlertDialog();
-                        },
-                        text: 'Filter',
-                        primaryColor: Colors.white70,
-                      ),
-                      // trailing: Row(
-                      //   children: [
-                      //     SizedBox(width: 160.w,),
-                      //     const Text("Total RFID Issued: "),
-                      //
-                      //     Container(
-                      //       decoration: BoxDecoration(
-                      //           color: color.AppColor.verifiedColor,
-                      //           border: Border.all(color: Colors.white),
-                      //           borderRadius: BorderRadius.circular(6.0)),
-                      //       child: Padding(
-                      //         padding: const EdgeInsets.all(8.0),
-                      //         child: Text("$totalRfid", style: TextStyle(color:color.AppColor.homePageBackground),),
-                      //       ),
-                      //     )
-                      //   ],
-                      // ),
-                    ),
-
-                    const SizedBox(
-                      height: 20,
-                    ),
                     Row(
                       children: [
                         Text(
@@ -382,7 +349,72 @@ functionRefresh()async{
                     SizedBox(
                       height: 20.h,
                     ),
+                    _buildSearchBar(),
+                    Row(
+                      children: [
+                        Container(
+                          width: 120.w,
+                          height: 50.h,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20)),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: color.AppColor.landingPage2,
+                              onPrimary: Colors.grey,
+                            ),
+                            onPressed: () {
+                              _filterFunction();
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.filter_list_sharp,
+                                  size: 20.sp,
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Text(
+                                  'Filter',
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 20.sp),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 68.w,
+                            ),
+                            const Text("Total RFID Issued: "),
+                            Container(
+                              height: 45.h,
+                              width: 60.w,
+                              decoration: BoxDecoration(
+                                  color: color.AppColor.verifiedColor,
+                                  border: Border.all(color: Colors.white),
+                                  borderRadius: BorderRadius.circular(6.0)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: Text(
+                                    "${totalRfid}",
+                                    style: TextStyle(
+                                        color: color.AppColor.homePageBackground),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ]),
+            ),
+            const SizedBox(
+              height: 20,
             ),
             const Divider(
               thickness: 2,
@@ -431,9 +463,13 @@ functionRefresh()async{
                               child: Card(
                             child: Column(
                               children: [
-                                SuperAdminVehicleReportCard(vehicle: vehicle, data: widget.data, function: (){
-                                  functionRefresh();
-                                },),
+                                SuperAdminVehicleReportCard(
+                                  vehicle: vehicle,
+                                  data: widget.data,
+                                  function: () {
+                                    functionRefresh();
+                                  },
+                                ),
                                 DeleteUpdateButton(
                                   onPressedDeleteButton: () async {
                                     await popMessage(
@@ -441,7 +477,191 @@ functionRefresh()async{
                                         filePath: vehicle.doc,
                                         residentCode: vehicle.residentCode,
                                         row_id: vehicle.guid);
-                                  },
+                                    GestureDetector(
+                                        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+                                        child: Scaffold(
+                                            body: Container(
+                                              color: color.AppColor.residentBody,
+                                              padding: const EdgeInsets.only(
+                                                top: 20,
+                                              ),
+                                              child: Column(children: [
+                                                TitleContainer(
+                                                  title: 'Dashboard',
+                                                  data: widget.data,
+                                                ),
+                                                Container(
+                                                  color: color.AppColor.residentBody,
+                                                  padding: EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
+                                                  child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              'View Vehicle Report',
+                                                              style: TextStyle(
+                                                                  fontSize: 25.sp, fontWeight: FontWeight.bold),
+                                                            ),
+                                                            const Icon(
+                                                              Icons.keyboard_arrow_down_outlined,
+                                                              size: 15,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          height: 20.h,
+                                                        ),
+                                                        _buildSearchBar(),
+                                                        Row(
+                                                          children: [
+                                                            Container(
+                                                              width: 120.w,
+                                                              height: 50.h,
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.circular(20)),
+                                                              child: ElevatedButton(
+                                                                style: ElevatedButton.styleFrom(
+                                                                  primary: color.AppColor.landingPage2,
+                                                                  onPrimary: Colors.grey,
+                                                                ),
+                                                                onPressed: () {
+                                                                  _filterFunction();
+                                                                },
+                                                                child: Row(
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons.filter_list_sharp,
+                                                                      size: 20.sp,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 5.w,
+                                                                    ),
+                                                                    Text(
+                                                                      'Filter',
+                                                                      style: TextStyle(
+                                                                          color: Colors.grey, fontSize: 20.sp),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Row(
+                                                              children: [
+                                                                SizedBox(
+                                                                  width: 68.w,
+                                                                ),
+                                                                const Text("Total RFID Issued: "),
+                                                                Container(
+                                                                  height: 45.h,
+                                                                  width: 60.w,
+                                                                  decoration: BoxDecoration(
+                                                                      color: color.AppColor.verifiedColor,
+                                                                      border: Border.all(color: Colors.white),
+                                                                      borderRadius: BorderRadius.circular(6.0)),
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.all(8.0),
+                                                                    child: Center(
+                                                                      child: Text(
+                                                                        "${totalRfid}",
+                                                                        style: TextStyle(
+                                                                            color: color.AppColor.homePageBackground),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ]),
+                                                ),
+                                                const SizedBox(
+                                                  height: 20,
+                                                ),
+                                                const Divider(
+                                                  thickness: 2,
+                                                ),
+                                                Container(
+                                                  color: Colors.white,
+                                                  height: 50,
+                                                  child: ListTile(
+                                                    leading: Text(
+                                                      "1-${vehicles.length} of $totalPages results",
+                                                      style: TextStyle(fontSize: 16.sp),
+                                                    ),
+                                                    trailing: Text(
+                                                      "Results per page ${vehicles.length}",
+                                                      style: TextStyle(fontSize: 16.sp),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: SmartRefresher(
+                                                    controller: refreshController,
+                                                    enablePullUp: true,
+                                                    onRefresh: () async {
+                                                      final result = await getVehicle(isRefresh: true);
+                                                      if (result) {
+                                                        refreshController.refreshCompleted();
+                                                      } else {
+                                                        refreshController.refreshFailed();
+                                                      }
+                                                    },
+                                                    onLoading: () async {
+                                                      final result = await getVehicle();
+                                                      if (result) {
+                                                        refreshController.loadComplete();
+                                                      } else {
+                                                        refreshController.loadFailed();
+                                                      }
+                                                    },
+                                                    child: vehicles.isEmpty
+                                                        ? const Center(child: Text('No Record Yet'))
+                                                        : ListView.builder(
+                                                      shrinkWrap: true,
+                                                      itemBuilder: (BuildContext context, index) {
+                                                        final vehicle = vehicles[index];
+                                                        return SingleChildScrollView(
+                                                            child: Card(
+                                                              child: Column(
+                                                                children: [
+                                                                  SuperAdminVehicleReportCard(
+                                                                    vehicle: vehicle,
+                                                                    data: widget.data,
+                                                                    function: () {
+                                                                      functionRefresh();
+                                                                    },
+                                                                  ),
+                                                                  DeleteUpdateButton(
+                                                                    onPressedDeleteButton: () async {
+                                                                      await popMessage(
+                                                                          fileName: vehicle.docName,
+                                                                          filePath: vehicle.doc,
+                                                                          residentCode: vehicle.residentCode,
+                                                                          row_id: vehicle.guid);
+                                                                    },
+                                                                    onPressedUpdateButton: () {
+                                                                      Navigator.push(
+                                                                          context,
+                                                                          MaterialPageRoute(
+                                                                              builder: (context) =>
+                                                                                  UpdateVehicleRegistration(
+                                                                                    vehicleData: vehicle,
+                                                                                    data: widget.data,
+                                                                                  )));
+                                                                    },
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ));
+                                                      },
+                                                      itemCount: vehicles.length,
+                                                    ),
+                                                  ),
+                                                )
+                                              ]),
+                                            )));                        },
                                   onPressedUpdateButton: () {
                                     Navigator.push(
                                         context,

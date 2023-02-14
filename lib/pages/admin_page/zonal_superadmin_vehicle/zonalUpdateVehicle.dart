@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 
 import '../../../../components/components_for_class_of_varable/username_password.dart';
-import '../../../../models/vehicle_dataModel/superAdminVehicleData.dart';
+import '../../../../models/vehicle_dataModel/zonalSuperAdminVehicleData.dart';
 import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,17 +16,17 @@ import 'package:magodo/services/services.dart';
 
 import '../../../../components/title.dart';
 
-class UpdateVehicleRegistration extends StatefulWidget {
+class ZonalSuperAdminUpdateVehicleRegistration extends StatefulWidget {
   ResidentModel? data;
-  FetchSuperAdminVehicle vehicleData;
+  FetchZonalSuperAdminVehicle vehicleData;
 
 
-  UpdateVehicleRegistration({Key? key, this.data, required this.vehicleData, })
+  ZonalSuperAdminUpdateVehicleRegistration({Key? key, this.data, required this.vehicleData, })
       : super(key: key);
 
   @override
-  State<UpdateVehicleRegistration> createState() =>
-      _UpdateVehicleRegistrationState();
+  State<ZonalSuperAdminUpdateVehicleRegistration> createState() =>
+      _ZonalSuperAdminUpdateVehicleRegistrationState();
 }
 
 TextEditingController _vehicleCode = TextEditingController();
@@ -37,7 +37,7 @@ TextEditingController _registrationNumber = TextEditingController();
 TextEditingController _duesReceiptNo = TextEditingController();
 TextEditingController _amountPaid = TextEditingController();
 
-class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
+class _ZonalSuperAdminUpdateVehicleRegistrationState extends State<ZonalSuperAdminUpdateVehicleRegistration> {
   String? colour;
   var filename;
   var file;
@@ -266,8 +266,8 @@ class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
                                     hint: widget.vehicleData.color,
                                     vehicleColor: colour,
                                     onChanged: (value) => setState(() {
-                                          colour = value as String;
-                                        })),
+                                      colour = value as String;
+                                    })),
                                 NameTextField(
                                     controller: _govtAgency,
                                     hint: widget.vehicleData.govAgency ??
@@ -310,8 +310,8 @@ class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
                                             onPrimary: Colors.black,
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        12.0))),
+                                                BorderRadius.circular(
+                                                    12.0))),
                                         onPressed: () async {
                                           await selectFile();
                                         },

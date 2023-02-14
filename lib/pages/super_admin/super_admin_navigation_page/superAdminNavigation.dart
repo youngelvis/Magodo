@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
 import 'package:magodo/components/text_button_nav_page.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
+import 'package:magodo/pages/admin_page/zonal_superadmin_vehicle/zonalAdminVehicle.dart';
 import 'package:magodo/pages/change_password/change_password.dart';
 import 'package:magodo/pages/login_page/login_page.dart';
 import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_passcode/get_passcode.dart';
@@ -9,7 +11,6 @@ import 'package:magodo/pages/resident_Page/form_pages_for_residents/register_vec
 import 'package:magodo/pages/super_admin/super_admin_forms/breakdown_summary/breakdown_summary.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/movement_register/movement_register.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/superAdmin_vehicleRegistration/superA_vehicleRegistration.dart';
-import 'package:magodo/pages/super_admin/super_admin_forms/superAdmin_vehicleRegistration/superA_vehicleRegistrationCard.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/view_member/view_member.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/view_member_staff/view_member_staff.dart';
 import '../../profile_page/edit_profile/edit_profile.dart';
@@ -166,6 +167,21 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               }),
                           ListTile(
                               title: Text(
+                                'Vehicle Report',
+                                style: TextStyle(
+                                    fontSize: 15.sp,
+                                    color: color.AppColor.landingPage2),
+                              ),
+                              onTap: () {
+                                widget.data?.usr_group == UserGroup.SUPER_ADMIN?
+                                navigateToPage(SuperAdminVehicleReport(
+                                  data: widget.data,
+                                )): navigateToPage(ZonalAdminVehicle(
+                                  data: widget.data,
+                                ));
+                              }),
+                          ListTile(
+                              title: Text(
                                 'Member Report',
                                 style: TextStyle(
                                     fontSize: 15.sp,
@@ -178,7 +194,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               }),
                           ListTile(
                               title: Text(
-                                'Passcode Record',
+                                'Passcode Report',
                                 style: TextStyle(
                                     fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
@@ -190,7 +206,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               }),
                           ListTile(
                               title: Text(
-                                'Member Staff',
+                                'Staff Report',
                                 style: TextStyle(
                                     fontSize: 15.sp,
                                     color: color.AppColor.landingPage2),
@@ -212,18 +228,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                                   data: widget.data,
                                 ));
                               }),
-                          ListTile(
-                              title: Text(
-                                'Vehicle Record',
-                                style: TextStyle(
-                                    fontSize: 15.sp,
-                                    color: color.AppColor.landingPage2),
-                              ),
-                              onTap: () {
-                                navigateToPage(SuperAdminVehicleReport(
-                                  data: widget.data,
-                                ));
-                              }),
+
                           ListTile(
                               title: Text(
                                 'Activity Log',
