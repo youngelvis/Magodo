@@ -6,7 +6,13 @@ import 'package:magodo/models/view_memberModel/view_memberModel.dart';
 import 'package:magodo/pages/super_admin/super_admin_forms/view_member/view_memberCard.dart';
 import 'package:magodo/services/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../../../components/app_page_theme_action_button.dart';
 import '../../../../components/components_for_class_of_varable/userGroup.dart';
+import '../../../../components/date_text_field.dart';
+import '../../../../components/roundedDropDownTextfield.dart';
+import '../../../../components/text_for_form.dart';
+import '../../../../components/textfields_types/Category_for_filter.dart';
+import '../../../../components/textfields_types/category_drop_down_list.dart';
 import '/../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:magodo/components/roundedTextSearchField.dart';
 import 'package:magodo/components/title.dart';
@@ -21,9 +27,12 @@ class ViewMember extends StatefulWidget {
 }
 
 TextEditingController _searchWords = TextEditingController();
+TextEditingController _startDate = TextEditingController();
+TextEditingController _startEnd = TextEditingController();
 
 class _ViewMemberState extends State<ViewMember> {
   Timer? debouncer;
+  String? category;
 
   @override
   void initState() {
@@ -62,13 +71,17 @@ class _ViewMemberState extends State<ViewMember> {
         return false;
       }
     }
-    String zone = widget.data?.zone  ?? '';
-    if(
-    widget.data?.usr_group == UserGroup.SUPER_ADMIN|| widget.data?.usr_group == UserGroup.ADMIN){
+    String zone = widget.data?.zone ?? '';
+    if (widget.data?.usr_group == UserGroup.SUPER_ADMIN ||
+        widget.data?.usr_group == UserGroup.ADMIN) {
       zone = '';
     }
 
-    var data = await Services().viewMembersReportForSAdmin(currentPage, widget.data?.usr_group ?? '', zone, _searchWords.text);
+    var data = await Services().viewMembersReportForSAdmin(
+        page: currentPage,
+        userGroup: widget.data?.usr_group ?? '',
+        zone: zone,
+        search: _searchWords.text);
 
     final result = viewMembersFromJson(data);
 
@@ -83,14 +96,119 @@ class _ViewMemberState extends State<ViewMember> {
     return true;
   }
 
-  Future _searchFunction() async => debounce(() async {
+  String? status;
+  final statusOptions = [
+    '-- Select Status ',
+    'Approved',
+    'Declined',
+  ];
+
+  Widget _buildStatus() {
+    return RoundedDropDownTextField(
+      hint: Text(
+        statusOptions[0],
+        style: TextStyle(fontSize: 15.sp),
+      ),
+      value: status,
+      onChanged: (value) => setState(() {
+        if (value == '-- Select Status ') {
+          value = null;
+        }
+        status = value as String;
+      }),
+      items: statusOptions.map(buildStatusItem).toList(),
+    );
+  }
+
+  DropdownMenuItem<String> buildStatusItem(String statusOptions) =>
+      DropdownMenuItem(
+        value: statusOptions,
+        child: Text(
+          statusOptions,
+          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17.sp),
+        ),
+      );
+
+  Future _filterFunction() async => debounce(() async {
         int currentPage = 0;
-        String zone = widget.data?.zone  ?? '';
-        if(
-        widget.data?.usr_group == UserGroup.SUPER_ADMIN|| widget.data?.usr_group == UserGroup.ADMIN){
+        String zone = widget.data?.zone ?? '';
+        if (widget.data?.usr_group == UserGroup.SUPER_ADMIN ||
+            widget.data?.usr_group == UserGroup.ADMIN) {
           zone = '';
         }
-        var data = await Services().viewMembersReportForSAdmin(currentPage, widget.data?.usr_group ?? '', zone, _searchWords.text.toString(),);
+        var data = await Services().viewMembersReportForSAdmin(
+            page: currentPage,
+            userGroup: widget.data?.usr_group ?? '',
+            zone: zone,
+            search: _searchWords.text,
+            startDate: _startDate.text,
+            endDate: _startEnd.text,
+            status: status,
+            residentCategory: category);
+
+        final result = viewMembersFromJson(data);
+        if (result.data.isEmpty) {
+          print('empty');
+        }
+        setState(() {
+          viewMembers = result.data;
+        });
+        _startEnd.clear();
+        _startDate.clear();
+      });
+
+  createAlertDialog() {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Center(child: Text('Filter Record')),
+        content: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 10.h,
+              ),
+              const TextForForm(text: "Start Date"),
+              CustomDatePicker(date: _startDate),
+              const TextForForm(text: "End Date"),
+              CustomDatePicker(date: _startEnd),
+              const TextForForm(text: "Status"),
+              _buildStatus(),
+              BuildCategoryForFilter(
+                residentType: category,
+                onChanged: (value) => setState(() {
+                  category = value as String;
+                }),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              ActionPageButton(
+                  onPressed: () async {
+                    _filterFunction();
+                    Navigator.of(context).pop();
+                  },
+                  text: 'Filter'),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future _searchFunction() async => debounce(() async {
+        int currentPage = 0;
+        String zone = widget.data?.zone ?? '';
+        if (widget.data?.usr_group == UserGroup.SUPER_ADMIN ||
+            widget.data?.usr_group == UserGroup.ADMIN) {
+          zone = '';
+        }
+        var data = await Services().viewMembersReportForSAdmin(
+            page: currentPage,
+            userGroup: widget.data?.usr_group ?? '',
+            zone: zone,
+            search: _searchWords.text.toString());
 
         final result = viewMembersFromJson(data);
         if (result.data.isEmpty) {
@@ -125,7 +243,7 @@ class _ViewMemberState extends State<ViewMember> {
       child: Scaffold(
         body: Container(
           color: color.AppColor.residentBody,
-          padding:  EdgeInsets.only(
+          padding: EdgeInsets.only(
             top: 20.h,
           ),
           child: Column(children: [
@@ -135,14 +253,14 @@ class _ViewMemberState extends State<ViewMember> {
             ),
             Container(
               color: color.AppColor.residentBody,
-              padding:  EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
+              padding: EdgeInsets.only(right: 20.w, left: 20.w, top: 40.h),
               child: Column(children: [
                 Row(
-                  children:[
+                  children: [
                     Text(
                       'View Member Report',
-                      style:
-                      TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -154,11 +272,42 @@ class _ViewMemberState extends State<ViewMember> {
                   height: 20,
                 ),
                 _buildSearchBar(),
-                 SizedBox(
+                Row(children: [
+                  Container(
+                    width: 120.w,
+                    height: 50.h,
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: color.AppColor.landingPage2,
+                        onPrimary: Colors.grey,
+                      ),
+                      onPressed: () {
+                        createAlertDialog();
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.filter_list_sharp,
+                            size: 20.sp,
+                          ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          Text(
+                            'Filter',
+                            style:
+                                TextStyle(color: Colors.grey, fontSize: 20.sp),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ]),
+                SizedBox(
                   height: 20.h,
                 ),
-
-
               ]),
             ),
             const Divider(

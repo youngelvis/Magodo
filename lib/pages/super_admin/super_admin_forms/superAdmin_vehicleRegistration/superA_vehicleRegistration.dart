@@ -363,7 +363,7 @@ class _SuperAdminVehicleReportState extends State<SuperAdminVehicleReport> {
                               onPrimary: Colors.grey,
                             ),
                             onPressed: () {
-                              _filterFunction();
+                              createAlertDialog();
                             },
                             child: Row(
                               children: [
@@ -386,7 +386,7 @@ class _SuperAdminVehicleReportState extends State<SuperAdminVehicleReport> {
                         Row(
                           children: [
                             SizedBox(
-                              width: 68.w,
+                              width: 40.w,
                             ),
                             const Text("Total RFID Issued: "),
                             Container(

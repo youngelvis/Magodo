@@ -122,13 +122,34 @@ class _EventRequestReportCardState extends State<EventRequestReportCard> {
                 ),
               ),
             ),
+
             ListTile(
               title:  Text(
-                'Population',
+                'Mobile Number',
                 style: TextStyle(fontSize: 15.sp),
               ),
               trailing: Text(
-                widget.data.population ?? '',
+                widget.data.msidsn ?? '',
+                style:  TextStyle(fontSize: 15.sp),
+              ),
+            ),
+            ListTile(
+              title:  Text(
+                'Email',
+                style: TextStyle(fontSize: 15.sp),
+              ),
+              trailing: Text(
+                widget.data.email ?? '',
+                style:  TextStyle(fontSize: 15.sp),
+              ),
+            ),
+            ListTile(
+              title:  Text(
+                'Resident Code',
+                style: TextStyle(fontSize: 15.sp),
+              ),
+              trailing: Text(
+                widget.data.resident_code ?? '',
                 style:  TextStyle(fontSize: 15.sp),
               ),
             ),

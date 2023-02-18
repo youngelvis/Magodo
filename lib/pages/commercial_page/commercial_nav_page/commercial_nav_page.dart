@@ -87,7 +87,7 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                             ),
                             Text('Profile',
                                 style: TextStyle(
-                                    fontSize: 15.sp,
+                                    fontSize: 17.sp,fontWeight: FontWeight.w600,
                                     color: color.AppColor.landingPage2)),
                           ],
                         ),
@@ -178,9 +178,9 @@ class _CommercialNavPageState extends State<CommercialNavPage> {
                         const SizedBox(
                           width: 10,
                         ),
-                        Text('Reports',
+                        Text('Report',
                             style: TextStyle(
-                                fontSize: 15.sp,
+                                fontSize: 17.sp,fontWeight: FontWeight.w600,
                                 color: color.AppColor.landingPage2)),
                       ],
                     ),

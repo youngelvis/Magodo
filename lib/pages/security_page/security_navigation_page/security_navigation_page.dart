@@ -84,7 +84,7 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                       ),
                       Text('Profile',
                           style: TextStyle(
-                              fontSize: 15.sp, color: color.AppColor.landingPage2)),
+                              fontSize: 17.sp,fontWeight: FontWeight.w600, color: color.AppColor.landingPage2)),
                     ],
                   ),
                   children: [
@@ -161,9 +161,9 @@ class _SecurityNavigationPageState extends State<SecurityNavigationPage> {
                          SizedBox(
                           width: 10.w,
                         ),
-                        Text('Reports',
+                        Text('Report',
                             style: TextStyle(
-                                fontSize: 15.sp,
+                                fontSize: 17.sp,fontWeight: FontWeight.w600,
                                 color: color.AppColor.landingPage2)),
                       ],
                     ),

@@ -271,8 +271,8 @@ class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
                                 NameTextField(
                                     controller: _govtAgency,
                                     hint: widget.vehicleData.govAgency ??
-                                        "gov agency",
-                                    nameType: "Gov Agency"),
+                                        "Registration State",
+                                    nameType: "Registration State"),
                                 NameTextField(
                                     controller: _registrationNumber,
                                     hint: widget.vehicleData.registrationNo ??
@@ -281,8 +281,8 @@ class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
                                 NameTextField(
                                     controller: _duesReceiptNo,
                                     hint: widget.vehicleData.receiptNo ??
-                                        "mra receipt number",
-                                    nameType: "Mra Dues Receipt No"),
+                                        "MRA receipt number",
+                                    nameType: "MRA Dues Receipt No"),
                                 MobileNumberTextField(
                                     controller: _amountPaid,
                                     fieldName: '(₦)Amount Paid',

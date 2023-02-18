@@ -51,6 +51,7 @@ dependencies:
   flutter_screenutil: ^5.6.0
   webview_flutter: 3.0.1
   path_provider: ^2.0.5
+  flutter_launcher_icons: ^0.11.0
 
 
 
@@ -60,6 +61,12 @@ dev_dependencies:
   json_serializable:
   flutter_test:
     sdk: flutter
+
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -85,6 +92,10 @@ flutter:
     - assets/profilePicture.jpeg
     - assets/profileImage.jpg
     - assets/logo.png
+    - assets/magodo.jpeg
+    - assets/magodo3.jpeg
+    - assets/magodo2.jpeg
+    - assets/magodo4.jpeg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

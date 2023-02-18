@@ -22,9 +22,13 @@ class WelcomeScreen extends StatelessWidget {
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height/ 1/2.h,
+                        height: 510.h,
                         decoration: BoxDecoration(
-                          color: color.AppColor.landingPage,
+                          color: const Color(0xff7c94b6),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.6), BlendMode.dstATop),
+                          image: const AssetImage('assets/magodo2.jpeg'))
                         ),
                       ),
                       Container(
@@ -82,9 +86,9 @@ class WelcomeScreen extends StatelessWidget {
               ),
                Positioned(
                 top: 140.h,
-                width: 300.w,
+                width: 250.w,
                 height: 600.h,
-                left: 52.w,
+                left: 77.w,
                 child: const Center(
                   child: Image(
                     image: AssetImage('assets/logo.png'),

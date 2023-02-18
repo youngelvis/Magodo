@@ -271,16 +271,16 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                                         })),
                                 NameTextField(
                                     controller: _govtAgency,
-                                    hint: "gov agency",
-                                    nameType: "Gov Agency"),
+                                    hint: "Registration State",
+                                    nameType: "Registration State"),
                                 NameTextField(
                                     controller: _registrationNumber,
                                     hint: "Registration number",
                                     nameType: "Registration No"),
                                 NameTextField(
                                     controller: _duesReceiptNo,
-                                    hint: "mra receipt number",
-                                    nameType: "Mra Dues Receipt No"),
+                                    hint: "MRA  receipt number",
+                                    nameType: "MRA Dues Receipt No"),
                                 MobileNumberTextField(
                                     controller: _amountPaid,
                                     fieldName: 'Amount Paid (₦)',

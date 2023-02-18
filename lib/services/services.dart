@@ -453,13 +453,25 @@ class Services {
   }
 
   // 30
-  viewMembersReportForSAdmin(page, userGroup, zone, search) async {
+  viewMembersReportForSAdmin(
+      {page,
+      userGroup,
+      zone,
+      search,
+      startDate,
+      endDate,
+      residentCategory,
+      status}) async {
     var data = {
       "search": search.toString(),
       "page": page,
       "limit": "10",
       "user_group": userGroup,
-      "zone": zone
+      "zone": zone,
+      "start_date": startDate,
+      "end_date": endDate,
+      "resident_category" : residentCategory,
+      "status": status
     };
     var res = await CallApi().postData(data, 'membersReport');
     return res.body;
@@ -468,7 +480,7 @@ class Services {
   //31
 
   viewMemberStaffReport(page, search) async {
-    var data = {"page": page, "limit": "10", "search": search.toString()};
+    var data = {"page": page, "limit": "10", "search": search.toString(),};
     var res = await CallApi().postData(data, 'dependantsReport');
     return res.body;
   }

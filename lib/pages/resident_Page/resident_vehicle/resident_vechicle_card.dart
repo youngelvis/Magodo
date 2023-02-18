@@ -17,7 +17,7 @@ class VehicleReportCard extends StatefulWidget {
       amountPaid,
       uploadedFile,
       declineMessage,
-      docName;
+      docName, regNo;
 
   const VehicleReportCard(
       {Key? key,
@@ -31,7 +31,7 @@ class VehicleReportCard extends StatefulWidget {
       required this.amountPaid,
       required this.uploadedFile,
       required this.declineMessage,
-      required this.docName})
+      required this.docName, required this.regNo})
       : super(key: key);
 
   @override
@@ -66,7 +66,11 @@ class _VehicleReportCardState extends State<VehicleReportCard> {
             trailing: Text(widget.mraReceiptNo),
           ),
           ListTile(
-            title: const Text('Gov agency'),
+            title: const Text('Vehicle Registration No'),
+            trailing: Text(widget.regNo ?? ""),
+          ),
+          ListTile(
+            title: const Text('Registration State'),
             trailing: Text(widget.govAgency),
           ),
           ListTile(

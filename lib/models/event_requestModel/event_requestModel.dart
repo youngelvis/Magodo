@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-EventReports eventReportsFromJson(String str) => EventReports.fromJson(json.decode(str));
+EventReports eventReportsFromJson(String str) =>
+    EventReports.fromJson(json.decode(str));
 
 String eventReportsToJson(EventReports data) => json.encode(data.toJson());
 
@@ -20,30 +21,37 @@ class EventReports {
   List<EventReport> data;
 
   factory EventReports.fromJson(Map<String, dynamic> json) => EventReports(
-    recordsTotal: json["recordsTotal"],
-    recordsFiltered: json["recordsFiltered"],
-    data: List<EventReport>.from(json["data"].map((x) => EventReport.fromJson(x))),
-  );
+        recordsTotal: json["recordsTotal"],
+        recordsFiltered: json["recordsFiltered"],
+        data: List<EventReport>.from(
+            json["data"].map((x) => EventReport.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "recordsTotal": recordsTotal,
-    "recordsFiltered": recordsFiltered,
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
-  };
+        "recordsTotal": recordsTotal,
+        "recordsFiltered": recordsFiltered,
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+      };
 }
 
 class EventReport {
   EventReport({
+    required this.email,
+    required this.msidsn,
+    required this.resident_code,
     required this.id,
-    required  this.passcode,
-    required  this.fullname,
-    required   this.eventType,
+    required this.passcode,
+    required this.fullname,
+    required this.eventType,
     required this.population,
-    required  this.createdDate,
-    required  this.status,
-    required  this.rowNumber,
+    required this.createdDate,
+    required this.status,
+    required this.rowNumber,
   });
 
+  String? email;
+  String? msidsn;
+  String? resident_code;
   String? id;
   String? passcode;
   String? fullname;
@@ -54,24 +62,30 @@ class EventReport {
   String? rowNumber;
 
   factory EventReport.fromJson(Map<String, dynamic> json) => EventReport(
-    id: json["ID"],
-    passcode: json["PASSCODE"],
-    fullname: json["FULLNAME"],
-    eventType: json["EVENT_TYPE"],
-    population: json["POPULATION"],
-    createdDate: json["CREATED_DATE"],
-    status: json["STATUS"],
-    rowNumber: json["ROW_NUMBER"],
-  );
+        email: json["EMAIL"],
+        msidsn: json["MSISDN"],
+        resident_code: json["RESIDENT_CODE"],
+        id: json["ID"],
+        passcode: json["PASSCODE"],
+        fullname: json["FULLNAME"],
+        eventType: json["EVENT_TYPE"],
+        population: json["POPULATION"],
+        createdDate: json["CREATED_DATE"],
+        status: json["STATUS"],
+        rowNumber: json["ROW_NUMBER"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "ID": id,
-    "PASSCODE": passcode,
-    "FULLNAME": fullname,
-    "EVENT_TYPE": eventType,
-    "POPULATION": population,
-    "CREATED_DATE": createdDate,
-    "STATUS": status,
-    "ROW_NUMBER": rowNumber,
-  };
+        "EMAIL": email,
+        "MSISDN": msidsn,
+        "RESIDENT_CODE": resident_code,
+        "ID": id,
+        "PASSCODE": passcode,
+        "FULLNAME": fullname,
+        "EVENT_TYPE": eventType,
+        "POPULATION": population,
+        "CREATED_DATE": createdDate,
+        "STATUS": status,
+        "ROW_NUMBER": rowNumber,
+      };
 }

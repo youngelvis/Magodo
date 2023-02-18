@@ -90,7 +90,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                             ),
                             Text('Profile',
                                 style: TextStyle(
-                                    fontSize: 15.sp,
+                                    fontSize: 17.sp,fontWeight: FontWeight.w600,
                                     color: color.AppColor.landingPage2)),
                           ],
                         ),
@@ -148,8 +148,8 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                              SizedBox(
                               width: 10.w,
                             ),
-                             Text('Reports',
-                                style: TextStyle(fontSize: 15.sp, color: color.AppColor.landingPage2)),
+                             Text('Report',
+                                style: TextStyle(fontSize: 17.sp,fontWeight: FontWeight.w600, color: color.AppColor.landingPage2)),
                           ],
                         ),
                         children: [
@@ -257,7 +257,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                               }),
                         ],
                       ),
-                      NavTextButton(
+                     widget.data?.usr_group== UserGroup.SUPER_ADMIN ? NavTextButton(
                           icon: Icons.shopping_bag,
                           text: 'Get Passcode',
                           onPressed: () {
@@ -267,7 +267,7 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                                     builder: (context) => GetPasscode(
                                       data:widget.data,
                                     )));
-                          }),
+                          }): Text(''),
                       NavTextButton(
                           icon: Icons.logout,
                           text: 'Logout',

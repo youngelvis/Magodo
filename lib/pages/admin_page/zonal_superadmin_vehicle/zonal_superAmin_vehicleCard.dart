@@ -310,7 +310,11 @@ var selectedValue;
             trailing: Text(widget.vehicle.receiptNo ?? ''),
           ),
           ListTile(
-            title: const Text('Gov agency'),
+            title: const Text('Vehicle Registration No'),
+            trailing: Text(widget.vehicle.registrationNo ?? ""),
+          ),
+          ListTile(
+            title: const Text('Registration State'),
             trailing: Text(widget.vehicle.govAgency ?? ""),
           ),
           ListTile(

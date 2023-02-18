@@ -75,8 +75,8 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => GetPasscode(
-                                          data: widget.data)));
+                                      builder: (context) =>
+                                          GetPasscode(data: widget.data)));
                             }),
                         ExpansionTile(
                           trailing: const Icon(
@@ -95,7 +95,7 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                               ),
                               Text('Profile',
                                   style: TextStyle(
-                                      fontSize: 16.sp,
+                                      fontSize: 17.sp, fontWeight: FontWeight.w600,
                                       color: color.AppColor.landingPage2)),
                             ],
                           ),
@@ -160,18 +160,6 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                     data: widget.data,
                                   ));
                                 }),
-                            ListTile(
-                                title: Text(
-                                  'Event Passcode',
-                                  style: TextStyle(
-                                      fontSize: 15.sp,
-                                      color: color.AppColor.landingPage2),
-                                ),
-                                onTap: () {
-                                  navigateToPage(EventRequest(
-                                    data: widget.data,
-                                  ));
-                                }),
                           ],
                         ),
                         NavTextButton(
@@ -196,6 +184,17 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                             data: widget.data,
                                           )));
                             }),
+                        NavTextButton(
+                            icon: CupertinoIcons.calendar_badge_plus,
+                            text: 'Get Event Passcode',
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EventRequest(
+                                            data: widget.data,
+                                          )));
+                            }),
                         ExpansionTile(
                           trailing: const Icon(
                             Icons.keyboard_arrow_down,
@@ -209,11 +208,11 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                 size: 30.sp,
                               ),
                               SizedBox(
-                                width: 10.w,
+                                width: 16.w,
                               ),
-                              Text('Reports',
+                              Text('Report',
                                   style: TextStyle(
-                                      fontSize: 15.sp,
+                                      fontSize: 17.sp,fontWeight: FontWeight.w600,
                                       color: color.AppColor.landingPage2)),
                             ],
                           ),
