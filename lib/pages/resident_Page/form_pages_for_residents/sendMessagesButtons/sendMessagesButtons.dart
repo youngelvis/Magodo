@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/services/services.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../../components/title.dart';
 import '../../../../models/resident_data_model/residentdata.dart';
@@ -121,8 +123,8 @@ class _SendMessagesButtonsState extends State<SendMessagesButtons> {
                             child: ElevatedButton(
                               onPressed: sendSMSPasscode,
                               style: ElevatedButton.styleFrom(
-                                  primary: color.AppColor.homePageTheme,
-                                  onPrimary: color.AppColor.homePageBackground),
+                                  backgroundColor: color.AppColor.homePageTheme,
+                                  foregroundColor: color.AppColor.homePageBackground),
                               child: Row(
                                 children:  [
 
@@ -150,12 +152,11 @@ class _SendMessagesButtonsState extends State<SendMessagesButtons> {
                             child: ElevatedButton(
                               onPressed: whatApp,
                               style: ElevatedButton.styleFrom(
-                                  primary: Colors.green,
-                                  onPrimary: Colors.white),
+                                  backgroundColor: Colors.green,
+                                  foregroundColor: Colors.white),
                               child: Row(
                                 children:  [
-
-                                  Icon(Icons.whatsapp,color: Colors.white,size: 40.sp,),
+                                  FaIcon(FontAwesomeIcons.whatsapp,color: Colors.white,size: 40.sp,),
                                   SizedBox(
                                     width: 20.w,
                                   ),
