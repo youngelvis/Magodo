@@ -219,7 +219,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       IconButton(
                           icon: Icon(
                             Icons.menu,
-                            size: 50,
+                            size: 48,
                             color: color.AppColor.landingPageTitle,
                           ),
                           onPressed: () {

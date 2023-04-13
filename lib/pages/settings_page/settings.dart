@@ -1,14 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
-import 'package:magodo/pages/change_password/change_password.dart';
 import 'package:magodo/pages/contact_us/contact_us_page.dart';
-import 'package:magodo/pages/landing_page/welcome_screen.dart';
+import 'package:magodo/pages/login_page/login_page.dart';
 import 'package:magodo/pages/settings_page/custom_list_tiles.dart';
+import 'package:magodo/services/services.dart';
 import '../../../components/components_for_class_of_varable/colors.dart'
-    as color;
-import '../../components/text_button_nav_page.dart';
+as color;
 
 class Settings extends StatefulWidget {
   ResidentModel? data;
@@ -22,6 +23,86 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   navFunc(page) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+  }
+
+  callMessage(message) {
+    return showDialog(
+      context: context,
+      builder: (_) =>
+          AlertDialog(
+            title: Text(message),
+            actions: [
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      foregroundColor: color.AppColor.landingPage2,
+                      backgroundColor: color.AppColor.homePageTheme,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0))),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("ok"))
+            ],
+          ),
+    );
+  }
+
+  popMessage() {
+    return showDialog(
+      context: context,
+      builder: (_) =>
+          AlertDialog(
+            title: const Text('Are you sure you want to delete this Account?'),
+            actions: [
+              Row(children: [
+                SizedBox(
+                  width: 50.w,
+                ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        foregroundColor: color.AppColor.landingPage2,
+                        backgroundColor: color.AppColor.homePageTheme,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0))),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      deleteAccount();
+                    },
+                    child: const Text("Yes")),
+                SizedBox(
+                  width: 30.w,
+                ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        foregroundColor: color.AppColor.landingPage2,
+                        backgroundColor: color.AppColor.homePageTheme,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0))),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("No"))
+              ])
+            ],
+          ),
+    );
+  }
+
+  deleteAccount() async {
+    var data = await Services().deleteAccount(
+        resident_code: widget.data?.resident_code,
+        fullname: widget.data?.usr_full_name);
+    var message = data['message'];
+    Timer(Duration(seconds: 2), () {
+      // <-- Delay here
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const SignIN()));
+    }
+    );
+
+    callMessage(message);
   }
 
   @override
@@ -101,7 +182,8 @@ class _SettingsState extends State<Settings> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ContactUsPage(
+                                builder: (context) =>
+                                    ContactUsPage(
                                       data: widget.data,
                                     )));
                       },
@@ -127,27 +209,27 @@ class _SettingsState extends State<Settings> {
                                     color: color.AppColor.landingPageTitle)),
                           ],
                         ),
-                        children:  [
+                        children: [
                           CustomListTile(
-                            size: 15.sp,
+                              size: 15.sp,
                               text: 'Xtra-clean',
                               data:
-                                  'https://magodoresidents.org/public/service_xtraclean.php'),
+                              'https://magodoresidents.org/public/service_xtraclean.php'),
                           CustomListTile(
                               size: 15.sp,
                               text: 'Bill payment',
                               data:
-                                  'https://magodoresidents.org/public/bills_payment.php'),
+                              'https://magodoresidents.org/public/bills_payment.php'),
                           CustomListTile(
                               size: 15.sp,
                               text: 'NIMC Payment',
                               data:
-                                  'https://magodoresidents.org/public/nimc.php'),
+                              'https://magodoresidents.org/public/nimc.php'),
                           CustomListTile(
                               size: 15.sp,
                               text: 'Vehicle License validity Verification ',
                               data:
-                                  'https://magodoresidents.org/public/vehicle_license.php'),
+                              'https://magodoresidents.org/public/vehicle_license.php'),
                         ]),
                     const SizedBox(
                       height: 20,
@@ -157,6 +239,26 @@ class _SettingsState extends State<Settings> {
                       text: 'FAQ',
                       data: 'https://magodoresidents.org/public/faqs.php',
                       colour: color.AppColor.faq,
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        CupertinoIcons.delete,
+                        size: 30.sp,
+                        color: color.AppColor.aboutUs,
+                      ),
+                      title: Text(
+                        'Delete Account',
+                        style: TextStyle(
+                          fontSize: 25.sp,
+                          color: color.AppColor.landingPageTitle,
+                        ),
+                      ),
+                      onTap: () {
+                        popMessage();
+                      },
+                    ),
+                    SizedBox(
+                      height: 20.h,
                     ),
                     ListTile(
                       leading: Icon(
@@ -171,11 +273,11 @@ class _SettingsState extends State<Settings> {
                           color: color.AppColor.landingPageTitle,
                         ),
                       ),
-                      onTap:() {
+                      onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const WelcomeScreen()));
+                                builder: (context) => const SignIN()));
                       },
                     ),
                   ],

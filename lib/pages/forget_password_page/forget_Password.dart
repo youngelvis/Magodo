@@ -13,6 +13,7 @@ import 'package:magodo/pages/forget_password_page/forget_password_fourth_page.da
 import 'package:magodo/services/services.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 import '../../models/forget_password_model/forgetPasswordResponse.dart';
+import '../login_page/login_page.dart';
 
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({Key? key}) : super(key: key);
@@ -107,46 +108,74 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
         body: Container(
-          padding: EdgeInsets.only(top: 60.h, left: 30.w, right: 30.w),
+          padding: EdgeInsets.only(top: 30.h, left: 5.w, right: 20.w),
           color: color.AppColor.homePageBackground,
           child: OverflowBox(
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const ForgetPasswordHeading(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SingleChildScrollView(
+                  IconButton(
+                      icon: Icon(
+                        Icons.keyboard_arrow_left,
+                        size: 50,
+                        color: color.AppColor.landingPageTitle,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                              const SignIN(
+                              )
+                          ),
+                        );
+                      }),
+                  Container(
+                    padding: EdgeInsets.only(left: 15.h,),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ForgetPasswordForm1(
-                            residentCode: NameTextField(
-                              controller: _residentCode,
-                              hint: 'Enter resident code',
-                              nameType: 'Resident Code',
-                            ),
-                            mobileNumber: MobileNumberTextField(
-                              controller: _mobileNumber,
-                              fieldName: 'Mobile Number',
-                              hintText: 'Enter your mobile number',
-                            ),
-                            email: NameTextField(
-                              controller: _email,
-                              hint: 'Enter your email',
-                              nameType: ' E-mail',
-                            )),
+
                         const SizedBox(
-                          height: 15,
+                          height: 25,
                         ),
-                        ActionPageButton(
-                            onPressed: () async {
-                              await _getPassCode();
-                            },
-                            text: 'Continue'),
+                        const ForgetPasswordHeading(),
                         const SizedBox(
                           height: 20,
+                        ),
+                        SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              ForgetPasswordForm1(
+                                  residentCode: NameTextField(
+                                    controller: _residentCode,
+                                    hint: 'Enter resident code',
+                                    nameType: 'Resident Code',
+                                  ),
+                                  mobileNumber: MobileNumberTextField(
+                                    controller: _mobileNumber,
+                                    fieldName: 'Mobile Number',
+                                    hintText: 'Enter your mobile number',
+                                  ),
+                                  email: NameTextField(
+                                    controller: _email,
+                                    hint: 'Enter your email',
+                                    nameType: ' E-mail',
+                                  )),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              ActionPageButton(
+                                  onPressed: () async {
+                                    await _getPassCode();
+                                  },
+                                  text: 'Continue'),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

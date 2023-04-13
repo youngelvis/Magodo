@@ -19,10 +19,12 @@ import 'package:magodo/pages/super_admin/super_admin_forms/add_new_administrativ
 
 import 'package:magodo/services/services.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
+import '../../components/terms_and_conditions.dart';
 import '../admin_page/admin_forms/identify_newly_registered_members.dart';
 import '../commercial_page/commercial_reports/commercial_event_request/commercial_event_records.dart';
 import '../landing_page/welcome_screen.dart';
 import '../security_page/security_form/validate_passcode.dart';
+import '../settings_page/web_view.dart';
 
 class SignIN extends StatefulWidget {
   const SignIN({Key? key}) : super(key: key);
@@ -36,6 +38,7 @@ TextEditingController _residentCode = TextEditingController();
 TextEditingController _password = TextEditingController();
 
 class _SignINState extends State<SignIN> {
+  bool isChecked = false;
   List commercial_category = [
     "Church",
     "Mosque",
@@ -83,7 +86,32 @@ callMessage(message){
     ),
   );
 }
+  callMessage3() {
+    return showDialog(
+      context: context,
+      builder: (_) =>
+          AlertDialog(
+            title: Text("Please accept our Privacy Policy be you can Sign in"),
+            actions: [
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      foregroundColor: color.AppColor.landingPage2, backgroundColor: color.AppColor.homePageTheme,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0))),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("ok"))
+            ],
+          ),
+    );
+  }
+
   _login() async {
+    if(isChecked == false){
+      callMessage3();
+      return;
+    }
     if (_residentCode.text.isEmpty && _password.text.isEmpty) {
       var data = await Services().login(_residentCode.text, _password.text);
       var message = data['error']['message'];
@@ -111,7 +139,7 @@ callMessage(message){
       });
       final resident = mainResidentModel.data;
 
-      if (resident?.usr_group == UserGroup.MEMBER) {
+      if (resident?.usr_group == UserGroup.MEMBER ||resident?.usr_group == UserGroup.DEPENDANT) {
         _navigation(
           GetPasscode(
             data: resident,
@@ -196,7 +224,7 @@ callMessage(message){
                     ),
                     const RememberMe(),
                     SizedBox(
-                      height: 100.h,
+                      height: 50.h,
                     ),
                     ActionPageButton(
                       text: 'Log in',
@@ -208,6 +236,14 @@ callMessage(message){
                       height: 30.h,
                     ),
 
+                    TermsAndConditions(
+                      value: isChecked,
+                      onChanged: (value) {
+                        setState(() {
+                          isChecked = value!;
+                        });
+                      },
+                    ),
                     InkWell(
                       onTap:() { Navigator.push(
                           context,

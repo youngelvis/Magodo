@@ -24,14 +24,13 @@ class RegistrationPage2 extends StatefulWidget {
   String mobileNumber;
   String surname, firstname, email;
 
-
-  RegistrationPage2({Key? myKey,
+  RegistrationPage2({
+    Key? myKey,
     required this.firstname,
     required this.surname,
     required this.email,
     required this.mobileNumber,
-  })
-      : super(key: myKey);
+  }) : super(key: myKey);
 
   @override
   State<RegistrationPage2> createState() => _RegistrationPage2State();
@@ -42,6 +41,7 @@ TextEditingController _password = TextEditingController();
 TextEditingController _confirmPassword = TextEditingController();
 
 class _RegistrationPage2State extends State<RegistrationPage2> {
+  bool isChecked = false;
   String? zone;
   MainRegistrationDataModel? registrationDataModel;
 
@@ -53,33 +53,77 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
   callMessage(message) {
     return showDialog(
       context: context,
-      builder: (_) =>
-          AlertDialog(
-            title: Text(message),
-            actions: [
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: color.AppColor.homePageTheme,
-                      onPrimary: color.AppColor.landingPage2,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0))),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                          const SignIN(
-                          )
-                      ),
-                    );
-                  },
-                  child: const Text("ok"))
-            ],
-          ),
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  foregroundColor: color.AppColor.landingPage2,
+                  backgroundColor: color.AppColor.homePageTheme,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SignIN()),
+                );
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
+
+  callMessage2(message) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  foregroundColor: color.AppColor.landingPage2,
+                  backgroundColor: color.AppColor.homePageTheme,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SignUp()),
+                );
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
+  }
+
+  callMessage3() {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text("Please accept our Privacy Policy be you can register"),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  foregroundColor: color.AppColor.landingPage2,
+                  backgroundColor: color.AppColor.homePageTheme,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
     );
   }
 
   _register() async {
+    if (isChecked == false) {
+      callMessage3();
+      return;
+    }
     if (_password.text.isEmpty ||
         _confirmPassword.text.isEmpty ||
         _address.text.isEmpty ||
@@ -99,7 +143,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
           _confirmPassword.text,
           widget.mobileNumber);
       var message = data['error']['message'];
-      callMessage(message);
+      callMessage2(message);
       return;
     } else {
       var data = await Services().register(
@@ -132,18 +176,17 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            Registration_page3(
-              mobileNumber: widget.mobileNumber,
-              surname: widget.surname,
-              firstname: widget.firstname,
-              confirmPassword: _confirmPassword.text,
-              password: _password.text,
-              email: widget.email,
-              residentialType: residentType.toString(),
-              address: _address.text,
-              zone: zone.toString(),
-            ),
+        builder: (context) => Registration_page3(
+          mobileNumber: widget.mobileNumber,
+          surname: widget.surname,
+          firstname: widget.firstname,
+          confirmPassword: _confirmPassword.text,
+          password: _password.text,
+          email: widget.email,
+          residentialType: residentType.toString(),
+          address: _address.text,
+          zone: zone.toString(),
+        ),
       ),
     );
     Timer(Duration(seconds: 2), () {
@@ -180,6 +223,21 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                IconButton(
+                    icon: Icon(
+                      Icons.keyboard_arrow_left,
+                      size: 50,
+                      color: color.AppColor.landingPageTitle,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const SignUp()),
+                      );
+                    }),
+                const SizedBox(
+                  height: 25,
+                ),
                 const SignUpText(),
                 RegistrationPagesForms(
                   RegistrationPageBody: Column(
@@ -190,10 +248,9 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                       ),
                       BuildZoneDropDownList(
                         zone: zone,
-                        onChanged: (value) =>
-                            setState(() {
-                              zone = value as String;
-                            }),
+                        onChanged: (value) => setState(() {
+                          zone = value as String;
+                        }),
                       ),
                       NameTextField(
                           controller: _address,
@@ -201,8 +258,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                           nameType: 'Address'),
                       BuildResidentTypeDropDownList(
                           residentType: residentType,
-                          onChanged: (value) =>
-                              setState(() {
+                          onChanged: (value) => setState(() {
                                 residentType = value as String;
                                 residentType == 'Commercial'
                                     ? _selectResidential = true
@@ -213,10 +269,6 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                       BuildPasswordTextField(
                           passwordController: _confirmPassword,
                           fieldName: 'Confirm Password'),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      const TermsAndConditions(),
                       SizedBox(
                         height: 40.h,
                       ),
@@ -228,6 +280,19 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                         _selectResidential ? _nextPage() : await _register();
                       }),
                 ),
+                const SizedBox(
+                  height: 15,
+                ),
+                _selectResidential
+                    ? SizedBox()
+                    : TermsAndConditions(
+                        value: isChecked,
+                        onChanged: (value) {
+                          setState(() {
+                            isChecked = value!;
+                          });
+                        },
+                      ),
                 SizedBox(
                   height: 50.h,
                 ),

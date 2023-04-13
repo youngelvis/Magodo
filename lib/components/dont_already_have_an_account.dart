@@ -12,30 +12,34 @@ class DontAlreadyHaveAnAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          "Already have an account?",
-          style: TextStyle(
-              fontSize: 20.sp,
-              color: color.AppColor.landingPageTitle,
-              fontWeight: FontWeight.w400),
-        ),
-         SizedBox(
-          width: 20.w,
-        ),
-        TextButton(
-          onPressed: onPressed,
-          child: Text(
-            'Sign up',
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Already have an account?",
             style: TextStyle(
-              color: color.AppColor.signUp,
-              fontSize: 20.sp,
-            ),
+                fontSize: 20.sp,
+                color: color.AppColor.landingPageTitle,
+                fontWeight: FontWeight.w400),
           ),
-        )
-      ],
+           SizedBox(
+            width: 20.w,
+          ),
+          TextButton(
+            onPressed: onPressed,
+            child: Text(
+              'Sign up',
+              style: TextStyle(
+                color: color.AppColor.signUp,
+                fontSize: 20.sp,
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

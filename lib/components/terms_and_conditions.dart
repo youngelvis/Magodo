@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:magodo/pages/settings_page/web_view.dart';
 import 'components_for_class_of_varable/colors.dart' as color;
 
 class TermsAndConditions extends StatefulWidget {
-  const TermsAndConditions({Key? key}) : super(key: key);
+  final value, onChanged;
+
+  const TermsAndConditions(
+      {Key? key, required this.value, required this.onChanged})
+      : super(key: key);
 
   @override
   State<TermsAndConditions> createState() => _TermsAndConditionsState();
@@ -12,35 +17,51 @@ class TermsAndConditions extends StatefulWidget {
 class _TermsAndConditionsState extends State<TermsAndConditions> {
   bool isChecked = false;
 
+  openFile() async {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MobileWebView(
+                data: "https://www.iubenda.com/privacy-policy/87719302")));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Theme(
-          data: Theme.of(context)
-              .copyWith(unselectedWidgetColor: color.AppColor.homePageTheme),
-          child: Checkbox(
-            value: isChecked,
-            onChanged: (value) {
-              setState(() {
-                isChecked = value!;
-              });
-            },
-            activeColor: color.AppColor.homePageTheme,
-            checkColor: Colors.white,
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        children: [
+          Theme(
+            data: Theme.of(context)
+                .copyWith(unselectedWidgetColor: color.AppColor.homePageTheme),
+            child: Checkbox(
+              value:widget.value,
+              onChanged: widget.onChanged,
+              activeColor: color.AppColor.homePageTheme,
+              checkColor: Colors.white,
+            ),
           ),
-        ),
-        TextButton(
-          onPressed: () {},
-          child:  Text(
-            'I agree to the terms and conditions',
+          Text(
+            'I agree to the',
             style: TextStyle(
               color: Colors.black,
               fontSize: 15.sp,
             ),
           ),
-        )
-      ],
+          TextButton(
+            onPressed: () {
+              openFile();
+            },
+            child: Text(
+              'Privacy Policy',
+              style: TextStyle(
+                color: color.AppColor.verifiedColor,
+                fontSize: 15.sp,
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

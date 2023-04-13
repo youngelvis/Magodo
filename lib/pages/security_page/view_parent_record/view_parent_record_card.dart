@@ -50,9 +50,16 @@ class ViewParentRecordCard extends StatelessWidget {
             ListTile(
               title:  Text("Resident Name",
                   style: TextStyle(fontSize: 15.sp, color: Colors.black)),
-              trailing: Text(data.residentName ?? '',
-                  style: TextStyle(fontSize: 15.sp, color: Colors.black)),
+              trailing: Container(
+                alignment: Alignment.centerRight,
+                width: 190,
+                child: Text(
+                  data.residentName ?? '',
+                  style: TextStyle(fontSize: 15.sp),
+                ),
+              ),
             ),
+
             ListTile(
               title:  Text("Parent Name",
                   style: TextStyle(fontSize: 15.sp, color: Colors.black)),
@@ -80,8 +87,14 @@ class ViewParentRecordCard extends StatelessWidget {
             ListTile(
               title:  Text("Business Name",
                   style: TextStyle(fontSize: 15.sp, color: Colors.black)),
-              trailing: Text(data.businessName ?? '-',
-                  style:  TextStyle(fontSize: 15.sp, color: Colors.black)),
+              trailing:Container(
+                alignment: Alignment.centerRight,
+                width: 190,
+                child: Text(
+                  data.businessName ?? '',
+                  style: TextStyle(fontSize: 15.sp),
+                ),
+              ),
             ),
             ListTile(
               title:  Text("Zone",

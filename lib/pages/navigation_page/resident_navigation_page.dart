@@ -20,6 +20,7 @@ import 'package:magodo/pages/resident_Page/view_family/view_family_report.dart';
 import 'package:magodo/pages/resident_Page/view_staff/view_staff_report.dart';
 
 import '../../components/components_for_class_of_varable/colors.dart' as color;
+import '../../components/components_for_class_of_varable/userGroup.dart';
 import '../change_password/change_password.dart';
 import '../commercial_page/commercial_reports/commercial_event_request/commercial_event_records.dart';
 import '../profile_page/edit_profile/edit_profile.dart';
@@ -95,7 +96,8 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                               ),
                               Text('Profile',
                                   style: TextStyle(
-                                      fontSize: 17.sp, fontWeight: FontWeight.w600,
+                                      fontSize: 17.sp,
+                                      fontWeight: FontWeight.w600,
                                       color: color.AppColor.landingPage2)),
                             ],
                           ),
@@ -124,30 +126,38 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                                     data: widget.data,
                                   ));
                                 }),
-                            ListTile(
-                                title: Text(
-                                  'Add Family',
-                                  style: TextStyle(
-                                      fontSize: 15.sp,
-                                      color: color.AppColor.landingPage2),
-                                ),
-                                onTap: () {
-                                  navigateToPage(AddFamily(
-                                    data: widget.data,
-                                  ));
-                                }),
-                            ListTile(
-                                title: Text(
-                                  'Add Staff',
-                                  style: TextStyle(
-                                      fontSize: 15.sp,
-                                      color: color.AppColor.landingPage2),
-                                ),
-                                onTap: () {
-                                  navigateToPage(AddStaff(
-                                    data: widget.data,
-                                  ));
-                                }),
+                            widget.data?.usr_group == UserGroup.MEMBER
+                                ? Column(
+                                    children: [
+                                      ListTile(
+                                          title: Text(
+                                            'Add Family',
+                                            style: TextStyle(
+                                                fontSize: 15.sp,
+                                                color: color
+                                                    .AppColor.landingPage2),
+                                          ),
+                                          onTap: () {
+                                            navigateToPage(AddFamily(
+                                              data: widget.data,
+                                            ));
+                                          }),
+                                      ListTile(
+                                          title: Text(
+                                            'Add Staff',
+                                            style: TextStyle(
+                                                fontSize: 15.sp,
+                                                color: color
+                                                    .AppColor.landingPage2),
+                                          ),
+                                          onTap: () {
+                                            navigateToPage(AddStaff(
+                                              data: widget.data,
+                                            ));
+                                          }),
+                                    ],
+                                  )
+                                : SizedBox(),
                             ListTile(
                                 title: Text(
                                   'Register Vehicle',
@@ -212,7 +222,8 @@ class _ResidentNavigationPageState extends State<ResidentNavigationPage> {
                               ),
                               Text('Report',
                                   style: TextStyle(
-                                      fontSize: 17.sp,fontWeight: FontWeight.w600,
+                                      fontSize: 17.sp,
+                                      fontWeight: FontWeight.w600,
                                       color: color.AppColor.landingPage2)),
                             ],
                           ),

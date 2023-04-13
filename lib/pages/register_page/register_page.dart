@@ -9,6 +9,7 @@ import 'package:magodo/pages/register_page/register_second_page.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
 import '../../components/components_for_class_of_varable/colors.dart' as color;
 import '../../components/textfields_types/mobile_num_textfield.dart';
+import '../login_page/login_page.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -69,6 +70,25 @@ class _SignUpState extends State<SignUp> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                IconButton(
+                    icon: Icon(
+                      Icons.keyboard_arrow_left,
+                      size: 50,
+                      color: color.AppColor.landingPageTitle,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                            const SignIN(
+                            )
+                        ),
+                      );
+                    }),
+                const SizedBox(
+                  height: 25,
+                ),
                 const SignUpText(),
                 RegistrationPagesForms(
                   RegistrationPageBody: Column(
@@ -99,6 +119,9 @@ class _SignUpState extends State<SignUp> {
                       onPressed: () {
                         clearForm();
                       }),
+                ),
+                SizedBox(
+                  height: 20.h,
                 )
               ],
             ),

@@ -116,8 +116,9 @@ class _ViewFamilyMembersState extends State<ViewFamilyMembers> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0))),
                 onPressed: () {
-                  Navigator.of(context).pop();
                   deleteFamilyMember(info);
+                  Navigator.of(context).pop();
+
                 },
                 child: const Text("Yes")),
             SizedBox(

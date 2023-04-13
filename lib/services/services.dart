@@ -311,7 +311,7 @@ class Services {
       "resident_code": residentCode,
     };
 
-    var res = await CallApi().deleteData(data, '8FamilyMember');
+    var res = await CallApi().deleteData(data, 'deleteFamilyMember');
     var body = jsonDecode(res.body);
     return body;
   }
@@ -453,15 +453,14 @@ class Services {
   }
 
   // 30
-  viewMembersReportForSAdmin(
-      {page,
-      userGroup,
-      zone,
-      search,
-      startDate,
-      endDate,
-      residentCategory,
-      status}) async {
+  viewMembersReportForSAdmin({page,
+    userGroup,
+    zone,
+    search,
+    startDate,
+    endDate,
+    residentCategory,
+    status}) async {
     var data = {
       "search": search.toString(),
       "page": page,
@@ -470,7 +469,7 @@ class Services {
       "zone": zone,
       "start_date": startDate,
       "end_date": endDate,
-      "resident_category" : residentCategory,
+      "resident_category": residentCategory,
       "status": status
     };
     var res = await CallApi().postData(data, 'membersReport');
@@ -897,15 +896,14 @@ class Services {
   }
 
   //66
-  adminVehicleReport(
-      {startDate,
-      startEnd,
-      page,
-      search,
-      status,
-      rfidMin,
-      rfidMax,
-      zone}) async {
+  adminVehicleReport({startDate,
+    startEnd,
+    page,
+    search,
+    status,
+    rfidMin,
+    rfidMax,
+    zone}) async {
     var data = {
       "startDate": startDate,
       "EndDate": startEnd,
@@ -1003,7 +1001,6 @@ class Services {
     var res = await CallApi().postData(data, "superAdminVehicleReport");
 
     return res.body;
-
   }
 
   //73
@@ -1095,7 +1092,16 @@ class Services {
     var res = await CallApi().postData(data, "vechicleDeclineReason");
     var body = jsonDecode(res.body);
     return body;
+  }
 
+  deleteAccount({resident_code, fullname}) async {
+    var data = {
+      "resident_code": resident_code,
+      "fullname": fullname
+    };
+    var res = await CallApi().postData(data, "deleteAccount");
+    var body = jsonDecode(res.body);
+    return body;
   }
 
 }

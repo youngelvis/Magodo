@@ -280,8 +280,7 @@ class _ViewMemberState extends State<ViewMember> {
                         BoxDecoration(borderRadius: BorderRadius.circular(20)),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: color.AppColor.landingPage2,
-                        onPrimary: Colors.grey,
+                        foregroundColor: Colors.grey, backgroundColor: color.AppColor.landingPage2,
                       ),
                       onPressed: () {
                         createAlertDialog();

@@ -33,8 +33,7 @@ callMessage(message){
       actions: [
         ElevatedButton(
             style: ElevatedButton.styleFrom(
-                primary: color.AppColor.homePageTheme,
-                onPrimary: color.AppColor.landingPage2,
+                foregroundColor: color.AppColor.landingPage2, backgroundColor: color.AppColor.homePageTheme,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0))),
             onPressed: () {

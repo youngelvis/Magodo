@@ -73,7 +73,7 @@ class _TitleContainerState extends State<TitleContainer> {
   ];
 
   navbarController() {
-    if (widget.data?.usr_group == UserGroup.MEMBER) {
+    if (widget.data?.usr_group == UserGroup.MEMBER || widget.data?.usr_group == UserGroup.DEPENDANT ) {
       navigateToProfilePage(ResidentNavigationPage(data: widget.data));
     } else if (widget.data?.usr_group == UserGroup.SUPER_ADMIN ||
         widget.data?.usr_group == UserGroup.ZONAL_SUPER_ADMIN) {
@@ -112,7 +112,7 @@ class _TitleContainerState extends State<TitleContainer> {
               IconButton(
                   icon: const Icon(
                     Icons.menu,
-                    size: 50,
+                    size: 48,
                   ),
                   onPressed: () {
                     navbarController();

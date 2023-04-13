@@ -81,6 +81,9 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
     return true;
   }
 
+  deleteVehicle()async{
+
+  }
 
 
   Future _searchFunction() async => debounce(() async {
@@ -217,8 +220,8 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
                                   regNo: vehicle.registrationNo,
                                 ),
                                 // DeleteUpdateButton(onPressedDeleteButton:  () async{
-                                //   await deleteStaff(vehicle.guid);
-                                // },
+                                //   await deleteVehicle(vehicle.guid);
+                                // }, onPressedUpdateButton: null,
                                 // ),
                               ],
                             ),
