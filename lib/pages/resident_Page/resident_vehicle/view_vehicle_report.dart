@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
 import 'package:magodo/models/vehicle_dataModel/vehicledata.dart';
+import 'package:magodo/pages/resident_Page/form_pages_for_residents/register_vechicle/update_reg_vehicle_resident.dart';
 import 'package:magodo/pages/resident_Page/forms_component/delete_edit_button.dart';
 import 'package:magodo/pages/resident_Page/resident_vehicle/resident_vechicle_card.dart';
 import 'package:magodo/services/services.dart';
@@ -81,9 +82,70 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
     return true;
   }
 
-  deleteVehicle()async{
+  deleteVehicle({
+    residentCode,
+    row_id,
+  }) async {
+    var data = await Services().deleteVehicle(residentCode, row_id);
+    var message = data['message'];
 
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  foregroundColor: color.AppColor.landingPage2, backgroundColor: color.AppColor.homePageTheme,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0))),
+              onPressed: () {
+                getVehicle(isRefresh: true);
+                Navigator.of(context).pop();
+              },
+              child: const Text("ok"))
+        ],
+      ),
+    );
   }
+  popMessage({residentCode, row_id}) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Are you sure you want to delete this vehicle?'),
+        actions: [
+          Row(children: [
+            SizedBox(
+              width: 50.w,
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    foregroundColor: color.AppColor.landingPage2, backgroundColor: color.AppColor.homePageTheme,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  deleteVehicle(residentCode:residentCode, row_id:row_id);
+                },
+                child: const Text("Yes")),
+            SizedBox(
+              width: 30.w,
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    foregroundColor: color.AppColor.landingPage2, backgroundColor: color.AppColor.homePageTheme,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0))),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("No"))
+          ])
+        ],
+      ),
+    );
+  }
+
 
 
   Future _searchFunction() async => debounce(() async {
@@ -219,10 +281,18 @@ class _ViewVehicleReportState extends State<ViewVehicleReport> {
                                   docName: vehicle.docName??'',
                                   regNo: vehicle.registrationNo,
                                 ),
-                                // DeleteUpdateButton(onPressedDeleteButton:  () async{
-                                //   await deleteVehicle(vehicle.guid);
-                                // }, onPressedUpdateButton: null,
-                                // ),
+                                DeleteUpdateButton(onPressedDeleteButton:  () async{
+                                  await popMessage(residentCode: widget.data?.resident_code, row_id: vehicle.guid);
+                                }, onPressedUpdateButton:  () async {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => UpdateVehicleRegistration2(
+                                            data: widget.data,
+                                            vehicleData: vehicle,
+                                          )));
+                                },
+                                ),
                               ],
                             ),
                           ));

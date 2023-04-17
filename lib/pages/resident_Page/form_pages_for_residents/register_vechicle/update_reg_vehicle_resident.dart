@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
-import '../../../../components/components_for_class_of_varable/userGroup.dart';
-import '../../../../components/components_for_class_of_varable/username_password.dart';
-import '../../../super_admin/super_admin_component/searchableDropDownList_UM.dart';
-import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:dio/dio.dart';
+
+import '../../../../components/components_for_class_of_varable/username_password.dart';
+import '../../../../models/vehicle_dataModel/vehicledata.dart';
+import '/../../components/components_for_class_of_varable/colors.dart' as color;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magodo/components/app_page_theme_action_button.dart';
@@ -13,18 +12,21 @@ import 'package:magodo/components/textfields_types/mobile_num_textfield.dart';
 import 'package:magodo/components/textfields_types/name_textfield.dart';
 import 'package:magodo/components/textfields_types/vehicle_color_dropdown_list.dart';
 import 'package:magodo/models/resident_data_model/residentdata.dart';
-import 'package:magodo/pages/resident_Page/form_pages_for_residents/get_future_passcode/get_passcode_title.dart';
 import 'package:magodo/services/services.dart';
 
 import '../../../../components/title.dart';
 
-class RegisterVehicle extends StatefulWidget {
+class UpdateVehicleRegistration2 extends StatefulWidget {
   ResidentModel? data;
+  Vehicle vehicleData;
 
-  RegisterVehicle({Key? key, required this.data}) : super(key: key);
+
+  UpdateVehicleRegistration2({Key? key, this.data, required this.vehicleData, })
+      : super(key: key);
 
   @override
-  State<RegisterVehicle> createState() => _RegisterVehicleState();
+  State<UpdateVehicleRegistration2> createState() =>
+      _UpdateVehicleRegistration2State();
 }
 
 TextEditingController _vehicleCode = TextEditingController();
@@ -35,83 +37,97 @@ TextEditingController _registrationNumber = TextEditingController();
 TextEditingController _duesReceiptNo = TextEditingController();
 TextEditingController _amountPaid = TextEditingController();
 
-class _RegisterVehicleState extends State<RegisterVehicle> {
+class _UpdateVehicleRegistration2State extends State<UpdateVehicleRegistration2> {
   String? colour;
   var filename;
   var file;
   var filePath;
-  var residentcode;
 
   Future selectFile() async {
     file = await Services().selectFile();
     filename = file['fileName'];
     filePath = file['path'];
-    setState(() {});
   }
 
   registerVehicle() async {
     const String _url = "http://132.145.231.191/portal/mraLagosApp/api/";
-    const String _apiUrl = 'vehicleRegistration';
+    const String _apiUrl = 'updateVehicle';
     FormData formData;
-
-    if (widget.data?.usr_group == UserGroup.MEMBER) {
-      if (filename == null && filePath == null) {
-        formData = FormData.fromMap({
-          'resident_code': widget.data?.resident_code,
-          'make': _vehicleMake.text,
-          'model': _vehicleModel.text,
-          'color': colour,
-          "gov_agency": _govtAgency.text,
-          "reg_no": _registrationNumber.text,
-          "vehicle_no": _vehicleCode.text.isEmpty ? '' : _vehicleCode.text,
-          "receipt_no": _duesReceiptNo.text,
-          "amount": _amountPaid.text,
-          "action_user": widget.data?.resident_code,
-        });
-      } else {
-        formData = FormData.fromMap({
-          'resident_code': widget.data?.resident_code,
-          'make': _vehicleMake.text,
-          'model': _vehicleModel.text,
-          'color': colour,
-          "gov_agency": _govtAgency.text,
-          "reg_no": _registrationNumber.text,
-          "vehicle_no": _vehicleCode.text.isEmpty ? '' : _vehicleCode.text,
-          "receipt_no": _duesReceiptNo.text,
-          "amount": _amountPaid.text,
-          "action_user": widget.data?.resident_code,
-          "file": await MultipartFile.fromFile(filePath, filename: filename)
-        });
-      }
+    if (filename == null &&
+        filePath == null &&
+        widget.vehicleData.doc == null &&
+        widget.vehicleData.docName == null) {
+      formData = FormData.fromMap({
+        "guid_id": widget.vehicleData.guid,
+        'resident_code': widget.data?.resident_code,
+        'make': _vehicleMake.text.isEmpty
+            ? widget.vehicleData.make
+            : _vehicleMake.text,
+        'model': _vehicleModel.text.isEmpty
+            ? widget.vehicleData.model
+            : _vehicleModel.text,
+        'color': colour ?? widget.vehicleData.color,
+        "gov_agency": _govtAgency.text.isEmpty
+            ? widget.vehicleData.govAgency
+            : _govtAgency.text,
+        "reg_no": _registrationNumber.text.isEmpty
+            ? widget.vehicleData.registrationNo
+            : _registrationNumber.text,
+        "vehicle_no": _vehicleCode.text.isEmpty
+            ? widget.vehicleData.vehicleNo
+            : _vehicleCode.text,
+        "receipt_no": _duesReceiptNo.text.isEmpty
+            ? widget.vehicleData.receiptNo
+            : _duesReceiptNo.text,
+        "amount": _amountPaid.text.isEmpty
+            ? widget.vehicleData.amount
+            : _amountPaid.text,
+        "action_user": widget.data?.resident_code,
+      });
+    } else if (filename == null && filePath == null) {
+      formData = FormData.fromMap({
+        "guid_id": widget.vehicleData.guid,
+        'resident_code': widget.data?.resident_code,
+        'make': _vehicleMake.text.isEmpty
+            ? widget.vehicleData.make
+            : _vehicleMake.text,
+        'model': _vehicleModel.text.isEmpty
+            ? widget.vehicleData.model
+            : _vehicleModel.text,
+        'color': colour ?? widget.vehicleData.color,
+        "gov_agency": _govtAgency.text.isEmpty
+            ? widget.vehicleData.govAgency
+            : _govtAgency.text,
+        "reg_no": _registrationNumber.text.isEmpty
+            ? widget.vehicleData.registrationNo
+            : _registrationNumber.text,
+        "vehicle_no": _vehicleCode.text.isEmpty
+            ? widget.vehicleData.vehicleNo
+            : _vehicleCode.text,
+        "receipt_no": _duesReceiptNo.text.isEmpty
+            ? widget.vehicleData.receiptNo
+            : _duesReceiptNo.text,
+        "amount": _amountPaid.text.isEmpty
+            ? widget.vehicleData.amount
+            : _amountPaid.text,
+        "action_user": widget.data?.resident_code,
+        "file": await MultipartFile.fromFile(widget.vehicleData.doc ?? "",
+            filename: widget.vehicleData.docName ?? "")
+      });
     } else {
-      if (filename == null && filePath == null) {
-        formData = FormData.fromMap({
-          'resident_code': residentcode,
-          'make': _vehicleMake.text,
-          'model': _vehicleModel.text,
-          'color': colour,
-          "gov_agency": _govtAgency.text,
-          "reg_no": _registrationNumber.text,
-          "vehicle_no": _vehicleCode.text.isEmpty ? '' : _vehicleCode.text,
-          "receipt_no": _duesReceiptNo.text,
-          "amount": _amountPaid.text,
-          "action_user": widget.data?.resident_code,
-        });
-      } else {
-        formData = FormData.fromMap({
-          'resident_code': residentcode,
-          'make': _vehicleMake.text,
-          'model': _vehicleModel.text,
-          'color': colour,
-          "gov_agency": _govtAgency.text,
-          "reg_no": _registrationNumber.text,
-          "vehicle_no": _vehicleCode.text.isEmpty ? '' : _vehicleCode.text,
-          "receipt_no": _duesReceiptNo.text,
-          "amount": _amountPaid.text,
-          "action_user": widget.data?.resident_code,
-          "file": await MultipartFile.fromFile(filePath, filename: filename)
-        });
-      }
+      formData = FormData.fromMap({
+        'resident_code': widget.data?.resident_code,
+        'make': _vehicleMake.text,
+        'model': _vehicleModel.text,
+        'color': colour,
+        "gov_agency": _govtAgency.text,
+        "reg_no": _registrationNumber.text,
+        "vehicle_no": _vehicleCode.text.isEmpty ? '' : _vehicleCode.text,
+        "receipt_no": _duesReceiptNo.text,
+        "amount": _amountPaid.text,
+        "action_user": widget.data?.resident_code,
+        "file": await MultipartFile.fromFile(filePath, filename: filename)
+      });
     }
     var dio = Dio();
     var username = UsernameAndPassword.API_USERNAME;
@@ -140,8 +156,7 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
         actions: [
           ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  primary: color.AppColor.homePageTheme,
-                  onPrimary: color.AppColor.landingPage2,
+                  foregroundColor: color.AppColor.landingPage2, backgroundColor: color.AppColor.homePageTheme,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0))),
               onPressed: () {
@@ -153,25 +168,10 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
     );
   }
 
-  onChange(String? s) async {
-    var residentCode = s?.split("- ");
-    residentcode = residentCode?[0];
-  }
-
   _registerNewVehicle() async {
-    if (_vehicleMake.text.isEmpty ||
-        _vehicleModel.text.isEmpty ||
-        _govtAgency.text.isEmpty ||
-        _registrationNumber.text.isEmpty ||
-        _amountPaid.text.isEmpty ||
-        _duesReceiptNo.text.isEmpty) {
-      var data = await registerVehicle();
-      var message = data['error']['message'];
-
-      callMessage(message);
-      return;
-    }
     var data = await registerVehicle();
+    print(data);
+
     var message = data['message'];
 
     callMessage(message);
@@ -193,9 +193,10 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h),
+            padding: EdgeInsets.only(
+              top: 20.h,
+            ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TitleContainer(
                   title: 'Dashboard',
@@ -210,9 +211,8 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                       width: 25.w,
                     ),
                     Text(
-                      'Resident Vehicle',
-                      style: TextStyle(
-                          fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      'Update Resident Vehicle',
+                      style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -229,7 +229,7 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                       width: 25.w,
                     ),
                     Text(
-                      'Upload vehicle licence',
+                      'upload vehicle licence ',
                       style: TextStyle(fontSize: 15.sp),
                     ),
                   ],
@@ -246,54 +246,54 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                widget.data?.usr_group == UserGroup.SUPER_ADMIN ||widget.data?.usr_group == UserGroup.ZONAL_SUPER_ADMIN
-                                    ? SearchableDropDownListForFetchMember(
-                                        onChange: onChange,
-                                        data: widget.data,
-                                      )
-                                    : const Text(''),
                                 NameTextField(
                                     controller: _vehicleCode,
-                                    hint: "Enter vehicle code",
-                                    nameType: "Vehicle Code(optional)"),
+                                    hint: widget.vehicleData.vehicleNo ??
+                                        "Enter code",
+                                    nameType: "Vehicle Code"),
                                 NameTextField(
                                     controller: _vehicleMake,
-                                    hint: "Enter make of vehicle",
+                                    hint: widget.vehicleData.make ??
+                                        "Enter make of vehicle",
                                     nameType: "Vehicle Make"),
                                 NameTextField(
                                     controller: _vehicleModel,
-                                    hint: "Enter model of vehicle",
+                                    hint: widget.vehicleData.model ??
+                                        "Enter model of vehicle",
                                     nameType: "Vehicle Model"),
                                 BuildVehicleColorDropDownList(
+                                    hint: widget.vehicleData.color,
                                     vehicleColor: colour,
                                     onChanged: (value) => setState(() {
-                                          colour = value as String;
-                                        })),
+                                      colour = value as String;
+                                    })),
                                 NameTextField(
                                     controller: _govtAgency,
-                                    hint: "Registration State",
+                                    hint: widget.vehicleData.govAgency ??
+                                        "Registration State",
                                     nameType: "Registration State"),
                                 NameTextField(
                                     controller: _registrationNumber,
-                                    hint: "Registration number",
+                                    hint: widget.vehicleData.registrationNo ??
+                                        "Registration number",
                                     nameType: "Registration No"),
                                 NameTextField(
                                     controller: _duesReceiptNo,
-                                    hint: "MRA  receipt number",
+                                    hint: widget.vehicleData.receiptNo ??
+                                        "MRA receipt number",
                                     nameType: "MRA Dues Receipt No"),
                                 MobileNumberTextField(
                                     controller: _amountPaid,
-                                    fieldName: 'Amount Paid (₦)',
-                                    hintText: 'Enter amount paid'),
+                                    fieldName: '(₦)Amount Paid',
+                                    hintText: widget.vehicleData.amount ??
+                                        'Enter amount paid'),
                                 Row(
                                   children: [
                                     const TextForForm(text: 'Upload'),
-                                    SizedBox(
-                                      width: 5.w,
-                                    ),
+                                    SizedBox(width: 5.w),
                                     Flexible(
                                       child: Text(
-                                        filename ?? '',
+                                        widget.vehicleData.docName ?? '',
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: true,
                                       ),
@@ -305,23 +305,24 @@ class _RegisterVehicleState extends State<RegisterVehicle> {
                                     width: MediaQuery.of(context).size.width,
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                            foregroundColor: Colors.black, backgroundColor: Colors.white,
+                                            primary: Colors.white,
+                                            onPrimary: Colors.black,
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        12.0))),
+                                                BorderRadius.circular(
+                                                    12.0))),
                                         onPressed: () async {
                                           await selectFile();
                                         },
                                         child: const Icon(Icons.add))),
                                 const SizedBox(
-                                  height: 20,
+                                  height: 40,
                                 ),
                                 ActionPageButton(
                                     onPressed: () async {
-                                      await _registerNewVehicle();
+                                      _registerNewVehicle();
                                     },
-                                    text: 'Register'),
+                                    text: 'Submit'),
                                 const SizedBox(
                                   height: 30,
                                 ),

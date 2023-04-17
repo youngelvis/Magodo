@@ -1,11 +1,8 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
-import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:magodo/components/components_for_class_of_varable/userGroup.dart';
 import 'package:magodo/pages/settings_page/web_view.dart';
 import 'package:magodo/services/services.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -43,8 +40,7 @@ class _SuperAdminVehicleReportCardState
         actions: [
           ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  primary: color.AppColor.homePageTheme,
-                  onPrimary: color.AppColor.landingPage2,
+                  foregroundColor: color.AppColor.landingPage2, backgroundColor: color.AppColor.homePageTheme,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0))),
               onPressed: () {
@@ -155,8 +151,7 @@ class _SuperAdminVehicleReportCardState
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    primary: color.AppColor.homePageTheme,
-                    onPrimary: color.AppColor.landingPage2,
+                    foregroundColor: color.AppColor.landingPage2, backgroundColor: color.AppColor.homePageTheme,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0))),
                 onPressed: () {
@@ -169,8 +164,7 @@ class _SuperAdminVehicleReportCardState
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    primary: color.AppColor.homePageTheme,
-                    onPrimary: color.AppColor.landingPage2,
+                    foregroundColor: color.AppColor.landingPage2, backgroundColor: color.AppColor.homePageTheme,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0))),
                 onPressed: () {

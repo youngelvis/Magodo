@@ -91,7 +91,7 @@ callMessage(message){
       context: context,
       builder: (_) =>
           AlertDialog(
-            title: Text("Please accept our Privacy Policy be you can Sign in"),
+            title: Text("To sign in, please accept our privacy statement."),
             actions: [
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
