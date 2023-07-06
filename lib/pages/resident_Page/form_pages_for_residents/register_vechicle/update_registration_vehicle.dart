@@ -20,9 +20,11 @@ class UpdateVehicleRegistration extends StatefulWidget {
   ResidentModel? data;
   FetchSuperAdminVehicle vehicleData;
 
-
-  UpdateVehicleRegistration({Key? key, this.data, required this.vehicleData, })
-      : super(key: key);
+  UpdateVehicleRegistration({
+    Key? key,
+    this.data,
+    required this.vehicleData,
+  }) : super(key: key);
 
   @override
   State<UpdateVehicleRegistration> createState() =>
@@ -194,9 +196,7 @@ class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(
-              top: 20.h,
-            ),
+            padding: EdgeInsets.only(top: 20.h, right: 10.w, left: 10.w),
             child: Column(
               children: [
                 TitleContainer(
@@ -213,7 +213,8 @@ class _UpdateVehicleRegistrationState extends State<UpdateVehicleRegistration> {
                     ),
                     Text(
                       'Update Resident Vehicle',
-                      style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,

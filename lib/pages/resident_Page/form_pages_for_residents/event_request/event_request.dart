@@ -30,9 +30,8 @@ class _EventRequestState extends State<EventRequest> {
   String? eventType;
 
   String? population;
-  callMessage(message){
 
-
+  callMessage(message) {
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -52,13 +51,13 @@ class _EventRequestState extends State<EventRequest> {
       ),
     );
   }
+
   requestEvent() async {
     if (_scheduleDate.text.isEmpty || _scheduleTime.text.isEmpty) {
       final data = await Services().requestEvent(widget.data?.resident_code,
           population, _scheduleDate.text, _scheduleTime.text, eventType);
       callMessage(data["error"]["message"]);
       return;
-
     }
     final data = await Services().requestEvent(widget.data?.resident_code,
         population, _scheduleDate.text, _scheduleTime.text, eventType);
@@ -66,7 +65,7 @@ class _EventRequestState extends State<EventRequest> {
     _scheduleTime.clear();
     _scheduleDate.clear();
     population = null;
-    eventType=null;
+    eventType = null;
     callMessage(data["message"]);
     return;
   }
@@ -77,24 +76,25 @@ class _EventRequestState extends State<EventRequest> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h,),
+            padding: EdgeInsets.only(top: 20.h, right: 10.w, left: 10.w),
             child: Column(
               children: [
                 TitleContainer(
                   title: 'Dashboard',
                   data: widget.data,
                 ),
-                 SizedBox(
+                SizedBox(
                   height: 40.h,
                 ),
                 Row(
-                  children:  [
+                  children: [
                     SizedBox(
                       width: 25.w,
                     ),
                     Text(
                       'Event Request Form',
-                      style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -102,7 +102,7 @@ class _EventRequestState extends State<EventRequest> {
                     ),
                   ],
                 ),
-                 SizedBox(
+                SizedBox(
                   height: 40.h,
                 ),
                 Expanded(

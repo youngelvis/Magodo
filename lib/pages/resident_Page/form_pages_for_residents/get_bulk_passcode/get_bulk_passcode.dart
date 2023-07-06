@@ -116,7 +116,7 @@ class _GetBulkPasscodeState extends State<GetBulkPasscode> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h,  ),
+            padding:EdgeInsets.only(top: 20.h,right: 10.w, left: 10.w),
             child: Column(
               children: [
                 TitleContainer(

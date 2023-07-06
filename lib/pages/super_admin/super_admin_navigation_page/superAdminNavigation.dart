@@ -53,15 +53,16 @@ class _SuperAdminNavigationState extends State<SuperAdminNavigation> {
                        SizedBox(
                         height: 50.sp,
                       ),
-                      IconButton(
-                          icon: Icon(
-                            Icons.close,
-                            size: 50,
-                            color: color.AppColor.landingPage2,
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          }),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 50.sp,
+                        ),
+                      ),
                        SizedBox(
                         height: 50.h,
                       ),

@@ -83,7 +83,7 @@ class _GetFuturePasscodeState extends State<GetFuturePasscode> {
         _date.text,
         _arrivalTime.text,
         _departureTime.text);
-print(data);
+    print(data);
     var message = data['message'];
     if (data['code'] == 200) {
       _mobileNumber.clear();
@@ -130,9 +130,7 @@ print(data);
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(
-              top: 20.h,
-            ),
+            padding: EdgeInsets.only(top: 20.h, right: 10.w, left: 10.w),
             child: Column(
               children: [
                 TitleContainer(

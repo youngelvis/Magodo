@@ -73,7 +73,7 @@ class _UpdateStaffState extends State<UpdateStaff> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 20.h, left: 10.w),
+            padding: EdgeInsets.only(top: 20.h,right: 10.w, left: 10.w),
             child: Column(
               children: [
                 TitleContainer(

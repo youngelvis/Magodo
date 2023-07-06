@@ -46,15 +46,16 @@ class _AdminNavPageState extends State<AdminNavPage> {
                   const SizedBox(
                     height: 50,
                   ),
-                  IconButton(
-                      icon: Icon(
-                        Icons.close,
-                        size: 50,
-                        color: color.AppColor.landingPage2,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      }),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Icon(
+                      Icons.close,
+                      color: Colors.white,
+                      size: 50.sp,
+                    ),
+                  ),
                   const SizedBox(
                     height: 50,
                   ),

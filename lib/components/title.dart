@@ -108,61 +108,53 @@ class _TitleContainerState extends State<TitleContainer> {
             height: 20.h,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconButton(
-                  icon: const Icon(
-                    Icons.menu,
-                    size: 48,
-                  ),
-                  onPressed: () {
-                    navbarController();
-                  }),
-              SizedBox(
-                width: 90.w,
+              InkWell(
+                onTap: () {
+                  navbarController();
+                },
+                child: Icon(
+                  Icons.menu,
+                  color: Colors.black,
+                  size: 35.sp,
+                ),
               ),
-              Container(
-                padding: EdgeInsets.only(
-                  top: 20.h,
-                ),
-                child: Row(
-                  children: [
-                    Text(
-                      widget.title,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25.sp),
-                    ),
-                    SizedBox(width: 95.w),
-                    Stack(
-                      children: [
-                        Positioned(
-                          child: SizedBox(
-                            width: 30.w,
-                            height: 30.h,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProfilePage(
-                                      data: widget.data,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: image == null
-                                  ? const CircleAvatar(
-                                      backgroundImage:
-                                          AssetImage('assets/profileImage.jpg'))
-                                  : CircleAvatar(
-                                      backgroundImage: NetworkImage(image ?? ''),
-                                    ),
+
+              Text(
+                widget.title,
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, fontSize: 25.sp),
+              ),
+
+              Stack(
+                children: [
+                  Positioned(
+                    child: SizedBox(
+                      width: 30.w,
+                      height: 30.h,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProfilePage(
+                                data: widget.data,
+                              ),
                             ),
-                          ),
-                        ),
-                      ],
+                          );
+                        },
+                        child: image == null
+                            ? const CircleAvatar(
+                                backgroundImage:
+                                    AssetImage('assets/profileImage.jpg'))
+                            : CircleAvatar(
+                                backgroundImage: NetworkImage(image ?? ''),
+                              ),
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               )
             ],
           ),
